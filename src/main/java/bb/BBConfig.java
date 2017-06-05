@@ -12,9 +12,10 @@ public class BBConfig {
 	public static final int SCREEN_HEIGHT_PX = 256;
 	public static final int ARENA_HEADER_HEIGHT_PX = 12;
 	public static final int ARENA_HEADER_TEXT_OFFSET_PX = 50;
+	public static final int ARENA_HEADER_LIVES_OFFSET_PX = 260;
 	public static final int ARENA_FOOTER_HEIGHT_PX = 10;
-	public static final int ARENA_FOOTER_LEVEL_LABEL_OFFSET_PX = 100;
-	public static final int ARENA_FOOTER_LEVEL_VALUE_OFFSET_PX = 140;
+	public static final int ARENA_FOOTER_LEVEL_LABEL_OFFSET_PX = 125;
+	public static final int ARENA_FOOTER_LEVEL_VALUE_OFFSET_PX = 165;
 	public static final int ARENA_PANE_HEIGHT_PX = SCREEN_HEIGHT_PX - (ARENA_HEADER_HEIGHT_PX + ARENA_FOOTER_HEIGHT_PX);
 	public static final int ARENA_MARGIN_LEFT_RIGHT_PX = 4;
 	public static final int ARENA_BORDER_SIZE_PX = 2;
