@@ -1,6 +1,7 @@
 package bb.view.arena;
 
 import bb.model.GameModel;
+import bb.model.Player;
 import bb.view.FontFactory;
 import bb.view.GraphicsUtil;
 import bb.view.SpriteFactory;
@@ -11,9 +12,7 @@ import java.awt.Dimension;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 
-import static bb.BBConfig.ARENA_HEADER_LIVES_OFFSET_PX;
-import static bb.BBConfig.K_ARENA_HEADER_SIZE_PX;
-import static bb.BBConfig.K_ARENA_HEADER_TEXT_OFFSET_PX;
+import static bb.BBConfig.*;
 
 /**
  * Created by willie on 6/4/17.
@@ -41,18 +40,22 @@ public class ArenaHeader extends JComponent {
 	}
 
 	private void paintScore(Graphics g) {
+		Player player = gameModel.getPlayer();
+
 		g.setFont(fontFactory.getLargeFont());
 		FontMetrics fm = g.getFontMetrics();
-		String scoreStr = String.valueOf(gameModel.getScore());
+		String scoreStr = String.valueOf(player.getScore());
+		int offset = fm.stringWidth(scoreStr) + 24;
 
 		g.setColor(Color.CYAN);
-		g.drawString(scoreStr, K_ARENA_HEADER_TEXT_OFFSET_PX, fm.getHeight());
+		g.drawString(scoreStr, K_ARENA_HEADER_P1_ANCHOR_PX - offset, fm.getHeight());
 	}
 
 	private void paintLives(Graphics g) {
-		int numLives = gameModel.getLives();
+		Player player = gameModel.getPlayer();
+		int numLives = player.getLives();
 		for (int i = 0; i < numLives; i++) {
-			int lifeX = ARENA_HEADER_LIVES_OFFSET_PX - i * 8;
+			int lifeX = ARENA_HEADER_P1_ANCHOR_PX + i * 8;
 			GraphicsUtil.drawSprite(g, spriteFactory.getLexi(), lifeX, 7);
 		}
 	}

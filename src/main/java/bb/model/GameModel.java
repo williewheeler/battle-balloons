@@ -1,22 +1,21 @@
 package bb.model;
 
+import static bb.BBConfig.ARENA_INNER_HEIGHT_PX;
+import static bb.BBConfig.ARENA_INNER_WIDTH_PX;
+
 /**
  * Created by willie on 6/4/17.
  */
 public class GameModel {
-	private int score = 0;
-	private int level = 1;
-	private int lives = 3;
+	private Player player;
 
-	public int getScore() {
-		return score;
+	public GameModel() {
+		this.player = new Player();
+		player.setX(ARENA_INNER_WIDTH_PX / 2);
+		player.setY(ARENA_INNER_HEIGHT_PX / 2);
 	}
 
-	public int getLevel() {
-		return level;
-	}
-
-	public int getLives() {
-		return lives;
+	public Player getPlayer() {
+		return player;
 	}
 }

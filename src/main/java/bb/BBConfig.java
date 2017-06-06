@@ -11,8 +11,7 @@ public class BBConfig {
 	public static final int SCREEN_WIDTH_PX = 304;
 	public static final int SCREEN_HEIGHT_PX = 256;
 	public static final int ARENA_HEADER_HEIGHT_PX = 12;
-	public static final int ARENA_HEADER_TEXT_OFFSET_PX = 50;
-	public static final int ARENA_HEADER_LIVES_OFFSET_PX = 260;
+	public static final int ARENA_HEADER_P1_ANCHOR_PX = 80;
 	public static final int ARENA_FOOTER_HEIGHT_PX = 10;
 	public static final int ARENA_FOOTER_LEVEL_LABEL_OFFSET_PX = 125;
 	public static final int ARENA_FOOTER_LEVEL_VALUE_OFFSET_PX = 165;
@@ -35,7 +34,7 @@ public class BBConfig {
 	public static final int K_SCREEN_WIDTH_PX = K * SCREEN_WIDTH_PX;
 	public static final int K_SCREEN_HEIGHT_PX = K * SCREEN_HEIGHT_PX;
 	public static final int K_ARENA_HEADER_HEIGHT_PX = K * ARENA_HEADER_HEIGHT_PX;
-	public static final int K_ARENA_HEADER_TEXT_OFFSET_PX = K * ARENA_HEADER_TEXT_OFFSET_PX;
+	public static final int K_ARENA_HEADER_P1_ANCHOR_PX = K * ARENA_HEADER_P1_ANCHOR_PX;
 	public static final int K_ARENA_FOOTER_HEIGHT_PX = K * ARENA_FOOTER_HEIGHT_PX;
 	public static final int K_ARENA_FOOTER_LEVEL_LABEL_OFFSET_PX = K * ARENA_FOOTER_LEVEL_LABEL_OFFSET_PX;
 	public static final int K_ARENA_FOOTER_LEVEL_VALUE_OFFSET_PX = K * ARENA_FOOTER_LEVEL_VALUE_OFFSET_PX;

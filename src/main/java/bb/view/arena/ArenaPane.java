@@ -1,12 +1,15 @@
 package bb.view.arena;
 
 import bb.model.GameModel;
+import bb.model.Player;
+import bb.view.GraphicsUtil;
 import bb.view.SpriteFactory;
 
 import javax.swing.JComponent;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 
 import static bb.BBConfig.*;
 
@@ -45,6 +48,8 @@ public class ArenaPane extends JComponent {
 	}
 
 	private void paintPlayer(Graphics g) {
-		// TODO
+		BufferedImage sprite = spriteFactory.getLexi();
+		Player player = gameModel.getPlayer();
+		GraphicsUtil.drawSprite(g, sprite, player.getX(), player.getY());
 	}
 }
