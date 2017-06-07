@@ -1,6 +1,5 @@
 package bb.view;
 
-import javax.swing.JComponent;
 import javax.swing.JPanel;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -21,9 +20,8 @@ public class Resizer extends JPanel {
 	private static final Dimension PREF_SIZE = new Dimension(K * SCREEN_WIDTH_PX, K * SCREEN_HEIGHT_PX);
 	private static final AffineTransform SCALE_XFORM = AffineTransform.getScaleInstance(K, K);
 
-	public Resizer(JComponent component) {
+	public Resizer() {
 		setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
-		add(component);
 	}
 
 	@Override
