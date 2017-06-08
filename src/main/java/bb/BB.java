@@ -18,33 +18,31 @@ public class BB extends JFrame {
 	private JComponent arenaView;
 	private Resizer resizer;
 
-    public BB() {
-    	super("Battle Balloons");
-    	this.gameModel = new GameModel();
-    	this.fontFactory = new FontFactory();
-    	this.spriteFactory = new SpriteFactory();
+	public BB() {
+		super("Battle Balloons");
+		this.gameModel = new GameModel();
+		this.fontFactory = new FontFactory();
+		this.spriteFactory = new SpriteFactory();
 		this.arenaView = new ArenaView(gameModel, fontFactory, spriteFactory);
 		this.resizer = new Resizer();
 	}
 
 	public void start() {
-
-    	// TODO Title screen, backstory, high scores, etc.
-    	resizer.add(arenaView);
+		resizer.add(arenaView);
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    	setContentPane(resizer);
-    	pack();
+		setContentPane(resizer);
+		pack();
 		setResizable(false);
-    	setLocationRelativeTo(null);
-    	setVisible(true);
+		setLocationRelativeTo(null);
+		setVisible(true);
 	}
 
-    public static void main(String[] args) {
-		SwingUtilities.invokeLater(new Runnable(){
+	public static void main(String[] args) {
+		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				new BB().start();
 			}
 		});
-    }
+	}
 }
