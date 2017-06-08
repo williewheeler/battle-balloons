@@ -6,8 +6,7 @@ import java.awt.GraphicsEnvironment;
 import java.io.IOException;
 import java.io.InputStream;
 
-import static bb.BBConfig.K_LARGE_FONT_PT;
-import static bb.BBConfig.K_SMALL_FONT_PT;
+import static bb.BBConfig.*;
 
 /**
  * Created by willie on 6/4/17.
@@ -20,8 +19,8 @@ public class FontFactory {
 
 	public FontFactory() {
 		registerFont();
-		this.largeFont = new Font(FONT_NAME, Font.PLAIN, K_LARGE_FONT_PT);
-		this.smallFont = new Font(FONT_NAME, Font.PLAIN, K_SMALL_FONT_PT);
+		this.largeFont = new Font(FONT_NAME, Font.PLAIN, LARGE_FONT_PT);
+		this.smallFont = new Font(FONT_NAME, Font.PLAIN, SMALL_FONT_PT);
 	}
 
 	public Font getLargeFont() {
