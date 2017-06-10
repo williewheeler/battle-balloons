@@ -49,6 +49,8 @@ public class ArenaPane extends JComponent {
 	private void paintPlayer(Graphics g) {
 		BufferedImage sprite = spriteFactory.getLexi();
 		Player player = gameModel.getPlayer();
-		g.drawImage(sprite, player.getX(), player.getY(), SPRITE_WIDTH_PX, SPRITE_HEIGHT_PX, null);
+		int adjX = player.getX() - SPRITE_WIDTH_PX / 2;
+		int adjY = player.getY() - SPRITE_HEIGHT_PX / 2;
+		g.drawImage(sprite, adjX, adjY, SPRITE_WIDTH_PX, SPRITE_HEIGHT_PX, null);
 	}
 }

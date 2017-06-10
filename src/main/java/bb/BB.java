@@ -10,9 +10,14 @@ import bb.view.arena.ArenaView;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
+import javax.swing.Timer;
 import java.awt.KeyboardFocusManager;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class BB extends JFrame {
+import static bb.BBConfig.FRAME_PERIOD_MS;
+
+public class BB extends JFrame implements ActionListener {
 	private GameModel gameModel;
 
 	private FontFactory fontFactory;
@@ -20,6 +25,7 @@ public class BB extends JFrame {
 	private JComponent arenaView;
 	private Resizer resizer;
 	private KeyboardManager keyboardManager;
+	private Timer timer;
 
 	public BB() {
 		super("Battle Balloons");
@@ -28,7 +34,8 @@ public class BB extends JFrame {
 		this.spriteFactory = new SpriteFactory();
 		this.arenaView = new ArenaView(gameModel, fontFactory, spriteFactory);
 		this.resizer = new Resizer();
-		this.keyboardManager = new KeyboardManager();
+		this.keyboardManager = new KeyboardManager(gameModel.getPlayer());
+		this.timer = new Timer(FRAME_PERIOD_MS, this);
 	}
 
 	public void start() {
@@ -43,6 +50,14 @@ public class BB extends JFrame {
 		setResizable(false);
 		setLocationRelativeTo(null);
 		setVisible(true);
+
+		timer.start();
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		gameModel.update();
+		resizer.repaint();
 	}
 
 	public static void main(String[] args) {

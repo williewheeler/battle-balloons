@@ -55,7 +55,7 @@ public class ArenaHeader extends JComponent {
 		int numLives = player.getLives();
 		for (int i = 0; i < numLives; i++) {
 			int lifeX = ARENA_HEADER_P1_ANCHOR_PX + i * 8;
-			g.drawImage(spriteFactory.getLexi(), lifeX, -1, SPRITE_WIDTH_PX, SPRITE_HEIGHT_PX, null);
+			g.drawImage(spriteFactory.getLexi(), lifeX, -2, SPRITE_WIDTH_PX, SPRITE_HEIGHT_PX, null);
 		}
 	}
 }
