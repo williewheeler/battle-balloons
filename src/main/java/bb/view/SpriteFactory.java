@@ -11,15 +11,19 @@ import static bb.BBConfig.*;
  * Created by willie on 6/4/17.
  */
 public class SpriteFactory {
-	private BufferedImage lexi;
+	private BufferedImage[] lexi;
 
 	public SpriteFactory() {
 		BufferedImage sheet = loadSheet();
-		this.lexi = getSpriteAt(sheet, 0, 3);
+		this.lexi = buildCharacterSprites(sheet, 0);
 	}
 
-	public BufferedImage getLexi() {
+	public BufferedImage[] getLexi() {
 		return lexi;
+	}
+
+	public BufferedImage getLexiLife() {
+		return lexi[4];
 	}
 
 	private BufferedImage loadSheet() {
@@ -31,9 +35,18 @@ public class SpriteFactory {
 		}
 	}
 
-	private BufferedImage getSpriteAt(BufferedImage sheet, int row, int col) {
-		int x = col * SPRITE_WIDTH_PX;
-		int y = row * SPRITE_HEIGHT_PX;
-		return sheet.getSubimage(x, y, SPRITE_WIDTH_PX, SPRITE_HEIGHT_PX);
+	private BufferedImage[] buildCharacterSprites(BufferedImage sheet, int row) {
+		BufferedImage[] sprites = new BufferedImage[16];
+		for (int i = 0, col = 0; i < 16; i++) {
+			if (i % 4 == 2) {
+				sprites[i] = sprites[i - 2];
+			} else {
+				int x = col * SPRITE_WIDTH_PX;
+				int y = row * SPRITE_HEIGHT_PX;
+				sprites[i] = sheet.getSubimage(x, y, SPRITE_WIDTH_PX, SPRITE_HEIGHT_PX);
+				col++;
+			}
+		}
+		return sprites;
 	}
 }

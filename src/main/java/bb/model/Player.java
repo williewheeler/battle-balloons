@@ -1,6 +1,7 @@
 package bb.model;
 
 import static bb.BBConfig.*;
+import static bb.model.Direction.*;
 
 /**
  * Created by willie on 6/5/17.
@@ -11,10 +12,13 @@ public class Player {
 	private int lives = 3;
 	private int x;
 	private int y;
+	private Direction direction;
 	private final DirectionIntent moveIntent = new DirectionIntent();
+	private int animationCounter;
 
 	public Player() {
 		center();
+		this.direction = DOWN;
 	}
 
 	public int getScore() {
@@ -45,8 +49,20 @@ public class Player {
 		return PLAYER_HEIGHT;
 	}
 
+	public Direction getDirection() {
+		return direction;
+	}
+
+	public void setDirection(Direction direction) {
+		this.direction = direction;
+	}
+
 	public DirectionIntent getMoveIntent() {
 		return moveIntent;
+	}
+
+	public int getAnimationCounter() {
+		return animationCounter;
 	}
 
 	public void center() {
@@ -71,9 +87,16 @@ public class Player {
 			dx += PLAYER_SPEED;
 		}
 
+		if (dx != 0 || dy != 0) {
+			updateLocation(dx, dy);
+			updateDirection(dx, dy);
+			incrementAnimationCounter();
+		}
+	}
+
+	private void updateLocation(int dx, int dy) {
 		this.x += dx;
 		this.y += dy;
-
 		enforceBounds();
 	}
 
@@ -104,5 +127,37 @@ public class Player {
 		if (playerYHi > arenaYHi) {
 			this.y = arenaYHi - playerHalfHeight;
 		}
+	}
+
+	private void updateDirection(int dx, int dy) {
+		if (dx < 0) {
+			if (dy < 0) {
+				this.direction = UP_LEFT;
+			} else if (dy == 0) {
+				this.direction = LEFT;
+			} else {
+				this.direction = DOWN_LEFT;
+			}
+		} else if (dx == 0) {
+			if (dy < 0) {
+				this.direction = UP;
+			} else if (dy == 0) {
+				// Do nothing
+			} else {
+				this.direction = DOWN;
+			}
+		} else {
+			if (dy < 0) {
+				this.direction = UP_RIGHT;
+			} else if (dy == 0) {
+				this.direction = RIGHT;
+			} else {
+				this.direction = DOWN_RIGHT;
+			}
+		}
+	}
+
+	private void incrementAnimationCounter() {
+		this.animationCounter = (animationCounter + 1) % 4;
 	}
 }
