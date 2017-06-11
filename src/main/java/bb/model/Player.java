@@ -6,17 +6,20 @@ import static bb.model.Direction.*;
 /**
  * Created by willie on 6/5/17.
  */
-public class Player {
+public class Player extends AbstractEntity {
+	private static final int WIDTH = 5;
+	private static final int HEIGHT = 11;
+	private static final int SPEED = 3;
+	
 	private int score = 1000;
 	private int level = 1;
 	private int lives = 3;
-	private int x;
-	private int y;
 	private Direction direction;
 	private final DirectionIntent moveIntent = new DirectionIntent();
 	private int animationCounter;
 
-	public Player() {
+	public Player(GameModel gameModel) {
+		super(gameModel);
 		center();
 		this.direction = DOWN;
 	}
@@ -32,21 +35,15 @@ public class Player {
 	public int getLives() {
 		return lives;
 	}
-
-	public int getX() {
-		return x;
-	}
-
-	public int getY() {
-		return y;
-	}
-
+	
+	@Override
 	public int getWidth() {
-		return PLAYER_WIDTH;
+		return WIDTH;
 	}
-
+	
+	@Override
 	public int getHeight() {
-		return PLAYER_HEIGHT;
+		return HEIGHT;
 	}
 
 	public Direction getDirection() {
@@ -66,25 +63,26 @@ public class Player {
 	}
 
 	public void center() {
-		this.x = ARENA_INNER_WIDTH_PX / 2;
-		this.y = ARENA_INNER_HEIGHT_PX / 2;
+		setX(ARENA_INNER_WIDTH_PX / 2);
+		setY(ARENA_INNER_HEIGHT_PX / 2);
 	}
-
+	
+	@Override
 	public void update() {
 		int dx = 0;
 		int dy = 0;
 
 		if (moveIntent.up) {
-			dy -= PLAYER_SPEED;
+			dy -= SPEED;
 		}
 		if (moveIntent.down) {
-			dy += PLAYER_SPEED;
+			dy += SPEED;
 		}
 		if (moveIntent.left) {
-			dx -= PLAYER_SPEED;
+			dx -= SPEED;
 		}
 		if (moveIntent.right) {
-			dx += PLAYER_SPEED;
+			dx += SPEED;
 		}
 
 		if (dx != 0 || dy != 0) {
@@ -93,10 +91,10 @@ public class Player {
 			incrementAnimationCounter();
 		}
 	}
-
+	
 	private void updateLocation(int dx, int dy) {
-		this.x += dx;
-		this.y += dy;
+		changeX(dx);
+		changeY(dy);
 		enforceBounds();
 	}
 
@@ -105,9 +103,9 @@ public class Player {
 		int playerHalfHeight = getHeight() / 2;
 
 		// All bounds below are inclusive
-		int playerXLo = x - playerHalfWidth;
+		int playerXLo = getX() - playerHalfWidth;
 		int playerXHi = playerXLo + getWidth() - 1;
-		int playerYLo = y - playerHalfHeight;
+		int playerYLo = getY() - playerHalfHeight;
 		int playerYHi = playerYLo + getHeight() - 1;
 
 		int arenaXLo = 0;
@@ -116,16 +114,16 @@ public class Player {
 		int arenaYHi = ARENA_INNER_HEIGHT_PX - 1;
 
 		if (playerXLo < arenaXLo) {
-			this.x = playerHalfWidth;
+			setX(playerHalfWidth);
 		}
 		if (playerXHi > arenaXHi) {
-			this.x = arenaXHi - playerHalfWidth;
+			setX(arenaXHi - playerHalfWidth);
 		}
 		if (playerYLo < arenaYLo) {
-			this.y = playerHalfHeight;
+			setY(playerHalfHeight);
 		}
 		if (playerYHi > arenaYHi) {
-			this.y = arenaYHi - playerHalfHeight;
+			setY(arenaYHi - playerHalfHeight);
 		}
 	}
 

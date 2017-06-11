@@ -1,6 +1,7 @@
 package bb.view.arena;
 
 import bb.model.GameModel;
+import bb.model.Obstacle;
 import bb.model.Player;
 import bb.view.SpriteFactory;
 
@@ -9,6 +10,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.util.List;
 
 import static bb.BBConfig.*;
 
@@ -35,6 +37,7 @@ public class ArenaPane extends JComponent {
 		doPaintBorder(g);
 		g.translate(ARENA_BORDER_SIZE_PX, ARENA_BORDER_SIZE_PX);
 		paintPlayer(g);
+		paintObstacles(g);
 		g.translate(-ARENA_BORDER_SIZE_PX, -ARENA_BORDER_SIZE_PX);
 		g.translate(-ARENA_MARGIN_LEFT_RIGHT_PX, 0);
 	}
@@ -53,5 +56,17 @@ public class ArenaPane extends JComponent {
 		int adjX = player.getX() - SPRITE_WIDTH_PX / 2;
 		int adjY = player.getY() - SPRITE_HEIGHT_PX / 2;
 		g.drawImage(sprite, adjX, adjY, SPRITE_WIDTH_PX, SPRITE_HEIGHT_PX, null);
+	}
+	
+	private void paintObstacles(Graphics g) {
+		g.setColor(Color.GREEN);
+		List<Obstacle> obstacles = gameModel.getObstacles();
+		obstacles.forEach(obstacle -> paintObstacle(g, obstacle));
+	}
+	
+	private void paintObstacle(Graphics g, Obstacle obstacle) {
+		int adjX = obstacle.getX() - obstacle.getWidth() / 2;
+		int adjY = obstacle.getY() - obstacle.getHeight() / 2;
+		g.fillRect(adjX, adjY, obstacle.getWidth(), obstacle.getHeight());
 	}
 }

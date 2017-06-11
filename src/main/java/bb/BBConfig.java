@@ -35,9 +35,7 @@ public class BBConfig {
 	public static final String SPRITE_SHEET_FILENAME = "bb-sprites.png";
 	public static final int SPRITE_WIDTH_PX = 16;
 	public static final int SPRITE_HEIGHT_PX = 16;
-
-	// Entities
-	public static final int PLAYER_WIDTH = 5;
-	public static final int PLAYER_HEIGHT = 11;
-	public static final int PLAYER_SPEED = 3;
+	
+	/** Clearing around the player when enemies are initially placed */
+	public static final int CLEARING_RADIUS = 50;
 }
