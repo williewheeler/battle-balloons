@@ -1,7 +1,7 @@
 package bb.view.arena;
 
 import bb.model.Direction;
-import bb.model.Player;
+import bb.model.Entity;
 
 import java.awt.image.BufferedImage;
 
@@ -10,8 +10,8 @@ import java.awt.image.BufferedImage;
  */
 public class SpriteUtil {
 
-	public static BufferedImage getCurrentSprite(Player player, BufferedImage[] sprites) {
-		Direction direction = player.getDirection();
+	public static BufferedImage getCurrentSprite(Entity entity, BufferedImage[] sprites) {
+		Direction direction = entity.getDirection();
 
 		int spriteBaseIndex = 0;
 		switch (direction) {
@@ -33,7 +33,7 @@ public class SpriteUtil {
 				break;
 		}
 
-		int spriteIndex = spriteBaseIndex + player.getAnimationCounter();
+		int spriteIndex = spriteBaseIndex + entity.getAnimationCounter();
 		return sprites[spriteIndex];
 	}
 }

@@ -15,9 +15,12 @@ public abstract class AbstractEntity implements Entity {
 	private GameModel gameModel;
 	private int x;
 	private int y;
+	private Direction direction;
+	private int animationCounter;
 	
 	public AbstractEntity(GameModel gameModel) {
 		this.gameModel = gameModel;
+		this.direction = Direction.DOWN;
 	}
 	
 	@Override
@@ -64,6 +67,24 @@ public abstract class AbstractEntity implements Entity {
 				break;
 			}
 		}
+	}
+	
+	@Override
+	public Direction getDirection() {
+		return direction;
+	}
+	
+	protected void setDirection(Direction direction) {
+		this.direction = direction;
+	}
+	
+	@Override
+	public int getAnimationCounter() {
+		return animationCounter;
+	}
+	
+	protected void incrementAnimationCounter() {
+		this.animationCounter = (animationCounter + 1) % 4;
 	}
 	
 	@Override

@@ -9,9 +9,11 @@ import java.util.ListIterator;
  */
 public class GameModel {
 	private static final int INIT_NUM_OBSTACLES = 15;
+	private static final int INIT_NUM_JUDOS = 10;
 	
 	private final Player player;
 	private final List<Obstacle> obstacles = new LinkedList<>();
+	private final List<Judo> judos = new LinkedList<>();
 	
 	private boolean gameRunning;
 	
@@ -20,6 +22,10 @@ public class GameModel {
 		
 		for (int i = 0; i < INIT_NUM_OBSTACLES; i++) {
 			obstacles.add(new Obstacle(this));
+		}
+		
+		for (int i = 0; i < INIT_NUM_JUDOS; i++) {
+			judos.add(new Judo(this));
 		}
 		
 		this.gameRunning = true;
@@ -31,6 +37,10 @@ public class GameModel {
 	
 	public List<Obstacle> getObstacles() {
 		return obstacles;
+	}
+	
+	public List<Judo> getJudos() {
+		return judos;
 	}
 
 	public void update() {
@@ -46,6 +56,7 @@ public class GameModel {
 	private void updateEntities() {
 		player.update();
 		obstacles.forEach(obstacle -> obstacle.update());
+		judos.forEach(judo -> judo.update());
 	}
 	
 	private boolean checkCollisions() {

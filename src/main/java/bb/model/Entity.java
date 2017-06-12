@@ -13,5 +13,9 @@ public interface Entity {
 	
 	int getHeight();
 	
+	Direction getDirection();
+	
+	int getAnimationCounter();
+	
 	void update();
 }

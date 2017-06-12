@@ -1,3 +1,5 @@
+![Screenshot](bb.png)
+
 # Battle Balloons Course
 
 This repo accompanies the Battle Balloons Java programming course for kids.

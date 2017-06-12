@@ -1,6 +1,7 @@
 package bb.view.arena;
 
 import bb.model.GameModel;
+import bb.model.Judo;
 import bb.model.Obstacle;
 import bb.model.Player;
 import bb.view.SpriteFactory;
@@ -37,6 +38,7 @@ public class ArenaPane extends JComponent {
 		doPaintBorder(g);
 		g.translate(ARENA_BORDER_SIZE_PX, ARENA_BORDER_SIZE_PX);
 		paintObstacles(g);
+		paintJudos(g);
 		paintPlayer(g);
 		g.translate(-ARENA_BORDER_SIZE_PX, -ARENA_BORDER_SIZE_PX);
 		g.translate(-ARENA_MARGIN_LEFT_RIGHT_PX, 0);
@@ -68,5 +70,18 @@ public class ArenaPane extends JComponent {
 		int adjX = obstacle.getX() - obstacle.getWidth() / 2;
 		int adjY = obstacle.getY() - obstacle.getHeight() / 2;
 		g.fillRect(adjX, adjY, obstacle.getWidth(), obstacle.getHeight());
+	}
+	
+	private void paintJudos(Graphics g) {
+		List<Judo> judos = gameModel.getJudos();
+		judos.forEach(judo -> paintJudo(g, judo));
+	}
+	
+	private void paintJudo(Graphics g, Judo judo) {
+		BufferedImage[] sprites = spriteFactory.getJudo();
+		BufferedImage sprite = SpriteUtil.getCurrentSprite(judo, sprites);
+		int adjX = judo.getX() - SPRITE_WIDTH_PX / 2;
+		int adjY = judo.getY() - SPRITE_HEIGHT_PX / 2;
+		g.drawImage(sprite, adjX, adjY, SPRITE_WIDTH_PX, SPRITE_HEIGHT_PX, null);
 	}
 }

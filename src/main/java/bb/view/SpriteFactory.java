@@ -12,10 +12,12 @@ import static bb.BBConfig.*;
  */
 public class SpriteFactory {
 	private BufferedImage[] lexi;
+	private BufferedImage[] judo;
 
 	public SpriteFactory() {
 		BufferedImage sheet = loadSheet();
 		this.lexi = buildCharacterSprites(sheet, 0);
+		this.judo = buildCharacterSprites(sheet, 1);
 	}
 
 	public BufferedImage[] getLexi() {
@@ -24,6 +26,10 @@ public class SpriteFactory {
 
 	public BufferedImage getLexiLife() {
 		return lexi[4];
+	}
+	
+	public BufferedImage[] getJudo() {
+		return judo;
 	}
 
 	private BufferedImage loadSheet() {
