@@ -18,7 +18,7 @@ Over ten weeks we will cover the following topics:
 | 7 | Making enemies move around | [zip](https://github.com/williewheeler/battle-balloons-course/archive/week07.zip) |
 | 8 | Allowing player to throw balloons at enemies | [zip](https://github.com/williewheeler/battle-balloons-course/archive/week08.zip) |
 | 9 | Adding sound effects | [zip](https://github.com/williewheeler/battle-balloons-course/archive/week09.zip) |
-| 10 | Adding scores | [zip](https://github.com/williewheeler/battle-balloons-course/archive/week10.zip) |
+| 10 | Animation finishing touches | [zip](https://github.com/williewheeler/battle-balloons-course/archive/week10.zip) |
 
 # Running the game
 

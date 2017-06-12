@@ -11,10 +11,11 @@ public class Player extends AbstractEntity {
 	private static final int HEIGHT = 11;
 	private static final int SPEED = 3;
 	
-	private int score = 1000;
+	private int score = 0;
 	private int level = 1;
 	private int lives = 3;
 	private final DirectionIntent moveIntent = new DirectionIntent();
+	private final DirectionIntent fireIntent = new DirectionIntent();
 	
 	public Player(GameModel gameModel) {
 		super(gameModel);
@@ -23,6 +24,10 @@ public class Player extends AbstractEntity {
 	
 	public int getScore() {
 		return score;
+	}
+	
+	public void incrementScore(int value) {
+		this.score += value;
 	}
 	
 	public int getLevel() {
@@ -45,6 +50,10 @@ public class Player extends AbstractEntity {
 	
 	public DirectionIntent getMoveIntent() {
 		return moveIntent;
+	}
+	
+	public DirectionIntent getFireIntent() {
+		return fireIntent;
 	}
 	
 	public void center() {

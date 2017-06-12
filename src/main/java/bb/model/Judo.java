@@ -4,6 +4,8 @@ package bb.model;
  * Created by wwheeler on 6/12/17.
  */
 public class Judo extends AbstractEntity {
+	public static final int SCORE = 100;
+	
 	private static final int WIDTH = 5;
 	private static final int HEIGHT = 11;
 	private static final int SPEED = 2;

@@ -38,6 +38,7 @@ public class KeyboardManager implements KeyEventDispatcher {
 
 	private void updatePlayerIntent(int keyCode, boolean value) {
 		DirectionIntent moveIntent = player.getMoveIntent();
+		DirectionIntent fireIntent = player.getFireIntent();
 
 		switch (keyCode) {
 			case KeyEvent.VK_T:
@@ -51,6 +52,18 @@ public class KeyboardManager implements KeyEventDispatcher {
 				break;
 			case KeyEvent.VK_H:
 				moveIntent.right = value;
+				break;
+			case KeyEvent.VK_UP:
+				fireIntent.up = value;
+				break;
+			case KeyEvent.VK_DOWN:
+				fireIntent.down = value;
+				break;
+			case KeyEvent.VK_LEFT:
+				fireIntent.left = value;
+				break;
+			case KeyEvent.VK_RIGHT:
+				fireIntent.right = value;
 				break;
 		}
 	}

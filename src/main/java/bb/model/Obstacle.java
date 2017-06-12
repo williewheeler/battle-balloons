@@ -4,6 +4,8 @@ package bb.model;
  * Created by wwheeler on 6/11/17.
  */
 public class Obstacle extends AbstractEntity {
+	public static final int SCORE = 50;
+	
 	private static final int WIDTH = 8;
 	private static final int HEIGHT = 8;
 	

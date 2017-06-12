@@ -83,6 +83,8 @@ public class GameModel {
 			for (ListIterator<Obstacle> oit = obstacles.listIterator(); oit.hasNext();) {
 				Obstacle obstacle = oit.next();
 				if (judo.collision(obstacle)) {
+					player.incrementScore(Judo.SCORE);
+					player.incrementScore(Obstacle.SCORE);
 					jit.remove();
 					oit.remove();
 					continue checkJudos;
