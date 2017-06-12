@@ -23,3 +23,11 @@ Over ten weeks we will cover the following topics:
 # Running the game
 
     $ ./gradlew run
+
+# Playing the game
+
+Move using TFGH, and fire using the arrow keys.
+
+Note that I'd like to use WASD for movement, but there's currently a JDK bug that prevents this:
+
+- https://stackoverflow.com/questions/43192166/on-mac-in-java-keypressed-event-doesnt-fire-for-certain-keys/43960171
