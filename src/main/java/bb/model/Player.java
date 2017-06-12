@@ -1,7 +1,7 @@
 package bb.model;
 
-import static bb.BBConfig.*;
-import static bb.model.Direction.*;
+import static bb.BBConfig.ARENA_INNER_HEIGHT_PX;
+import static bb.BBConfig.ARENA_INNER_WIDTH_PX;
 
 /**
  * Created by willie on 6/5/17.
@@ -77,9 +77,8 @@ public class Player extends AbstractEntity {
 		}
 	}
 	
-	private void updateLocation(int dx, int dy) {
-		changeX(dx);
-		changeY(dy);
+	protected void updateLocation(int dx, int dy) {
+		super.updateLocation(dx, dy);
 		enforceBounds();
 	}
 	
@@ -109,40 +108,6 @@ public class Player extends AbstractEntity {
 		}
 		if (playerYHi > arenaYHi) {
 			setY(arenaYHi - playerHalfHeight);
-		}
-	}
-	
-	private void updateDirection(int dx, int dy) {
-		Direction direction = null;
-		
-		if (dx < 0) {
-			if (dy < 0) {
-				direction = UP_LEFT;
-			} else if (dy == 0) {
-				direction = LEFT;
-			} else {
-				direction = DOWN_LEFT;
-			}
-		} else if (dx == 0) {
-			if (dy < 0) {
-				direction = UP;
-			} else if (dy == 0) {
-				// Do nothing
-			} else {
-				direction = DOWN;
-			}
-		} else {
-			if (dy < 0) {
-				direction = UP_RIGHT;
-			} else if (dy == 0) {
-				direction = RIGHT;
-			} else {
-				direction = DOWN_RIGHT;
-			}
-		}
-		
-		if (direction != null) {
-			setDirection(direction);
 		}
 	}
 }

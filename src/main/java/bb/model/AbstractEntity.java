@@ -5,12 +5,14 @@ import java.util.Random;
 import static bb.BBConfig.ARENA_INNER_HEIGHT_PX;
 import static bb.BBConfig.ARENA_INNER_WIDTH_PX;
 import static bb.BBConfig.CLEARING_RADIUS;
+import static bb.model.Direction.*;
+import static bb.model.Direction.DOWN_RIGHT;
 
 /**
  * Created by wwheeler on 6/11/17.
  */
 public abstract class AbstractEntity implements Entity {
-	private static final Random RANDOM = new Random();
+	static final Random RANDOM = new Random();
 	
 	private GameModel gameModel;
 	private int x;
@@ -23,6 +25,14 @@ public abstract class AbstractEntity implements Entity {
 		this.direction = Direction.DOWN;
 	}
 	
+	public GameModel getGameModel() {
+		return gameModel;
+	}
+	
+	public Player getPlayer() {
+		return gameModel.getPlayer();
+	}
+	
 	@Override
 	public int getX() {
 		return x;
@@ -32,10 +42,6 @@ public abstract class AbstractEntity implements Entity {
 		this.x = x;
 	}
 	
-	protected void changeX(int dx) {
-		this.x += dx;
-	}
-	
 	@Override
 	public int getY() {
 		return y;
@@ -43,10 +49,6 @@ public abstract class AbstractEntity implements Entity {
 	
 	protected void setY(int y) {
 		this.y = y;
-	}
-	
-	protected void changeY(int dy) {
-		this.y += dy;
 	}
 	
 	protected void randomizeLocation() {
@@ -90,6 +92,45 @@ public abstract class AbstractEntity implements Entity {
 	@Override
 	public void update() {
 		// No-op by default
+	}
+	
+	protected void updateLocation(int dx, int dy) {
+		this.x += dx;
+		this.y += dy;
+	}
+	
+	protected void updateDirection(int dx, int dy) {
+		Direction direction = null;
+		
+		if (dx < 0) {
+			if (dy < 0) {
+				direction = UP_LEFT;
+			} else if (dy == 0) {
+				direction = LEFT;
+			} else {
+				direction = DOWN_LEFT;
+			}
+		} else if (dx == 0) {
+			if (dy < 0) {
+				direction = UP;
+			} else if (dy == 0) {
+				// Do nothing
+			} else {
+				direction = DOWN;
+			}
+		} else {
+			if (dy < 0) {
+				direction = UP_RIGHT;
+			} else if (dy == 0) {
+				direction = RIGHT;
+			} else {
+				direction = DOWN_RIGHT;
+			}
+		}
+		
+		if (direction != null) {
+			setDirection(direction);
+		}
 	}
 	
 	protected boolean collision(Entity that) {
