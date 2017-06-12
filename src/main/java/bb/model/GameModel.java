@@ -46,8 +46,8 @@ public class GameModel {
 	public void update() {
 		if (gameRunning) {
 			updateEntities();
-			boolean collision = checkCollisions();
-			if (collision) {
+			boolean playerDead = checkCollisions();
+			if (playerDead) {
 				this.gameRunning = false;
 			}
 		}
@@ -59,10 +59,52 @@ public class GameModel {
 		judos.forEach(judo -> judo.update());
 	}
 	
+	/**
+	 * @return boolean indicating whether the player died
+	 */
 	private boolean checkCollisions() {
+		checkJudoObstacleCollisions();
+		
+		if (checkPlayerObstacleCollision()) {
+			return true;
+		}
+		
+		if (checkPlayerJudoCollision()) {
+			return true;
+		}
+		
+		return false;
+	}
+	
+	private void checkJudoObstacleCollisions() {
+		checkJudos:
+		for (ListIterator<Judo> jit = judos.listIterator(); jit.hasNext();) {
+			Judo judo = jit.next();
+			for (ListIterator<Obstacle> oit = obstacles.listIterator(); oit.hasNext();) {
+				Obstacle obstacle = oit.next();
+				if (judo.collision(obstacle)) {
+					jit.remove();
+					oit.remove();
+					continue checkJudos;
+				}
+			}
+		}
+	}
+	
+	private boolean checkPlayerObstacleCollision() {
 		for (ListIterator<Obstacle> it = obstacles.listIterator(); it.hasNext();) {
 			Obstacle obstacle = it.next();
 			if (player.collision(obstacle)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	private boolean checkPlayerJudoCollision() {
+		for (ListIterator<Judo> it = judos.listIterator(); it.hasNext();) {
+			Judo judo = it.next();
+			if (player.collision(judo)) {
 				return true;
 			}
 		}
