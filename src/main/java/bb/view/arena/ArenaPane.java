@@ -36,8 +36,8 @@ public class ArenaPane extends JComponent {
 		g.translate(ARENA_MARGIN_LEFT_RIGHT_PX, 0);
 		doPaintBorder(g);
 		g.translate(ARENA_BORDER_SIZE_PX, ARENA_BORDER_SIZE_PX);
-		paintPlayer(g);
 		paintObstacles(g);
+		paintPlayer(g);
 		g.translate(-ARENA_BORDER_SIZE_PX, -ARENA_BORDER_SIZE_PX);
 		g.translate(-ARENA_MARGIN_LEFT_RIGHT_PX, 0);
 	}

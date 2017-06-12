@@ -70,4 +70,21 @@ public abstract class AbstractEntity implements Entity {
 	public void update() {
 		// No-op by default
 	}
+	
+	protected boolean collision(Entity that) {
+		int thisXLo = getX();
+		int thisXHi = thisXLo + getWidth();
+		int thisYLo = getY();
+		int thisYHi = thisYLo + getHeight();
+		
+		int thatXLo = that.getX();
+		int thatXHi = thatXLo + that.getWidth();
+		int thatYLo = that.getY();
+		int thatYHi = thatYLo + that.getHeight();
+		
+		boolean xOverlap = (thisXLo <= thatXHi) && (thisXHi >= thatXLo);
+		boolean yOverlap = (thisYLo <= thatYHi) && (thisYHi >= thatYLo);
+		
+		return xOverlap && yOverlap;
+	}
 }
