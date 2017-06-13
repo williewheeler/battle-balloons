@@ -10,12 +10,14 @@ public class Player extends AbstractEntity {
 	private static final int WIDTH = 5;
 	private static final int HEIGHT = 11;
 	private static final int SPEED = 3;
+	private static final int FIRE_PERIOD = 5;
 	
 	private int score = 0;
 	private int level = 1;
 	private int lives = 3;
 	private final DirectionIntent moveIntent = new DirectionIntent();
 	private final DirectionIntent fireIntent = new DirectionIntent();
+	private int fireCounter = 0;
 	
 	public Player(GameModel gameModel) {
 		super(gameModel);
@@ -63,6 +65,11 @@ public class Player extends AbstractEntity {
 	
 	@Override
 	public void update() {
+		updateLocation();
+		fire();
+	}
+	
+	private void updateLocation() {
 		int dx = 0;
 		int dy = 0;
 		
@@ -81,14 +88,10 @@ public class Player extends AbstractEntity {
 		
 		if (dx != 0 || dy != 0) {
 			updateLocation(dx, dy);
+			enforceBounds();
 			updateDirection(dx, dy);
 			incrementAnimationCounter();
 		}
-	}
-	
-	protected void updateLocation(int dx, int dy) {
-		super.updateLocation(dx, dy);
-		enforceBounds();
 	}
 	
 	private void enforceBounds() {
@@ -117,6 +120,37 @@ public class Player extends AbstractEntity {
 		}
 		if (playerYHi > arenaYHi) {
 			setY(arenaYHi - playerHalfHeight);
+		}
+	}
+	
+	private void fire() {
+		if (fireCounter <= 0) {
+			int dx = 0;
+			int dy = 0;
+			
+			if (fireIntent.up) {
+				dy -= Balloon.SPEED;
+			}
+			if (fireIntent.down) {
+				dy += Balloon.SPEED;
+			}
+			if (fireIntent.left) {
+				dx -= Balloon.SPEED;
+			}
+			if (fireIntent.right) {
+				dx += Balloon.SPEED;
+			}
+			
+			if (dx != 0 || dy != 0) {
+				Player player = getPlayer();
+				int x = player.getX();
+				int y = player.getY();
+				Balloon balloon = new Balloon(getGameModel(), x, y, dx, dy);
+				getGameModel().getPlayerBalloons().add(balloon);
+			}
+			this.fireCounter = FIRE_PERIOD;
+		} else {
+			this.fireCounter--;
 		}
 	}
 }

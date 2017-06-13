@@ -1,5 +1,6 @@
 package bb.view.arena;
 
+import bb.model.Balloon;
 import bb.model.GameModel;
 import bb.model.Judo;
 import bb.model.Obstacle;
@@ -40,6 +41,7 @@ public class ArenaPane extends JComponent {
 		paintObstacles(g);
 		paintJudos(g);
 		paintPlayer(g);
+		paintPlayerBalloons(g);
 		g.translate(-ARENA_BORDER_SIZE_PX, -ARENA_BORDER_SIZE_PX);
 		g.translate(-ARENA_MARGIN_LEFT_RIGHT_PX, 0);
 	}
@@ -83,5 +85,17 @@ public class ArenaPane extends JComponent {
 		int adjX = judo.getX() - SPRITE_WIDTH_PX / 2;
 		int adjY = judo.getY() - SPRITE_HEIGHT_PX / 2;
 		g.drawImage(sprite, adjX, adjY, SPRITE_WIDTH_PX, SPRITE_HEIGHT_PX, null);
+	}
+	
+	private void paintPlayerBalloons(Graphics g) {
+		g.setColor(Color.CYAN);
+		List<Balloon> balloons = gameModel.getPlayerBalloons();
+		balloons.forEach(balloon -> paintPlayerBalloon(g, balloon));
+	}
+	
+	private void paintPlayerBalloon(Graphics g, Balloon balloon) {
+		int adjX = balloon.getX() - balloon.getWidth() / 2;
+		int adjY = balloon.getY() - balloon.getHeight() / 2;
+		g.fillRect(adjX, adjY, balloon.getWidth(), balloon.getHeight());
 	}
 }

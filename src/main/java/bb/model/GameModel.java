@@ -9,9 +9,10 @@ import java.util.ListIterator;
  */
 public class GameModel {
 	private static final int INIT_NUM_OBSTACLES = 15;
-	private static final int INIT_NUM_JUDOS = 10;
+	private static final int INIT_NUM_JUDOS = 20;
 	
 	private final Player player;
+	private final List<Balloon> playerBalloons = new LinkedList<>();
 	private final List<Obstacle> obstacles = new LinkedList<>();
 	private final List<Judo> judos = new LinkedList<>();
 	
@@ -33,6 +34,10 @@ public class GameModel {
 
 	public Player getPlayer() {
 		return player;
+	}
+	
+	public List<Balloon> getPlayerBalloons() {
+		return playerBalloons;
 	}
 	
 	public List<Obstacle> getObstacles() {
@@ -57,12 +62,24 @@ public class GameModel {
 		player.update();
 		obstacles.forEach(obstacle -> obstacle.update());
 		judos.forEach(judo -> judo.update());
+		playerBalloons.forEach(balloon -> balloon.update());
+		garbageCollectBalloons();
+	}
+	
+	private void garbageCollectBalloons() {
+		for (ListIterator<Balloon> it = playerBalloons.listIterator(); it.hasNext();) {
+			Balloon balloon = it.next();
+			if (!balloon.isOnScreen()) {
+				it.remove();
+			}
+		}
 	}
 	
 	/**
 	 * @return boolean indicating whether the player died
 	 */
 	private boolean checkCollisions() {
+		checkPlayerBalloonCollisions();
 		checkJudoObstacleCollisions();
 		
 		if (checkPlayerObstacleCollision()) {
@@ -76,6 +93,31 @@ public class GameModel {
 		return false;
 	}
 	
+	private void checkPlayerBalloonCollisions() {
+		checkBalloons:
+		for (ListIterator<Balloon> bit = playerBalloons.listIterator(); bit.hasNext();) {
+			Balloon balloon = bit.next();
+			for (ListIterator<Obstacle> oit = obstacles.listIterator(); oit.hasNext();) {
+				Obstacle obstacle = oit.next();
+				if (balloon.collision(obstacle)) {
+					player.incrementScore(Obstacle.SCORE);
+					bit.remove();
+					oit.remove();
+					continue checkBalloons;
+				}
+			}
+			for (ListIterator<Judo> jit = judos.listIterator(); jit.hasNext();) {
+				Judo judo = jit.next();
+				if (balloon.collision(judo)) {
+					player.incrementScore(Judo.SCORE);
+					bit.remove();
+					jit.remove();
+					continue checkBalloons;
+				}
+			}
+		}
+	}
+	
 	private void checkJudoObstacleCollisions() {
 		checkJudos:
 		for (ListIterator<Judo> jit = judos.listIterator(); jit.hasNext();) {
@@ -85,6 +127,7 @@ public class GameModel {
 				if (judo.collision(obstacle)) {
 					player.incrementScore(Judo.SCORE);
 					player.incrementScore(Obstacle.SCORE);
+					// TODO Use gc?
 					jit.remove();
 					oit.remove();
 					continue checkJudos;
