@@ -13,7 +13,7 @@ import java.util.ListIterator;
  */
 public class GameModel {
 	private static final int INIT_NUM_OBSTACLES = 15;
-	private static final int INIT_NUM_JUDOS = 5000;
+	private static final int INIT_NUM_JUDOS = 20;
 	
 	private final List<GameListener> gameListeners = new LinkedList<>();
 	
