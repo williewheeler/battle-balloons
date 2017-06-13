@@ -12,7 +12,7 @@ public class Player extends AbstractEntity {
 	private static final int WIDTH = 5;
 	private static final int HEIGHT = 11;
 	private static final int SPEED = 3;
-	private static final int FIRE_PERIOD = 3;
+	private static final int RECHARGE_PERIOD = 3;
 	private static final int WALK_EVENT_PERIOD = 4;
 	
 	private int score = 0;
@@ -20,7 +20,8 @@ public class Player extends AbstractEntity {
 	private int lives = 3;
 	private final DirectionIntent moveIntent = new DirectionIntent();
 	private final DirectionIntent fireIntent = new DirectionIntent();
-	private int fireCounter = 0;
+	
+	private int rechargeCountdown = 0;
 	private int walkEventCounter = 0;
 	
 	public Player(GameModel gameModel) {
@@ -135,7 +136,9 @@ public class Player extends AbstractEntity {
 	}
 	
 	private void fire() {
-		if (fireCounter <= 0) {
+		if (rechargeCountdown > 0) {
+			this.rechargeCountdown--;
+		} else {
 			int dx = 0;
 			int dy = 0;
 			
@@ -160,11 +163,8 @@ public class Player extends AbstractEntity {
 				Balloon balloon = new Balloon(getGameModel(), x, y, dx, dy);
 				gameModel.getPlayerBalloons().add(balloon);
 				gameModel.fireEvent(GameEvents.PLAYER_THROWS_BALLOON);
+				this.rechargeCountdown = RECHARGE_PERIOD;
 			}
-			
-			this.fireCounter = FIRE_PERIOD;
-		} else {
-			this.fireCounter--;
 		}
 	}
 }
