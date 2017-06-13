@@ -4,7 +4,7 @@ package bb.model;
  * Created by wwheeler on 6/13/17.
  */
 public class Balloon extends AbstractEntity {
-	public static final int SPEED = 4;
+	public static final int SPEED = 5;
 	
 	private static final int WIDTH = 3;
 	private static final int HEIGHT = 3;

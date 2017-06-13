@@ -1,5 +1,7 @@
 package bb.model;
 
+import bb.model.event.GameEvents;
+
 import static bb.BBConfig.ARENA_INNER_HEIGHT_PX;
 import static bb.BBConfig.ARENA_INNER_WIDTH_PX;
 
@@ -10,7 +12,8 @@ public class Player extends AbstractEntity {
 	private static final int WIDTH = 5;
 	private static final int HEIGHT = 11;
 	private static final int SPEED = 3;
-	private static final int FIRE_PERIOD = 5;
+	private static final int FIRE_PERIOD = 3;
+	private static final int WALK_EVENT_PERIOD = 4;
 	
 	private int score = 0;
 	private int level = 1;
@@ -18,6 +21,7 @@ public class Player extends AbstractEntity {
 	private final DirectionIntent moveIntent = new DirectionIntent();
 	private final DirectionIntent fireIntent = new DirectionIntent();
 	private int fireCounter = 0;
+	private int walkEventCounter = 0;
 	
 	public Player(GameModel gameModel) {
 		super(gameModel);
@@ -91,6 +95,13 @@ public class Player extends AbstractEntity {
 			enforceBounds();
 			updateDirection(dx, dy);
 			incrementAnimationCounter();
+			
+			if (walkEventCounter <= 0) {
+				getGameModel().fireEvent(GameEvents.PLAYER_WALKS);
+				this.walkEventCounter = WALK_EVENT_PERIOD;
+			} else {
+				this.walkEventCounter--;
+			}
 		}
 	}
 	
@@ -142,12 +153,15 @@ public class Player extends AbstractEntity {
 			}
 			
 			if (dx != 0 || dy != 0) {
+				GameModel gameModel = getGameModel();
 				Player player = getPlayer();
 				int x = player.getX();
 				int y = player.getY();
 				Balloon balloon = new Balloon(getGameModel(), x, y, dx, dy);
-				getGameModel().getPlayerBalloons().add(balloon);
+				gameModel.getPlayerBalloons().add(balloon);
+				gameModel.fireEvent(GameEvents.PLAYER_THROWS_BALLOON);
 			}
+			
 			this.fireCounter = FIRE_PERIOD;
 		} else {
 			this.fireCounter--;

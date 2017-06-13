@@ -1,7 +1,11 @@
 package bb;
 
+import bb.audio.AudioFactory;
 import bb.input.KeyboardManager;
 import bb.model.GameModel;
+import bb.model.event.GameEvent;
+import bb.model.event.GameEvents;
+import bb.model.event.GameListener;
 import bb.view.FontFactory;
 import bb.view.Resizer;
 import bb.view.SpriteFactory;
@@ -17,7 +21,7 @@ import java.awt.event.ActionListener;
 
 import static bb.BBConfig.FRAME_PERIOD_MS;
 
-public class BB extends JFrame implements ActionListener {
+public class BB extends JFrame implements ActionListener, GameListener {
 	private GameModel gameModel;
 
 	private FontFactory fontFactory;
@@ -25,6 +29,7 @@ public class BB extends JFrame implements ActionListener {
 	private JComponent arenaView;
 	private Resizer resizer;
 	private KeyboardManager keyboardManager;
+	private AudioFactory audioFactory;
 	private Timer timer;
 
 	public BB() {
@@ -35,14 +40,17 @@ public class BB extends JFrame implements ActionListener {
 		this.arenaView = new ArenaView(gameModel, fontFactory, spriteFactory);
 		this.resizer = new Resizer();
 		this.keyboardManager = new KeyboardManager(gameModel.getPlayer());
+		this.audioFactory = new AudioFactory();
 		this.timer = new Timer(FRAME_PERIOD_MS, this);
+		
+		KeyboardFocusManager kfm = KeyboardFocusManager.getCurrentKeyboardFocusManager();
+		kfm.addKeyEventDispatcher(keyboardManager);
+		
+		gameModel.addGameListener(this);
 	}
 
 	public void start() {
 		resizer.add(arenaView);
-
-		KeyboardFocusManager kfm = KeyboardFocusManager.getCurrentKeyboardFocusManager();
-		kfm.addKeyEventDispatcher(keyboardManager);
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setContentPane(resizer);
@@ -58,6 +66,17 @@ public class BB extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		gameModel.update();
 		resizer.repaint();
+	}
+	
+	@Override
+	public void handleEvent(GameEvent event) {
+		if (event == GameEvents.PLAYER_WALKS) {
+			audioFactory.playerWalks();
+		} else if (event == GameEvents.PLAYER_COLLISION) {
+			audioFactory.playerCollision();
+		} else if (event == GameEvents.PLAYER_THROWS_BALLOON) {
+			audioFactory.playerThrowsBalloon();
+		}
 	}
 
 	public static void main(String[] args) {

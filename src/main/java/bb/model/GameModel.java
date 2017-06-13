@@ -1,5 +1,9 @@
 package bb.model;
 
+import bb.model.event.GameEvent;
+import bb.model.event.GameEvents;
+import bb.model.event.GameListener;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
@@ -9,7 +13,9 @@ import java.util.ListIterator;
  */
 public class GameModel {
 	private static final int INIT_NUM_OBSTACLES = 15;
-	private static final int INIT_NUM_JUDOS = 20;
+	private static final int INIT_NUM_JUDOS = 5000;
+	
+	private final List<GameListener> gameListeners = new LinkedList<>();
 	
 	private final Player player;
 	private final List<Balloon> playerBalloons = new LinkedList<>();
@@ -31,7 +37,11 @@ public class GameModel {
 		
 		this.gameRunning = true;
 	}
-
+	
+	public void addGameListener(GameListener listener) {
+		gameListeners.add(listener);
+	}
+	
 	public Player getPlayer() {
 		return player;
 	}
@@ -140,6 +150,7 @@ public class GameModel {
 		for (ListIterator<Obstacle> it = obstacles.listIterator(); it.hasNext();) {
 			Obstacle obstacle = it.next();
 			if (player.collision(obstacle)) {
+				fireEvent(GameEvents.PLAYER_COLLISION);
 				return true;
 			}
 		}
@@ -150,9 +161,14 @@ public class GameModel {
 		for (ListIterator<Judo> it = judos.listIterator(); it.hasNext();) {
 			Judo judo = it.next();
 			if (player.collision(judo)) {
+				fireEvent(GameEvents.PLAYER_COLLISION);
 				return true;
 			}
 		}
 		return false;
+	}
+	
+	protected void fireEvent(GameEvent event) {
+		gameListeners.forEach(listener -> listener.handleEvent(event));
 	}
 }
