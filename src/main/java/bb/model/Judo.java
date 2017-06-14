@@ -1,5 +1,7 @@
 package bb.model;
 
+import bb.model.event.EntityState;
+
 /**
  * Created by wwheeler on 6/12/17.
  */
@@ -14,7 +16,7 @@ public class Judo extends AbstractEntity {
 	private int moveCounter;
 	
 	public Judo(GameModel gameModel) {
-		super(gameModel);
+		super(gameModel, EntityState.ENTERING);
 		randomizeLocation();
 		initMoveCounter();
 	}

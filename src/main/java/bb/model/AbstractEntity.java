@@ -1,12 +1,11 @@
 package bb.model;
 
+import bb.model.event.EntityState;
+
 import java.util.Random;
 
-import static bb.BBConfig.ARENA_INNER_HEIGHT_PX;
-import static bb.BBConfig.ARENA_INNER_WIDTH_PX;
-import static bb.BBConfig.CLEARING_RADIUS;
+import static bb.BBConfig.*;
 import static bb.model.Direction.*;
-import static bb.model.Direction.DOWN_RIGHT;
 
 /**
  * Created by wwheeler on 6/11/17.
@@ -17,15 +16,17 @@ public abstract class AbstractEntity implements Entity {
 	private static final int ANIMATION_PERIOD = 4;
 	
 	private GameModel gameModel;
+	private EntityState state;
 	private int x;
 	private int y;
 	private Direction direction;
 	private int animationCounter;
 	
-	public AbstractEntity(GameModel gameModel) {
+	public AbstractEntity(GameModel gameModel, EntityState state) {
 		this.gameModel = gameModel;
 		this.direction = Direction.DOWN;
 		this.animationCounter = 0;
+		this.state = state;
 	}
 	
 	public GameModel getGameModel() {
@@ -34,6 +35,14 @@ public abstract class AbstractEntity implements Entity {
 	
 	public Player getPlayer() {
 		return gameModel.getPlayer();
+	}
+	
+	public EntityState getState() {
+		return state;
+	}
+	
+	protected void setState(EntityState state) {
+		this.state = state;
 	}
 	
 	@Override

@@ -1,9 +1,13 @@
 package bb.model;
 
+import bb.model.event.EntityState;
+
 /**
  * Created by wwheeler on 6/11/17.
  */
 public interface Entity {
+	
+	EntityState getState();
 	
 	int getX();
 	

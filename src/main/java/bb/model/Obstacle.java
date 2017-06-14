@@ -1,5 +1,7 @@
 package bb.model;
 
+import bb.model.event.EntityState;
+
 /**
  * Created by wwheeler on 6/11/17.
  */
@@ -10,7 +12,7 @@ public class Obstacle extends AbstractEntity {
 	private static final int HEIGHT = 8;
 	
 	public Obstacle(GameModel gameModel) {
-		super(gameModel);
+		super(gameModel, EntityState.ACTIVE);
 		randomizeLocation();
 	}
 	

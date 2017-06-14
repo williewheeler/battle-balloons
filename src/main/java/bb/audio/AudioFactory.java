@@ -17,7 +17,7 @@ public class AudioFactory {
 		final int clipsPerId = Runtime.getRuntime().availableProcessors();
 		this.playerWalks = loadClips("player-walks", clipsPerId, -10.f);
 		this.playerThrowsBalloon = loadClips("player-throws-balloon", clipsPerId, -5.0f);
-		this.playerCollision = loadClips("oh-woh-woh", clipsPerId, -5.0f);
+		this.playerCollision = loadClips("oh-woh-woh", clipsPerId, -2.0f);
 	}
 	
 	public void playerWalks() {

@@ -1,5 +1,6 @@
 package bb.model;
 
+import bb.model.event.EntityState;
 import bb.model.event.GameEvent;
 import bb.model.event.GameEvents;
 import bb.model.event.GameListener;
@@ -22,8 +23,6 @@ public class GameModel {
 	private final List<Obstacle> obstacles = new LinkedList<>();
 	private final List<Judo> judos = new LinkedList<>();
 	
-	private boolean gameRunning;
-	
 	public GameModel() {
 		this.player = new Player(this);
 		
@@ -34,8 +33,6 @@ public class GameModel {
 		for (int i = 0; i < INIT_NUM_JUDOS; i++) {
 			judos.add(new Judo(this));
 		}
-		
-		this.gameRunning = true;
 	}
 	
 	public void addGameListener(GameListener listener) {
@@ -59,11 +56,12 @@ public class GameModel {
 	}
 
 	public void update() {
-		if (gameRunning) {
+		if (player.getState() != EntityState.GONE) {
 			updateEntities();
 			boolean playerDead = checkCollisions();
 			if (playerDead) {
-				this.gameRunning = false;
+				player.setState(EntityState.EXITING);
+				fireEvent(GameEvents.PLAYER_COLLISION);
 			}
 		}
 	}
@@ -147,22 +145,24 @@ public class GameModel {
 	}
 	
 	private boolean checkPlayerObstacleCollision() {
-		for (ListIterator<Obstacle> it = obstacles.listIterator(); it.hasNext();) {
-			Obstacle obstacle = it.next();
-			if (player.collision(obstacle)) {
-				fireEvent(GameEvents.PLAYER_COLLISION);
-				return true;
+		if (player.getState() == EntityState.ACTIVE) {
+			for (ListIterator<Obstacle> it = obstacles.listIterator(); it.hasNext(); ) {
+				Obstacle obstacle = it.next();
+				if (player.collision(obstacle)) {
+					return true;
+				}
 			}
 		}
 		return false;
 	}
 	
 	private boolean checkPlayerJudoCollision() {
-		for (ListIterator<Judo> it = judos.listIterator(); it.hasNext();) {
-			Judo judo = it.next();
-			if (player.collision(judo)) {
-				fireEvent(GameEvents.PLAYER_COLLISION);
-				return true;
+		if (player.getState() == EntityState.ACTIVE) {
+			for (ListIterator<Judo> it = judos.listIterator(); it.hasNext(); ) {
+				Judo judo = it.next();
+				if (player.collision(judo)) {
+					return true;
+				}
 			}
 		}
 		return false;

@@ -54,12 +54,58 @@ public class ArenaPane extends JComponent {
 	}
 
 	private void paintPlayer(Graphics g) {
+		switch (gameModel.getPlayer().getState()) {
+			case ENTERING:
+				paintPlayer_entering(g);
+				break;
+			case ACTIVE:
+				paintPlayer_active(g);
+				break;
+			case EXITING:
+				paintPlayer_exiting(g);
+				break;
+			case GONE:
+				break;
+		}
+	}
+	
+	private void paintPlayer_entering(Graphics g) {
+		// FIXME
+		// 1) Index out of bounds
+		// 2) Slight hop at end of animation sequence
+		Player player = gameModel.getPlayer();
+		
+		BufferedImage[] sprites = spriteFactory.getLexiEntering();
+		int spriteIndex = player.getEnteringCountdown();
+		BufferedImage sprite = sprites[spriteIndex];
+		
+		int adjX = player.getX() - sprite.getWidth() / 2;
+		int adjY = player.getY() - sprite.getHeight() / 2;
+		g.drawImage(sprite, adjX, adjY, sprite.getWidth(), sprite.getHeight(), null);
+	}
+	
+	private void paintPlayer_active(Graphics g) {
 		Player player = gameModel.getPlayer();
 		BufferedImage[] sprites = spriteFactory.getLexi();
 		BufferedImage sprite = SpriteUtil.getCurrentSprite(player, sprites);
-		int adjX = player.getX() - SPRITE_WIDTH_PX / 2;
-		int adjY = player.getY() - SPRITE_HEIGHT_PX / 2;
-		g.drawImage(sprite, adjX, adjY, SPRITE_WIDTH_PX, SPRITE_HEIGHT_PX, null);
+		int adjX = player.getX() - sprite.getWidth() / 2;
+		int adjY = player.getY() - sprite.getHeight() / 2;
+		g.drawImage(sprite, adjX, adjY, sprite.getWidth(), sprite.getHeight(), null);
+	}
+	
+	private void paintPlayer_exiting(Graphics g) {
+		// FIXME
+		// 1) Index out of bounds
+		// 2) Slight hop at end of animation sequence
+		Player player = gameModel.getPlayer();
+		BufferedImage[] sprites = spriteFactory.getLexiExiting();
+		
+		int spriteIndex = (Player.EXITING_DURATION - 1) - player.getExitingCountdown();
+		BufferedImage sprite = sprites[spriteIndex];
+		
+		int adjX = player.getX() - sprite.getWidth() / 2;
+		int adjY = player.getY() - sprite.getHeight() / 2;
+		g.drawImage(sprite, adjX, adjY, sprite.getWidth(), sprite.getHeight(), null);
 	}
 	
 	private void paintObstacles(Graphics g) {

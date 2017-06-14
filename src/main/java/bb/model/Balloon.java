@@ -1,5 +1,7 @@
 package bb.model;
 
+import bb.model.event.EntityState;
+
 /**
  * Created by wwheeler on 6/13/17.
  */
@@ -13,7 +15,7 @@ public class Balloon extends AbstractEntity {
 	private int dy;
 	
 	public Balloon(GameModel gameModel, int x, int y, int dx, int dy) {
-		super(gameModel);
+		super(gameModel, EntityState.ACTIVE);
 		
 		if (dx == 0 && dy == 0) {
 			throw new IllegalArgumentException("dx and dy can't both be 0");
