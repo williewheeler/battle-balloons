@@ -14,7 +14,7 @@ import java.util.ListIterator;
  */
 public class GameModel {
 	private static final int INIT_NUM_OBSTACLES = 15;
-	private static final int INIT_NUM_JUDOS = 20;
+	private static final int INIT_NUM_JUDOS = 50;
 	
 	private final List<GameListener> gameListeners = new LinkedList<>();
 	
@@ -71,9 +71,19 @@ public class GameModel {
 		obstacles.forEach(obstacle -> obstacle.update());
 		judos.forEach(judo -> judo.update());
 		playerBalloons.forEach(balloon -> balloon.update());
+		garbageCollectJudos();
 		garbageCollectBalloons();
 	}
-	
+
+	private void garbageCollectJudos() {
+		for (ListIterator<Judo> it = judos.listIterator(); it.hasNext();) {
+			Judo judo = it.next();
+			if (judo.getState() == EntityState.GONE) {
+				it.remove();
+			}
+		}
+	}
+
 	private void garbageCollectBalloons() {
 		for (ListIterator<Balloon> it = playerBalloons.listIterator(); it.hasNext();) {
 			Balloon balloon = it.next();
@@ -116,10 +126,10 @@ public class GameModel {
 			}
 			for (ListIterator<Judo> jit = judos.listIterator(); jit.hasNext();) {
 				Judo judo = jit.next();
-				if (balloon.collision(judo)) {
+				if (judo.getState() == EntityState.ACTIVE && balloon.collision(judo)) {
 					player.incrementScore(Judo.SCORE);
+					judo.setState(EntityState.EXITING);
 					bit.remove();
-					jit.remove();
 					continue checkBalloons;
 				}
 			}
@@ -135,8 +145,7 @@ public class GameModel {
 				if (judo.collision(obstacle)) {
 					player.incrementScore(Judo.SCORE);
 					player.incrementScore(Obstacle.SCORE);
-					// TODO Use gc?
-					jit.remove();
+					judo.setState(EntityState.EXITING);
 					oit.remove();
 					continue checkJudos;
 				}
@@ -160,7 +169,7 @@ public class GameModel {
 		if (player.getState() == EntityState.ACTIVE) {
 			for (ListIterator<Judo> it = judos.listIterator(); it.hasNext(); ) {
 				Judo judo = it.next();
-				if (player.collision(judo)) {
+				if (judo.getState() == EntityState.ACTIVE && player.collision(judo)) {
 					return true;
 				}
 			}

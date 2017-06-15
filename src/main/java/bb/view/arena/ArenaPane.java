@@ -70,9 +70,6 @@ public class ArenaPane extends JComponent {
 	}
 	
 	private void paintPlayer_entering(Graphics g) {
-		// FIXME
-		// 1) Index out of bounds
-		// 2) Slight hop at end of animation sequence
 		Player player = gameModel.getPlayer();
 		
 		BufferedImage[] sprites = spriteFactory.getLexiEntering();
@@ -94,9 +91,6 @@ public class ArenaPane extends JComponent {
 	}
 	
 	private void paintPlayer_exiting(Graphics g) {
-		// FIXME
-		// 1) Index out of bounds
-		// 2) Slight hop at end of animation sequence
 		Player player = gameModel.getPlayer();
 		BufferedImage[] sprites = spriteFactory.getLexiExiting();
 		
@@ -126,13 +120,50 @@ public class ArenaPane extends JComponent {
 	}
 	
 	private void paintJudo(Graphics g, Judo judo) {
+		switch (judo.getState()) {
+			case ENTERING:
+				paintJudo_entering(g, judo);
+				break;
+			case ACTIVE:
+				paintJudo_active(g, judo);
+				break;
+			case EXITING:
+				paintJudo_exiting(g, judo);
+				break;
+			case GONE:
+				break;
+		}
+	}
+
+	private void paintJudo_entering(Graphics g, Judo judo) {
+		BufferedImage[] sprites = spriteFactory.getJudoEntering();
+		int spriteIndex = judo.getEnteringCountdown();
+		BufferedImage sprite = sprites[spriteIndex];
+
+		int adjX = judo.getX() - sprite.getWidth() / 2;
+		int adjY = judo.getY() - sprite.getHeight() / 2;
+		g.drawImage(sprite, adjX, adjY, sprite.getWidth(), sprite.getHeight(), null);
+	}
+
+	private void paintJudo_active(Graphics g, Judo judo) {
 		BufferedImage[] sprites = spriteFactory.getJudo();
 		BufferedImage sprite = SpriteUtil.getCurrentSprite(judo, sprites);
 		int adjX = judo.getX() - SPRITE_WIDTH_PX / 2;
 		int adjY = judo.getY() - SPRITE_HEIGHT_PX / 2;
 		g.drawImage(sprite, adjX, adjY, SPRITE_WIDTH_PX, SPRITE_HEIGHT_PX, null);
 	}
-	
+
+	private void paintJudo_exiting(Graphics g, Judo judo) {
+		BufferedImage[] sprites = spriteFactory.getJudoExiting();
+
+		int spriteIndex = (Judo.EXITING_DURATION - 1) - judo.getExitingCountdown();
+		BufferedImage sprite = sprites[spriteIndex];
+
+		int adjX = judo.getX() - sprite.getWidth() / 2;
+		int adjY = judo.getY() - sprite.getHeight() / 2;
+		g.drawImage(sprite, adjX, adjY, sprite.getWidth(), sprite.getHeight(), null);
+	}
+
 	private void paintPlayerBalloons(Graphics g) {
 		g.setColor(Color.CYAN);
 		List<Balloon> balloons = gameModel.getPlayerBalloons();

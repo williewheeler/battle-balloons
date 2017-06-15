@@ -1,5 +1,6 @@
 package bb.view;
 
+import bb.model.Judo;
 import bb.model.Player;
 
 import javax.imageio.ImageIO;
@@ -18,6 +19,8 @@ public class SpriteFactory {
 	private BufferedImage[] lexiEntering;
 	private BufferedImage[] lexiExiting;
 	private BufferedImage[] judo;
+	private BufferedImage[] judoEntering;
+	private BufferedImage[] judoExiting;
 
 	public SpriteFactory() {
 		BufferedImage sheet = loadSheet();
@@ -27,6 +30,8 @@ public class SpriteFactory {
 		this.lexiExiting = spaghettify(lexi[4], Player.EXITING_DURATION);
 		
 		this.judo = buildCharacterSprites(sheet, 1);
+		this.judoEntering = spaghettify(judo[4], Judo.ENTERING_DURATION);
+		this.judoExiting = spaghettify(judo[4], Judo.EXITING_DURATION);
 	}
 
 	public BufferedImage[] getLexi() {
@@ -47,6 +52,14 @@ public class SpriteFactory {
 	
 	public BufferedImage[] getJudo() {
 		return judo;
+	}
+
+	public BufferedImage[] getJudoEntering() {
+		return judoEntering;
+	}
+
+	public BufferedImage[] getJudoExiting() {
+		return judoExiting;
 	}
 
 	private BufferedImage loadSheet() {
@@ -85,7 +98,7 @@ public class SpriteFactory {
 			Graphics2D g2 = result[i].createGraphics();
 			for (int j = 0; j < height; j++) {
 				BufferedImage slice = sprite.getSubimage(0, j, width, 1);
-				g2.drawImage(slice, 0, i * j, null);
+				g2.drawImage(slice, 0, (i + 1) * j, null);
 			}
 		}
 		
