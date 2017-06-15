@@ -12,12 +12,14 @@ public class AudioFactory {
 	private ArrayDeque<Clip> playerWalks;
 	private ArrayDeque<Clip> playerThrowsBalloon;
 	private ArrayDeque<Clip> playerCollision;
+	private ArrayDeque<Clip> judoHit;
 	
 	public AudioFactory() {
 		final int clipsPerId = Runtime.getRuntime().availableProcessors();
 		this.playerWalks = loadClips("player-walks", clipsPerId, -10.f);
 		this.playerThrowsBalloon = loadClips("player-throws-balloon", clipsPerId, -5.0f);
 		this.playerCollision = loadClips("oh-woh-woh", clipsPerId, -2.0f);
+		this.judoHit = loadClips("explode", clipsPerId, 0.0f);
 	}
 	
 	public void playerWalks() {
@@ -31,7 +33,11 @@ public class AudioFactory {
 	public void playerCollision() {
 		playSoundEffect(playerCollision);
 	}
-	
+
+	public void judoHit() {
+		playSoundEffect(judoHit);
+	}
+
 	private ArrayDeque<Clip> loadClips(String id, int clipsPerId, Float gainControlValue) {
 		ArrayDeque<Clip> buffer = new ArrayDeque<>();
 		for (int i = 0; i < clipsPerId; i++) {

@@ -76,6 +76,8 @@ public class BB extends JFrame implements ActionListener, GameListener {
 			audioFactory.playerCollision();
 		} else if (event == GameEvents.PLAYER_THROWS_BALLOON) {
 			audioFactory.playerThrowsBalloon();
+		} else if (event == GameEvents.JUDO_HIT) {
+			audioFactory.judoHit();
 		}
 	}
 

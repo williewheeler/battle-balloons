@@ -14,7 +14,7 @@ import java.util.ListIterator;
  */
 public class GameModel {
 	private static final int INIT_NUM_OBSTACLES = 15;
-	private static final int INIT_NUM_JUDOS = 50;
+	private static final int INIT_NUM_JUDOS = 20;
 	
 	private final List<GameListener> gameListeners = new LinkedList<>();
 	
@@ -130,6 +130,7 @@ public class GameModel {
 					player.incrementScore(Judo.SCORE);
 					judo.setState(EntityState.EXITING);
 					bit.remove();
+					fireEvent(GameEvents.JUDO_HIT);
 					continue checkBalloons;
 				}
 			}
@@ -142,11 +143,12 @@ public class GameModel {
 			Judo judo = jit.next();
 			for (ListIterator<Obstacle> oit = obstacles.listIterator(); oit.hasNext();) {
 				Obstacle obstacle = oit.next();
-				if (judo.collision(obstacle)) {
+				if (judo.getState() == EntityState.ACTIVE && judo.collision(obstacle)) {
 					player.incrementScore(Judo.SCORE);
 					player.incrementScore(Obstacle.SCORE);
 					judo.setState(EntityState.EXITING);
 					oit.remove();
+					fireEvent(GameEvents.JUDO_HIT);
 					continue checkJudos;
 				}
 			}
