@@ -14,7 +14,7 @@ import java.util.ListIterator;
  */
 public class GameModel {
 	private static final int INIT_NUM_OBSTACLES = 15;
-	private static final int INIT_NUM_JUDOS = 20;
+	private static final int INIT_NUM_JUDOS = 50;
 	
 	private final List<GameListener> gameListeners = new LinkedList<>();
 	
@@ -22,6 +22,8 @@ public class GameModel {
 	private final List<Balloon> playerBalloons = new LinkedList<>();
 	private final List<Obstacle> obstacles = new LinkedList<>();
 	private final List<Judo> judos = new LinkedList<>();
+
+	private CollisionDetector collisionDetector = new CollisionDetector(this);
 	
 	public GameModel() {
 		this.player = new Player(this);
@@ -58,7 +60,7 @@ public class GameModel {
 	public void update() {
 		if (player.getState() != EntityState.GONE) {
 			updateEntities();
-			boolean playerDead = checkCollisions();
+			boolean playerDead = collisionDetector.checkCollisions();
 			if (playerDead) {
 				player.setState(EntityState.EXITING);
 				fireEvent(GameEvents.PLAYER_COLLISION);
@@ -92,93 +94,6 @@ public class GameModel {
 			}
 		}
 	}
-	
-	/**
-	 * @return boolean indicating whether the player died
-	 */
-	private boolean checkCollisions() {
-		checkPlayerBalloonCollisions();
-		checkJudoObstacleCollisions();
-		
-		if (checkPlayerObstacleCollision()) {
-			return true;
-		}
-		
-		if (checkPlayerJudoCollision()) {
-			return true;
-		}
-		
-		return false;
-	}
-	
-	private void checkPlayerBalloonCollisions() {
-		checkBalloons:
-		for (ListIterator<Balloon> bit = playerBalloons.listIterator(); bit.hasNext();) {
-			Balloon balloon = bit.next();
-			for (ListIterator<Obstacle> oit = obstacles.listIterator(); oit.hasNext();) {
-				Obstacle obstacle = oit.next();
-				if (balloon.collision(obstacle)) {
-					player.incrementScore(Obstacle.SCORE);
-					bit.remove();
-					oit.remove();
-					continue checkBalloons;
-				}
-			}
-			for (ListIterator<Judo> jit = judos.listIterator(); jit.hasNext();) {
-				Judo judo = jit.next();
-				if (judo.getState() == EntityState.ACTIVE && balloon.collision(judo)) {
-					player.incrementScore(Judo.SCORE);
-					judo.setState(EntityState.EXITING);
-					bit.remove();
-					fireEvent(GameEvents.JUDO_HIT);
-					continue checkBalloons;
-				}
-			}
-		}
-	}
-	
-	private void checkJudoObstacleCollisions() {
-		checkJudos:
-		for (ListIterator<Judo> jit = judos.listIterator(); jit.hasNext();) {
-			Judo judo = jit.next();
-			for (ListIterator<Obstacle> oit = obstacles.listIterator(); oit.hasNext();) {
-				Obstacle obstacle = oit.next();
-				if (judo.getState() == EntityState.ACTIVE && judo.collision(obstacle)) {
-					player.incrementScore(Judo.SCORE);
-					player.incrementScore(Obstacle.SCORE);
-					judo.setState(EntityState.EXITING);
-					oit.remove();
-					fireEvent(GameEvents.JUDO_HIT);
-					continue checkJudos;
-				}
-			}
-		}
-	}
-	
-	private boolean checkPlayerObstacleCollision() {
-		if (player.getState() == EntityState.ACTIVE) {
-			for (ListIterator<Obstacle> it = obstacles.listIterator(); it.hasNext(); ) {
-				Obstacle obstacle = it.next();
-				if (player.collision(obstacle)) {
-					return true;
-				}
-			}
-		}
-		return false;
-	}
-	
-	private boolean checkPlayerJudoCollision() {
-		if (player.getState() == EntityState.ACTIVE) {
-			for (ListIterator<Judo> it = judos.listIterator(); it.hasNext(); ) {
-				Judo judo = it.next();
-				if (judo.getState() == EntityState.ACTIVE && player.collision(judo)) {
-					return true;
-				}
-			}
-		}
-		return false;
-	}
-	
 	protected void fireEvent(GameEvent event) {
 		gameListeners.forEach(listener -> listener.handleEvent(event));
 	}
