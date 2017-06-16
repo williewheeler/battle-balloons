@@ -1,5 +1,7 @@
 ![Screenshot](bb.png)
 
+**NOTE:** Blog posts forthcoming for each of the following sessions. See https://progtuts.com/.
+
 # Course overview
 
 We will introduce participants to the elements of Java programming and create a video game called Battle Balloons. No
