@@ -5,8 +5,6 @@
 We will introduce participants to the elements of Java programming and create a video game called Battle Balloons. No
 previous programming experience is required.
 
-Over ten weeks we will cover the following topics:
-
 | Week | Topic | Download |
 | ---- | ----- | -------- |
 | 1 | Creating a player | [zip](https://github.com/williewheeler/battle-balloons-course/archive/week01.zip) |
