@@ -32,6 +32,7 @@ public class ArenaPane extends JComponent {
 		g.translate(ARENA_MARGIN_LEFT_RIGHT_PX, 0);
 		doPaintBorder(g);
 		g.translate(ARENA_BORDER_SIZE_PX, ARENA_BORDER_SIZE_PX);
+		g.setClip(0, 0, ARENA_INNER_WIDTH_PX, ARENA_INNER_HEIGHT_PX);
 		paintPlayer(g);
 		g.translate(-ARENA_BORDER_SIZE_PX, -ARENA_BORDER_SIZE_PX);
 		g.translate(-ARENA_MARGIN_LEFT_RIGHT_PX, 0);
@@ -47,6 +48,7 @@ public class ArenaPane extends JComponent {
 	private void paintPlayer(Graphics g) {
 
 		// Note: Arena dimensions are 292 x 230.
+		// drawImage() starts from the sprite's top-left corner.
 
 		// Step 1. Get the sprite from the sprite factory
 		// TODO
