@@ -45,6 +45,14 @@ public class ArenaPane extends JComponent {
 	}
 
 	private void paintPlayer(Graphics g) {
+
+		// Note: Arena dimensions are 292 x 230.
+
+		// Step 1. Get the sprite from the sprite factory
+		// TODO
+
+		// Step 2. Draw the sprite on the screen
+		// g.drawImage(image, x, y, width, height, null);
 		// TODO
 	}
 }
