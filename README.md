@@ -20,6 +20,14 @@ previous programming experience is required.
 | 9 | Adding sound effects | [zip](https://github.com/williewheeler/battle-balloons-course/archive/week09.zip) |
 | 10 | Animation finishing touches | [zip](https://github.com/williewheeler/battle-balloons-course/archive/week10.zip) |
 
+# Extra course content
+
+Here are some extra weeks in case you get bored.
+
+| Week | Topic | Download |
+| ---- | ----- | -------- |
+| 11 | Adding a title screen | |
+
 # Running the game
 
     $ ./gradlew run
