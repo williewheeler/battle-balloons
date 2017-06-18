@@ -1,3 +1,5 @@
+![Screenshot](bb-title.png)
+
 ![Screenshot](bb.png)
 
 **NOTE:** Blog posts forthcoming for each of the following sessions. See https://progtuts.com/.

@@ -27,12 +27,12 @@ public class BBConfig {
 	public static final int LARGE_FONT_PT = 9;
 	public static final int SMALL_FONT_PT = 8;
 
+	public static final Dimension SCREEN_SIZE_PX = new Dimension(SCREEN_WIDTH_PX, SCREEN_HEIGHT_PX);
 	public static final Dimension ARENA_HEADER_SIZE_PX = new Dimension(SCREEN_WIDTH_PX, ARENA_HEADER_HEIGHT_PX);
 	public static final Dimension ARENA_FOOTER_SIZE_PX = new Dimension(SCREEN_WIDTH_PX, ARENA_FOOTER_HEIGHT_PX);
 	public static final Dimension ARENA_PANE_SIZE_PX = new Dimension(SCREEN_WIDTH_PX, ARENA_PANE_HEIGHT_PX);
 
 	// Sprites
-	public static final String SPRITE_SHEET_FILENAME = "bb-sprites.png";
 	public static final int SPRITE_WIDTH_PX = 16;
 	public static final int SPRITE_HEIGHT_PX = 16;
 	
