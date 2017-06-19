@@ -1,11 +1,9 @@
-package bb.title;
+package bb.backstory;
 
 import bb.core.GameController;
 import bb.core.event.GameEvent;
 import bb.core.event.GameListener;
 import bb.core.view.FontFactory;
-import bb.core.view.ImageFactory;
-import bb.core.view.SpriteFactory;
 
 import javax.swing.JComponent;
 import javax.swing.Timer;
@@ -18,24 +16,19 @@ import java.awt.event.KeyListener;
 import static bb.BBConfig.FRAME_PERIOD_MS;
 
 /**
- * Created by willie on 6/17/17.
+ * Created by willie on 6/18/17.
  */
-public class TitleController implements GameController {
-	private TitleModel titleModel;
-	private TitleScreen titleScreen;
+public class BackstoryController implements GameController {
+	private BackstoryModel backstoryModel;
+	private BackstoryScreen backstoryScreen;
 	private TickHandler tickHandler;
 	private KeyHandler keyHandler;
 	private Timer timer;
 	private GameListener gameListener;
 
-	public TitleController(
-			FontFactory fontFactory,
-			ImageFactory imageFactory,
-			SpriteFactory spriteFactory,
-			GameListener gameListener) {
-
-		this.titleModel = new TitleModel();
-		this.titleScreen = new TitleScreen(titleModel, fontFactory, imageFactory, spriteFactory);
+	public BackstoryController(FontFactory fontFactory, GameListener gameListener) {
+		this.backstoryModel = new BackstoryModel();
+		this.backstoryScreen = new BackstoryScreen(backstoryModel, fontFactory);
 		this.tickHandler = new TickHandler();
 		this.keyHandler = new KeyHandler();
 		this.timer = new Timer(FRAME_PERIOD_MS, tickHandler);
@@ -54,7 +47,7 @@ public class TitleController implements GameController {
 
 	@Override
 	public JComponent getScreen() {
-		return titleScreen;
+		return backstoryScreen;
 	}
 
 	@Override
@@ -70,9 +63,9 @@ public class TitleController implements GameController {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if (titleModel.isActive()) {
-				titleModel.update();
-				titleScreen.getTopLevelAncestor().repaint();
+			if (backstoryModel.isActive()) {
+				backstoryModel.update();
+				backstoryScreen.getTopLevelAncestor().repaint();
 			} else {
 				fireGameEvent(GameEvent.SCREEN_EXPIRED);
 			}
@@ -84,14 +77,7 @@ public class TitleController implements GameController {
 		@Override
 		public void keyPressed(KeyEvent e) {
 			super.keyPressed(e);
-			switch (e.getKeyCode()) {
-				case KeyEvent.VK_1:
-					fireGameEvent(GameEvent.START_1P_GAME);
-					break;
-				case KeyEvent.VK_2:
-					fireGameEvent(GameEvent.START_2P_GAME);
-					break;
-			}
+			fireGameEvent(GameEvent.SCREEN_ABORTED);
 		}
 	}
 }

@@ -1,8 +1,11 @@
 package bb;
 
 import bb.arena.ArenaController;
+import bb.backstory.BackstoryController;
 import bb.core.GameController;
 import bb.core.audio.AudioFactory;
+import bb.core.event.GameEvent;
+import bb.core.event.GameListener;
 import bb.core.view.FontFactory;
 import bb.core.view.ImageFactory;
 import bb.core.view.Resizer;
@@ -21,6 +24,7 @@ public class BB extends JFrame {
 	private ImageFactory imageFactory;
 	private SpriteFactory spriteFactory;
 	private AudioFactory audioFactory;
+	private GameHandler gameHandler;
 	private GameController currentController;
 
 	public BB() {
@@ -29,6 +33,7 @@ public class BB extends JFrame {
 		this.imageFactory = new ImageFactory();
 		this.spriteFactory = new SpriteFactory(imageFactory);
 		this.audioFactory = new AudioFactory();
+		this.gameHandler = new GameHandler();
 	}
 
 	public FontFactory getFontFactory() {
@@ -61,7 +66,11 @@ public class BB extends JFrame {
 	}
 
 	public void startTitle() {
-		setCurrentController(new TitleController(this));
+		setCurrentController(new TitleController(fontFactory, imageFactory, spriteFactory, gameHandler));
+	}
+
+	public void startBackstory() {
+		setCurrentController(new BackstoryController(fontFactory, gameHandler));
 	}
 
 	public void startGame(int numPlayers) {
@@ -79,6 +88,31 @@ public class BB extends JFrame {
 		validate();
 		addKeyListener(currentController.getKeyListener());
 		currentController.start();
+	}
+
+	private class GameHandler implements GameListener {
+
+		@Override
+		public void handleEvent(GameEvent event) {
+			Object source = event.getSource();
+			String type = event.getType();
+
+			if (type == GameEvent.START_1P_GAME) {
+				startGame(1);
+			} else if (type == GameEvent.START_2P_GAME) {
+				startGame(2);
+			} else if (type == GameEvent.SCREEN_ABORTED) {
+				startTitle();
+			} else if (type == GameEvent.SCREEN_EXPIRED) {
+				if (source instanceof TitleController) {
+					startBackstory();
+				} else if (source instanceof BackstoryController) {
+					startTitle();
+				} else {
+					throw new IllegalStateException("Unknown source: " + source);
+				}
+			}
+		}
 	}
 
 	public static void main(String[] args) {

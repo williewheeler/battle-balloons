@@ -6,7 +6,8 @@ import bb.arena.model.Player;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
-import static bb.BBConfig.*;
+import static bb.BBConfig.SPRITE_HEIGHT_PX;
+import static bb.BBConfig.SPRITE_WIDTH_PX;
 
 /**
  * Created by willie on 6/4/17.
@@ -104,7 +105,7 @@ public class SpriteFactory {
 	}
 
 	private BufferedImage[][] buildBalloonSprites(BufferedImage sheet) {
-		final int numColors = 5;
+		final int numColors = 7;
 		final int numRotations = 4;
 
 		BufferedImage[][] sprites = new BufferedImage[numColors][numRotations];

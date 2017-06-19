@@ -3,8 +3,6 @@ package bb.title;
 import bb.core.view.FontFactory;
 import bb.core.view.ImageFactory;
 import bb.core.view.SpriteFactory;
-import bb.title.model.BigBalloon;
-import bb.title.model.TitleModel;
 
 import javax.swing.JComponent;
 import java.awt.Color;
@@ -103,8 +101,14 @@ public class TitleScreen extends JComponent {
 			case CYAN:
 				colorIndex = 3;
 				break;
-			case PURPLE:
+			case BLUE:
 				colorIndex = 4;
+				break;
+			case MAGENTA:
+				colorIndex = 5;
+				break;
+			case WHITE:
+				colorIndex = 6;
 				break;
 		}
 		int rotIndex = balloon.getRotation();

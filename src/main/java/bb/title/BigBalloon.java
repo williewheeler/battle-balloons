@@ -1,4 +1,4 @@
-package bb.title.model;
+package bb.title;
 
 /**
  * Created by willie on 6/18/17.
@@ -9,7 +9,9 @@ public class BigBalloon {
 		YELLOW,
 		GREEN,
 		CYAN,
-		PURPLE
+		BLUE,
+		MAGENTA,
+		WHITE
 	}
 
 	private static final int MAX_ROT_COUNTDOWN = 5;
