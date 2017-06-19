@@ -9,6 +9,7 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
 
+import static bb.BBConfig.FRAMES_PER_SECOND;
 import static bb.BBConfig.SCREEN_SIZE_PX;
 
 /**
@@ -56,13 +57,19 @@ public class BackstoryScreen extends JComponent {
 	private void paintBackstory(Graphics g) {
 		String backstory = backstoryModel.getBackstory();
 		char[] backstoryArr = backstory.toCharArray();
-		int numChars = Math.min(backstoryModel.getCounter(), backstoryArr.length);
-		int colorIndex = (backstoryModel.getCounter() / 5) % COLORS.length;
+		int counter = backstoryModel.getCounter();
+		int numChars = Math.min(counter, backstoryArr.length);
 		List<String> lines = toLines(backstoryArr, numChars);
 
 		g.translate(X_OFFSET, Y_OFFSET);
 		g.setFont(fontFactory.getSmallFont());
-		g.setColor(COLORS[colorIndex]);
+
+		if (counter < backstoryArr.length + 5 * FRAMES_PER_SECOND) {
+			g.setColor(Color.YELLOW);
+		} else {
+			int colorIndex = (counter / 5) % COLORS.length;
+			g.setColor(COLORS[colorIndex]);
+		}
 
 		for (int i = 0; i < lines.size(); i++) {
 			String line = lines.get(i);
