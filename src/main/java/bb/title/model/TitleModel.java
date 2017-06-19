@@ -16,9 +16,9 @@ public class TitleModel {
 	private static final int BASE_DX = 4;
 	private static final Random RANDOM = new Random();
 
-	private final List<Balloon> balloons = new LinkedList<>();
+	private final List<BigBalloon> balloons = new LinkedList<>();
 
-	public List<Balloon> getBalloons() {
+	public List<BigBalloon> getBalloons() {
 		return balloons;
 	}
 
@@ -30,8 +30,8 @@ public class TitleModel {
 	}
 
 	private void garbageCollect() {
-		for(ListIterator<Balloon> it = balloons.listIterator(); it.hasNext();) {
-			Balloon balloon = it.next();
+		for(ListIterator<BigBalloon> it = balloons.listIterator(); it.hasNext();) {
+			BigBalloon balloon = it.next();
 			int x = balloon.getX();
 			int y = balloon.getY();
 			if (x < 0 || x > SCREEN_WIDTH_PX || y < 0 || y > SCREEN_HEIGHT_PX) {
@@ -44,8 +44,8 @@ public class TitleModel {
 		if (RANDOM.nextDouble() < CREATE_PROBABILITY) {
 			int y = generateY(yBase);
 			int dx = generateDx(dxBase);
-			Balloon.Color color = generateColor();
-			balloons.add(new Balloon(x, y, dx, 0, 0, dRotation, color));
+			BigBalloon.Color color = generateColor();
+			balloons.add(new BigBalloon(x, y, dx, 0, 0, dRotation, color));
 		}
 	}
 
@@ -57,8 +57,8 @@ public class TitleModel {
 		return dxBase + RANDOM.nextInt(5) - 2;
 	}
 
-	private Balloon.Color generateColor() {
-		Balloon.Color[] colors = Balloon.Color.values();
+	private BigBalloon.Color generateColor() {
+		BigBalloon.Color[] colors = BigBalloon.Color.values();
 		int index = RANDOM.nextInt(colors.length);
 		return colors[index];
 	}

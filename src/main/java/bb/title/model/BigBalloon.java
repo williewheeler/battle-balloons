@@ -3,7 +3,7 @@ package bb.title.model;
 /**
  * Created by willie on 6/18/17.
  */
-public class Balloon {
+public class BigBalloon {
 	public enum Color {
 		RED,
 		YELLOW,
@@ -23,7 +23,7 @@ public class Balloon {
 	private Color color;
 	private int rotCountdown;
 
-	public Balloon(int x, int y, int dx, int dy, int rotation, int dRotation, Color color) {
+	public BigBalloon(int x, int y, int dx, int dy, int rotation, int dRotation, Color color) {
 		this.x = x;
 		this.y = y;
 		this.dx = dx;

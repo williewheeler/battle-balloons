@@ -3,7 +3,7 @@ package bb.title;
 import bb.core.view.FontFactory;
 import bb.core.view.ImageFactory;
 import bb.core.view.SpriteFactory;
-import bb.title.model.Balloon;
+import bb.title.model.BigBalloon;
 import bb.title.model.TitleModel;
 
 import javax.swing.JComponent;
@@ -73,11 +73,11 @@ public class TitleScreen extends JComponent {
 	}
 
 	private void paintBalloons(Graphics g) {
-		List<Balloon> balloons = titleModel.getBalloons();
+		List<BigBalloon> balloons = titleModel.getBalloons();
 		balloons.forEach(balloon -> paintBalloon(g, balloon));
 	}
 
-	private void paintBalloon(Graphics g, Balloon balloon) {
+	private void paintBalloon(Graphics g, BigBalloon balloon) {
 		int xOffset = -SPRITE_WIDTH_PX / 2;
 		int yOffset = -SPRITE_HEIGHT_PX / 2;
 		int x = balloon.getX();
@@ -88,7 +88,7 @@ public class TitleScreen extends JComponent {
 		g.translate(-xOffset, -yOffset);
 	}
 
-	private BufferedImage getBalloonSprite(Balloon balloon) {
+	private BufferedImage getBalloonSprite(BigBalloon balloon) {
 		int colorIndex = -1;
 		switch (balloon.getColor()) {
 			case RED:
