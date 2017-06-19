@@ -1,6 +1,8 @@
-![Screenshot](bb-title.png)
+![Screenshot](screenshots/bb-title.png)
 
-![Screenshot](bb.png)
+![Screenshot](screenshots/bb-backstory.png)
+
+![Screenshot](screenshots/bb-arena.png)
 
 **NOTE:** Blog posts forthcoming for each of the following sessions. See https://progtuts.com/.
 
@@ -30,6 +32,7 @@ Here are some extra weeks in case you get bored.
 | ---- | ----- | -------- |
 | 11 | Adding a title screen | |
 | 12 | Adding a backstory screen | |
+| 13 | Adding a roster screen | |
 
 # Running the game
 
