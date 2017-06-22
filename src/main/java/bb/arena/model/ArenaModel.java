@@ -1,9 +1,10 @@
 package bb.arena.model;
 
-import bb.arena.event.EntityState;
 import bb.arena.event.ArenaEvent;
 import bb.arena.event.ArenaEvents;
 import bb.arena.event.ArenaListener;
+import bb.arena.event.EntityState;
+import bb.core.model.GameModel;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -12,7 +13,7 @@ import java.util.ListIterator;
 /**
  * Created by willie on 6/4/17.
  */
-public class ArenaModel {
+public class ArenaModel implements GameModel {
 	private static final int INIT_NUM_OBSTACLES = 15;
 	private static final int INIT_NUM_JUDOS = 10;
 	
@@ -57,6 +58,13 @@ public class ArenaModel {
 		return judos;
 	}
 
+	@Override
+	public boolean isActive() {
+		// TODO Set this false when the game is over
+		return true;
+	}
+
+	@Override
 	public void update() {
 		if (player.getState() != EntityState.GONE) {
 			updateEntities();

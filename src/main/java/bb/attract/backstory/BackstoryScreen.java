@@ -1,21 +1,19 @@
-package bb.backstory;
+package bb.attract.backstory;
 
 import bb.core.view.FontFactory;
+import bb.core.view.GameScreen;
 
-import javax.swing.JComponent;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
 
 import static bb.BBConfig.FRAMES_PER_SECOND;
-import static bb.BBConfig.SCREEN_SIZE_PX;
 
 /**
  * Created by willie on 6/18/17.
  */
-public class BackstoryScreen extends JComponent {
+public class BackstoryScreen extends GameScreen {
 	private static final int X_OFFSET = 20;
 	private static final int Y_OFFSET = 40;
 
@@ -38,20 +36,9 @@ public class BackstoryScreen extends JComponent {
 	}
 
 	@Override
-	public Dimension getPreferredSize() {
-		return SCREEN_SIZE_PX;
-	}
-
-	@Override
 	public void paint(Graphics g) {
-		paintBackground(g);
+		super.paint(g);
 		paintBackstory(g);
-	}
-
-	private void paintBackground(Graphics g) {
-		Dimension screenSize = getSize();
-		g.setColor(Color.BLACK);
-		g.fillRect(0, 0, screenSize.width, screenSize.height);
 	}
 
 	private void paintBackstory(Graphics g) {

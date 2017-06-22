@@ -1,7 +1,18 @@
 package bb;
 
 import bb.arena.ArenaController;
-import bb.backstory.BackstoryController;
+import bb.arena.model.ArenaModel;
+import bb.arena.view.ArenaScreen;
+import bb.attract.backstory.BackstoryController;
+import bb.attract.backstory.BackstoryModel;
+import bb.attract.backstory.BackstoryScreen;
+import bb.attract.roster.Actor;
+import bb.attract.roster.RosterController;
+import bb.attract.roster.RosterModel;
+import bb.attract.roster.RosterScreen;
+import bb.attract.title.TitleController;
+import bb.attract.title.TitleModel;
+import bb.attract.title.TitleScreen;
 import bb.core.GameController;
 import bb.core.audio.AudioFactory;
 import bb.core.event.GameEvent;
@@ -10,12 +21,15 @@ import bb.core.view.FontFactory;
 import bb.core.view.ImageFactory;
 import bb.core.view.Resizer;
 import bb.core.view.SpriteFactory;
-import bb.title.TitleController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
+import java.util.LinkedList;
+import java.util.List;
+
+// TODO Move attact mode logic into a dedicated controller [WLW]
 
 public class BB extends JFrame {
 	private static final Logger log = LoggerFactory.getLogger(BB.class);
@@ -36,22 +50,6 @@ public class BB extends JFrame {
 		this.gameHandler = new GameHandler();
 	}
 
-	public FontFactory getFontFactory() {
-		return fontFactory;
-	}
-
-	public ImageFactory getImageFactory() {
-		return imageFactory;
-	}
-
-	public SpriteFactory getSpriteFactory() {
-		return spriteFactory;
-	}
-
-	public AudioFactory getAudioFactory() {
-		return audioFactory;
-	}
-
 	public void launch() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -63,18 +61,38 @@ public class BB extends JFrame {
 		setLocationRelativeTo(null);
 		setVisible(true);
 		startTitle();
+//		startRoster();
 	}
 
-	public void startTitle() {
-		setCurrentController(new TitleController(fontFactory, imageFactory, spriteFactory, gameHandler));
+	private void startTitle() {
+		TitleModel model = new TitleModel();
+		TitleScreen screen = new TitleScreen(model, fontFactory, imageFactory, spriteFactory);
+		setCurrentController(new TitleController(model, screen, gameHandler));
 	}
 
-	public void startBackstory() {
-		setCurrentController(new BackstoryController(fontFactory, gameHandler));
+	private void startBackstory() {
+		BackstoryModel model = new BackstoryModel();
+		BackstoryScreen screen = new BackstoryScreen(model, fontFactory);
+		setCurrentController(new BackstoryController(model, screen, gameHandler));
 	}
 
-	public void startGame(int numPlayers) {
-		setCurrentController(new ArenaController(this));
+	private void startRoster() {
+		RosterModel model = new RosterModel();
+
+		Actor lexi = new Actor(model.getLexiModel());
+		lexi.setBlinkingSprites(spriteFactory.getLexiBlinking());
+
+		List<Actor> actors = new LinkedList<>();
+		actors.add(lexi);
+
+		RosterScreen screen = new RosterScreen(model, actors);
+		setCurrentController(new RosterController(model, screen, gameHandler));
+	}
+
+	private void startGame(int numPlayers) {
+		ArenaModel model = new ArenaModel();
+		ArenaScreen screen = new ArenaScreen(model, fontFactory, spriteFactory);
+		setCurrentController(new ArenaController(model, screen, audioFactory, gameHandler));
 	}
 
 	private void setCurrentController(GameController controller) {
@@ -84,7 +102,7 @@ public class BB extends JFrame {
 		}
 
 		this.currentController = controller;
-		setContentPane(new Resizer(controller.getScreen()));
+		setContentPane(new Resizer(controller.getGameScreen()));
 		validate();
 		addKeyListener(currentController.getKeyListener());
 		currentController.start();
@@ -107,6 +125,8 @@ public class BB extends JFrame {
 				if (source instanceof TitleController) {
 					startBackstory();
 				} else if (source instanceof BackstoryController) {
+					startRoster();
+				} else if (source instanceof RosterController) {
 					startTitle();
 				} else {
 					throw new IllegalStateException("Unknown source: " + source);

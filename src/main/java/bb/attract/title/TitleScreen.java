@@ -1,22 +1,22 @@
-package bb.title;
+package bb.attract.title;
 
 import bb.core.view.FontFactory;
+import bb.core.view.GameScreen;
 import bb.core.view.ImageFactory;
 import bb.core.view.SpriteFactory;
 
-import javax.swing.JComponent;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.List;
 
-import static bb.BBConfig.*;
+import static bb.BBConfig.SPRITE_HEIGHT_PX;
+import static bb.BBConfig.SPRITE_WIDTH_PX;
 
 /**
  * Created by willie on 6/17/17.
  */
-public class TitleScreen extends JComponent {
+public class TitleScreen extends GameScreen {
 	private TitleModel titleModel;
 	private FontFactory fontFactory;
 	private ImageFactory imageFactory;
@@ -41,21 +41,10 @@ public class TitleScreen extends JComponent {
 	}
 
 	@Override
-	public Dimension getPreferredSize() {
-		return SCREEN_SIZE_PX;
-	}
-
-	@Override
 	public void paint(Graphics g) {
-		paintBackground(g);
+		super.paint(g);
 		paintText(g);
 		paintBalloons(g);
-	}
-
-	private void paintBackground(Graphics g) {
-		Dimension screenSize = getSize();
-		g.setColor(Color.BLACK);
-		g.fillRect(0, 0, screenSize.width, screenSize.height);
 	}
 
 	private void paintText(Graphics g) {

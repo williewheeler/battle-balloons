@@ -16,6 +16,8 @@ public class SpriteFactory {
 	private BufferedImage[] lexi;
 	private BufferedImage[] lexiEntering;
 	private BufferedImage[] lexiExiting;
+	private BufferedImage[] lexiBlinking;
+
 	private BufferedImage[] judo;
 	private BufferedImage[] judoEntering;
 	private BufferedImage[] judoExiting;
@@ -30,6 +32,7 @@ public class SpriteFactory {
 		this.lexi = buildCharacterSprites(sheet, 0);
 		this.lexiEntering = spaghettify(lexi[4], Player.ENTERING_DURATION);
 		this.lexiExiting = spaghettify(lexi[4], Player.EXITING_DURATION);
+		this.lexiBlinking = buildLexiBlinking(sheet);
 		
 		this.judo = buildCharacterSprites(sheet, 1);
 		this.judoEntering = spaghettify(judo[4], Judo.ENTERING_DURATION);
@@ -53,7 +56,11 @@ public class SpriteFactory {
 	public BufferedImage getLexiLife() {
 		return lexi[4];
 	}
-	
+
+	public BufferedImage[] getLexiBlinking() {
+		return lexiBlinking;
+	}
+
 	public BufferedImage[] getJudo() {
 		return judo;
 	}
@@ -76,13 +83,18 @@ public class SpriteFactory {
 			if (i % 4 == 2) {
 				sprites[i] = sprites[i - 2];
 			} else {
-				int x = col * SPRITE_WIDTH_PX;
-				int y = row * SPRITE_HEIGHT_PX;
-				sprites[i] = sheet.getSubimage(x, y, SPRITE_WIDTH_PX, SPRITE_HEIGHT_PX);
+				sprites[i] = buildSprite(sheet, row, col);
 				col++;
 			}
 		}
 		return sprites;
+	}
+
+	private BufferedImage[] buildLexiBlinking(BufferedImage sheet) {
+		return new BufferedImage[] {
+				lexi[4],
+				buildSprite(sheet, 0, 13)
+		};
 	}
 
 	private BufferedImage[] spaghettify(BufferedImage sprite, int numFrames) {
@@ -111,13 +123,17 @@ public class SpriteFactory {
 		BufferedImage[][] sprites = new BufferedImage[numColors][numRotations];
 		for (int i = 0; i < numColors; i++) {
 			for (int j = 0; j < numRotations; j++) {
-				// Balloons start at column 13
-				int col = 13 + j;
-				int x = col * SPRITE_WIDTH_PX;
-				int y = i * SPRITE_HEIGHT_PX;
-				sprites[i][j] = sheet.getSubimage(x, y, SPRITE_WIDTH_PX, SPRITE_HEIGHT_PX);
+				// Balloons start at column 20
+				int col = 20 + j;
+				sprites[i][j] = buildSprite(sheet, i, col);
 			}
 		}
 		return sprites;
+	}
+
+	private BufferedImage buildSprite(BufferedImage sheet, int row, int col) {
+		int x = col * SPRITE_WIDTH_PX;
+		int y = row * SPRITE_HEIGHT_PX;
+		return sheet.getSubimage(x, y, SPRITE_WIDTH_PX, SPRITE_HEIGHT_PX);
 	}
 }

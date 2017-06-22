@@ -1,11 +1,13 @@
-package bb.backstory;
+package bb.attract.backstory;
+
+import bb.core.model.GameModel;
 
 import static bb.BBConfig.FRAMES_PER_SECOND;
 
 /**
  * Created by willie on 6/18/17.
  */
-public class BackstoryModel {
+public class BackstoryModel implements GameModel {
 	private static final String BACKSTORY =
 			"BATTLE BALLOONS\n\n" +
 			"IN THE YEAR 2112 THERE LIVES A GROUP OF FRIENDS:\n" +
@@ -31,10 +33,12 @@ public class BackstoryModel {
 		return counter;
 	}
 
+	@Override
 	public boolean isActive() {
 		return activeCountdown > 0;
 	}
 
+	@Override
 	public void update() {
 		this.counter++;
 		this.activeCountdown--;

@@ -1,77 +1,37 @@
 package bb.arena;
 
-import bb.BB;
-import bb.arena.model.ArenaModel;
-import bb.arena.model.DirectionIntent;
-import bb.arena.model.Player;
 import bb.arena.event.ArenaEvent;
 import bb.arena.event.ArenaEvents;
 import bb.arena.event.ArenaListener;
+import bb.arena.model.ArenaModel;
+import bb.arena.model.DirectionIntent;
+import bb.arena.model.Player;
 import bb.arena.view.ArenaScreen;
-import bb.core.GameController;
+import bb.core.AbstractGameController;
 import bb.core.audio.AudioFactory;
+import bb.core.event.GameListener;
 
-import javax.swing.JComponent;
-import javax.swing.Timer;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-
-import static bb.BBConfig.FRAME_PERIOD_MS;
 
 /**
  * Created by willie on 6/17/17.
  */
-public class ArenaController implements GameController {
-	private BB bb;
-	private ArenaModel arenaModel;
-	private ArenaScreen arenaScreen;
-	private TickHandler tickHandler;
-	private KeyHandler keyHandler;
+public class ArenaController extends AbstractGameController {
 	private AudioHandler audioHandler;
-	private Timer timer;
 
-	public ArenaController(BB bb) {
-		this.bb = bb;
-		this.arenaModel = new ArenaModel();
-		this.arenaScreen = new ArenaScreen(arenaModel, bb.getFontFactory(), bb.getSpriteFactory());
-		this.tickHandler = new TickHandler();
-		this.audioHandler = new AudioHandler(bb.getAudioFactory());
-		this.keyHandler = new KeyHandler(arenaModel.getPlayer());
+	public ArenaController(
+			ArenaModel model,
+			ArenaScreen screen,
+			AudioFactory audioFactory,
+			GameListener gameListener) {
 
-		this.timer = new Timer(FRAME_PERIOD_MS, tickHandler);
-		arenaModel.addGameListener(audioHandler);
-	}
+		super(model, screen, gameListener);
 
-	@Override
-	public void start() {
-		timer.start();
-	}
+		setKeyListener(new KeyHandler(model.getPlayer()));
 
-	@Override
-	public void stop() {
-		timer.stop();
-	}
-
-	@Override
-	public JComponent getScreen() {
-		return arenaScreen;
-	}
-
-	@Override
-	public KeyListener getKeyListener() {
-		return keyHandler;
-	}
-
-	private class TickHandler implements ActionListener {
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			arenaModel.update();
-			bb.repaint();
-		}
+		this.audioHandler = new AudioHandler(audioFactory);
+		model.addGameListener(audioHandler);
 	}
 
 	private class KeyHandler extends KeyAdapter {

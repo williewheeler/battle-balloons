@@ -1,5 +1,7 @@
 package bb.core;
 
+import bb.core.model.GameModel;
+
 import javax.swing.JComponent;
 import java.awt.event.KeyListener;
 
@@ -8,11 +10,13 @@ import java.awt.event.KeyListener;
  */
 public interface GameController {
 
+	GameModel getGameModel();
+
+	JComponent getGameScreen();
+
+	KeyListener getKeyListener();
+
 	void start();
 
 	void stop();
-
-	JComponent getScreen();
-
-	KeyListener getKeyListener();
 }

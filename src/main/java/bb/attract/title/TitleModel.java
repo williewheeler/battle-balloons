@@ -1,18 +1,18 @@
-package bb.title;
+package bb.attract.title;
+
+import bb.core.model.GameModel;
 
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Random;
 
-import static bb.BBConfig.FRAMES_PER_SECOND;
-import static bb.BBConfig.SCREEN_HEIGHT_PX;
-import static bb.BBConfig.SCREEN_WIDTH_PX;
+import static bb.BBConfig.*;
 
 /**
  * Created by willie on 6/17/17.
  */
-public class TitleModel {
+public class TitleModel implements GameModel {
 	private static final int NUM_FRAMES_ACTIVE = 20 * FRAMES_PER_SECOND;
 	private static final double CREATE_PROBABILITY = 0.33;
 	private static final int BASE_DX = 4;
@@ -25,10 +25,12 @@ public class TitleModel {
 		return balloons;
 	}
 
+	@Override
 	public boolean isActive() {
 		return activeCountdown > 0;
 	}
 
+	@Override
 	public void update() {
 		garbageCollect();
 		balloons.forEach(balloon -> balloon.update());
