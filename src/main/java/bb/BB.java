@@ -1,14 +1,16 @@
 package bb;
 
+import bb.actor.Actor;
+import bb.actor.ActorModel;
+import bb.actor.ActorView;
+import bb.actor.ActorViewFactory;
 import bb.arena.ArenaController;
 import bb.arena.model.ArenaModel;
 import bb.arena.view.ArenaScreen;
 import bb.attract.backstory.BackstoryController;
 import bb.attract.backstory.BackstoryModel;
 import bb.attract.backstory.BackstoryScreen;
-import bb.attract.roster.Actor;
 import bb.attract.roster.RosterController;
-import bb.attract.roster.RosterModel;
 import bb.attract.roster.RosterScreen;
 import bb.attract.title.TitleController;
 import bb.attract.title.TitleModel;
@@ -26,8 +28,6 @@ import org.slf4j.LoggerFactory;
 
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
-import java.util.LinkedList;
-import java.util.List;
 
 // TODO Move attact mode logic into a dedicated controller [WLW]
 
@@ -38,6 +38,7 @@ public class BB extends JFrame {
 	private ImageFactory imageFactory;
 	private SpriteFactory spriteFactory;
 	private AudioFactory audioFactory;
+	private ActorViewFactory actorViewFactory;
 	private GameHandler gameHandler;
 	private GameController currentController;
 
@@ -47,6 +48,7 @@ public class BB extends JFrame {
 		this.imageFactory = new ImageFactory();
 		this.spriteFactory = new SpriteFactory(imageFactory);
 		this.audioFactory = new AudioFactory();
+		this.actorViewFactory = new ActorViewFactory(spriteFactory);
 		this.gameHandler = new GameHandler();
 	}
 
@@ -77,17 +79,14 @@ public class BB extends JFrame {
 	}
 
 	private void startRoster() {
-		RosterModel model = new RosterModel();
+		ActorModel lexiModel = new ActorModel(80, 150);
+		ActorView lexiView = actorViewFactory.createLexiView(lexiModel);
+		Actor lexi = new Actor(lexiModel, lexiView);
 
-		Actor lexi = new Actor(model.getLexiModel());
-		lexi.setBlinkingSprites(spriteFactory.getLexiBlinking());
-		lexi.setWavingSprites(spriteFactory.getLexiWaving());
+		RosterScreen screen = new RosterScreen();
+		screen.addActor(lexi);
 
-		List<Actor> actors = new LinkedList<>();
-		actors.add(lexi);
-
-		RosterScreen screen = new RosterScreen(model, actors);
-		setCurrentController(new RosterController(model, screen, gameHandler));
+		setCurrentController(new RosterController(screen, gameHandler));
 	}
 
 	private void startGame(int numPlayers) {

@@ -1,23 +1,27 @@
 package bb.attract.roster;
 
+import bb.actor.Actor;
+import bb.actor.ActorModel;
 import bb.core.view.GameScreen;
 
 import java.awt.Graphics;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Random;
 
 /**
  * Created by willie on 6/19/17.
  */
 public class RosterScreen extends GameScreen {
-	private static final Random RANDOM = new Random();
+	private final RosterModel rosterModel = new RosterModel();
+	private final List<Actor> actors = new LinkedList<>();
 
-	private RosterModel rosterModel;
-	private List<Actor> actors;
+	public RosterModel getRosterModel() {
+		return rosterModel;
+	}
 
-	public RosterScreen(RosterModel rosterModel, List<Actor> actors) {
-		this.rosterModel = rosterModel;
-		this.actors = actors;
+	public void addActor(Actor actor) {
+		actors.add(actor);
+		rosterModel.addActorModel(actor.getModel());
 	}
 
 	@Override

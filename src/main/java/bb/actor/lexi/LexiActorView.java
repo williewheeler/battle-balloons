@@ -1,4 +1,8 @@
-package bb.attract.roster;
+package bb.actor.lexi;
+
+import bb.actor.ActorModel;
+import bb.actor.ActorView;
+import bb.core.util.Assert;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
@@ -7,16 +11,20 @@ import static bb.BBConfig.SPRITE_HEIGHT_PX;
 import static bb.BBConfig.SPRITE_WIDTH_PX;
 
 /**
- * Created by willie on 6/21/17.
+ * Created by willie on 6/24/17.
  */
-public class Actor {
+public class LexiActorView implements ActorView {
 	private ActorModel model;
+	private LexiActorViewState viewState;
+
 	private BufferedImage[] walkingSprites;
 	private BufferedImage[] blinkingSprites;
 	private BufferedImage[] wavingSprites;
 
-	public Actor(ActorModel model) {
+	public LexiActorView(ActorModel model) {
+		Assert.notNull(model, "model can't be null");
 		this.model = model;
+		this.viewState = new LexiActorViewState();
 	}
 
 	public void setWalkingSprites(BufferedImage[] walkingSprites) {
@@ -31,6 +39,8 @@ public class Actor {
 		this.wavingSprites = wavingSprites;
 	}
 
+	// TODO Consider moving this to an abstract base class. [WLW]
+	@Override
 	public void paint(Graphics g) {
 		BufferedImage sprite = getCurrentSprite();
 		int adjX = model.getX() - SPRITE_WIDTH_PX;
@@ -41,8 +51,11 @@ public class Actor {
 	}
 
 	private BufferedImage getCurrentSprite() {
+
+		// TODO Move these microstates into the view state.
+		BufferedImage[] sprites;
 		int index = -1;
-		switch (model.getBehavior()) {
+		switch (model.getState()) {
 			case BLINKING:
 				index = (model.getEyesOpen() ? 0 : 1);
 				return blinkingSprites[index];

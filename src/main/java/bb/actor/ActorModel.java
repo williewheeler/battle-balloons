@@ -1,4 +1,4 @@
-package bb.attract.roster;
+package bb.actor;
 
 import java.util.Random;
 
@@ -15,7 +15,7 @@ public class ActorModel {
 
 	private int x;
 	private int y;
-	private ActorBehavior behavior;
+	private ActorModelState state;
 	private boolean eyesOpen = true;
 	private int blinkCountdown = generateBlinkDuration();
 	private boolean wavingLeft = true;
@@ -24,6 +24,7 @@ public class ActorModel {
 	public ActorModel(int x, int y) {
 		this.x = x;
 		this.y = y;
+		this.state = ActorModelState.BLINKING;
 	}
 
 	public int getX() {
@@ -42,12 +43,12 @@ public class ActorModel {
 		this.y = y;
 	}
 
-	public ActorBehavior getBehavior() {
-		return behavior;
+	public ActorModelState getState() {
+		return state;
 	}
 
-	public void setBehavior(ActorBehavior behavior) {
-		this.behavior = behavior;
+	public void setState(ActorModelState state) {
+		this.state = state;
 	}
 
 	public boolean getEyesOpen() {
@@ -58,8 +59,9 @@ public class ActorModel {
 		return wavingLeft;
 	}
 
+	// TODO Replace this with an explicit state machine.
 	public void update() {
-		switch (behavior) {
+		switch (state) {
 			case BLINKING:
 				if (eyesOpen) {
 					if (blinkCountdown == 0) {
