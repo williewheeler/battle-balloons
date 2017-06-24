@@ -63,7 +63,7 @@ public class ActorModel {
 				this.blinkCountdown = generateBlinkDuration();
 			}
 		}
-		this.blinkCountdown--;
+		this.blinkCountdown = Math.max(0, blinkCountdown - 1);
 	}
 
 	private int generateBlinkDuration() {
