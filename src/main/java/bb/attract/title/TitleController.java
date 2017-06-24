@@ -1,8 +1,8 @@
 package bb.attract.title;
 
-import bb.core.AbstractGameController;
-import bb.core.event.GameEvent;
-import bb.core.event.GameListener;
+import bb.framework.AbstractGameController;
+import bb.framework.event.GameEvent;
+import bb.framework.event.GameListener;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;

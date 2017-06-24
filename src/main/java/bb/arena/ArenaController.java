@@ -7,9 +7,9 @@ import bb.arena.model.ArenaModel;
 import bb.arena.model.DirectionIntent;
 import bb.arena.model.Player;
 import bb.arena.view.ArenaScreen;
-import bb.core.AbstractGameController;
-import bb.core.audio.AudioFactory;
-import bb.core.event.GameListener;
+import bb.framework.AbstractGameController;
+import bb.common.audio.AudioFactory;
+import bb.framework.event.GameListener;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;

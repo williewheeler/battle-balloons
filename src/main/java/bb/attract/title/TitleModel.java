@@ -1,6 +1,6 @@
 package bb.attract.title;
 
-import bb.core.model.GameModel;
+import bb.framework.model.GameModel;
 
 import java.util.LinkedList;
 import java.util.List;

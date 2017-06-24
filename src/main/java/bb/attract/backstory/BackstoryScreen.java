@@ -1,7 +1,7 @@
 package bb.attract.backstory;
 
-import bb.core.view.FontFactory;
-import bb.core.view.GameScreen;
+import bb.common.view.FontFactory;
+import bb.framework.view.GameScreen;
 
 import java.awt.Color;
 import java.awt.Graphics;

@@ -2,8 +2,8 @@ package bb.arena.view;
 
 import bb.arena.model.ArenaModel;
 import bb.arena.model.Player;
-import bb.core.view.FontFactory;
-import bb.core.view.SpriteFactory;
+import bb.common.view.FontFactory;
+import bb.common.view.SpriteFactory;
 
 import javax.swing.JComponent;
 import java.awt.Color;

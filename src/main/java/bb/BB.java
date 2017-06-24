@@ -1,9 +1,5 @@
 package bb;
 
-import bb.actor.Actor;
-import bb.actor.ActorModel;
-import bb.actor.ActorView;
-import bb.actor.ActorViewFactory;
 import bb.arena.ArenaController;
 import bb.arena.model.ArenaModel;
 import bb.arena.view.ArenaScreen;
@@ -15,14 +11,19 @@ import bb.attract.roster.RosterScreen;
 import bb.attract.title.TitleController;
 import bb.attract.title.TitleModel;
 import bb.attract.title.TitleScreen;
-import bb.core.GameController;
-import bb.core.audio.AudioFactory;
-import bb.core.event.GameEvent;
-import bb.core.event.GameListener;
-import bb.core.view.FontFactory;
-import bb.core.view.ImageFactory;
-import bb.core.view.Resizer;
-import bb.core.view.SpriteFactory;
+import bb.common.audio.AudioFactory;
+import bb.common.model.LexiModel;
+import bb.common.view.ActorViewFactory;
+import bb.common.view.FontFactory;
+import bb.common.view.LexiView;
+import bb.common.view.SpriteFactory;
+import bb.framework.GameController;
+import bb.framework.event.GameEvent;
+import bb.framework.event.GameListener;
+import bb.framework.model.Actor;
+import bb.framework.view.FontLoader;
+import bb.framework.view.ImageLoader;
+import bb.framework.view.Resizer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,21 +35,28 @@ import javax.swing.SwingUtilities;
 public class BB extends JFrame {
 	private static final Logger log = LoggerFactory.getLogger(BB.class);
 
+	private FontLoader fontLoader;
+	private ImageLoader imageLoader;
+
 	private FontFactory fontFactory;
-	private ImageFactory imageFactory;
 	private SpriteFactory spriteFactory;
 	private AudioFactory audioFactory;
 	private ActorViewFactory actorViewFactory;
+
 	private GameHandler gameHandler;
 	private GameController currentController;
 
 	public BB() {
 		super("Battle Balloons");
-		this.fontFactory = new FontFactory();
-		this.imageFactory = new ImageFactory();
-		this.spriteFactory = new SpriteFactory(imageFactory);
+
+		this.fontLoader = new FontLoader();
+		this.imageLoader = new ImageLoader();
+
+		this.fontFactory = new FontFactory(fontLoader);
+		this.spriteFactory = new SpriteFactory(imageLoader);
 		this.audioFactory = new AudioFactory();
 		this.actorViewFactory = new ActorViewFactory(spriteFactory);
+
 		this.gameHandler = new GameHandler();
 	}
 
@@ -68,7 +76,7 @@ public class BB extends JFrame {
 
 	private void startTitle() {
 		TitleModel model = new TitleModel();
-		TitleScreen screen = new TitleScreen(model, fontFactory, imageFactory, spriteFactory);
+		TitleScreen screen = new TitleScreen(model, fontFactory, imageLoader, spriteFactory);
 		setCurrentController(new TitleController(model, screen, gameHandler));
 	}
 
@@ -79,8 +87,8 @@ public class BB extends JFrame {
 	}
 
 	private void startRoster() {
-		ActorModel lexiModel = new ActorModel(80, 150);
-		ActorView lexiView = actorViewFactory.createLexiView(lexiModel);
+		LexiModel lexiModel = new LexiModel(80, 150);
+		LexiView lexiView = actorViewFactory.createLexiView(lexiModel);
 		Actor lexi = new Actor(lexiModel, lexiView);
 
 		RosterScreen screen = new RosterScreen();

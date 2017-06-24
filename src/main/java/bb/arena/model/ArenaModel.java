@@ -4,7 +4,7 @@ import bb.arena.event.ArenaEvent;
 import bb.arena.event.ArenaEvents;
 import bb.arena.event.ArenaListener;
 import bb.arena.event.EntityState;
-import bb.core.model.GameModel;
+import bb.framework.model.GameModel;
 
 import java.util.LinkedList;
 import java.util.List;

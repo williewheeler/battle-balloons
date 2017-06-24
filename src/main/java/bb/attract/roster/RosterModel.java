@@ -1,7 +1,7 @@
 package bb.attract.roster;
 
-import bb.actor.ActorModel;
-import bb.core.model.GameModel;
+import bb.framework.model.AbstractActorModel;
+import bb.framework.model.GameModel;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -16,11 +16,11 @@ public class RosterModel implements GameModel {
 	// TODO Implement an AbstractGameModel that handles the activeCountdown automatically.
 	private static final int NUM_FRAMES_ACTIVE = 20 * FRAMES_PER_SECOND;
 
-	private final List<ActorModel> actorModels = new LinkedList<>();
+	private final List<AbstractActorModel> actorModels = new LinkedList<>();
 
 	private int activeCountdown = NUM_FRAMES_ACTIVE;
 
-	public void addActorModel(ActorModel actorModel) {
+	public void addActorModel(AbstractActorModel actorModel) {
 		actorModels.add(actorModel);
 	}
 

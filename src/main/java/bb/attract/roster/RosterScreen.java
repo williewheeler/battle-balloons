@@ -1,8 +1,7 @@
 package bb.attract.roster;
 
-import bb.actor.Actor;
-import bb.actor.ActorModel;
-import bb.core.view.GameScreen;
+import bb.framework.model.Actor;
+import bb.framework.view.GameScreen;
 
 import java.awt.Graphics;
 import java.util.LinkedList;

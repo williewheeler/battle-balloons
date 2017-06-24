@@ -1,6 +1,6 @@
 package bb.attract.backstory;
 
-import bb.core.model.GameModel;
+import bb.framework.model.GameModel;
 
 import static bb.BBConfig.FRAMES_PER_SECOND;
 

@@ -1,9 +1,9 @@
 package bb.attract.title;
 
-import bb.core.view.FontFactory;
-import bb.core.view.GameScreen;
-import bb.core.view.ImageFactory;
-import bb.core.view.SpriteFactory;
+import bb.common.view.FontFactory;
+import bb.framework.view.GameScreen;
+import bb.framework.view.ImageLoader;
+import bb.common.view.SpriteFactory;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -19,7 +19,7 @@ import static bb.BBConfig.SPRITE_WIDTH_PX;
 public class TitleScreen extends GameScreen {
 	private TitleModel titleModel;
 	private FontFactory fontFactory;
-	private ImageFactory imageFactory;
+	private ImageLoader imageLoader;
 	private SpriteFactory spriteFactory;
 
 	private BufferedImage titleImage;
@@ -28,15 +28,15 @@ public class TitleScreen extends GameScreen {
 	public TitleScreen(
 			TitleModel titleModel,
 			FontFactory fontFactory,
-			ImageFactory imageFactory,
+			ImageLoader imageLoader,
 			SpriteFactory spriteFactory) {
 
 		this.titleModel = titleModel;
 		this.fontFactory = fontFactory;
-		this.imageFactory = imageFactory;
+		this.imageLoader = imageLoader;
 		this.spriteFactory = spriteFactory;
 
-		this.titleImage = imageFactory.loadImage("images/bb-title.png");
+		this.titleImage = imageLoader.loadImage("images/bb-title.png");
 		this.balloonSprites = spriteFactory.getBalloons();
 	}
 
