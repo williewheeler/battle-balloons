@@ -60,8 +60,8 @@ public class BB extends JFrame {
 		setResizable(false);
 		setLocationRelativeTo(null);
 		setVisible(true);
-//		startTitle();
-		startRoster();
+		startTitle();
+//		startRoster();
 	}
 
 	private void startTitle() {
