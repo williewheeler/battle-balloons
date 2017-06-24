@@ -41,14 +41,16 @@ public class Actor {
 	}
 
 	private BufferedImage getCurrentSprite() {
+		int index = -1;
 		switch (model.getBehavior()) {
 			case BLINKING:
-				int index = (model.getEyesOpen() ? 0 : 1);
+				index = (model.getEyesOpen() ? 0 : 1);
 				return blinkingSprites[index];
 			case WALKING:
 				return null;
 			case WAVING:
-				return null;
+				index = (model.getWavingLeft() ? 0 : 1);
+				return wavingSprites[index];
 			default:
 				return null;
 		}

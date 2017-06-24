@@ -60,8 +60,8 @@ public class BB extends JFrame {
 		setResizable(false);
 		setLocationRelativeTo(null);
 		setVisible(true);
-		startTitle();
-//		startRoster();
+//		startTitle();
+		startRoster();
 	}
 
 	private void startTitle() {
@@ -81,6 +81,7 @@ public class BB extends JFrame {
 
 		Actor lexi = new Actor(model.getLexiModel());
 		lexi.setBlinkingSprites(spriteFactory.getLexiBlinking());
+		lexi.setWavingSprites(spriteFactory.getLexiWaving());
 
 		List<Actor> actors = new LinkedList<>();
 		actors.add(lexi);

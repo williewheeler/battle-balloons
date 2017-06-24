@@ -16,8 +16,9 @@ public class RosterModel implements GameModel {
 	private int activeCountdown = NUM_FRAMES_ACTIVE;
 
 	public RosterModel() {
-		this.lexiModel = new ActorModel(50, 150);
-		lexiModel.setBehavior(ActorBehavior.BLINKING);
+		this.lexiModel = new ActorModel(80, 150);
+//		lexiModel.setBehavior(ActorBehavior.BLINKING);
+		lexiModel.setBehavior(ActorBehavior.WAVING);
 	}
 
 	public ActorModel getLexiModel() {

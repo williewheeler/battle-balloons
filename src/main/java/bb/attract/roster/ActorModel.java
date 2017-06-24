@@ -9,6 +9,7 @@ public class ActorModel {
 	private static final double BLINK_DURATION_MEAN = 66.0;
 	private static final double BLINK_DURATION_STDEV = 33.0;
 	private static final int UNBLINK_DURATION = 5;
+	private static final int WAVE_DURATION = 4;
 
 	private static final Random RANDOM = new Random();
 
@@ -17,6 +18,8 @@ public class ActorModel {
 	private ActorBehavior behavior;
 	private boolean eyesOpen = true;
 	private int blinkCountdown = generateBlinkDuration();
+	private boolean wavingLeft = true;
+	private int waveCountdown = WAVE_DURATION;
 
 	public ActorModel(int x, int y) {
 		this.x = x;
@@ -51,19 +54,34 @@ public class ActorModel {
 		return eyesOpen;
 	}
 
+	public boolean getWavingLeft() {
+		return wavingLeft;
+	}
+
 	public void update() {
-		if (eyesOpen) {
-			if (blinkCountdown == 0) {
-				this.eyesOpen = false;
-				this.blinkCountdown = UNBLINK_DURATION;
-			}
-		} else {
-			if (blinkCountdown == 0) {
-				this.eyesOpen = true;
-				this.blinkCountdown = generateBlinkDuration();
-			}
+		switch (behavior) {
+			case BLINKING:
+				if (eyesOpen) {
+					if (blinkCountdown == 0) {
+						this.eyesOpen = false;
+						this.blinkCountdown = UNBLINK_DURATION;
+					}
+				} else {
+					if (blinkCountdown == 0) {
+						this.eyesOpen = true;
+						this.blinkCountdown = generateBlinkDuration();
+					}
+				}
+				this.blinkCountdown = Math.max(0, blinkCountdown - 1);
+				break;
+			case WAVING:
+				if (waveCountdown == 0) {
+					this.wavingLeft = !wavingLeft;
+					this.waveCountdown = WAVE_DURATION;
+				}
+				this.waveCountdown--;
+				break;
 		}
-		this.blinkCountdown = Math.max(0, blinkCountdown - 1);
 	}
 
 	private int generateBlinkDuration() {

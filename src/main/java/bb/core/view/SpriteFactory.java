@@ -17,6 +17,7 @@ public class SpriteFactory {
 	private BufferedImage[] lexiEntering;
 	private BufferedImage[] lexiExiting;
 	private BufferedImage[] lexiBlinking;
+	private BufferedImage[] lexiWaving;
 
 	private BufferedImage[] judo;
 	private BufferedImage[] judoEntering;
@@ -33,6 +34,7 @@ public class SpriteFactory {
 		this.lexiEntering = spaghettify(lexi[4], Player.ENTERING_DURATION);
 		this.lexiExiting = spaghettify(lexi[4], Player.EXITING_DURATION);
 		this.lexiBlinking = buildLexiBlinking(sheet);
+		this.lexiWaving = buildLexiWaving(sheet);
 		
 		this.judo = buildCharacterSprites(sheet, 1);
 		this.judoEntering = spaghettify(judo[4], Judo.ENTERING_DURATION);
@@ -59,6 +61,10 @@ public class SpriteFactory {
 
 	public BufferedImage[] getLexiBlinking() {
 		return lexiBlinking;
+	}
+
+	public BufferedImage[] getLexiWaving() {
+		return lexiWaving;
 	}
 
 	public BufferedImage[] getJudo() {
@@ -94,6 +100,13 @@ public class SpriteFactory {
 		return new BufferedImage[] {
 				lexi[4],
 				buildSprite(sheet, 0, 13)
+		};
+	}
+
+	private BufferedImage[] buildLexiWaving(BufferedImage sheet) {
+		return new BufferedImage[] {
+				buildSprite(sheet, 0, 14),
+				buildSprite(sheet, 0, 15)
 		};
 	}
 
