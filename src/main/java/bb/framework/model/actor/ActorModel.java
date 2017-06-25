@@ -7,7 +7,11 @@ public interface ActorModel {
 
 	int getX();
 
+	void changeX(int deltaX);
+
 	int getY();
+
+	void changeY(int deltaY);
 
 	void update();
 }

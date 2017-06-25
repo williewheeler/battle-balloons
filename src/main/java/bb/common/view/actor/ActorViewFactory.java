@@ -1,6 +1,7 @@
-package bb.common.view;
+package bb.common.view.actor;
 
 import bb.common.model.LexiModel;
+import bb.common.view.SpriteFactory;
 import bb.framework.util.Assert;
 
 /**
@@ -17,6 +18,7 @@ public class ActorViewFactory {
 	public LexiView createLexiView(LexiModel model) {
 		Assert.notNull(model, "model can't be null");
 		LexiView view = new LexiView(model);
+		view.setWalkingSprites(spriteFactory.getLexi());
 		view.setBlinkingSprites(spriteFactory.getLexiBlinking());
 		view.setWavingSprites(spriteFactory.getLexiWaving());
 		return view;

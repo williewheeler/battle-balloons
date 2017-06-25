@@ -9,6 +9,7 @@ import bb.framework.util.MathUtil;
 public class LexiModel extends AbstractActorModel {
 	public enum State {
 		BLINKING,
+		WALKING,
 		WAVING
 	}
 
@@ -28,6 +29,7 @@ public class LexiModel extends AbstractActorModel {
 	public LexiModel(int x, int y) {
 		super(x, y);
 		this.state = State.BLINKING;
+//		this.state = State.WALKING;
 	}
 
 	public State getState() {
@@ -59,6 +61,9 @@ public class LexiModel extends AbstractActorModel {
 					}
 				}
 				this.blinkCountdown = Math.max(0, blinkCountdown - 1);
+				break;
+			case WALKING:
+				changeX(2);
 				break;
 			case WAVING:
 				if (waveCountdown == 0) {
