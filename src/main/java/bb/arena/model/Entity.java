@@ -1,6 +1,7 @@
 package bb.arena.model;
 
 import bb.arena.event.EntityState;
+import bb.common.model.Direction;
 
 /**
  * Created by wwheeler on 6/11/17.

@@ -1,4 +1,4 @@
-package bb.arena.model;
+package bb.common.model;
 
 /**
  * Created by willie on 6/9/17.

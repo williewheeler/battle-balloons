@@ -1,6 +1,7 @@
 package bb.arena.model;
 
 import bb.arena.event.EntityState;
+import bb.common.model.Direction;
 
 import java.util.Random;
 

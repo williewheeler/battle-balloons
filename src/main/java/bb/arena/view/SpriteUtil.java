@@ -1,6 +1,6 @@
 package bb.arena.view;
 
-import bb.arena.model.Direction;
+import bb.common.model.Direction;
 import bb.arena.model.Entity;
 
 import java.awt.image.BufferedImage;

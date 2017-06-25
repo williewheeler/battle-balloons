@@ -19,4 +19,8 @@ public final class MathUtil {
 	public static double nextRandomGaussian() {
 		return RANDOM.nextGaussian();
 	}
+
+	public static double nextRandomGaussian(double mean, double stdev) {
+		return stdev * nextRandomGaussian() + mean;
+	}
 }
