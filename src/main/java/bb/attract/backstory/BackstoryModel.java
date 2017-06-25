@@ -1,13 +1,13 @@
 package bb.attract.backstory;
 
-import bb.framework.model.GameModel;
+import bb.framework.model.AbstractAttractModel;
 
 import static bb.BBConfig.FRAMES_PER_SECOND;
 
 /**
  * Created by willie on 6/18/17.
  */
-public class BackstoryModel implements GameModel {
+public class BackstoryModel extends AbstractAttractModel {
 	private static final String BACKSTORY =
 			"BATTLE BALLOONS\n\n" +
 			"IN THE YEAR 2112 THERE LIVES A GROUP OF FRIENDS:\n" +
@@ -20,27 +20,11 @@ public class BackstoryModel implements GameModel {
 			"CAN YOU SAVE HER FROM GETTING...\n" +
 			"GROUNDED?";
 
-	private static final int NUM_FRAMES_ACTIVE = 20 * FRAMES_PER_SECOND;
-
-	private int counter = 0;
-	private int activeCountdown = NUM_FRAMES_ACTIVE;
+	public BackstoryModel() {
+		super(20 * FRAMES_PER_SECOND);
+	}
 
 	public String getBackstory() {
 		return BACKSTORY;
-	}
-
-	public int getCounter() {
-		return counter;
-	}
-
-	@Override
-	public boolean isActive() {
-		return activeCountdown > 0;
-	}
-
-	@Override
-	public void update() {
-		this.counter++;
-		this.activeCountdown--;
 	}
 }

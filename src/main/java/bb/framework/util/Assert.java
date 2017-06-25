@@ -9,7 +9,15 @@ public final class Assert {
 	}
 
 	public static void notNull(Object o, String message) {
-		if (o == null) {
+		isTrue(o != null, message);
+	}
+
+	public static void isPositive(int n, String message) {
+		isTrue(n > 0, message);
+	}
+
+	public static void isTrue(boolean test, String message) {
+		if (!test) {
 			throw new IllegalArgumentException(message);
 		}
 	}
