@@ -1,6 +1,6 @@
 package bb.common.model;
 
-import bb.framework.model.AbstractActorModel;
+import bb.framework.model.actor.AbstractActorModel;
 import bb.framework.util.MathUtil;
 
 /**

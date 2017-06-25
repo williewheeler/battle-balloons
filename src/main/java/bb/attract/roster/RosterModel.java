@@ -1,6 +1,6 @@
 package bb.attract.roster;
 
-import bb.framework.model.AbstractActorModel;
+import bb.framework.model.actor.AbstractActorModel;
 import bb.framework.model.AbstractAttractModel;
 
 import java.util.LinkedList;

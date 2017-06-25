@@ -1,4 +1,4 @@
-package bb.framework.model;
+package bb.framework.model.actor;
 
 /**
  * Actor data relevant to actual gameplay, such as location and size. Excludes data purely view-related data, such as

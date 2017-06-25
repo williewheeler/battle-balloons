@@ -1,6 +1,6 @@
 package bb.attract.roster;
 
-import bb.framework.model.Actor;
+import bb.framework.model.actor.Actor;
 import bb.framework.view.GameScreen;
 
 import java.awt.Graphics;

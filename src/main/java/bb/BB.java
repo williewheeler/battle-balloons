@@ -20,7 +20,7 @@ import bb.common.view.SpriteFactory;
 import bb.framework.GameController;
 import bb.framework.event.GameEvent;
 import bb.framework.event.GameListener;
-import bb.framework.model.Actor;
+import bb.framework.model.actor.Actor;
 import bb.framework.view.FontLoader;
 import bb.framework.view.ImageLoader;
 import bb.framework.view.Resizer;
