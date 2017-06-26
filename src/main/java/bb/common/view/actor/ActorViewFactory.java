@@ -1,6 +1,8 @@
 package bb.common.view.actor;
 
 import bb.common.model.LexiModel;
+import bb.common.model.TextModel;
+import bb.common.view.FontFactory;
 import bb.common.view.SpriteFactory;
 import bb.framework.util.Assert;
 
@@ -9,10 +11,18 @@ import bb.framework.util.Assert;
  */
 public class ActorViewFactory {
 	private SpriteFactory spriteFactory;
+	private FontFactory fontFactory;
 
-	public ActorViewFactory(SpriteFactory spriteFactory) {
+	public ActorViewFactory(SpriteFactory spriteFactory, FontFactory fontFactory) {
 		Assert.notNull(spriteFactory, "spriteFactory can't be null");
+		Assert.notNull(fontFactory, "fontFactory can't be null");
 		this.spriteFactory = spriteFactory;
+		this.fontFactory = fontFactory;
+	}
+
+	public TextView createTextView(TextModel model) {
+		Assert.notNull(model, "model can't be null");
+		return new TextView(model, fontFactory);
 	}
 
 	public LexiView createLexiView(LexiModel model) {

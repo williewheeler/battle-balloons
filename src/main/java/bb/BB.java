@@ -15,10 +15,12 @@ import bb.attract.title.TitleScreen;
 import bb.common.audio.AudioFactory;
 import bb.common.model.LexiBrain;
 import bb.common.model.LexiModel;
+import bb.common.model.TextModel;
 import bb.common.view.FontFactory;
 import bb.common.view.SpriteFactory;
 import bb.common.view.actor.ActorViewFactory;
 import bb.common.view.actor.LexiView;
+import bb.common.view.actor.TextView;
 import bb.framework.GameController;
 import bb.framework.event.GameEvent;
 import bb.framework.event.GameListener;
@@ -57,7 +59,7 @@ public class BB extends JFrame {
 		this.fontFactory = new FontFactory(fontLoader);
 		this.spriteFactory = new SpriteFactory(imageLoader);
 		this.audioFactory = new AudioFactory();
-		this.actorViewFactory = new ActorViewFactory(spriteFactory);
+		this.actorViewFactory = new ActorViewFactory(spriteFactory, fontFactory);
 
 		this.gameHandler = new GameHandler();
 	}
@@ -89,6 +91,10 @@ public class BB extends JFrame {
 	}
 
 	private void startRoster() {
+		TextModel textModel = new TextModel("Hello, I'm Lexi.", 40, 140);
+		TextView textView = actorViewFactory.createTextView(textModel);
+		Actor text = new Actor(textModel, textView);
+
 		LexiBrain lexiBrain = new RosterLexiBrain();
 		LexiModel lexiModel = new LexiModel(lexiBrain, 50, 180);
 		LexiView lexiView = actorViewFactory.createLexiView(lexiModel);
@@ -96,6 +102,7 @@ public class BB extends JFrame {
 
 		RosterScreen screen = new RosterScreen();
 		screen.addActor(lexi);
+		screen.addActor(text);
 
 		setCurrentController(new RosterController(screen, gameHandler));
 	}
