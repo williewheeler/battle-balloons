@@ -5,7 +5,7 @@ import bb.arena.model.ArenaModel;
 import bb.arena.model.Judo;
 import bb.arena.model.Obstacle;
 import bb.arena.model.Player;
-import bb.common.view.SpriteFactory;
+import bb.common.view.factory.SpriteFactory;
 
 import javax.swing.JComponent;
 import java.awt.Color;

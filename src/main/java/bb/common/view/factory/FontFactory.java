@@ -1,4 +1,4 @@
-package bb.common.view;
+package bb.common.view.factory;
 
 import bb.framework.view.loader.FontLoader;
 

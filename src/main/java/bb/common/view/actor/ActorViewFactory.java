@@ -2,8 +2,8 @@ package bb.common.view.actor;
 
 import bb.common.model.LexiModel;
 import bb.common.model.TextModel;
-import bb.common.view.FontFactory;
-import bb.common.view.SpriteFactory;
+import bb.common.view.factory.FontFactory;
+import bb.common.view.factory.SpriteFactory;
 import bb.framework.util.Assert;
 
 /**

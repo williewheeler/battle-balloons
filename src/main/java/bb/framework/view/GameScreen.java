@@ -29,20 +29,12 @@ public class GameScreen extends JPanel {
 		return SCREEN_SIZE_PX;
 	}
 
-	public List<Actor> getActors() {
-		return actors;
-	}
-
 	public void addActor(Actor actor) {
 		actors.add(actor);
 	}
 
 	public boolean isActive() {
 		return active;
-	}
-
-	public void setActive(boolean active) {
-		this.active = active;
 	}
 
 	public void update() {
