@@ -11,12 +11,16 @@ import java.awt.Graphics;
 public class Actor {
 	private ActorModel model;
 	private ActorView view;
+	private boolean started;
+	private boolean stopped;
 
 	public Actor(ActorModel model, ActorView view) {
 		Assert.notNull(model, "model can't be null");
 		Assert.notNull(view, "view can't be null");
 		this.model = model;
 		this.view = view;
+		this.started = false;
+		this.stopped = false;
 	}
 
 	public ActorModel getModel() {
@@ -25,6 +29,22 @@ public class Actor {
 
 	public ActorView getView() {
 		return view;
+	}
+
+	public boolean getStarted() {
+		return started;
+	}
+
+	public void setStarted(boolean started) {
+		this.started = started;
+	}
+
+	public boolean getStopped() {
+		return stopped;
+	}
+
+	public void setStopped(boolean stopped) {
+		this.stopped = stopped;
 	}
 
 	public void paint(Graphics g) {

@@ -43,9 +43,10 @@ public class RosterLexiBrain extends LexiBrain {
 		} else if (counter == 40) {
 			setState(State.WALKING);
 			this.moveRight = true;
-		} else if (counter == 78){
+		} else if (counter == 78) {
 			setState(State.BLINKING);
 		}
+
 		this.counter++;
 	}
 }

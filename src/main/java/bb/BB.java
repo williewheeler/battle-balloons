@@ -8,7 +8,6 @@ import bb.attract.backstory.BackstoryModel;
 import bb.attract.backstory.BackstoryScreen;
 import bb.attract.roster.RosterController;
 import bb.attract.roster.RosterLexiBrain;
-import bb.attract.roster.RosterScreen;
 import bb.attract.title.TitleController;
 import bb.attract.title.TitleModel;
 import bb.attract.title.TitleScreen;
@@ -26,6 +25,7 @@ import bb.framework.event.GameEvent;
 import bb.framework.event.GameListener;
 import bb.framework.model.actor.Actor;
 import bb.framework.view.FontLoader;
+import bb.framework.view.GameScreen;
 import bb.framework.view.ImageLoader;
 import bb.framework.view.Resizer;
 import org.slf4j.Logger;
@@ -100,7 +100,7 @@ public class BB extends JFrame {
 		LexiView lexiView = actorViewFactory.createLexiView(lexiModel);
 		Actor lexi = new Actor(lexiModel, lexiView);
 
-		RosterScreen screen = new RosterScreen();
+		GameScreen screen = new GameScreen();
 		screen.addActor(lexi);
 		screen.addActor(text);
 

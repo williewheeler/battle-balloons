@@ -7,8 +7,6 @@ import bb.common.model.Direction;
  */
 public interface ActorModel {
 
-	ActorBrain getBrain();
-
 	int getX();
 
 	int getY();

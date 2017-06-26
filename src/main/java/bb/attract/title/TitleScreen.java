@@ -1,22 +1,23 @@
 package bb.attract.title;
 
 import bb.common.view.FontFactory;
-import bb.framework.view.GameScreen;
-import bb.framework.view.ImageLoader;
 import bb.common.view.SpriteFactory;
+import bb.framework.view.AttractScreen;
+import bb.framework.view.ImageLoader;
 
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.List;
 
-import static bb.BBConfig.SPRITE_HEIGHT_PX;
-import static bb.BBConfig.SPRITE_WIDTH_PX;
+import static bb.BBConfig.*;
 
 /**
  * Created by willie on 6/17/17.
  */
-public class TitleScreen extends GameScreen {
+public class TitleScreen extends AttractScreen {
+	private static final int TTL = 20 * FRAMES_PER_SECOND;
+
 	private TitleModel titleModel;
 	private FontFactory fontFactory;
 	private ImageLoader imageLoader;
@@ -31,6 +32,7 @@ public class TitleScreen extends GameScreen {
 			ImageLoader imageLoader,
 			SpriteFactory spriteFactory) {
 
+		super(TTL);
 		this.titleModel = titleModel;
 		this.fontFactory = fontFactory;
 		this.imageLoader = imageLoader;
@@ -38,6 +40,14 @@ public class TitleScreen extends GameScreen {
 
 		this.titleImage = imageLoader.loadImage("images/bb-title.png");
 		this.balloonSprites = spriteFactory.getBalloons();
+	}
+
+	// TODO Get rid of this once TitleModel is gone.
+	@Deprecated
+	@Override
+	public void update() {
+		super.update();
+		titleModel.update();
 	}
 
 	@Override

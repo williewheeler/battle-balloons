@@ -68,8 +68,9 @@ public abstract class AbstractGameController implements GameController {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if (gameModel.isActive()) {
-				gameModel.update();
+			// Use the game screen for lifecycle management, not the model, as the screen manages the actors.
+			if (gameScreen.isActive()) {
+				gameScreen.update();
 				gameScreen.getTopLevelAncestor().repaint();
 			} else {
 				fireGameEvent(GameEvent.SCREEN_EXPIRED);

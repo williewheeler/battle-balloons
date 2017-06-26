@@ -25,7 +25,6 @@ public abstract class AbstractActorModel implements ActorModel {
 		this.direction = Direction.DOWN;
 	}
 
-	@Override
 	public ActorBrain getBrain() {
 		return brain;
 	}
@@ -35,7 +34,7 @@ public abstract class AbstractActorModel implements ActorModel {
 		return x;
 	}
 
-	protected void changeX(int deltaX) {
+	public void changeX(int deltaX) {
 		this.x += deltaX;
 	}
 
@@ -44,7 +43,7 @@ public abstract class AbstractActorModel implements ActorModel {
 		return y;
 	}
 
-	protected void changeY(int deltaY) {
+	public void changeY(int deltaY) {
 		this.y += deltaY;
 	}
 
@@ -58,7 +57,7 @@ public abstract class AbstractActorModel implements ActorModel {
 		return direction;
 	}
 
-	protected void setDirection(Direction direction) {
+	public void setDirection(Direction direction) {
 		this.direction = direction;
 	}
 

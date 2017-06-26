@@ -1,7 +1,7 @@
 package bb.attract.backstory;
 
 import bb.common.view.FontFactory;
-import bb.framework.view.GameScreen;
+import bb.framework.view.AttractScreen;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -13,7 +13,8 @@ import static bb.BBConfig.FRAMES_PER_SECOND;
 /**
  * Created by willie on 6/18/17.
  */
-public class BackstoryScreen extends GameScreen {
+public class BackstoryScreen extends AttractScreen {
+	private static final int TTL = 20 * FRAMES_PER_SECOND;
 	private static final int X_OFFSET = 20;
 	private static final int Y_OFFSET = 40;
 
@@ -31,8 +32,17 @@ public class BackstoryScreen extends GameScreen {
 	private FontFactory fontFactory;
 
 	public BackstoryScreen(BackstoryModel backstoryModel, FontFactory fontFactory) {
+		super(TTL);
 		this.backstoryModel = backstoryModel;
 		this.fontFactory = fontFactory;
+	}
+
+	// TODO Get rid of this once BackstoryModel is gone.
+	@Deprecated
+	@Override
+	public void update() {
+		super.update();
+		backstoryModel.update();
 	}
 
 	@Override
