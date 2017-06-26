@@ -16,7 +16,7 @@ import static bb.BBConfig.*;
  * Created by willie on 6/17/17.
  */
 public class TitleScreen extends AttractScreen {
-	private static final int TTL = 20 * FRAMES_PER_SECOND;
+	private static final int TTL = 15 * FRAMES_PER_SECOND;
 
 	private TitleModel titleModel;
 	private FontFactory fontFactory;

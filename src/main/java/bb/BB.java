@@ -3,27 +3,19 @@ package bb;
 import bb.arena.ArenaController;
 import bb.arena.model.ArenaModel;
 import bb.arena.view.ArenaScreen;
+import bb.attract.AttractScreenFactory;
 import bb.attract.backstory.BackstoryController;
-import bb.attract.backstory.BackstoryModel;
-import bb.attract.backstory.BackstoryScreen;
 import bb.attract.roster.RosterController;
-import bb.attract.roster.RosterLexiBrain;
 import bb.attract.title.TitleController;
 import bb.attract.title.TitleModel;
 import bb.attract.title.TitleScreen;
 import bb.common.audio.AudioFactory;
-import bb.common.model.LexiBrain;
-import bb.common.model.LexiModel;
-import bb.common.model.TextModel;
 import bb.common.view.FontFactory;
 import bb.common.view.SpriteFactory;
 import bb.common.view.actor.ActorViewFactory;
-import bb.common.view.actor.LexiView;
-import bb.common.view.actor.TextView;
 import bb.framework.GameController;
 import bb.framework.event.GameEvent;
 import bb.framework.event.GameListener;
-import bb.framework.model.actor.Actor;
 import bb.framework.view.FontLoader;
 import bb.framework.view.GameScreen;
 import bb.framework.view.ImageLoader;
@@ -46,6 +38,7 @@ public class BB extends JFrame {
 	private SpriteFactory spriteFactory;
 	private AudioFactory audioFactory;
 	private ActorViewFactory actorViewFactory;
+	private AttractScreenFactory attractScreenFactory;
 
 	private GameHandler gameHandler;
 	private GameController currentController;
@@ -60,6 +53,7 @@ public class BB extends JFrame {
 		this.spriteFactory = new SpriteFactory(imageLoader);
 		this.audioFactory = new AudioFactory();
 		this.actorViewFactory = new ActorViewFactory(spriteFactory, fontFactory);
+		this.attractScreenFactory = new AttractScreenFactory(actorViewFactory);
 
 		this.gameHandler = new GameHandler();
 	}
@@ -85,25 +79,12 @@ public class BB extends JFrame {
 	}
 
 	private void startBackstory() {
-		BackstoryModel model = new BackstoryModel();
-		BackstoryScreen screen = new BackstoryScreen(model, fontFactory);
-		setCurrentController(new BackstoryController(model, screen, gameHandler));
+		GameScreen screen = attractScreenFactory.createBackstoryScreen();
+		setCurrentController(new BackstoryController(screen, gameHandler));
 	}
 
 	private void startRoster() {
-		TextModel textModel = new TextModel("Hello, I'm Lexi.", 40, 140);
-		TextView textView = actorViewFactory.createTextView(textModel);
-		Actor text = new Actor(textModel, textView);
-
-		LexiBrain lexiBrain = new RosterLexiBrain();
-		LexiModel lexiModel = new LexiModel(lexiBrain, 50, 180);
-		LexiView lexiView = actorViewFactory.createLexiView(lexiModel);
-		Actor lexi = new Actor(lexiModel, lexiView);
-
-		GameScreen screen = new GameScreen();
-		screen.addActor(lexi);
-		screen.addActor(text);
-
+		GameScreen screen = attractScreenFactory.createRosterScreen();
 		setCurrentController(new RosterController(screen, gameHandler));
 	}
 

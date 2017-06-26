@@ -1,27 +1,24 @@
 package bb.attract.title;
 
-import bb.framework.model.AbstractAttractModel;
+import bb.framework.model.GameModel;
 
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Random;
 
-import static bb.BBConfig.*;
+import static bb.BBConfig.SCREEN_HEIGHT_PX;
+import static bb.BBConfig.SCREEN_WIDTH_PX;
 
 /**
  * Created by willie on 6/17/17.
  */
-public class TitleModel extends AbstractAttractModel {
+public class TitleModel implements GameModel {
 	private static final double CREATE_PROBABILITY = 0.33;
 	private static final int BASE_DX = 4;
 	private static final Random RANDOM = new Random();
 
 	private final List<BigBalloon> balloons = new LinkedList<>();
-
-	public TitleModel() {
-		super(20 * FRAMES_PER_SECOND);
-	}
 
 	public List<BigBalloon> getBalloons() {
 		return balloons;
@@ -29,7 +26,6 @@ public class TitleModel extends AbstractAttractModel {
 
 	@Override
 	public void update() {
-		super.update();
 		garbageCollect();
 		balloons.forEach(balloon -> balloon.update());
 		generateBalloon(0, 20, BASE_DX, 1);

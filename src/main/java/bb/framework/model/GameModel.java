@@ -5,7 +5,5 @@ package bb.framework.model;
  */
 public interface GameModel {
 
-	boolean isActive();
-
 	void update();
 }

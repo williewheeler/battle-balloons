@@ -3,6 +3,7 @@ package bb.attract.backstory;
 import bb.framework.AbstractGameController;
 import bb.framework.event.GameEvent;
 import bb.framework.event.GameListener;
+import bb.framework.view.GameScreen;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -12,8 +13,8 @@ import java.awt.event.KeyEvent;
  */
 public class BackstoryController extends AbstractGameController {
 
-	public BackstoryController(BackstoryModel model, BackstoryScreen screen, GameListener gameListener) {
-		super(model, screen, gameListener);
+	public BackstoryController(GameScreen screen, GameListener gameListener) {
+		super(null, screen, gameListener);
 
 		setKeyListener(new KeyAdapter() {
 

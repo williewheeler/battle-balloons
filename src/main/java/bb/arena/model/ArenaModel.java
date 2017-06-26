@@ -59,12 +59,6 @@ public class ArenaModel implements GameModel {
 	}
 
 	@Override
-	public boolean isActive() {
-		// TODO Set this false when the game is over
-		return true;
-	}
-
-	@Override
 	public void update() {
 		if (player.getState() != EntityState.GONE) {
 			updateEntities();
