@@ -12,10 +12,10 @@ import static bb.BBConfig.SPRITE_WIDTH_PX;
 /**
  * Created by willie on 6/24/17.
  */
-public abstract class AbstractActorView implements ActorView {
+public abstract class SpriteActorView implements ActorView {
 	private ActorModel model;
 
-	public AbstractActorView(ActorModel model) {
+	public SpriteActorView(ActorModel model) {
 		Assert.notNull(model, "model can't be null");
 		this.model = model;
 	}

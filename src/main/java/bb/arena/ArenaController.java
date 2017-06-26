@@ -1,14 +1,14 @@
 package bb.arena;
 
-import bb.arena.event.ArenaEvent;
+import bb.framework.event.ArenaEvent;
 import bb.arena.event.ArenaEvents;
-import bb.arena.event.ArenaListener;
+import bb.framework.event.ArenaListener;
 import bb.arena.model.ArenaModel;
 import bb.arena.model.DirectionIntent;
 import bb.arena.model.Player;
 import bb.arena.view.ArenaScreen;
 import bb.framework.AbstractGameController;
-import bb.common.audio.AudioFactory;
+import bb.common.view.AudioFactory;
 import bb.framework.event.GameListener;
 
 import java.awt.event.KeyAdapter;

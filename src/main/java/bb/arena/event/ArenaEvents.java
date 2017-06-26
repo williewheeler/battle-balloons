@@ -1,5 +1,7 @@
 package bb.arena.event;
 
+import bb.framework.event.ArenaEvent;
+
 /**
  * Created by willie on 6/3/17.
  */

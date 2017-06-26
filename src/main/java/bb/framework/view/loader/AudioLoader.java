@@ -1,4 +1,4 @@
-package bb.framework.audio;
+package bb.framework.view.loader;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;

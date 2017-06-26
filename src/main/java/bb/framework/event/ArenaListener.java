@@ -1,4 +1,4 @@
-package bb.arena.event;
+package bb.framework.event;
 
 /**
  * Created by willie on 6/3/17.

@@ -1,8 +1,8 @@
 package bb.arena.model;
 
-import bb.arena.event.ArenaEvent;
+import bb.framework.event.ArenaEvent;
 import bb.arena.event.ArenaEvents;
-import bb.arena.event.ArenaListener;
+import bb.framework.event.ArenaListener;
 import bb.arena.event.EntityState;
 import bb.framework.model.GameModel;
 

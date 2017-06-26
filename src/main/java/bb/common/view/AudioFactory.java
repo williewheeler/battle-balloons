@@ -1,6 +1,6 @@
-package bb.common.audio;
+package bb.common.view;
 
-import bb.framework.audio.AudioLoader;
+import bb.framework.view.loader.AudioLoader;
 
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;

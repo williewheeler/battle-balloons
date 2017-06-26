@@ -3,7 +3,7 @@ package bb.attract.title;
 import bb.common.view.FontFactory;
 import bb.common.view.SpriteFactory;
 import bb.framework.view.AttractScreen;
-import bb.framework.view.ImageLoader;
+import bb.framework.view.loader.ImageLoader;
 
 import java.awt.Color;
 import java.awt.Graphics;

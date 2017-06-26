@@ -1,14 +1,14 @@
 package bb.common.view.actor;
 
 import bb.common.model.LexiModel;
-import bb.framework.view.actor.AbstractActorView;
+import bb.framework.view.actor.SpriteActorView;
 
 import java.awt.image.BufferedImage;
 
 /**
  * Created by willie on 6/24/17.
  */
-public class LexiView extends AbstractActorView {
+public class LexiView extends SpriteActorView {
 	private BufferedImage[] walkingSprites;
 	private BufferedImage[] blinkingSprites;
 	private BufferedImage[] wavingSprites;

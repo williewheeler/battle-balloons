@@ -13,7 +13,7 @@ import bb.common.view.actor.LexiView;
 import bb.common.view.actor.TextView;
 import bb.framework.model.actor.Actor;
 import bb.framework.view.AttractScreen;
-import bb.framework.view.ImageLoader;
+import bb.framework.view.loader.ImageLoader;
 
 /**
  * Created by willie on 6/25/17.
