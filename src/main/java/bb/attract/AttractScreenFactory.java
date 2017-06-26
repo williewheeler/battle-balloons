@@ -2,14 +2,18 @@ package bb.attract;
 
 import bb.BBConfig;
 import bb.attract.roster.RosterLexiBrain;
+import bb.attract.title.TitleScreen;
 import bb.common.model.LexiBrain;
 import bb.common.model.LexiModel;
 import bb.common.model.TextModel;
+import bb.common.view.FontFactory;
+import bb.common.view.SpriteFactory;
 import bb.common.view.actor.ActorViewFactory;
 import bb.common.view.actor.LexiView;
 import bb.common.view.actor.TextView;
 import bb.framework.model.actor.Actor;
 import bb.framework.view.AttractScreen;
+import bb.framework.view.ImageLoader;
 
 /**
  * Created by willie on 6/25/17.
@@ -27,10 +31,25 @@ public class AttractScreenFactory {
 			"CAN YOU SAVE HER FROM GETTING...\n" +
 			"GROUNDED?";
 
+	private FontFactory fontFactory;
+	private ImageLoader imageLoader;
+	private SpriteFactory spriteFactory;
 	private ActorViewFactory actorViewFactory;
 
-	public AttractScreenFactory(ActorViewFactory actorViewFactory) {
+	public AttractScreenFactory(
+			FontFactory fontFactory,
+			ImageLoader imageLoader,
+			SpriteFactory spriteFactory,
+			ActorViewFactory actorViewFactory) {
+
+		this.fontFactory = fontFactory;
+		this.imageLoader = imageLoader;
+		this.spriteFactory = spriteFactory;
 		this.actorViewFactory = actorViewFactory;
+	}
+
+	public TitleScreen createTitleScreen() {
+		return new TitleScreen(fontFactory, imageLoader, spriteFactory);
 	}
 
 	public AttractScreen createBackstoryScreen() {

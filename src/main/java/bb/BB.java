@@ -7,7 +7,6 @@ import bb.attract.AttractScreenFactory;
 import bb.attract.backstory.BackstoryController;
 import bb.attract.roster.RosterController;
 import bb.attract.title.TitleController;
-import bb.attract.title.TitleModel;
 import bb.attract.title.TitleScreen;
 import bb.common.audio.AudioFactory;
 import bb.common.view.FontFactory;
@@ -16,8 +15,8 @@ import bb.common.view.actor.ActorViewFactory;
 import bb.framework.GameController;
 import bb.framework.event.GameEvent;
 import bb.framework.event.GameListener;
+import bb.framework.view.AttractScreen;
 import bb.framework.view.FontLoader;
-import bb.framework.view.GameScreen;
 import bb.framework.view.ImageLoader;
 import bb.framework.view.Resizer;
 import org.slf4j.Logger;
@@ -53,7 +52,7 @@ public class BB extends JFrame {
 		this.spriteFactory = new SpriteFactory(imageLoader);
 		this.audioFactory = new AudioFactory();
 		this.actorViewFactory = new ActorViewFactory(spriteFactory, fontFactory);
-		this.attractScreenFactory = new AttractScreenFactory(actorViewFactory);
+		this.attractScreenFactory = new AttractScreenFactory(fontFactory, imageLoader, spriteFactory, actorViewFactory);
 
 		this.gameHandler = new GameHandler();
 	}
@@ -73,18 +72,17 @@ public class BB extends JFrame {
 	}
 
 	private void startTitle() {
-		TitleModel model = new TitleModel();
-		TitleScreen screen = new TitleScreen(model, fontFactory, imageLoader, spriteFactory);
-		setCurrentController(new TitleController(model, screen, gameHandler));
+		TitleScreen screen = attractScreenFactory.createTitleScreen();
+		setCurrentController(new TitleController(screen, gameHandler));
 	}
 
 	private void startBackstory() {
-		GameScreen screen = attractScreenFactory.createBackstoryScreen();
+		AttractScreen screen = attractScreenFactory.createBackstoryScreen();
 		setCurrentController(new BackstoryController(screen, gameHandler));
 	}
 
 	private void startRoster() {
-		GameScreen screen = attractScreenFactory.createRosterScreen();
+		AttractScreen screen = attractScreenFactory.createRosterScreen();
 		setCurrentController(new RosterController(screen, gameHandler));
 	}
 

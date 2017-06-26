@@ -12,8 +12,8 @@ import java.awt.event.KeyEvent;
  */
 public class TitleController extends AbstractGameController {
 
-	public TitleController(TitleModel model, TitleScreen screen, GameListener gameListener) {
-		super(model, screen, gameListener);
+	public TitleController(TitleScreen screen, GameListener gameListener) {
+		super(screen.getModel(), screen, gameListener);
 
 		setKeyListener(new KeyAdapter() {
 

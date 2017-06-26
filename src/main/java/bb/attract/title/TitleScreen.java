@@ -27,19 +27,22 @@ public class TitleScreen extends AttractScreen {
 	private BufferedImage[][] balloonSprites;
 
 	public TitleScreen(
-			TitleModel titleModel,
 			FontFactory fontFactory,
 			ImageLoader imageLoader,
 			SpriteFactory spriteFactory) {
 
 		super(TTL);
-		this.titleModel = titleModel;
+		this.titleModel = new TitleModel();
 		this.fontFactory = fontFactory;
 		this.imageLoader = imageLoader;
 		this.spriteFactory = spriteFactory;
 
 		this.titleImage = imageLoader.loadImage("images/bb-title.png");
 		this.balloonSprites = spriteFactory.getBalloons();
+	}
+
+	public TitleModel getModel() {
+		return titleModel;
 	}
 
 	// TODO Get rid of this once TitleModel is gone.
