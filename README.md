@@ -30,9 +30,9 @@ Here are some extra weeks in case you get bored.
 
 | Week | Topic | Download | Course Blog | Dev Blog |
 | ---- | ----- | -------- | ----------- | -------- |
-| 11 | Adding a title screen | |
-| 12 | Adding a backstory screen | |
-| 13 | Adding a roster screen | [Dev Blog](https://progtuts.com/post/blinking-as-a-random-variable/) |
+| 11 | Adding a title screen | | | |
+| 12 | Adding a backstory screen | | | |
+| 13 | Adding a roster screen | | | [Dev Blog](https://progtuts.com/post/blinking-as-a-random-variable/) |
 
 # Running the game
 
