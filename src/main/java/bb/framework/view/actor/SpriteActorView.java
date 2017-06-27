@@ -28,8 +28,8 @@ public abstract class SpriteActorView implements ActorView {
 	@Override
 	public void paint(Graphics g) {
 		BufferedImage sprite = getCurrentSprite();
-		int adjX = model.getX() - SPRITE_WIDTH_PX;
-		int adjY = model.getY() - SPRITE_HEIGHT_PX;
+		int adjX = model.getX() - SPRITE_WIDTH_PX / 2;
+		int adjY = model.getY() - SPRITE_HEIGHT_PX / 2;
 		int width = SPRITE_WIDTH_PX;
 		int height = SPRITE_HEIGHT_PX;
 		g.drawImage(sprite, adjX, adjY, width, height, null);

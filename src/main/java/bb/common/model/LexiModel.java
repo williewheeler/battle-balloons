@@ -1,5 +1,6 @@
 package bb.common.model;
 
+import bb.BBConfig;
 import bb.framework.model.actor.AbstractActorModel;
 import bb.framework.model.actor.ActorUtil;
 import bb.framework.util.MathUtil;
@@ -13,8 +14,8 @@ public class LexiModel extends AbstractActorModel {
 	private static final Logger log = LoggerFactory.getLogger(LexiModel.class);
 
 	private static final int SPEED = 3;
-	private static final double BLINK_DURATION_MEAN = 66.0;
-	private static final double BLINK_DURATION_STDEV = 33.0;
+	private static final double BLINK_DURATION_MEAN = 2 * BBConfig.FRAMES_PER_SECOND;
+	private static final double BLINK_DURATION_STDEV = BBConfig.FRAMES_PER_SECOND;
 	private static final int UNBLINK_DURATION = 5;
 	private static final int WAVE_DURATION = 4;
 
@@ -80,7 +81,8 @@ public class LexiModel extends AbstractActorModel {
 	}
 
 	private int generateBlinkDuration() {
-		return (int) MathUtil.nextRandomGaussian(BLINK_DURATION_MEAN, BLINK_DURATION_STDEV);
+		int duration = (int) MathUtil.nextRandomGaussian(BLINK_DURATION_MEAN, BLINK_DURATION_STDEV);
+		return Math.max(0, duration);
 	}
 
 	private void doWalk() {

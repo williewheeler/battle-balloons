@@ -73,7 +73,7 @@ public class AttractScreenFactory {
 		LexiView lexiView = actorViewFactory.createLexiView(lexiModel);
 		Actor lexi = new Actor(lexiModel, lexiView);
 
-		AttractScreen screen = new AttractScreen(15 * BBConfig.FRAMES_PER_SECOND);
+		AttractScreen screen = new AttractScreen(60 * BBConfig.FRAMES_PER_SECOND);
 		screen.addActor(lexi);
 		screen.addActor(text);
 
