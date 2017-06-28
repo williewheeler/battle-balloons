@@ -7,15 +7,11 @@ import static bb.BBConfig.ARENA_INNER_WIDTH_PX;
  * Created by willie on 6/4/17.
  */
 public class GameModel {
-	private Player player;
+	private final Player player = new Player();
 
-	public GameModel() {
-		this.player = new Player();
-		player.setX(ARENA_INNER_WIDTH_PX / 2);
-		player.setY(ARENA_INNER_HEIGHT_PX / 2);
-	}
+	public Player getPlayer() { return player; }
 
-	public Player getPlayer() {
-		return player;
+	public void update() {
+		// TODO: We need to update the player whenever the game updates.
 	}
 }

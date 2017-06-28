@@ -6,6 +6,8 @@ import java.awt.Dimension;
  * Created by willie on 6/4/17.
  */
 public class BBConfig {
+	public static final int FRAMES_PER_SECOND = 30;
+	public static final int FRAME_PERIOD_MS = 1000 / FRAMES_PER_SECOND;
 
 	// Sizes
 	public static final int SCREEN_WIDTH_PX = 304;
@@ -33,4 +35,9 @@ public class BBConfig {
 	public static final String SPRITE_SHEET_FILENAME = "bb-sprites.png";
 	public static final int SPRITE_WIDTH_PX = 16;
 	public static final int SPRITE_HEIGHT_PX = 16;
+
+	// Entities
+	public static final int PLAYER_WIDTH = 5;
+	public static final int PLAYER_HEIGHT = 11;
+	public static final int PLAYER_SPEED = 3;
 }
