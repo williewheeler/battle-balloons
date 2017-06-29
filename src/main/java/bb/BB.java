@@ -5,7 +5,7 @@ import bb.model.GameModel;
 import bb.view.FontFactory;
 import bb.view.Resizer;
 import bb.view.SpriteFactory;
-import bb.view.arena.ArenaView;
+import bb.view.arena.ArenaScreen;
 
 import javax.swing.*;
 
@@ -30,7 +30,7 @@ public class BB extends JFrame implements ActionListener {
 		this.gameModel = new GameModel();
 		this.fontFactory = new FontFactory();
 		this.spriteFactory = new SpriteFactory();
-		this.arenaView = new ArenaView(gameModel, fontFactory, spriteFactory);
+		this.arenaView = new ArenaScreen(gameModel, fontFactory, spriteFactory);
 		this.resizer = new Resizer();
 		this.keyboardManager = new KeyboardManager(gameModel.getPlayer());
 		this.timer = new Timer(FRAME_PERIOD_MS, this);

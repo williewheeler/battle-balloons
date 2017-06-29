@@ -38,8 +38,7 @@ public class KeyboardManager implements KeyEventDispatcher {
 
     private void updatePlayerIntent(int keyCode, boolean value) {
         DirectionIntent moveIntent = player.getMoveIntent();
-        System.out.print(keyCode);
-        System.out.println(value);
+        
         switch (keyCode) {
             case KeyEvent.VK_T:
                 moveIntent.up = value;

@@ -11,12 +11,12 @@ import java.awt.Color;
 /**
  * Created by willie on 6/4/17.
  */
-public class ArenaView extends JPanel {
+public class ArenaScreen extends JPanel {
 	private ArenaHeader arenaHeader;
 	private ArenaPane arenaPane;
 	private ArenaFooter arenaFooter;
 
-	public ArenaView(GameModel gameModel, FontFactory fontFactory, SpriteFactory spriteFactory) {
+	public ArenaScreen(GameModel gameModel, FontFactory fontFactory, SpriteFactory spriteFactory) {
 		this.arenaHeader = new ArenaHeader(gameModel, fontFactory, spriteFactory);
 		this.arenaPane = new ArenaPane(gameModel, spriteFactory);
 		this.arenaFooter = new ArenaFooter(gameModel, fontFactory);
