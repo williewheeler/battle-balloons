@@ -14,7 +14,7 @@ previous programming experience is required.
 | Week | Topic | Download | Course Blog | Dev Blog |
 | ---- | ----- | -------- | ----------- | -------- |
 | 1 | Creating a player | [zip](https://github.com/williewheeler/battle-balloons-course/archive/week01.zip) | [Course Blog](https://medium.com/programming-for-kids/battle-balloons-week-1-8f0674656950) | [Dev Blog](https://progtuts.com/post/retro-lores-games-with-java2d/) |
-| 2 | Moving the player | [zip](https://github.com/williewheeler/battle-balloons-course/archive/week02.zip) | | |
+| 2 | Moving the player | [zip](https://github.com/williewheeler/battle-balloons-course/archive/week02.zip) | [Course Blog](https://medium.com/programming-for-kids/battle-balloons-week-2-77566fc00577) | |
 | 3 | Animating the player | [zip](https://github.com/williewheeler/battle-balloons-course/archive/week03.zip) | | |
 | 4 | Adding obstacles | [zip](https://github.com/williewheeler/battle-balloons-course/archive/week04.zip) | | |
 | 5 | Colliding with obstacles | [zip](https://github.com/williewheeler/battle-balloons-course/archive/week05.zip) | | |
