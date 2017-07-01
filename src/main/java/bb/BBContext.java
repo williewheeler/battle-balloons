@@ -1,11 +1,11 @@
 package bb;
 
-import bb.common.view.actor.ActorViewFactory;
-import bb.common.view.factory.AudioFactory;
-import bb.common.view.factory.FontFactory;
-import bb.common.view.factory.SpriteFactory;
-import bb.framework.view.loader.FontLoader;
-import bb.framework.view.loader.ImageLoader;
+import bb.common.view.ActorViewFactory;
+import bb.common.view.AudioFactory;
+import bb.common.view.FontFactory;
+import bb.common.view.SpriteFactory;
+import bb.framework.view.FontLoader;
+import bb.framework.view.ImageLoader;
 
 /**
  * Created by willie on 6/30/17.

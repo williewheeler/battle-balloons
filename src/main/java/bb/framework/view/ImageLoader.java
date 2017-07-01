@@ -1,4 +1,4 @@
-package bb.framework.view.loader;
+package bb.framework.view;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;

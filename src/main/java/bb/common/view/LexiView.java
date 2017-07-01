@@ -1,7 +1,7 @@
-package bb.common.view.actor;
+package bb.common.view;
 
 import bb.common.model.LexiModel;
-import bb.framework.view.actor.SpriteActorView;
+import bb.framework.view.SpriteActorView;
 
 import java.awt.image.BufferedImage;
 

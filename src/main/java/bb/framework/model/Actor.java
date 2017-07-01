@@ -1,7 +1,7 @@
 package bb.framework.model;
 
 import bb.framework.util.Assert;
-import bb.framework.view.actor.ActorView;
+import bb.framework.view.ActorView;
 
 import java.awt.Graphics;
 

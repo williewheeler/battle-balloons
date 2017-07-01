@@ -1,8 +1,8 @@
-package bb.common.view.factory;
+package bb.common.view;
 
 import bb.arena.model.Judo;
 import bb.arena.model.Player;
-import bb.framework.view.loader.ImageLoader;
+import bb.framework.view.ImageLoader;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;

@@ -1,9 +1,8 @@
-package bb.common.view.actor;
+package bb.common.view;
 
 import bb.common.model.TextModel;
-import bb.common.view.factory.FontFactory;
 import bb.framework.model.ActorModel;
-import bb.framework.view.actor.ActorView;
+import bb.framework.view.ActorView;
 
 import java.awt.Color;
 import java.awt.Graphics;

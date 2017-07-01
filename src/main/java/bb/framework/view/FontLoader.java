@@ -1,4 +1,4 @@
-package bb.framework.view.loader;
+package bb.framework.view;
 
 import java.awt.Font;
 import java.awt.FontFormatException;

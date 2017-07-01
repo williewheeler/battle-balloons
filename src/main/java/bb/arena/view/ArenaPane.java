@@ -6,7 +6,7 @@ import bb.arena.model.Balloon;
 import bb.arena.model.Judo;
 import bb.arena.model.Obstacle;
 import bb.arena.model.Player;
-import bb.common.view.factory.SpriteFactory;
+import bb.common.view.SpriteFactory;
 import bb.framework.util.Assert;
 
 import javax.swing.JComponent;

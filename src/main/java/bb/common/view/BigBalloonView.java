@@ -1,9 +1,9 @@
-package bb.common.view.actor;
+package bb.common.view;
 
 import bb.common.model.BigBalloonModel;
 import bb.framework.model.ActorModel;
 import bb.framework.util.Assert;
-import bb.framework.view.actor.ActorView;
+import bb.framework.view.ActorView;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;

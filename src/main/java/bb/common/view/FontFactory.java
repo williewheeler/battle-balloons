@@ -1,6 +1,6 @@
-package bb.common.view.factory;
+package bb.common.view;
 
-import bb.framework.view.loader.FontLoader;
+import bb.framework.view.FontLoader;
 
 import java.awt.Font;
 

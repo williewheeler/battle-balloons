@@ -1,4 +1,4 @@
-package bb.framework.view.actor;
+package bb.framework.view;
 
 import bb.framework.model.ActorModel;
 

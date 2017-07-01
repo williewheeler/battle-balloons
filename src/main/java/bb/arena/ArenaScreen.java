@@ -8,7 +8,7 @@ import bb.arena.model.Player;
 import bb.arena.view.ArenaFooter;
 import bb.arena.view.ArenaHeader;
 import bb.arena.view.ArenaPane;
-import bb.common.view.factory.AudioFactory;
+import bb.common.view.AudioFactory;
 import bb.framework.event.ArenaEvent;
 import bb.framework.event.ArenaListener;
 import bb.framework.event.GameListener;

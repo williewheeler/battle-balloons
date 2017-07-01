@@ -1,14 +1,12 @@
-package bb.common.view.actor;
+package bb.common.view;
 
 import bb.common.model.BigBalloonModel;
 import bb.common.model.LexiModel;
 import bb.common.model.TextModel;
-import bb.common.view.factory.FontFactory;
-import bb.common.view.factory.SpriteFactory;
 import bb.framework.model.BasicActorModel;
 import bb.framework.util.Assert;
-import bb.framework.view.actor.ImageView;
-import bb.framework.view.loader.ImageLoader;
+import bb.framework.view.ImageView;
+import bb.framework.view.ImageLoader;
 
 import java.awt.image.BufferedImage;
 

@@ -3,7 +3,7 @@ package bb.arena.view;
 import bb.BBContext;
 import bb.arena.model.ArenaModel;
 import bb.arena.model.Player;
-import bb.common.view.factory.FontFactory;
+import bb.common.view.FontFactory;
 import bb.framework.util.Assert;
 
 import javax.swing.JComponent;
