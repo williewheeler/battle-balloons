@@ -7,18 +7,17 @@ import bb.common.model.TextModel;
 import bb.common.view.ActorViewFactory;
 import bb.common.view.BigBalloonView;
 import bb.common.view.TextView;
+import bb.framework.TtlScreen;
 import bb.framework.event.GameEvent;
 import bb.framework.event.GameListener;
 import bb.framework.model.Actor;
 import bb.framework.model.BasicActorModel;
 import bb.framework.util.MathUtil;
-import bb.framework.TtlScreen;
 import bb.framework.view.ImageView;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.image.BufferedImage;
 
 import static bb.BBConfig.SCREEN_HEIGHT_PX;
 import static bb.BBConfig.SCREEN_WIDTH_PX;
@@ -32,8 +31,6 @@ public class TitleScreen extends TtlScreen {
 	private static final String TITLE_PATH = "images/bb-title.png";
 	private static final double CREATE_PROBABILITY = 0.33;
 	private static final int BASE_DX = 4;
-
-	private BufferedImage titleImage;
 
 	public TitleScreen(BBContext context, GameListener gameListener) {
 		super(context, gameListener, TTL);

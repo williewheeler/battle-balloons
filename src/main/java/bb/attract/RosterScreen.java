@@ -24,8 +24,6 @@ import java.awt.event.KeyListener;
 public class RosterScreen extends TtlScreen {
 	private static final int TTL = 60 * BBConfig.FRAMES_PER_SECOND;
 
-	private KeyListener keyListener;
-
 	public RosterScreen(BBContext context, GameListener gameListener) {
 		super(context, gameListener, TTL);
 		initScene();

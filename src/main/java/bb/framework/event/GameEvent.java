@@ -8,6 +8,7 @@ public class GameEvent {
 	public static final String START_2P_GAME = "START_2P_GAME";
 	public static final String SCREEN_ABORTED = "SCREEN_ABORTED";
 	public static final String SCREEN_EXPIRED = "SCREEN_EXPIRED";
+	public static final String MODE_EXPIRED = "MODE_EXPIRED";
 
 	private Object source;
 	private String type;
