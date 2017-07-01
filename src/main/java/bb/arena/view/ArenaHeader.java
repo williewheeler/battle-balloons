@@ -1,9 +1,11 @@
 package bb.arena.view;
 
+import bb.BBContext;
 import bb.arena.model.ArenaModel;
 import bb.arena.model.Player;
 import bb.common.view.factory.FontFactory;
 import bb.common.view.factory.SpriteFactory;
+import bb.framework.util.Assert;
 
 import javax.swing.JComponent;
 import java.awt.Color;
@@ -18,14 +20,14 @@ import static bb.BBConfig.*;
  * Created by willie on 6/4/17.
  */
 public class ArenaHeader extends JComponent {
-	private ArenaModel arenaModel;
-	private FontFactory fontFactory;
-	private SpriteFactory spriteFactory;
+	private BBContext context;
+	private ArenaModel model;
 
-	public ArenaHeader(ArenaModel arenaModel, FontFactory fontFactory, SpriteFactory spriteFactory) {
-		this.arenaModel = arenaModel;
-		this.fontFactory = fontFactory;
-		this.spriteFactory = spriteFactory;
+	public ArenaHeader(BBContext context, ArenaModel model) {
+		Assert.notNull(context, "context can't be null");
+		Assert.notNull(model, "model can't be null");
+		this.context = context;
+		this.model = model;
 	}
 
 	@Override
@@ -40,7 +42,9 @@ public class ArenaHeader extends JComponent {
 	}
 
 	private void paintScore(Graphics g) {
-		Player player = arenaModel.getPlayer();
+		FontFactory fontFactory = context.getFontFactory();
+
+		Player player = model.getPlayer();
 
 		g.setFont(fontFactory.getLargeFont());
 		FontMetrics fm = g.getFontMetrics();
@@ -52,7 +56,9 @@ public class ArenaHeader extends JComponent {
 	}
 
 	private void paintLives(Graphics g) {
-		Player player = arenaModel.getPlayer();
+		SpriteFactory spriteFactory = context.getSpriteFactory();
+
+		Player player = model.getPlayer();
 		BufferedImage sprite = spriteFactory.getLexiLife();
 		int numLives = player.getLives();
 		for (int i = 0; i < numLives; i++) {

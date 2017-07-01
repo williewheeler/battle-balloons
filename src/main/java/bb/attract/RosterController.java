@@ -1,4 +1,4 @@
-package bb.attract.backstory;
+package bb.attract;
 
 import bb.framework.AbstractGameController;
 import bb.framework.event.GameEvent;
@@ -8,12 +8,14 @@ import bb.framework.view.GameScreen;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-/**
- * Created by willie on 6/18/17.
- */
-public class BackstoryController extends AbstractGameController {
+// TODO Move controllers into the screen component [WLW]
 
-	public BackstoryController(GameScreen screen, GameListener gameListener) {
+/**
+ * Created by willie on 6/19/17.
+ */
+public class RosterController extends AbstractGameController {
+
+	public RosterController(GameScreen screen, GameListener gameListener) {
 		super(null, screen, gameListener);
 
 		setKeyListener(new KeyAdapter() {

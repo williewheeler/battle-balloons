@@ -1,14 +1,14 @@
 package bb.arena;
 
-import bb.framework.event.ArenaEvent;
+import bb.BBContext;
 import bb.arena.event.ArenaEvents;
-import bb.framework.event.ArenaListener;
 import bb.arena.model.ArenaModel;
 import bb.arena.model.DirectionIntent;
 import bb.arena.model.Player;
-import bb.arena.view.ArenaScreen;
-import bb.framework.AbstractGameController;
 import bb.common.view.factory.AudioFactory;
+import bb.framework.AbstractGameController;
+import bb.framework.event.ArenaEvent;
+import bb.framework.event.ArenaListener;
 import bb.framework.event.GameListener;
 
 import java.awt.event.KeyAdapter;
@@ -21,15 +21,16 @@ public class ArenaController extends AbstractGameController {
 	private AudioHandler audioHandler;
 
 	public ArenaController(
+			BBContext context,
 			ArenaModel model,
 			ArenaScreen screen,
-			AudioFactory audioFactory,
 			GameListener gameListener) {
 
 		super(model, screen, gameListener);
 
 		setKeyListener(new KeyHandler(model.getPlayer()));
 
+		AudioFactory audioFactory = context.getAudioFactory();
 		this.audioHandler = new AudioHandler(audioFactory);
 		model.addGameListener(audioHandler);
 	}

@@ -1,8 +1,10 @@
 package bb.arena.view;
 
+import bb.BBContext;
 import bb.arena.model.ArenaModel;
 import bb.arena.model.Player;
 import bb.common.view.factory.FontFactory;
+import bb.framework.util.Assert;
 
 import javax.swing.JComponent;
 import java.awt.Color;
@@ -16,12 +18,14 @@ import static bb.BBConfig.*;
  * Created by willie on 6/4/17.
  */
 public class ArenaFooter extends JComponent {
-	private ArenaModel arenaModel;
-	private FontFactory fontFactory;
+	private BBContext context;
+	private ArenaModel model;
 
-	public ArenaFooter(ArenaModel arenaModel, FontFactory fontFactory) {
-		this.arenaModel = arenaModel;
-		this.fontFactory = fontFactory;
+	public ArenaFooter(BBContext context, ArenaModel model) {
+		Assert.notNull(context, "context can't be null");
+		Assert.notNull(model, "model can't be null");
+		this.context = context;
+		this.model = model;
 	}
 
 	@Override
@@ -31,7 +35,9 @@ public class ArenaFooter extends JComponent {
 
 	@Override
 	public void paint(Graphics g) {
-		Player player = arenaModel.getPlayer();
+		FontFactory fontFactory = context.getFontFactory();
+
+		Player player = model.getPlayer();
 		g.setFont(fontFactory.getSmallFont());
 		FontMetrics fm = g.getFontMetrics();
 		g.setColor(Color.RED);

@@ -1,9 +1,11 @@
-package bb.arena.view;
+package bb.arena;
 
+import bb.BBContext;
 import bb.arena.model.ArenaModel;
-import bb.common.view.factory.FontFactory;
+import bb.arena.view.ArenaFooter;
+import bb.arena.view.ArenaHeader;
+import bb.arena.view.ArenaPane;
 import bb.framework.view.GameScreen;
-import bb.common.view.factory.SpriteFactory;
 
 import java.awt.BorderLayout;
 
@@ -16,11 +18,11 @@ public class ArenaScreen extends GameScreen {
 	private ArenaPane arenaPane;
 	private ArenaFooter arenaFooter;
 
-	public ArenaScreen(ArenaModel arenaModel, FontFactory fontFactory, SpriteFactory spriteFactory) {
+	public ArenaScreen(BBContext context, ArenaModel arenaModel) {
 		this.arenaModel = arenaModel;
-		this.arenaHeader = new ArenaHeader(arenaModel, fontFactory, spriteFactory);
-		this.arenaPane = new ArenaPane(arenaModel, spriteFactory);
-		this.arenaFooter = new ArenaFooter(arenaModel, fontFactory);
+		this.arenaHeader = new ArenaHeader(context, arenaModel);
+		this.arenaPane = new ArenaPane(context, arenaModel);
+		this.arenaFooter = new ArenaFooter(context, arenaModel);
 
 		setLayout(new BorderLayout());
 		add(arenaHeader, BorderLayout.NORTH);

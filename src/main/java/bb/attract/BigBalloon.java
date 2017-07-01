@@ -1,4 +1,4 @@
-package bb.attract.title;
+package bb.attract;
 
 /**
  * Created by willie on 6/18/17.

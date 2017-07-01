@@ -1,7 +1,10 @@
-package bb.attract.title;
+package bb.attract;
 
+import bb.BBConfig;
+import bb.BBContext;
 import bb.common.view.factory.FontFactory;
 import bb.common.view.factory.SpriteFactory;
+import bb.framework.event.GameListener;
 import bb.framework.view.AttractScreen;
 import bb.framework.view.loader.ImageLoader;
 
@@ -10,32 +13,26 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.List;
 
-import static bb.BBConfig.*;
+import static bb.BBConfig.SPRITE_HEIGHT_PX;
+import static bb.BBConfig.SPRITE_WIDTH_PX;
 
 /**
  * Created by willie on 6/17/17.
  */
 public class TitleScreen extends AttractScreen {
-	private static final int TTL = 15 * FRAMES_PER_SECOND;
+	private static final int TTL = 15 * BBConfig.FRAMES_PER_SECOND;
 
 	private TitleModel titleModel;
-	private FontFactory fontFactory;
-	private ImageLoader imageLoader;
-	private SpriteFactory spriteFactory;
-
 	private BufferedImage titleImage;
 	private BufferedImage[][] balloonSprites;
 
-	public TitleScreen(
-			FontFactory fontFactory,
-			ImageLoader imageLoader,
-			SpriteFactory spriteFactory) {
+	public TitleScreen(BBContext context, GameListener gameListener) {
+		super(context, gameListener, TTL);
 
-		super(TTL);
 		this.titleModel = new TitleModel();
-		this.fontFactory = fontFactory;
-		this.imageLoader = imageLoader;
-		this.spriteFactory = spriteFactory;
+
+		ImageLoader imageLoader = context.getImageLoader();
+		SpriteFactory spriteFactory = context.getSpriteFactory();
 
 		this.titleImage = imageLoader.loadImage("images/bb-title.png");
 		this.balloonSprites = spriteFactory.getBalloons();
@@ -61,6 +58,8 @@ public class TitleScreen extends AttractScreen {
 	}
 
 	private void paintText(Graphics g) {
+		FontFactory fontFactory = getContext().getFontFactory();
+
 		g.setFont(fontFactory.getSmallFont());
 		g.setColor(Color.GREEN);
 		g.drawString("GET READY FOR", 55, 60);

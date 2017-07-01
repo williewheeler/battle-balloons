@@ -1,4 +1,4 @@
-package bb.attract.roster;
+package bb.attract;
 
 import bb.framework.AbstractGameController;
 import bb.framework.event.GameEvent;
@@ -8,14 +8,12 @@ import bb.framework.view.GameScreen;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-// TODO Move controllers into the screen component [WLW]
-
 /**
- * Created by willie on 6/19/17.
+ * Created by willie on 6/18/17.
  */
-public class RosterController extends AbstractGameController {
+public class BackstoryController extends AbstractGameController {
 
-	public RosterController(GameScreen screen, GameListener gameListener) {
+	public BackstoryController(GameScreen screen, GameListener gameListener) {
 		super(null, screen, gameListener);
 
 		setKeyListener(new KeyAdapter() {

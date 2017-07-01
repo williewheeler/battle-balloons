@@ -1,4 +1,4 @@
-package bb.attract.roster;
+package bb.attract;
 
 import bb.common.model.LexiBrain;
 

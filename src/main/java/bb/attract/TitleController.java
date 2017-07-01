@@ -1,5 +1,6 @@
-package bb.attract.title;
+package bb.attract;
 
+import bb.attract.TitleScreen;
 import bb.framework.AbstractGameController;
 import bb.framework.event.GameEvent;
 import bb.framework.event.GameListener;

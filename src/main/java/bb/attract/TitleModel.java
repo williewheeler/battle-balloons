@@ -1,4 +1,4 @@
-package bb.attract.title;
+package bb.attract;
 
 import bb.framework.model.GameModel;
 

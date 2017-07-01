@@ -1,11 +1,13 @@
 package bb.arena.view;
 
-import bb.arena.model.Balloon;
+import bb.BBContext;
 import bb.arena.model.ArenaModel;
+import bb.arena.model.Balloon;
 import bb.arena.model.Judo;
 import bb.arena.model.Obstacle;
 import bb.arena.model.Player;
 import bb.common.view.factory.SpriteFactory;
+import bb.framework.util.Assert;
 
 import javax.swing.JComponent;
 import java.awt.Color;
@@ -20,12 +22,14 @@ import static bb.BBConfig.*;
  * Created by willie on 6/4/17.
  */
 public class ArenaPane extends JComponent {
-	private ArenaModel arenaModel;
-	private SpriteFactory spriteFactory;
+	private BBContext context;
+	private ArenaModel model;
 
-	public ArenaPane(ArenaModel arenaModel, SpriteFactory spriteFactory) {
-		this.arenaModel = arenaModel;
-		this.spriteFactory = spriteFactory;
+	public ArenaPane(BBContext context, ArenaModel model) {
+		Assert.notNull(context, "context can't be null");
+		Assert.notNull(model, "model can't be null");
+		this.context = context;
+		this.model = model;
 	}
 
 	@Override
@@ -55,7 +59,7 @@ public class ArenaPane extends JComponent {
 	}
 
 	private void paintPlayer(Graphics g) {
-		switch (arenaModel.getPlayer().getState()) {
+		switch (model.getPlayer().getState()) {
 			case ENTERING:
 				paintPlayer_entering(g);
 				break;
@@ -71,7 +75,9 @@ public class ArenaPane extends JComponent {
 	}
 	
 	private void paintPlayer_entering(Graphics g) {
-		Player player = arenaModel.getPlayer();
+		SpriteFactory spriteFactory = context.getSpriteFactory();
+
+		Player player = model.getPlayer();
 		
 		BufferedImage[] sprites = spriteFactory.getLexiEntering();
 		int spriteIndex = player.getEnteringCountdown();
@@ -83,7 +89,9 @@ public class ArenaPane extends JComponent {
 	}
 	
 	private void paintPlayer_active(Graphics g) {
-		Player player = arenaModel.getPlayer();
+		SpriteFactory spriteFactory = context.getSpriteFactory();
+
+		Player player = model.getPlayer();
 		BufferedImage[] sprites = spriteFactory.getLexi();
 		BufferedImage sprite = SpriteUtil.getCurrentSprite(player, sprites);
 		int adjX = player.getX() - sprite.getWidth() / 2;
@@ -92,7 +100,9 @@ public class ArenaPane extends JComponent {
 	}
 	
 	private void paintPlayer_exiting(Graphics g) {
-		Player player = arenaModel.getPlayer();
+		SpriteFactory spriteFactory = context.getSpriteFactory();
+
+		Player player = model.getPlayer();
 		BufferedImage[] sprites = spriteFactory.getLexiExiting();
 		
 		int spriteIndex = (Player.EXITING_DURATION - 1) - player.getExitingCountdown();
@@ -105,7 +115,7 @@ public class ArenaPane extends JComponent {
 	
 	private void paintObstacles(Graphics g) {
 		g.setColor(Color.GREEN);
-		List<Obstacle> obstacles = arenaModel.getObstacles();
+		List<Obstacle> obstacles = model.getObstacles();
 		obstacles.forEach(obstacle -> paintObstacle(g, obstacle));
 	}
 	
@@ -116,7 +126,7 @@ public class ArenaPane extends JComponent {
 	}
 	
 	private void paintJudos(Graphics g) {
-		List<Judo> judos = arenaModel.getJudos();
+		List<Judo> judos = model.getJudos();
 		judos.forEach(judo -> paintJudo(g, judo));
 	}
 	
@@ -137,6 +147,8 @@ public class ArenaPane extends JComponent {
 	}
 
 	private void paintJudo_entering(Graphics g, Judo judo) {
+		SpriteFactory spriteFactory = context.getSpriteFactory();
+
 		BufferedImage[] sprites = spriteFactory.getJudoEntering();
 		int spriteIndex = judo.getEnteringCountdown();
 		BufferedImage sprite = sprites[spriteIndex];
@@ -147,6 +159,8 @@ public class ArenaPane extends JComponent {
 	}
 
 	private void paintJudo_active(Graphics g, Judo judo) {
+		SpriteFactory spriteFactory = context.getSpriteFactory();
+
 		BufferedImage[] sprites = spriteFactory.getJudo();
 		BufferedImage sprite = SpriteUtil.getCurrentSprite(judo, sprites);
 		int adjX = judo.getX() - SPRITE_WIDTH_PX / 2;
@@ -155,6 +169,8 @@ public class ArenaPane extends JComponent {
 	}
 
 	private void paintJudo_exiting(Graphics g, Judo judo) {
+		SpriteFactory spriteFactory = context.getSpriteFactory();
+
 		BufferedImage[] sprites = spriteFactory.getJudoExiting();
 
 		int spriteIndex = (Judo.EXITING_DURATION - 1) - judo.getExitingCountdown();
@@ -167,7 +183,7 @@ public class ArenaPane extends JComponent {
 
 	private void paintPlayerBalloons(Graphics g) {
 		g.setColor(Color.CYAN);
-		List<Balloon> balloons = arenaModel.getPlayerBalloons();
+		List<Balloon> balloons = model.getPlayerBalloons();
 		balloons.forEach(balloon -> paintPlayerBalloon(g, balloon));
 	}
 	
