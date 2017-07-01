@@ -12,7 +12,7 @@ import bb.framework.event.GameListener;
 import bb.framework.model.Actor;
 import bb.framework.model.BasicActorModel;
 import bb.framework.util.MathUtil;
-import bb.framework.AttractScreen;
+import bb.framework.TtlScreen;
 import bb.framework.view.ImageView;
 
 import java.awt.event.KeyAdapter;
@@ -26,7 +26,7 @@ import static bb.BBConfig.SCREEN_WIDTH_PX;
 /**
  * Created by willie on 6/17/17.
  */
-public class TitleScreen extends AttractScreen {
+public class TitleScreen extends TtlScreen {
 	private static final int TTL = 15 * BBConfig.FRAMES_PER_SECOND;
 
 	private static final String TITLE_PATH = "images/bb-title.png";

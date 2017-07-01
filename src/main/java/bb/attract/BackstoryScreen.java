@@ -8,7 +8,7 @@ import bb.common.view.TextView;
 import bb.framework.event.GameEvent;
 import bb.framework.event.GameListener;
 import bb.framework.model.Actor;
-import bb.framework.AttractScreen;
+import bb.framework.TtlScreen;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -17,7 +17,7 @@ import java.awt.event.KeyListener;
 /**
  * Created by willie on 6/30/17.
  */
-public class BackstoryScreen extends AttractScreen {
+public class BackstoryScreen extends TtlScreen {
 	private static final int TTL = 15 * BBConfig.FRAMES_PER_SECOND;
 
 	private static final String BACKSTORY =

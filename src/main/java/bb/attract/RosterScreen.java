@@ -12,7 +12,7 @@ import bb.common.view.TextView;
 import bb.framework.event.GameEvent;
 import bb.framework.event.GameListener;
 import bb.framework.model.Actor;
-import bb.framework.AttractScreen;
+import bb.framework.TtlScreen;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -21,7 +21,7 @@ import java.awt.event.KeyListener;
 /**
  * Created by willie on 6/30/17.
  */
-public class RosterScreen extends AttractScreen {
+public class RosterScreen extends TtlScreen {
 	private static final int TTL = 60 * BBConfig.FRAMES_PER_SECOND;
 
 	private KeyListener keyListener;
