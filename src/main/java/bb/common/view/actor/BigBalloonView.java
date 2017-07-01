@@ -1,7 +1,9 @@
-package bb.framework.view.actor;
+package bb.common.view.actor;
 
+import bb.common.model.BigBalloonModel;
 import bb.framework.model.ActorModel;
 import bb.framework.util.Assert;
+import bb.framework.view.actor.ActorView;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
@@ -10,14 +12,17 @@ import static bb.BBConfig.SPRITE_HEIGHT_PX;
 import static bb.BBConfig.SPRITE_WIDTH_PX;
 
 /**
- * Created by willie on 6/24/17.
+ * Created by willie on 6/30/17.
  */
-public abstract class SpriteActorView implements ActorView {
-	private ActorModel model;
+public class BigBalloonView implements ActorView {
+	private BigBalloonModel model;
+	private BufferedImage[] balloonSprites;
 
-	public SpriteActorView(ActorModel model) {
+	public BigBalloonView(BigBalloonModel model, BufferedImage[] balloonSprites) {
 		Assert.notNull(model, "model can't be null");
+		Assert.notNull(balloonSprites, "balloonSprites can't be null");
 		this.model = model;
+		this.balloonSprites = balloonSprites;
 	}
 
 	@Override
@@ -31,12 +36,11 @@ public abstract class SpriteActorView implements ActorView {
 		final int halfHeight = SPRITE_HEIGHT_PX / 2;
 		final int x = model.getX();
 		final int y = model.getY();
-		final BufferedImage sprite = getCurrentSprite();
+		final int rot = model.getRotation();
+		final BufferedImage sprite = balloonSprites[rot];
 
 		g.translate(-halfWidth, -halfHeight);
 		g.drawImage(sprite, x, y, SPRITE_WIDTH_PX, SPRITE_HEIGHT_PX, null);
 		g.translate(halfWidth, halfHeight);
 	}
-
-	public abstract BufferedImage getCurrentSprite();
 }

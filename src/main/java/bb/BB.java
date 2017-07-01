@@ -1,17 +1,12 @@
 package bb;
 
-import bb.arena.ArenaController;
 import bb.arena.ArenaScreen;
-import bb.arena.model.ArenaModel;
-import bb.attract.BackstoryController;
 import bb.attract.BackstoryScreen;
 import bb.attract.RosterScreen;
 import bb.attract.TitleScreen;
-import bb.attract.RosterController;
-import bb.attract.TitleController;
-import bb.framework.GameController;
 import bb.framework.event.GameEvent;
 import bb.framework.event.GameListener;
+import bb.framework.view.GameScreen;
 import bb.framework.view.Resizer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,7 +21,7 @@ public class BB extends JFrame {
 
 	private BBContext context;
 	private GameListener gameListener;
-	private GameController currentController;
+	private GameScreen currentScreen;
 
 	public BB() {
 		super("Battle Balloons");
@@ -49,37 +44,32 @@ public class BB extends JFrame {
 	}
 
 	private void startTitle() {
-		TitleScreen screen = new TitleScreen(context, gameListener);
-		setCurrentController(new TitleController(screen, gameListener));
+		setCurrentScreen(new TitleScreen(context, gameListener));
 	}
 
 	private void startBackstory() {
-		BackstoryScreen screen = new BackstoryScreen(context, gameListener);
-		setCurrentController(new BackstoryController(screen, gameListener));
+		setCurrentScreen(new BackstoryScreen(context, gameListener));
 	}
 
 	private void startRoster() {
-		RosterScreen screen = new RosterScreen(context, gameListener);
-		setCurrentController(new RosterController(screen, gameListener));
+		setCurrentScreen(new RosterScreen(context, gameListener));
 	}
 
 	private void startGame(int numPlayers) {
-		ArenaModel model = new ArenaModel();
-		ArenaScreen screen = new ArenaScreen(context, model);
-		setCurrentController(new ArenaController(context, model, screen, gameListener));
+		setCurrentScreen(new ArenaScreen(context, gameListener));
 	}
 
-	private void setCurrentController(GameController controller) {
-		if (currentController != null) {
-			currentController.stop();
-			removeKeyListener(currentController.getKeyListener());
+	private void setCurrentScreen(GameScreen screen) {
+		if (currentScreen != null) {
+			currentScreen.stop();
+			removeKeyListener(currentScreen.getKeyListener());
 		}
 
-		this.currentController = controller;
-		setContentPane(new Resizer(controller.getGameScreen()));
+		this.currentScreen = screen;
+		setContentPane(new Resizer(currentScreen));
 		validate();
-		addKeyListener(currentController.getKeyListener());
-		currentController.start();
+		addKeyListener(currentScreen.getKeyListener());
+		currentScreen.start();
 	}
 
 	public class GameHandler implements GameListener {
@@ -96,11 +86,11 @@ public class BB extends JFrame {
 			} else if (type == GameEvent.SCREEN_ABORTED) {
 				startTitle();
 			} else if (type == GameEvent.SCREEN_EXPIRED) {
-				if (source instanceof TitleController) {
+				if (source instanceof TitleScreen) {
 					startBackstory();
-				} else if (source instanceof BackstoryController) {
+				} else if (source instanceof BackstoryScreen) {
 					startRoster();
-				} else if (source instanceof RosterController) {
+				} else if (source instanceof RosterScreen) {
 					startTitle();
 				} else {
 					throw new IllegalStateException("Unknown source: " + source);

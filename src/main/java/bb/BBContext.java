@@ -24,7 +24,7 @@ public class BBContext {
 		this.fontFactory = new FontFactory(fontLoader);
 		this.spriteFactory = new SpriteFactory(imageLoader);
 		this.audioFactory = new AudioFactory();
-		this.actorViewFactory = new ActorViewFactory(spriteFactory, fontFactory);
+		this.actorViewFactory = new ActorViewFactory(imageLoader, spriteFactory, fontFactory);
 	}
 
 	public FontLoader getFontLoader() {

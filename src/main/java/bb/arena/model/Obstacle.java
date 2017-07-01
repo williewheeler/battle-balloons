@@ -28,7 +28,7 @@ public class Obstacle extends AbstractEntity {
 	
 	@Override
 	public void update() {
-		// Nothing to update here for now.
+		// Nothing to updateModel here for now.
 		// At some point we will add animations though.
 	}
 }

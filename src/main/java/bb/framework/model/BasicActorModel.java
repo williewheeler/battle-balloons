@@ -1,7 +1,6 @@
-package bb.framework.model.actor;
+package bb.framework.model;
 
 import bb.common.model.Direction;
-import bb.framework.util.Assert;
 
 /**
  * Actor data relevant to actual gameplay, such as location and size. Excludes data purely view-related data, such as
@@ -9,15 +8,18 @@ import bb.framework.util.Assert;
  *
  * Created by willie on 6/19/17.
  */
-public abstract class AbstractActorModel implements ActorModel {
+public class BasicActorModel implements ActorModel {
 	private ActorBrain brain;
 	private int x;
 	private int y;
+	private int width;
+	private int height;
 	private int speed;
 	private Direction direction;
 
-	public AbstractActorModel(ActorBrain brain, int x, int y, int speed) {
-		Assert.notNull(brain, "brain can't be null");
+	// TODO Get rid of speed in the constructor. Not all actors have it. [WLW]
+	// TODO Add width and height since all actors have it. [WLW]
+	public BasicActorModel(ActorBrain brain, int x, int y, int speed) {
 		this.brain = brain;
 		this.x = x;
 		this.y = y;
@@ -47,6 +49,22 @@ public abstract class AbstractActorModel implements ActorModel {
 		this.y += deltaY;
 	}
 
+	public int getWidth() {
+		return width;
+	}
+
+	public void setWidth(int width) {
+		this.width = width;
+	}
+
+	public int getHeight() {
+		return height;
+	}
+
+	public void setHeight(int height) {
+		this.height = height;
+	}
+
 	@Override
 	public int getSpeed() {
 		return speed;
@@ -63,9 +81,13 @@ public abstract class AbstractActorModel implements ActorModel {
 
 	@Override
 	public void update() {
-		brain.update();
+		if (brain != null) {
+			brain.update();
+		}
 		doUpdate();
 	}
 
-	public abstract void doUpdate();
+	public void doUpdate() {
+		// Override this as desired.
+	}
 }

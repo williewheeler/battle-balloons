@@ -1,6 +1,6 @@
 package bb.framework.view.actor;
 
-import bb.framework.model.actor.ActorModel;
+import bb.framework.model.ActorModel;
 
 import java.awt.Graphics;
 

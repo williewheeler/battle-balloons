@@ -5,9 +5,14 @@ import bb.BBContext;
 import bb.common.model.TextModel;
 import bb.common.view.actor.ActorViewFactory;
 import bb.common.view.actor.TextView;
+import bb.framework.event.GameEvent;
 import bb.framework.event.GameListener;
-import bb.framework.model.actor.Actor;
+import bb.framework.model.Actor;
 import bb.framework.view.AttractScreen;
+
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 /**
  * Created by willie on 6/30/17.
@@ -27,10 +32,25 @@ public class BackstoryScreen extends AttractScreen {
 			"CAN YOU SAVE HER FROM GETTING...\n" +
 			"GROUNDED?";
 
-
 	public BackstoryScreen(BBContext context, GameListener gameListener) {
 		super(context, gameListener, TTL);
-		ActorViewFactory actorViewFactory = context.getActorViewFactory();
+		initScene();
+	}
+
+	@Override
+	public KeyListener buildKeyListener() {
+		return new KeyAdapter() {
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+				super.keyPressed(e);
+				fireGameEvent(BackstoryScreen.this, GameEvent.SCREEN_ABORTED);
+			}
+		};
+	}
+
+	private void initScene() {
+		ActorViewFactory actorViewFactory = getContext().getActorViewFactory();
 		TextModel textModel = new TextModel(BACKSTORY, 20, 40);
 		TextView textView = actorViewFactory.createTextView(textModel);
 		Actor text = new Actor(textModel, textView);

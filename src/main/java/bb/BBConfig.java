@@ -36,6 +36,6 @@ public class BBConfig {
 	public static final int SPRITE_WIDTH_PX = 16;
 	public static final int SPRITE_HEIGHT_PX = 16;
 	
-	/** Clearing around the player when enemies are initially placed */
+	// Clearing around the player when enemies are initially placed
 	public static final int CLEARING_RADIUS = 50;
 }

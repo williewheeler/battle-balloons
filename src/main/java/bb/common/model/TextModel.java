@@ -1,7 +1,6 @@
 package bb.common.model;
 
-import bb.framework.model.actor.AbstractActorModel;
-import bb.framework.model.actor.NullBrain;
+import bb.framework.model.BasicActorModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,12 +8,12 @@ import java.util.List;
 /**
  * Created by willie on 6/25/17.
  */
-public class TextModel extends AbstractActorModel {
+public class TextModel extends BasicActorModel {
 	private char[] textArr;
 	private int counter;
 
 	public TextModel(String text, int x, int y) {
-		super(new NullBrain(), x, y, 0);
+		super(null, x, y, 0);
 		this.textArr = text.toCharArray();
 		this.counter = 1;
 	}

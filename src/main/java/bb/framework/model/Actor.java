@@ -1,4 +1,4 @@
-package bb.framework.model.actor;
+package bb.framework.model;
 
 import bb.framework.util.Assert;
 import bb.framework.view.actor.ActorView;

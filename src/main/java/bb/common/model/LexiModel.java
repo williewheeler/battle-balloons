@@ -1,8 +1,8 @@
 package bb.common.model;
 
 import bb.BBConfig;
-import bb.framework.model.actor.AbstractActorModel;
-import bb.framework.model.actor.ActorUtil;
+import bb.framework.model.BasicActorModel;
+import bb.framework.model.ActorUtil;
 import bb.framework.util.MathUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Created by willie on 6/24/17.
  */
-public class LexiModel extends AbstractActorModel {
+public class LexiModel extends BasicActorModel {
 	private static final Logger log = LoggerFactory.getLogger(LexiModel.class);
 
 	private static final int SPEED = 3;

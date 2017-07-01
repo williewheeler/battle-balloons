@@ -1,4 +1,4 @@
-package bb.framework.model.actor;
+package bb.framework.model;
 
 /**
  * Actor's sensorimotor model.

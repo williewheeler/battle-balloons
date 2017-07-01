@@ -16,6 +16,10 @@ public final class MathUtil {
 		return RANDOM.nextInt(bound);
 	}
 
+	public static double nextRandomDouble() {
+		return RANDOM.nextDouble();
+	}
+
 	public static double nextRandomGaussian() {
 		return RANDOM.nextGaussian();
 	}

@@ -1,6 +1,7 @@
 package bb.framework.view.actor;
 
 import bb.framework.model.ActorModel;
+import bb.framework.model.BasicActorModel;
 import bb.framework.util.Assert;
 
 import java.awt.Graphics;
@@ -10,14 +11,17 @@ import static bb.BBConfig.SPRITE_HEIGHT_PX;
 import static bb.BBConfig.SPRITE_WIDTH_PX;
 
 /**
- * Created by willie on 6/24/17.
+ * Created by willie on 7/1/17.
  */
-public abstract class SpriteActorView implements ActorView {
-	private ActorModel model;
+public class ImageView implements ActorView {
+	private BasicActorModel model;
+	private BufferedImage image;
 
-	public SpriteActorView(ActorModel model) {
+	public ImageView(BasicActorModel model, BufferedImage image) {
 		Assert.notNull(model, "model can't be null");
+		Assert.notNull(image, "image can't be null");
 		this.model = model;
+		this.image = image;
 	}
 
 	@Override
@@ -31,12 +35,11 @@ public abstract class SpriteActorView implements ActorView {
 		final int halfHeight = SPRITE_HEIGHT_PX / 2;
 		final int x = model.getX();
 		final int y = model.getY();
-		final BufferedImage sprite = getCurrentSprite();
+		final int width = model.getWidth();
+		final int height = model.getHeight();
 
 		g.translate(-halfWidth, -halfHeight);
-		g.drawImage(sprite, x, y, SPRITE_WIDTH_PX, SPRITE_HEIGHT_PX, null);
+		g.drawImage(image, x, y, width, height, null);
 		g.translate(halfWidth, halfHeight);
 	}
-
-	public abstract BufferedImage getCurrentSprite();
 }

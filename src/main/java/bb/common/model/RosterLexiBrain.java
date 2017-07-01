@@ -1,6 +1,4 @@
-package bb.attract;
-
-import bb.common.model.LexiBrain;
+package bb.common.model;
 
 /**
  * Created by willie on 6/25/17.

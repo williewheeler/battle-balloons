@@ -1,6 +1,6 @@
 package bb.common.model;
 
-import bb.framework.model.actor.ActorBrain;
+import bb.framework.model.ActorBrain;
 
 /**
  * Created by willie on 6/25/17.
