@@ -12,7 +12,7 @@ import bb.framework.event.GameListener;
 import bb.framework.model.Actor;
 import bb.framework.model.BasicActorModel;
 import bb.framework.util.MathUtil;
-import bb.framework.view.AttractScreen;
+import bb.framework.AttractScreen;
 import bb.framework.view.ImageView;
 
 import java.awt.event.KeyAdapter;

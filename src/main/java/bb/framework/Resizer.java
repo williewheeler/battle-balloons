@@ -1,4 +1,4 @@
-package bb.framework.view;
+package bb.framework;
 
 import javax.swing.JComponent;
 import javax.swing.JPanel;

@@ -1,4 +1,4 @@
-package bb.framework.view;
+package bb.framework;
 
 import bb.BBConfig;
 import bb.BBContext;

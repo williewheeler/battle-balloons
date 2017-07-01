@@ -6,8 +6,8 @@ import bb.attract.RosterScreen;
 import bb.attract.TitleScreen;
 import bb.framework.event.GameEvent;
 import bb.framework.event.GameListener;
-import bb.framework.view.GameScreen;
-import bb.framework.view.Resizer;
+import bb.framework.GameScreen;
+import bb.framework.Resizer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

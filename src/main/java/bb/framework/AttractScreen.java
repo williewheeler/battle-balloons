@@ -1,4 +1,4 @@
-package bb.framework.view;
+package bb.framework;
 
 import bb.BBContext;
 import bb.framework.event.GameListener;

@@ -12,7 +12,7 @@ import bb.common.view.AudioFactory;
 import bb.framework.event.ArenaEvent;
 import bb.framework.event.ArenaListener;
 import bb.framework.event.GameListener;
-import bb.framework.view.GameScreen;
+import bb.framework.GameScreen;
 
 import java.awt.BorderLayout;
 import java.awt.event.KeyAdapter;
