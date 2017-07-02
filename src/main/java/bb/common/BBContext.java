@@ -1,11 +1,11 @@
 package bb.common;
 
-import bb.common.view.ActorViewFactory;
-import bb.common.view.AudioFactory;
-import bb.common.view.FontFactory;
-import bb.common.view.SpriteFactory;
-import bb.framework.view.FontLoader;
-import bb.framework.view.ImageLoader;
+import bb.common.actor.view.ActorViewFactory;
+import bb.common.factory.AudioFactory;
+import bb.common.factory.FontFactory;
+import bb.common.factory.SpriteFactory;
+import bb.framework.io.FontLoader;
+import bb.framework.io.ImageLoader;
 
 /**
  * Created by willie on 6/30/17.
@@ -24,7 +24,7 @@ public class BBContext {
 		this.fontFactory = new FontFactory(fontLoader);
 		this.spriteFactory = new SpriteFactory(imageLoader);
 		this.audioFactory = new AudioFactory();
-		this.actorViewFactory = new ActorViewFactory(imageLoader, spriteFactory, fontFactory);
+		this.actorViewFactory = new ActorViewFactory(fontFactory, spriteFactory);
 	}
 
 	public FontLoader getFontLoader() {

@@ -12,7 +12,7 @@ public final class Assert {
 		isTrue(o != null, message);
 	}
 
-	public static void isPositive(int n, String message) {
+	public static void isStrictlyPositive(int n, String message) {
 		isTrue(n > 0, message);
 	}
 

@@ -1,16 +1,16 @@
 package bb;
 
-import bb.arena.ArenaMode;
+import bb.game.GameMode;
 import bb.attract.AttractMode;
 import bb.common.BBConfig;
 import bb.common.BBContext;
 import bb.framework.event.ModeEvent;
 import bb.framework.event.ModeListener;
-import bb.framework.mode.BBMode;
+import bb.common.mode.BBMode;
 import bb.framework.util.Assert;
-import bb.framework.view.BBScreen;
-import bb.framework.view.BBScreenManager;
-import bb.framework.view.Resizer;
+import bb.common.BBScreen;
+import bb.common.BBScreenManager;
+import bb.framework.util.Resizer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -100,8 +100,8 @@ public class BB extends JFrame {
 			return new AttractMode(context, screenManager);
 		}
 
-		public BBMode createArenaMode() {
-			return new ArenaMode(context, screenManager);
+		public BBMode createGameMode() {
+			return new GameMode(context, screenManager);
 		}
 	}
 
@@ -125,8 +125,8 @@ public class BB extends JFrame {
 
 			if (type == ModeEvent.MODE_STOPPED) {
 				if (BBConfig.ATTRACT_MODE.equals(currModeName)) {
-					transitionTo(modeFactory.createArenaMode());
-				} else if (BBConfig.ARENA_MODE.equals(currModeName)) {
+					transitionTo(modeFactory.createGameMode());
+				} else if (BBConfig.GAME_MODE.equals(currModeName)) {
 					transitionTo(modeFactory.createAttractMode());
 				} else {
 					throw new IllegalArgumentException("Unexpected mode: " + currModeName);

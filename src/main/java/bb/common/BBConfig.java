@@ -9,7 +9,7 @@ public class BBConfig {
 
 	// Mode names
 	public static final String ATTRACT_MODE = "attractMode";
-	public static final String ARENA_MODE = "arenaMode";
+	public static final String GAME_MODE = "gameMode";
 	public static final String ENTER_HIGH_SCORE_MODE = "enterHighScoreMode";
 
 	// Frame rate
