@@ -1,5 +1,7 @@
 package bb.framework.view;
 
+import bb.framework.util.Assert;
+
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -13,9 +15,9 @@ import java.io.InputStream;
  */
 public class AudioLoader {
 	
-	public Clip loadSoundEffect(String id) {
-		String filename = String.format("audio/%s.wav", id);
-		InputStream is = ClassLoader.getSystemResourceAsStream(filename);
+	public Clip loadSoundEffect(String path) {
+		Assert.notNull(path, "path can't be null");
+		InputStream is = ClassLoader.getSystemResourceAsStream(path);
 		try {
 			AudioInputStream ais = AudioSystem.getAudioInputStream(is);
 			Clip clip = AudioSystem.getClip();

@@ -41,9 +41,10 @@ public class AudioFactory {
 	}
 
 	private ArrayDeque<Clip> loadClips(String id, int clipsPerId, Float gainControlValue) {
+		String path = String.format("audio/%s.wav", id);
 		ArrayDeque<Clip> buffer = new ArrayDeque<>();
 		for (int i = 0; i < clipsPerId; i++) {
-			Clip clip = audioLoader.loadSoundEffect(id);
+			Clip clip = audioLoader.loadSoundEffect(path);
 			if (gainControlValue != null) {
 				FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
 				gainControl.setValue(gainControlValue);
