@@ -1,7 +1,7 @@
-package bb.framework;
+package bb.framework.view;
 
-import bb.BBConfig;
-import bb.BBContext;
+import bb.common.BBConfig;
+import bb.common.BBContext;
 import bb.framework.event.GameEvent;
 import bb.framework.event.GameListener;
 import bb.framework.model.Actor;
@@ -19,13 +19,13 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 
-import static bb.BBConfig.SCREEN_SIZE_PX;
+import static bb.common.BBConfig.SCREEN_SIZE_PX;
 
 /**
  * Created by willie on 6/19/17.
  */
-public abstract class GameScreen extends JPanel {
-	private GameScreen me;
+public abstract class BBScreen extends JPanel {
+	private BBScreen me;
 	private BBContext context;
 	private GameListener gameListener;
 	private KeyListener keyListener;
@@ -34,7 +34,7 @@ public abstract class GameScreen extends JPanel {
 
 	private final List<Actor> actors = new LinkedList<>();
 
-	public GameScreen(BBContext context, GameListener gameListener) {
+	public BBScreen(BBContext context, GameListener gameListener) {
 		Assert.notNull(context, "context can't be null");
 		Assert.notNull(gameListener, "gameListener can't be null");
 

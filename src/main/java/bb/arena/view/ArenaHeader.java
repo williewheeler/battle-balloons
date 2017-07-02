@@ -1,6 +1,6 @@
 package bb.arena.view;
 
-import bb.BBContext;
+import bb.common.BBContext;
 import bb.arena.model.ArenaModel;
 import bb.arena.model.Player;
 import bb.common.view.FontFactory;
@@ -14,7 +14,7 @@ import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
-import static bb.BBConfig.*;
+import static bb.common.BBConfig.*;
 
 /**
  * Created by willie on 6/4/17.

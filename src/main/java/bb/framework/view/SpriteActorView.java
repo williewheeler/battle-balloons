@@ -6,8 +6,8 @@ import bb.framework.util.Assert;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
-import static bb.BBConfig.SPRITE_HEIGHT_PX;
-import static bb.BBConfig.SPRITE_WIDTH_PX;
+import static bb.common.BBConfig.SPRITE_HEIGHT_PX;
+import static bb.common.BBConfig.SPRITE_WIDTH_PX;
 
 /**
  * Created by willie on 6/24/17.

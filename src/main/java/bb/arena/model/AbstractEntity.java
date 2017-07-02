@@ -5,7 +5,7 @@ import bb.common.model.Direction;
 
 import java.util.Random;
 
-import static bb.BBConfig.*;
+import static bb.common.BBConfig.*;
 
 /**
  * Created by wwheeler on 6/11/17.

@@ -1,4 +1,4 @@
-package bb;
+package bb.common;
 
 import bb.common.view.ActorViewFactory;
 import bb.common.view.AudioFactory;
@@ -30,7 +30,6 @@ public class BBContext {
 	public FontLoader getFontLoader() {
 		return fontLoader;
 	}
-
 
 	public ImageLoader getImageLoader() {
 		return imageLoader;

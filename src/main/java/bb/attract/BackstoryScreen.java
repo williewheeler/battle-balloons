@@ -1,14 +1,14 @@
 package bb.attract;
 
-import bb.BBConfig;
-import bb.BBContext;
+import bb.common.BBConfig;
+import bb.common.BBContext;
 import bb.common.model.TextModel;
 import bb.common.view.ActorViewFactory;
 import bb.common.view.TextView;
 import bb.framework.event.GameEvent;
 import bb.framework.event.GameListener;
 import bb.framework.model.Actor;
-import bb.framework.TtlScreen;
+import bb.framework.view.TtlScreen;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;

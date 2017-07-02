@@ -1,6 +1,6 @@
 package bb.common.model;
 
-import bb.BBConfig;
+import bb.common.BBConfig;
 import bb.framework.model.BasicActorModel;
 import bb.framework.model.ActorUtil;
 import bb.framework.util.MathUtil;

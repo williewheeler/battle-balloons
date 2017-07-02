@@ -1,6 +1,6 @@
-package bb.framework;
+package bb.framework.view;
 
-import bb.BBContext;
+import bb.common.BBContext;
 import bb.framework.event.GameListener;
 
 /**
@@ -9,7 +9,7 @@ import bb.framework.event.GameListener;
  *
  * Created by willie on 6/25/17.
  */
-public abstract class TtlScreen extends GameScreen {
+public abstract class TtlScreen extends BBScreen {
 	private int ttl;
 
 	public TtlScreen(BBContext context, GameListener gameListener, int ttl) {

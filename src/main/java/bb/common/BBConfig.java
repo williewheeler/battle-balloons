@@ -1,4 +1,4 @@
-package bb;
+package bb.common;
 
 import java.awt.Dimension;
 
@@ -6,6 +6,13 @@ import java.awt.Dimension;
  * Created by willie on 6/4/17.
  */
 public class BBConfig {
+
+	// Mode names
+	public static final String ATTRACT_MODE = "attractMode";
+	public static final String ARENA_MODE = "arenaMode";
+	public static final String ENTER_HIGH_SCORE_MODE = "enterHighScoreMode";
+
+	// Frame rate
 	public static final int FRAMES_PER_SECOND = 30;
 	public static final int FRAME_PERIOD_MS = 1000 / FRAMES_PER_SECOND;
 

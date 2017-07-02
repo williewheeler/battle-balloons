@@ -1,13 +1,13 @@
 package bb.attract;
 
-import bb.BBConfig;
-import bb.BBContext;
+import bb.common.BBConfig;
+import bb.common.BBContext;
 import bb.common.model.BigBalloonModel;
 import bb.common.model.TextModel;
 import bb.common.view.ActorViewFactory;
 import bb.common.view.BigBalloonView;
 import bb.common.view.TextView;
-import bb.framework.TtlScreen;
+import bb.framework.view.TtlScreen;
 import bb.framework.event.GameEvent;
 import bb.framework.event.GameListener;
 import bb.framework.model.Actor;
@@ -19,8 +19,8 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import static bb.BBConfig.SCREEN_HEIGHT_PX;
-import static bb.BBConfig.SCREEN_WIDTH_PX;
+import static bb.common.BBConfig.SCREEN_HEIGHT_PX;
+import static bb.common.BBConfig.SCREEN_WIDTH_PX;
 
 /**
  * Created by willie on 6/17/17.

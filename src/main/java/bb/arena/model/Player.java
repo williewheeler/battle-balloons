@@ -5,8 +5,8 @@ import bb.arena.event.ArenaEvents;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static bb.BBConfig.ARENA_INNER_HEIGHT_PX;
-import static bb.BBConfig.ARENA_INNER_WIDTH_PX;
+import static bb.common.BBConfig.ARENA_INNER_HEIGHT_PX;
+import static bb.common.BBConfig.ARENA_INNER_WIDTH_PX;
 
 /**
  * Created by willie on 6/5/17.

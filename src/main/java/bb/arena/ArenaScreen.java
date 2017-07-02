@@ -1,6 +1,6 @@
 package bb.arena;
 
-import bb.BBContext;
+import bb.common.BBContext;
 import bb.arena.event.ArenaEvents;
 import bb.arena.model.ArenaModel;
 import bb.arena.model.DirectionIntent;
@@ -12,7 +12,7 @@ import bb.common.view.AudioFactory;
 import bb.framework.event.ArenaEvent;
 import bb.framework.event.ArenaListener;
 import bb.framework.event.GameListener;
-import bb.framework.GameScreen;
+import bb.framework.view.BBScreen;
 
 import java.awt.BorderLayout;
 import java.awt.event.KeyAdapter;
@@ -22,7 +22,7 @@ import java.awt.event.KeyListener;
 /**
  * Created by willie on 6/4/17.
  */
-public class ArenaScreen extends GameScreen {
+public class ArenaScreen extends BBScreen {
 	private ArenaModel model;
 	private ArenaHeader arenaHeader;
 	private ArenaPane arenaPane;

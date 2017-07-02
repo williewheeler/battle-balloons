@@ -4,8 +4,8 @@ import bb.framework.view.FontLoader;
 
 import java.awt.Font;
 
-import static bb.BBConfig.LARGE_FONT_PT;
-import static bb.BBConfig.SMALL_FONT_PT;
+import static bb.common.BBConfig.LARGE_FONT_PT;
+import static bb.common.BBConfig.SMALL_FONT_PT;
 
 /**
  * Created by willie on 6/4/17.

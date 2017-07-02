@@ -1,4 +1,4 @@
-package bb.framework;
+package bb.framework.view;
 
 import javax.swing.JComponent;
 import javax.swing.JPanel;
@@ -8,8 +8,8 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 
-import static bb.BBConfig.SCREEN_HEIGHT_PX;
-import static bb.BBConfig.SCREEN_WIDTH_PX;
+import static bb.common.BBConfig.SCREEN_HEIGHT_PX;
+import static bb.common.BBConfig.SCREEN_WIDTH_PX;
 
 /**
  * See https://stackoverflow.com/questions/44363464/scale-tiny-low-resolution-app-to-larger-screen-size
