@@ -1,7 +1,6 @@
 package bb.framework.view;
 
 import bb.common.BBContext;
-import bb.framework.event.GameListener;
 
 /**
  * A game screen with a defined time-to-live (TTL). This is useful for attract mode screens, level transition screens,
@@ -12,8 +11,8 @@ import bb.framework.event.GameListener;
 public abstract class TtlScreen extends BBScreen {
 	private int ttl;
 
-	public TtlScreen(BBContext context, GameListener gameListener, int ttl) {
-		super(context, gameListener);
+	public TtlScreen(BBContext context, int ttl) {
+		super(context);
 		this.ttl = ttl;
 	}
 

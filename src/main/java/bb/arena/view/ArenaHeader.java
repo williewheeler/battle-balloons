@@ -1,8 +1,8 @@
 package bb.arena.view;
 
-import bb.common.BBContext;
 import bb.arena.model.ArenaModel;
 import bb.arena.model.Player;
+import bb.common.BBContext;
 import bb.common.view.FontFactory;
 import bb.common.view.SpriteFactory;
 import bb.framework.util.Assert;

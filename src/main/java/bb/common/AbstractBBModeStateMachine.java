@@ -1,41 +1,30 @@
 package bb.common;
 
-import bb.framework.BBModeStateMachine;
-import bb.framework.event.GameEvent;
-import bb.framework.event.GameListener;
+import bb.framework.event.ModeEvent;
+import bb.framework.event.ModeListener;
+import bb.framework.mode.BBModeStateMachine;
 import bb.framework.util.Assert;
 import bb.framework.view.BBScreen;
 import bb.framework.view.BBScreenManager;
+
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Created by willie on 7/1/17.
  */
 public abstract class AbstractBBModeStateMachine implements BBModeStateMachine {
-	private BBContext context;
 	private BBScreenManager screenManager;
-	private GameListener modeListener;
 	private BBScreen currentScreen;
+	private final List<ModeListener> modeListeners = new LinkedList<>();
 
-	public AbstractBBModeStateMachine(BBContext context, BBScreenManager screenManager, GameListener modeListener) {
-		Assert.notNull(context, "context can't be null");
+	public AbstractBBModeStateMachine(BBScreenManager screenManager) {
 		Assert.notNull(screenManager, "screenManager can't be null");
-		Assert.notNull(modeListener, "modeListener can't be null");
-		this.context = context;
 		this.screenManager = screenManager;
-		this.modeListener = modeListener;
-	}
-
-	public BBContext getContext() {
-		return context;
 	}
 
 	public BBScreen getCurrentScreen() {
-		return screenManager.getCurrentScreen();
-	}
-
-	@Override
-	public void stop() {
-		modeListener.handleEvent(new GameEvent(this, GameEvent.MODE_EXPIRED));
+		return currentScreen;
 	}
 
 	@Override
@@ -45,6 +34,22 @@ public abstract class AbstractBBModeStateMachine implements BBModeStateMachine {
 			screenManager.stopCurrentScreen();
 		}
 		this.currentScreen = screen;
+		currentScreen.addScreenListener(this);
 		screenManager.startScreen(screen);
+	}
+
+	@Override
+	public void yield() {
+		fireModeEvent(ModeEvent.MODE_STOPPED);
+	}
+
+	public void addModeListener(ModeListener listener) {
+		Assert.notNull(listener, "listener can't be null");
+		modeListeners.add(listener);
+	}
+
+	protected void fireModeEvent(int type) {
+		ModeEvent event = new ModeEvent(type);
+		modeListeners.forEach(listener -> listener.handleEvent(event));
 	}
 }

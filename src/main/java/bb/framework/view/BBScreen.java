@@ -2,8 +2,8 @@ package bb.framework.view;
 
 import bb.common.BBConfig;
 import bb.common.BBContext;
-import bb.framework.event.GameEvent;
-import bb.framework.event.GameListener;
+import bb.framework.event.ScreenEvent;
+import bb.framework.event.ScreenListener;
 import bb.framework.model.Actor;
 import bb.framework.util.Assert;
 
@@ -27,20 +27,18 @@ import static bb.common.BBConfig.SCREEN_SIZE_PX;
 public abstract class BBScreen extends JPanel {
 	private BBScreen me;
 	private BBContext context;
-	private GameListener gameListener;
 	private KeyListener keyListener;
 	private ActionListener tickListener;
 	private Timer timer;
 
 	private final List<Actor> actors = new LinkedList<>();
+	private final List<ScreenListener> screenListeners = new LinkedList<>();
 
-	public BBScreen(BBContext context, GameListener gameListener) {
+	public BBScreen(BBContext context) {
 		Assert.notNull(context, "context can't be null");
-		Assert.notNull(gameListener, "gameListener can't be null");
 
 		this.me = this;
 		this.context = context;
-		this.gameListener = gameListener;
 		this.keyListener = buildKeyListener();
 		this.tickListener = buildTickListener();
 		this.timer = new Timer(BBConfig.FRAME_PERIOD_MS, tickListener);
@@ -88,10 +86,13 @@ public abstract class BBScreen extends JPanel {
 		actors.forEach(actor -> actor.paint(g));
 	}
 
-	protected void fireGameEvent(Object source, String type) {
-		Assert.notNull(source, "source can't be null");
-		Assert.notNull(type, "type can't be null");
-		gameListener.handleEvent(new GameEvent(source, type));
+	public void addScreenListener(ScreenListener listener) {
+		screenListeners.add(listener);
+	}
+
+	protected void fireScreenEvent(int type) {
+		ScreenEvent event = new ScreenEvent(type);
+		screenListeners.forEach(listener -> listener.handleEvent(event));
 	}
 
 	private ActionListener buildTickListener() {
@@ -104,7 +105,7 @@ public abstract class BBScreen extends JPanel {
 					updateModel();
 					getTopLevelAncestor().repaint();
 				} else {
-					fireGameEvent(me, GameEvent.SCREEN_EXPIRED);
+					fireScreenEvent(ScreenEvent.SCREEN_EXPIRED);
 				}
 			}
 		};

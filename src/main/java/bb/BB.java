@@ -1,12 +1,12 @@
 package bb;
 
-import bb.arena.ArenaModeStateMachine;
-import bb.attract.AttractModeStateMachine;
+import bb.arena.ArenaStateMachine;
+import bb.attract.AttractStateMachine;
 import bb.common.BBConfig;
 import bb.common.BBContext;
-import bb.framework.BBMode;
-import bb.framework.event.GameEvent;
-import bb.framework.event.GameListener;
+import bb.framework.event.ModeEvent;
+import bb.framework.event.ModeListener;
+import bb.framework.mode.BBMode;
 import bb.framework.util.Assert;
 import bb.framework.view.BBScreen;
 import bb.framework.view.BBScreenManager;
@@ -96,21 +96,19 @@ public class BB extends JFrame {
 			this.screenManager = screenManager;
 		}
 
-		public BBMode createAttractMode(GameListener gameListener) {
-			AttractModeStateMachine sm = new AttractModeStateMachine(context, screenManager, gameListener);
-			return new BBMode(BBConfig.ATTRACT_MODE, sm);
+		public BBMode createAttractMode() {
+			return new BBMode(BBConfig.ATTRACT_MODE, new AttractStateMachine(context, screenManager));
 		}
 
-		public BBMode createArenaMode(GameListener gameListener) {
-			ArenaModeStateMachine sm = new ArenaModeStateMachine(context, screenManager, gameListener);
-			return new BBMode(BBConfig.ARENA_MODE, sm);
+		public BBMode createArenaMode() {
+			return new BBMode(BBConfig.ARENA_MODE, new ArenaStateMachine(context, screenManager));
 		}
 	}
 
 	/**
 	 * Top-level state machine to transition between modes.
 	 */
-	private static class BBStateMachine implements GameListener {
+	private static class BBStateMachine implements ModeListener {
 		private BBModeFactory modeFactory;
 		private BBMode currentMode;
 
@@ -121,15 +119,15 @@ public class BB extends JFrame {
 		}
 
 		@Override
-		public void handleEvent(GameEvent event) {
-			String type = event.getType();
-			String currModeName = currentMode.getName();
+		public void handleEvent(ModeEvent event) {
+			final int type = event.getType();
+			final String currModeName = currentMode.getName();
 
-			if (type == GameEvent.MODE_EXPIRED) {
+			if (type == ModeEvent.MODE_STOPPED) {
 				if (BBConfig.ATTRACT_MODE.equals(currModeName)) {
-					transitionTo(modeFactory.createArenaMode(this));
+					transitionTo(modeFactory.createArenaMode());
 				} else if (BBConfig.ARENA_MODE.equals(currModeName)) {
-					transitionTo(modeFactory.createAttractMode(this));
+					transitionTo(modeFactory.createAttractMode());
 				} else {
 					throw new IllegalArgumentException("Unexpected mode: " + currModeName);
 				}
@@ -139,19 +137,18 @@ public class BB extends JFrame {
 		}
 
 		public void start() {
-			transitionTo(modeFactory.createAttractMode(this));
+			transitionTo(modeFactory.createAttractMode());
 		}
 
+		/**
+		 * This method assumes that the current mode has already stopped, and therefore does not re-yield the node.
+		 *
+		 * @param mode
+		 */
 		public void transitionTo(BBMode mode) {
 			Assert.notNull(mode, "mode can't be null");
-
-			// Don't re-stop the current mode.
-			// It has already stopped and that's why we're transitioning to a new mode.
-//			if (currentMode != null) {
-//				currentMode.stop();
-//			}
-
 			this.currentMode = mode;
+			currentMode.addModeListener(this);
 			currentMode.start();
 		}
 	}

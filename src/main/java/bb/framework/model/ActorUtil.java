@@ -3,7 +3,6 @@ package bb.framework.model;
 import bb.common.model.Direction;
 
 import static bb.common.model.Direction.*;
-import static bb.common.model.Direction.RIGHT;
 
 /**
  * Created by willie on 6/25/17.

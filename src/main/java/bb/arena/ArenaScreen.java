@@ -1,6 +1,5 @@
 package bb.arena;
 
-import bb.common.BBContext;
 import bb.arena.event.ArenaEvents;
 import bb.arena.model.ArenaModel;
 import bb.arena.model.DirectionIntent;
@@ -8,10 +7,10 @@ import bb.arena.model.Player;
 import bb.arena.view.ArenaFooter;
 import bb.arena.view.ArenaHeader;
 import bb.arena.view.ArenaPane;
+import bb.common.BBContext;
 import bb.common.view.AudioFactory;
 import bb.framework.event.ArenaEvent;
 import bb.framework.event.ArenaListener;
-import bb.framework.event.GameListener;
 import bb.framework.view.BBScreen;
 
 import java.awt.BorderLayout;
@@ -29,8 +28,8 @@ public class ArenaScreen extends BBScreen {
 	private ArenaFooter arenaFooter;
 	private AudioHandler audioHandler;
 
-	public ArenaScreen(BBContext context, GameListener gameListener) {
-		super(context, gameListener);
+	public ArenaScreen(BBContext context) {
+		super(context);
 		this.model = new ArenaModel();
 		this.arenaHeader = new ArenaHeader(context, model);
 		this.arenaPane = new ArenaPane(context, model);

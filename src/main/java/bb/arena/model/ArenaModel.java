@@ -1,9 +1,9 @@
 package bb.arena.model;
 
-import bb.framework.event.ArenaEvent;
 import bb.arena.event.ArenaEvents;
-import bb.framework.event.ArenaListener;
 import bb.arena.event.EntityState;
+import bb.framework.event.ArenaEvent;
+import bb.framework.event.ArenaListener;
 
 import java.util.LinkedList;
 import java.util.List;

@@ -7,13 +7,12 @@ import bb.common.model.TextModel;
 import bb.common.view.ActorViewFactory;
 import bb.common.view.BigBalloonView;
 import bb.common.view.TextView;
-import bb.framework.view.TtlScreen;
-import bb.framework.event.GameEvent;
-import bb.framework.event.GameListener;
+import bb.framework.event.ScreenEvent;
 import bb.framework.model.Actor;
 import bb.framework.model.BasicActorModel;
 import bb.framework.util.MathUtil;
 import bb.framework.view.ImageView;
+import bb.framework.view.TtlScreen;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -32,8 +31,8 @@ public class TitleScreen extends TtlScreen {
 	private static final double CREATE_PROBABILITY = 0.33;
 	private static final int BASE_DX = 4;
 
-	public TitleScreen(BBContext context, GameListener gameListener) {
-		super(context, gameListener, TTL);
+	public TitleScreen(BBContext context) {
+		super(context, TTL);
 		initScene();
 	}
 
@@ -95,10 +94,10 @@ public class TitleScreen extends TtlScreen {
 			super.keyPressed(e);
 			switch (e.getKeyCode()) {
 				case KeyEvent.VK_1:
-					fireGameEvent(TitleScreen.this, GameEvent.START_1P_GAME);
+					fireScreenEvent(ScreenEvent.START_1P_GAME);
 					break;
 				case KeyEvent.VK_2:
-					fireGameEvent(TitleScreen.this, GameEvent.START_2P_GAME);
+					fireScreenEvent(ScreenEvent.START_2P_GAME);
 					break;
 			}
 		}

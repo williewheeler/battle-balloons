@@ -1,5 +1,6 @@
-package bb.framework;
+package bb.framework.mode;
 
+import bb.framework.event.ModeListener;
 import bb.framework.util.Assert;
 
 /**
@@ -24,7 +25,8 @@ public class BBMode {
 		stateMachine.start();
 	}
 
-	public void stop() {
-		stateMachine.stop();
+	public void addModeListener(ModeListener listener) {
+		Assert.notNull(listener, "listener can't be null");
+		stateMachine.addModeListener(listener);
 	}
 }

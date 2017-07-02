@@ -1,8 +1,8 @@
 package bb.common.model;
 
 import bb.common.BBConfig;
-import bb.framework.model.BasicActorModel;
 import bb.framework.model.ActorUtil;
+import bb.framework.model.BasicActorModel;
 import bb.framework.util.MathUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

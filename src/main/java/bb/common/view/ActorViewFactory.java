@@ -5,8 +5,8 @@ import bb.common.model.LexiModel;
 import bb.common.model.TextModel;
 import bb.framework.model.BasicActorModel;
 import bb.framework.util.Assert;
-import bb.framework.view.ImageView;
 import bb.framework.view.ImageLoader;
+import bb.framework.view.ImageView;
 
 import java.awt.image.BufferedImage;
 

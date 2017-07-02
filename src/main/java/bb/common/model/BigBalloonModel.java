@@ -1,7 +1,7 @@
 package bb.common.model;
 
-import bb.framework.model.BasicActorModel;
 import bb.framework.model.ActorBrain;
+import bb.framework.model.BasicActorModel;
 import bb.framework.util.MathUtil;
 
 /**

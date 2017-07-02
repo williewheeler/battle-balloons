@@ -1,7 +1,7 @@
 package bb.arena.model;
 
-import bb.arena.event.EntityState;
 import bb.arena.event.ArenaEvents;
+import bb.arena.event.EntityState;
 
 import java.util.List;
 import java.util.ListIterator;

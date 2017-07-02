@@ -2,15 +2,14 @@ package bb.attract;
 
 import bb.common.BBConfig;
 import bb.common.BBContext;
-import bb.common.model.RosterLexiBrain;
 import bb.common.model.LexiBrain;
 import bb.common.model.LexiModel;
+import bb.common.model.RosterLexiBrain;
 import bb.common.model.TextModel;
 import bb.common.view.ActorViewFactory;
 import bb.common.view.LexiView;
 import bb.common.view.TextView;
-import bb.framework.event.GameEvent;
-import bb.framework.event.GameListener;
+import bb.framework.event.ScreenEvent;
 import bb.framework.model.Actor;
 import bb.framework.view.TtlScreen;
 
@@ -24,8 +23,8 @@ import java.awt.event.KeyListener;
 public class RosterScreen extends TtlScreen {
 	private static final int TTL = 60 * BBConfig.FRAMES_PER_SECOND;
 
-	public RosterScreen(BBContext context, GameListener gameListener) {
-		super(context, gameListener, TTL);
+	public RosterScreen(BBContext context) {
+		super(context, TTL);
 		initScene();
 	}
 
@@ -36,7 +35,7 @@ public class RosterScreen extends TtlScreen {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				super.keyPressed(e);
-				fireGameEvent(RosterScreen.this, GameEvent.SCREEN_ABORTED);
+				fireScreenEvent(ScreenEvent.SCREEN_ABORTED);
 			}
 		};
 	}

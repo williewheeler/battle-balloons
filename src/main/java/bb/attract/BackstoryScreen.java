@@ -5,8 +5,7 @@ import bb.common.BBContext;
 import bb.common.model.TextModel;
 import bb.common.view.ActorViewFactory;
 import bb.common.view.TextView;
-import bb.framework.event.GameEvent;
-import bb.framework.event.GameListener;
+import bb.framework.event.ScreenEvent;
 import bb.framework.model.Actor;
 import bb.framework.view.TtlScreen;
 
@@ -32,8 +31,8 @@ public class BackstoryScreen extends TtlScreen {
 			"CAN YOU SAVE HER FROM GETTING...\n" +
 			"GROUNDED?";
 
-	public BackstoryScreen(BBContext context, GameListener gameListener) {
-		super(context, gameListener, TTL);
+	public BackstoryScreen(BBContext context) {
+		super(context, TTL);
 		initScene();
 	}
 
@@ -44,7 +43,7 @@ public class BackstoryScreen extends TtlScreen {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				super.keyPressed(e);
-				fireGameEvent(BackstoryScreen.this, GameEvent.SCREEN_ABORTED);
+				fireScreenEvent(ScreenEvent.SCREEN_ABORTED);
 			}
 		};
 	}

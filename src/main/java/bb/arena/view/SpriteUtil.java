@@ -1,7 +1,7 @@
 package bb.arena.view;
 
-import bb.common.model.Direction;
 import bb.arena.model.Entity;
+import bb.common.model.Direction;
 
 import java.awt.image.BufferedImage;
 
