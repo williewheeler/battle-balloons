@@ -1,9 +1,11 @@
-package bb.common.model;
+package bb.attract.model;
+
+import bb.common.model.AbstractLexiBrain;
 
 /**
  * Created by willie on 6/25/17.
  */
-public class RosterLexiBrain extends LexiBrain {
+public class RosterLexiBrain extends AbstractLexiBrain {
 	private boolean moveUp = false;
 	private boolean moveDown = false;
 	private boolean moveLeft = false;

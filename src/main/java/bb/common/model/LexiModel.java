@@ -27,13 +27,13 @@ public class LexiModel extends BasicActorModel {
 	private boolean wavingLeft = true;
 	private int waveCountdown = WAVE_DURATION;
 
-	public LexiModel(LexiBrain brain, int x, int y) {
+	public LexiModel(AbstractLexiBrain brain, int x, int y) {
 		super(brain, x, y, SPEED);
 	}
 
-	public LexiBrain.State getState() {
+	public AbstractLexiBrain.State getState() {
 		// TODO Generics?
-		LexiBrain brain = (LexiBrain) getBrain();
+		AbstractLexiBrain brain = (AbstractLexiBrain) getBrain();
 		return brain.getState();
 	}
 
@@ -88,7 +88,7 @@ public class LexiModel extends BasicActorModel {
 	private void doWalk() {
 
 		// TODO Generics?
-		LexiBrain brain = (LexiBrain) getBrain();
+		AbstractLexiBrain brain = (AbstractLexiBrain) getBrain();
 		int speed = getSpeed();
 
 		int deltaX = 0;

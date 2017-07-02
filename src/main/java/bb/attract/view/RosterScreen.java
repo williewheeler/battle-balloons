@@ -1,13 +1,14 @@
 package bb.attract.view;
 
+import bb.attract.model.RosterLexiBrain;
 import bb.common.BBConfig;
 import bb.common.BBContext;
-import bb.common.model.LexiBrain;
 import bb.common.model.LexiModel;
-import bb.common.model.RosterLexiBrain;
+import bb.common.model.ObstacleModel;
 import bb.common.model.TextModel;
 import bb.common.view.ActorViewFactory;
 import bb.common.view.LexiView;
+import bb.common.view.ObstacleView;
 import bb.common.view.TextView;
 import bb.framework.event.ScreenEvent;
 import bb.framework.model.Actor;
@@ -47,12 +48,17 @@ public class RosterScreen extends TtlScreen {
 		TextView textView = actorViewFactory.createTextView(textModel);
 		Actor text = new Actor(textModel, textView);
 
-		LexiBrain lexiBrain = new RosterLexiBrain();
+		RosterLexiBrain lexiBrain = new RosterLexiBrain();
 		LexiModel lexiModel = new LexiModel(lexiBrain, 50, 180);
 		LexiView lexiView = actorViewFactory.createLexiView(lexiModel);
 		Actor lexi = new Actor(lexiModel, lexiView);
 
+		ObstacleModel obstacleModel = new ObstacleModel(240, 180);
+		ObstacleView obstacleView = actorViewFactory.createObstacleView(obstacleModel);
+		Actor obstacle = new Actor(obstacleModel, obstacleView);
+
 		addActor(lexi);
 		addActor(text);
+		addActor(obstacle);
 	}
 }

@@ -2,6 +2,7 @@ package bb.common.view;
 
 import bb.common.model.BigBalloonModel;
 import bb.common.model.LexiModel;
+import bb.common.model.ObstacleModel;
 import bb.common.model.TextModel;
 import bb.framework.model.BasicActorModel;
 import bb.framework.util.Assert;
@@ -52,5 +53,10 @@ public class ActorViewFactory {
 		view.setBlinkingSprites(spriteFactory.getLexiBlinking());
 		view.setWavingSprites(spriteFactory.getLexiWaving());
 		return view;
+	}
+
+	public ObstacleView createObstacleView(ObstacleModel model) {
+		Assert.notNull(model, "model can't be null");
+		return new ObstacleView(model);
 	}
 }

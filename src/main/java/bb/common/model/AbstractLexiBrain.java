@@ -5,7 +5,7 @@ import bb.framework.model.ActorBrain;
 /**
  * Created by willie on 6/25/17.
  */
-public abstract class LexiBrain implements ActorBrain {
+public abstract class AbstractLexiBrain implements ActorBrain {
 	public enum State {
 		BLINKING,
 		WALKING,
@@ -14,7 +14,7 @@ public abstract class LexiBrain implements ActorBrain {
 
 	private State state;
 
-	public LexiBrain() {
+	public AbstractLexiBrain() {
 		this.state = State.BLINKING;
 	}
 
