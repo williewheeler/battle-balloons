@@ -1,6 +1,6 @@
 package bb.arena;
 
-import bb.common.AbstractBBModeStateMachine;
+import bb.common.AbstractModeStateMachine;
 import bb.common.BBContext;
 import bb.framework.event.ScreenEvent;
 import bb.framework.util.Assert;
@@ -9,7 +9,7 @@ import bb.framework.view.BBScreenManager;
 /**
  * Created by willie on 7/1/17.
  */
-public class ArenaStateMachine extends AbstractBBModeStateMachine {
+public class ArenaStateMachine extends AbstractModeStateMachine {
 	private ArenaScreenFactory screenFactory;
 
 	public ArenaStateMachine(BBContext context, BBScreenManager screenManager) {

@@ -1,6 +1,6 @@
 package bb.attract;
 
-import bb.common.AbstractBBModeStateMachine;
+import bb.common.AbstractModeStateMachine;
 import bb.common.BBContext;
 import bb.framework.event.ScreenEvent;
 import bb.framework.util.Assert;
@@ -10,7 +10,7 @@ import bb.framework.view.BBScreenManager;
 /**
  * Created by willie on 7/1/17.
  */
-public class AttractStateMachine extends AbstractBBModeStateMachine {
+public class AttractStateMachine extends AbstractModeStateMachine {
 	private AttractScreenFactory screenFactory;
 
 	public AttractStateMachine(BBContext context, BBScreenManager screenManager) {

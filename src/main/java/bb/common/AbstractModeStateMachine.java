@@ -13,12 +13,12 @@ import java.util.List;
 /**
  * Created by willie on 7/1/17.
  */
-public abstract class AbstractBBModeStateMachine implements BBModeStateMachine {
+public abstract class AbstractModeStateMachine implements BBModeStateMachine {
 	private BBScreenManager screenManager;
 	private BBScreen currentScreen;
 	private final List<ModeListener> modeListeners = new LinkedList<>();
 
-	public AbstractBBModeStateMachine(BBScreenManager screenManager) {
+	public AbstractModeStateMachine(BBScreenManager screenManager) {
 		Assert.notNull(screenManager, "screenManager can't be null");
 		this.screenManager = screenManager;
 	}
