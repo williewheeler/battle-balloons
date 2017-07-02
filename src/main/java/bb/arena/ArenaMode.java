@@ -1,7 +1,7 @@
 package bb.arena;
 
 import bb.arena.view.ArenaScreen;
-import bb.common.AbstractModeStateMachine;
+import bb.framework.mode.AbstractModeStateMachine;
 import bb.common.BBConfig;
 import bb.common.BBContext;
 import bb.framework.event.ScreenEvent;

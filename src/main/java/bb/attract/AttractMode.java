@@ -3,7 +3,7 @@ package bb.attract;
 import bb.attract.view.BackstoryScreen;
 import bb.attract.view.RosterScreen;
 import bb.attract.view.TitleScreen;
-import bb.common.AbstractModeStateMachine;
+import bb.framework.mode.AbstractModeStateMachine;
 import bb.common.BBConfig;
 import bb.common.BBContext;
 import bb.framework.event.ScreenEvent;

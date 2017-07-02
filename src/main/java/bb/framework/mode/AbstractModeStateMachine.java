@@ -1,8 +1,7 @@
-package bb.common;
+package bb.framework.mode;
 
 import bb.framework.event.ModeEvent;
 import bb.framework.event.ModeListener;
-import bb.framework.mode.BBModeStateMachine;
 import bb.framework.util.Assert;
 import bb.framework.view.BBScreen;
 import bb.framework.view.BBScreenManager;
