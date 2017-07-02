@@ -1,32 +1,15 @@
 package bb.framework.mode;
 
 import bb.framework.event.ModeListener;
-import bb.framework.util.Assert;
 
 /**
  * Created by willie on 7/1/17.
  */
-public class BBMode {
-	private String name;
-	private BBModeStateMachine stateMachine;
+public interface BBMode {
 
-	public BBMode(String name, BBModeStateMachine stateMachine) {
-		Assert.notNull(name, "name can't be null");
-		Assert.notNull(stateMachine, "stateMachine can't be null");
-		this.name = name;
-		this.stateMachine = stateMachine;
-	}
+	String getName();
 
-	public String getName() {
-		return name;
-	}
+	void start();
 
-	public void start() {
-		stateMachine.start();
-	}
-
-	public void addModeListener(ModeListener listener) {
-		Assert.notNull(listener, "listener can't be null");
-		stateMachine.addModeListener(listener);
-	}
+	void addModeListener(ModeListener listener);
 }

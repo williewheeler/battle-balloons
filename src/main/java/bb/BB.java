@@ -1,7 +1,7 @@
 package bb;
 
-import bb.arena.ArenaStateMachine;
-import bb.attract.AttractStateMachine;
+import bb.arena.ArenaMode;
+import bb.attract.AttractMode;
 import bb.common.BBConfig;
 import bb.common.BBContext;
 import bb.framework.event.ModeEvent;
@@ -34,7 +34,7 @@ public class BB extends JFrame {
 	}
 
 	public void start() {
-		log.info("Starting Battle Balloons");
+		log.info("Starting BB");
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -97,11 +97,11 @@ public class BB extends JFrame {
 		}
 
 		public BBMode createAttractMode() {
-			return new BBMode(BBConfig.ATTRACT_MODE, new AttractStateMachine(context, screenManager));
+			return new AttractMode(context, screenManager);
 		}
 
 		public BBMode createArenaMode() {
-			return new BBMode(BBConfig.ARENA_MODE, new ArenaStateMachine(context, screenManager));
+			return new ArenaMode(context, screenManager);
 		}
 	}
 
@@ -137,6 +137,7 @@ public class BB extends JFrame {
 		}
 
 		public void start() {
+			log.trace("Starting BB state machine");
 			transitionTo(modeFactory.createAttractMode());
 		}
 
@@ -147,6 +148,7 @@ public class BB extends JFrame {
 		 */
 		public void transitionTo(BBMode mode) {
 			Assert.notNull(mode, "mode can't be null");
+			log.trace("BB transitioning to mode={}", mode);
 			this.currentMode = mode;
 			currentMode.addModeListener(this);
 			currentMode.start();

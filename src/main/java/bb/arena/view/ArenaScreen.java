@@ -1,12 +1,9 @@
-package bb.arena;
+package bb.arena.view;
 
 import bb.arena.event.ArenaEvents;
 import bb.arena.model.ArenaModel;
 import bb.arena.model.DirectionIntent;
 import bb.arena.model.Player;
-import bb.arena.view.ArenaFooter;
-import bb.arena.view.ArenaHeader;
-import bb.arena.view.ArenaPane;
 import bb.common.BBContext;
 import bb.common.view.AudioFactory;
 import bb.framework.event.ArenaEvent;

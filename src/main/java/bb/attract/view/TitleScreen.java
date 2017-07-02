@@ -1,4 +1,4 @@
-package bb.attract;
+package bb.attract.view;
 
 import bb.common.BBConfig;
 import bb.common.BBContext;
