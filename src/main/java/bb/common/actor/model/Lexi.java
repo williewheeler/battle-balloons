@@ -1,11 +1,8 @@
 package bb.common.actor.model;
 
 import bb.common.BBConfig;
-import bb.framework.actor.AbstractActor;
+import bb.common.scene.Scene;
 import bb.framework.actor.ActorBrain;
-import bb.framework.actor.ActorUtil;
-import bb.framework.actor.Direction;
-import bb.framework.actor.DirectionIntent;
 import bb.framework.util.MathUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,13 +11,16 @@ import org.slf4j.LoggerFactory;
  * Created by willie on 6/24/17.
  */
 public class Lexi extends AbstractActor {
-	public enum State {
+	public enum Substate {
 		BLINKING,
 		WALKING,
 		WAVING
 	}
 
 	private static final Logger log = LoggerFactory.getLogger(Lexi.class);
+
+	public static final int ENTERING_DURATION = 20;
+	public static final int EXITING_DURATION = 40;
 
 	private static final int WIDTH = 5;
 	private static final int HEIGHT = 11;
@@ -30,38 +30,44 @@ public class Lexi extends AbstractActor {
 	private static final int UNBLINK_DURATION = 5;
 	private static final int WAVE_DURATION = 4;
 
-	private State state;
-	private int walkCounter = 0;
+	// TODO Move entering/exiting up to AbstractActor? [WLW]
+	private int enteringCountdown = ENTERING_DURATION - 1;
+	private int exitingCountdown = EXITING_DURATION - 1;
 
+	private Substate substate;
 	private boolean eyesOpen = true;
 	private int blinkCountdown = generateBlinkDuration();
-
 	private boolean wavingLeft = true;
 	private int waveCountdown = WAVE_DURATION;
 
 	/**
-	 * Initial state is WALKING.
+	 * Initial substate is WALKING.
 	 *
 	 * @param brain
 	 * @param x
 	 * @param y
 	 */
-	public Lexi(ActorBrain brain, int x, int y) {
-		super(brain, x, y, WIDTH, HEIGHT);
+	public Lexi(Scene scene, ActorBrain brain, int x, int y) {
+		super(scene, brain, x, y, WIDTH, HEIGHT);
 		setSpeed(SPEED);
-		this.state = State.WALKING;
-		brain.setActor(this);
+		this.substate = Substate.WALKING;
 	}
 
-	public State getState() {
-		return state;
+	public int getEnteringCountdown() {
+		return enteringCountdown;
 	}
 
-	public void setState(State state) {
-		this.state = state;
+	public int getExitingCountdown() {
+		return exitingCountdown;
 	}
 
-	public int getWalkCounter() { return walkCounter; }
+	public Substate getSubstate() {
+		return substate;
+	}
+
+	public void setSubstate(Substate substate) {
+		this.substate = substate;
+	}
 
 	public boolean getEyesOpen() {
 		return eyesOpen;
@@ -72,8 +78,16 @@ public class Lexi extends AbstractActor {
 	}
 
 	@Override
-	public void updateBody() {
-		switch (state) {
+	public void updateBodyEntering() {
+		this.enteringCountdown--;
+		if (enteringCountdown < 0) {
+			setState(ActorState.ACTIVE);
+		}
+	}
+
+	@Override
+	public void updateBodyActive() {
+		switch (substate) {
 			case BLINKING:
 				doBlink();
 				break;
@@ -83,6 +97,14 @@ public class Lexi extends AbstractActor {
 			case WAVING:
 				doWave();
 				break;
+		}
+	}
+
+	@Override
+	public void updateBodyExiting() {
+		this.exitingCountdown--;
+		if (exitingCountdown < 0) {
+			setState(ActorState.GONE);
 		}
 	}
 
@@ -104,37 +126,6 @@ public class Lexi extends AbstractActor {
 	private int generateBlinkDuration() {
 		int duration = (int) MathUtil.nextRandomGaussian(BLINK_DURATION_MEAN, BLINK_DURATION_STDEV);
 		return Math.max(0, duration);
-	}
-
-	private void doWalk() {
-		final DirectionIntent moveIntent = getBrain().getMoveDirectionIntent();
-		final int speed = getSpeed();
-
-		int deltaX = 0;
-		int deltaY = 0;
-
-		if (moveIntent.up) {
-			deltaY -= speed;
-		}
-		if (moveIntent.down) {
-			deltaY += speed;
-		}
-		if (moveIntent.left) {
-			deltaX -= speed;
-		}
-		if (moveIntent.right) {
-			deltaX += speed;
-		}
-
-		Direction direction = ActorUtil.calculateDirection(deltaX, deltaY);
-
-		changeX(deltaX);
-		changeY(deltaY);
-
-		if (direction != null) {
-			setDirection(direction);
-			this.walkCounter = (walkCounter + 1) % 4;
-		}
 	}
 
 	private void doWave() {

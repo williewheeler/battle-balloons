@@ -1,7 +1,7 @@
 package bb.attract.roster;
 
 import bb.common.actor.model.Lexi;
-import bb.framework.actor.AbstractActorBrain;
+import bb.common.actor.model.AbstractActorBrain;
 
 /**
  * Created by willie on 6/25/17.
@@ -17,12 +17,12 @@ public class RosterLexiBrain extends AbstractActorBrain {
 		// define actions in terms of the world. For example, keep walking right til I'm standing in the horizontal
 		// center of the screen. [WLW]
 		if (counter == 0) {
-			lexi.setState(Lexi.State.WAVING);
+			lexi.setSubstate(Lexi.Substate.WAVING);
 		} else if (counter == 40) {
-			lexi.setState(Lexi.State.WALKING);
+			lexi.setSubstate(Lexi.Substate.WALKING);
 			getMoveDirectionIntent().right = true;
 		} else if (counter == 78) {
-			lexi.setState(Lexi.State.BLINKING);
+			lexi.setSubstate(Lexi.Substate.BLINKING);
 			getMoveDirectionIntent().right = false;
 		}
 

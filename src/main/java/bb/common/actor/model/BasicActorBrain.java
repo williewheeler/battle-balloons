@@ -1,4 +1,4 @@
-package bb.framework.actor;
+package bb.common.actor.model;
 
 /**
  * Created by willie on 7/2/17.

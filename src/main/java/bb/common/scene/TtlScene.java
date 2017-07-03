@@ -1,4 +1,4 @@
-package bb.framework.scene;
+package bb.common.scene;
 
 import bb.framework.util.Assert;
 import bb.framework.util.Countdown;

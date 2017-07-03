@@ -1,6 +1,6 @@
 package bb.common.actor.model;
 
-import bb.framework.actor.AbstractActor;
+import bb.common.scene.Scene;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,12 +12,8 @@ public class Text extends AbstractActor {
 	private char[] textArr;
 	private int counter;
 
-	public Text(String text, int x, int y) {
-
-		// TODO Might want to calculate width and height, not sure.
-		// But may not be necessary, since we don't usually do collision detection involving text.
-		super(null, x, y, -1, -1);
-
+	public Text(Scene scene, String text, int x, int y) {
+		super(scene, null, x, y, -1, -1);
 		this.textArr = text.toCharArray();
 		this.counter = 1;
 	}

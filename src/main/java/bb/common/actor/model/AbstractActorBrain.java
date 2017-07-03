@@ -1,4 +1,8 @@
-package bb.framework.actor;
+package bb.common.actor.model;
+
+import bb.framework.actor.Actor;
+import bb.framework.actor.ActorBrain;
+import bb.framework.actor.DirectionIntent;
 
 /**
  * Created by willie on 7/2/17.

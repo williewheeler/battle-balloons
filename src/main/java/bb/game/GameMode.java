@@ -2,7 +2,7 @@ package bb.game;
 
 import bb.common.BBConfig;
 import bb.common.BBContext;
-import bb.common.view.BBScreenManager;
+import bb.common.screen.BBScreenManager;
 import bb.common.mode.AbstractMode;
 import bb.common.mode.AbstractModeStateMachine;
 import bb.framework.event.ScreenEvent;

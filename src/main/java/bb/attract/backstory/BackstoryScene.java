@@ -2,7 +2,7 @@ package bb.attract.backstory;
 
 import bb.common.BBConfig;
 import bb.common.actor.model.Text;
-import bb.framework.scene.TtlScene;
+import bb.common.scene.TtlScene;
 
 /**
  * Created by willie on 7/2/17.
@@ -28,6 +28,6 @@ public class BackstoryScene extends TtlScene {
 	}
 
 	private void initScene() {
-		addActor(new Text(BACKSTORY, 20, 40));
+		getTexts().add(new Text(this, BACKSTORY, 20, 40));
 	}
 }

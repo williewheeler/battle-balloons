@@ -3,11 +3,10 @@ package bb.attract.title;
 import bb.common.BBConfig;
 import bb.common.actor.model.BigBalloon;
 import bb.common.actor.model.Text;
-import bb.framework.scene.TtlScene;
+import bb.common.scene.TtlScene;
 import bb.framework.util.MathUtil;
 
-import static bb.common.BBConfig.SCREEN_HEIGHT_PX;
-import static bb.common.BBConfig.SCREEN_WIDTH_PX;
+import static bb.common.BBConfig.WORLD_SIZE;
 
 /**
  * Created by willie on 7/2/17.
@@ -25,24 +24,28 @@ public class TitleScene extends TtlScene {
 	@Override
 	public void update() {
 		super.update();
-		generateBalloon(0, 20, BASE_DX, 1);
-		generateBalloon(SCREEN_WIDTH_PX, SCREEN_HEIGHT_PX - 20, -BASE_DX, -1);
+
+		// FIXME This is using the WORLD_SIZE, which is really the arena world size.
+		// But the BigBalloon GC uses WORLD_SIZE, so we need to do the same here.
+		// May want to allow different world sizes depending on the screen.
+		generateBalloon(-10, 20, BASE_DX, 1);
+		generateBalloon(WORLD_SIZE.width + 10, WORLD_SIZE.height, -BASE_DX, -1);
 	}
 
 	private void initScene() {
 
 		// TODO Green
-		addActor(new Text("GET READY FOR", 55, 60));
+		getTexts().add(new Text(this, "GET READY FOR", 55, 60));
 
 		// TODO Yellow
-		addActor(new Text("PRESS [1] PLAYER OR [2] PLAYERS", 55, 190));
+		getTexts().add(new Text(this, "PRESS [1] PLAYER OR [2] PLAYERS", 55, 190));
 	}
 
 	private void generateBalloon(int x, int yBase, int dxBase, int dRotation) {
 		if (MathUtil.nextRandomDouble() < CREATE_PROBABILITY) {
 			int y = generateY(yBase);
 			int dx = generateDx(dxBase);
-			addActor(new BigBalloon(x, y, dx, 0, 0, dRotation));
+			getBigBalloons().add(new BigBalloon(this, x, y, dx, 0, 0, dRotation));
 		}
 	}
 

@@ -16,16 +16,16 @@ public final class ActorUtil {
 
 	public static void center(Actor actor) {
 		Assert.notNull(actor, "actor can't be null");
-		actor.setX(ARENA_INNER_WIDTH_PX / 2);
-		actor.setY(ARENA_INNER_HEIGHT_PX / 2);
+		actor.setX(WORLD_SIZE.width / 2);
+		actor.setY(WORLD_SIZE.height / 2);
 	}
 
 	public static void randomizeLocation(Actor actor, Player player) {
 		Assert.notNull(actor, "actor can't be null");
 		Assert.notNull(player, "player can't be null");
 
-		int xRange = ARENA_INNER_WIDTH_PX - actor.getWidth();
-		int yRange = ARENA_INNER_HEIGHT_PX - actor.getHeight();
+		int xRange = WORLD_SIZE.width - actor.getWidth();
+		int yRange = WORLD_SIZE.height - actor.getHeight();
 
 		Actor playerActor = player.getActor();
 

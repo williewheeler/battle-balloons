@@ -1,7 +1,9 @@
 package bb.common.actor.model;
 
-import bb.framework.actor.AbstractActor;
+import bb.common.scene.Scene;
 import bb.framework.util.MathUtil;
+
+import static bb.common.BBConfig.WORLD_SIZE;
 
 /**
  * Created by willie on 6/30/17.
@@ -19,8 +21,8 @@ public class BigBalloon extends AbstractActor {
 	private int dRotation;
 	private int rotTtl;
 
-	public BigBalloon(int x, int y, int dx, int dy, int rot, int dRot) {
-		super(null, x, y, WIDTH, HEIGHT);
+	public BigBalloon(Scene scene, int x, int y, int dx, int dy, int rot, int dRot) {
+		super(scene, null, x, y, WIDTH, HEIGHT);
 		this.dx = dx;
 		this.dy = dy;
 		this.rotationIndex = rot;
@@ -41,7 +43,11 @@ public class BigBalloon extends AbstractActor {
 	public void updateBody() {
 		changeX(dx);
 		changeY(dy);
+		updateRotation();
+		checkGC();
+	}
 
+	private void updateRotation() {
 		if (rotTtl == 0) {
 			this.rotationIndex += dRotation;
 
@@ -54,6 +60,18 @@ public class BigBalloon extends AbstractActor {
 			this.rotTtl = ROT_TTL;
 		} else {
 			rotTtl--;
+		}
+	}
+
+	private void checkGC() {
+		final int x = getX();
+		final int y = getY();
+
+		// FIXME Have to adjust the WORLD_SIZE a bit because we're actually displaying
+		// the big balloons on the title screen, which uses screen size, which is a bit
+		// bigger than the arena's world size. [WLW]
+		if (x < -10 || x > WORLD_SIZE.width + 10 || y < -10 || y > WORLD_SIZE.height + 10) {
+			setState(ActorState.GONE);
 		}
 	}
 }

@@ -1,9 +1,10 @@
 package bb.game.arena.model;
 
+import bb.common.actor.model.BasicActorBrain;
+import bb.common.actor.model.Judo;
 import bb.common.actor.model.Lexi;
 import bb.common.actor.model.Obstacle;
-import bb.framework.actor.BasicActorBrain;
-import bb.framework.scene.Scene;
+import bb.common.scene.Scene;
 
 /**
  * Created by willie on 6/4/17.
@@ -22,23 +23,41 @@ public class ArenaScene extends Scene {
 		return player;
 	}
 
+	@Override
+	public void update() {
+		super.update();
+
+		// TODO Check if the player's actor is gone?
+	}
+
 	private void initScene() {
 		initPlayer();
 		initObstacles();
+		initJudos();
 	}
 
 	private void initPlayer() {
-		Lexi lexi = new Lexi(new BasicActorBrain(), 0, 0);
+		Lexi lexi = new Lexi(this, new BasicActorBrain(), 0, 0);
 		ActorUtil.center(lexi);
-		addActor(lexi);
+		getLexis().add(lexi);
+
+		// This too
 		this.player = new Player(lexi);
 	}
 
 	private void initObstacles() {
 		for (int i = 0; i < INIT_NUM_OBSTACLES; i++) {
-			Obstacle obstacle = new Obstacle(0, 0);
+			Obstacle obstacle = new Obstacle(this, 0, 0);
 			ActorUtil.randomizeLocation(obstacle, player);
-			addActor(obstacle);
+			getObstacles().add(obstacle);
+		}
+	}
+
+	private void initJudos() {
+		for (int i = 0; i < INIT_NUM_JUDOS; i++) {
+			Judo judo = new Judo(this, new ArenaJudoBrain(), 0, 0);
+			ActorUtil.randomizeLocation(judo, player);
+			getJudos().add(judo);
 		}
 	}
 }

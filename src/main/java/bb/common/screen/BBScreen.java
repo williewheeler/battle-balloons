@@ -1,10 +1,10 @@
-package bb.common.view;
+package bb.common.screen;
 
 import bb.common.BBConfig;
 import bb.common.BBContext;
 import bb.framework.event.ScreenEvent;
 import bb.framework.event.ScreenListener;
-import bb.framework.scene.Scene;
+import bb.common.scene.Scene;
 import bb.framework.util.Assert;
 
 import javax.swing.JPanel;

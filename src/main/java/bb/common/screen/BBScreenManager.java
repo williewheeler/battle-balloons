@@ -1,4 +1,4 @@
-package bb.common.view;
+package bb.common.screen;
 
 /**
  * Created by willie on 7/1/17.

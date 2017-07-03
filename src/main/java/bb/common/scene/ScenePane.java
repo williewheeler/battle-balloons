@@ -1,27 +1,26 @@
-package bb.common.view;
+package bb.common.scene;
 
 import bb.common.BBContext;
 import bb.common.actor.view.ActorViewFactory;
-import bb.framework.actor.Actor;
-import bb.framework.scene.Scene;
 import bb.framework.util.Assert;
 
 import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.Graphics;
-import java.util.List;
 
 /**
  * Created by willie on 7/2/17.
  */
 public class ScenePane extends JPanel {
 	private BBContext context;
+	private ActorViewFactory actorViewFactory;
 	private Scene scene;
 
 	public ScenePane(BBContext context, Scene scene) {
 		Assert.notNull(context, "context can't be null");
 		Assert.notNull(scene, "scene can't be null");
 		this.context = context;
+		this.actorViewFactory = context.getActorViewFactory();
 		this.scene = scene;
 		setBackground(Color.BLACK);
 	}
@@ -37,10 +36,8 @@ public class ScenePane extends JPanel {
 	}
 
 	private void paintActors(Graphics g) {
-		ActorViewFactory avf = context.getActorViewFactory();
-		List<Actor> actors = scene.getActors();
-		for (Actor actor : actors) {
-			avf.getView(actor).paint(g, actor);
-		}
+		scene.getAllActors().forEach(actors -> {
+			actors.forEach(actor -> actorViewFactory.getView(actor).paint(g, actor));
+		});
 	}
 }

@@ -1,8 +1,8 @@
 package bb.attract.backstory;
 
 import bb.common.BBContext;
-import bb.common.view.BBScreen;
-import bb.common.view.ScenePane;
+import bb.common.screen.BBScreen;
+import bb.common.scene.ScenePane;
 import bb.framework.event.ScreenEvent;
 
 import java.awt.BorderLayout;
