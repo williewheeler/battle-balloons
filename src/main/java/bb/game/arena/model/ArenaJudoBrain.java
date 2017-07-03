@@ -6,6 +6,9 @@ import bb.framework.actor.Actor;
 import bb.framework.actor.DirectionIntent;
 import bb.framework.util.MathUtil;
 
+// FIXME Would be better if this wasn't tied to either the arena or to Judo.
+// I could see having this be a "PlayerTrackingBrain", and whoever has it just follows the player around.
+
 /**
  * Created by willie on 7/2/17.
  */

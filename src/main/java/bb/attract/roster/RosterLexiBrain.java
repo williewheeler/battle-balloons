@@ -28,6 +28,13 @@ public class RosterLexiBrain extends AbstractActorBrain {
 		} else if (counter == 125) {
 			lexi.setSubstate(Lexi.Substate.BLINKING);
 			getMoveDirectionIntent().right = false;
+		} else if (counter == 160) {
+			lexi.setSubstate(Lexi.Substate.BATTLING);
+			getMoveDirectionIntent().left = true;
+			getFireDirectionIntent().left = true;
+		} else if (counter == 161) {
+			getMoveDirectionIntent().reset();
+			getFireDirectionIntent().reset();
 		}
 
 		this.counter++;

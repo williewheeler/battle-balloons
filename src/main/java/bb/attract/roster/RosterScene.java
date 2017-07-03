@@ -1,6 +1,8 @@
 package bb.attract.roster;
 
 import bb.common.BBConfig;
+import bb.common.actor.model.BasicActorBrain;
+import bb.common.actor.model.Judo;
 import bb.common.actor.model.Lexi;
 import bb.common.actor.model.Obstacle;
 import bb.common.actor.model.Text;
@@ -11,6 +13,7 @@ import bb.common.scene.TtlScene;
  */
 public class RosterScene extends TtlScene {
 	private static final int TTL = 15 * BBConfig.FRAMES_PER_SECOND;
+	private int counter = 0;
 
 	public RosterScene() {
 		super(TTL);
@@ -20,7 +23,12 @@ public class RosterScene extends TtlScene {
 	@Override
 	public void update() {
 		super.update();
-		// TODO Introduce new actors according to the frame
+
+		if (counter == 150) {
+			getJudos().add(new Judo(this, new BasicActorBrain(), 50, 180));
+		}
+
+		this.counter++;
 	}
 
 	private void initScene() {
