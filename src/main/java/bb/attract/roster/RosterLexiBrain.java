@@ -16,12 +16,16 @@ public class RosterLexiBrain extends AbstractActorBrain {
 		// TODO Instead of this being purely counter-based, it would be good if the brain could "see" the world and
 		// define actions in terms of the world. For example, keep walking right til I'm standing in the horizontal
 		// center of the screen. [WLW]
-		if (counter == 0) {
+		if (counter == 60) {
 			lexi.setSubstate(Lexi.Substate.WAVING);
-		} else if (counter == 40) {
+		} else if (counter == 90) {
 			lexi.setSubstate(Lexi.Substate.BATTLING);
 			getMoveDirectionIntent().right = true;
-		} else if (counter == 78) {
+		} else if (counter == 120) {
+			getFireDirectionIntent().right = true;
+		} else if (counter == 121) {
+			getFireDirectionIntent().reset();
+		} else if (counter == 125) {
 			lexi.setSubstate(Lexi.Substate.BLINKING);
 			getMoveDirectionIntent().right = false;
 		}

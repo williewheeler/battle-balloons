@@ -10,7 +10,7 @@ import bb.common.scene.TtlScene;
  * Created by willie on 7/2/17.
  */
 public class RosterScene extends TtlScene {
-	private static final int TTL = 60 * BBConfig.FRAMES_PER_SECOND;
+	private static final int TTL = 15 * BBConfig.FRAMES_PER_SECOND;
 
 	public RosterScene() {
 		super(TTL);
