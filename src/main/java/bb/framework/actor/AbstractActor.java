@@ -4,13 +4,19 @@ package bb.framework.actor;
  * Created by willie on 6/19/17.
  */
 public abstract class AbstractActor implements Actor {
+
+	// Brain
 	private ActorBrain brain;
+
+	// Body
 	private int x;
 	private int y;
 	private int width;
 	private int height;
 	private int speed;
 	private Direction direction;
+
+	// Other
 	private boolean readyForGC;
 
 	public AbstractActor(ActorBrain brain, int x, int y, int width, int height) {
@@ -23,6 +29,7 @@ public abstract class AbstractActor implements Actor {
 		this.direction = Direction.DOWN;
 	}
 
+	@Override
 	public ActorBrain getBrain() {
 		return brain;
 	}
@@ -36,6 +43,7 @@ public abstract class AbstractActor implements Actor {
 		return x;
 	}
 
+	@Override
 	public void setX(int x) {
 		this.x = x;
 	}
@@ -49,6 +57,7 @@ public abstract class AbstractActor implements Actor {
 		return y;
 	}
 
+	@Override
 	public void setY(int y) {
 		this.y = y;
 	}

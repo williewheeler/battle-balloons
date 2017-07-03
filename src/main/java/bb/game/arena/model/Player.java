@@ -1,220 +1,47 @@
 package bb.game.arena.model;
 
-import bb.game.arena.event.GameEvents;
-import bb.game.arena.event.EntityState;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import static bb.common.BBConfig.ARENA_INNER_HEIGHT_PX;
-import static bb.common.BBConfig.ARENA_INNER_WIDTH_PX;
+import bb.framework.actor.Actor;
+import bb.framework.util.Assert;
 
 /**
- * Created by willie on 6/5/17.
+ * Created by willie on 7/2/17.
  */
-public class Player extends AbstractEntity {
-	public static final int ENTERING_DURATION = 20;
-	public static final int EXITING_DURATION = 40;
-
-	private static final int WIDTH = 5;
-	private static final int HEIGHT = 11;
-	private static final int SPEED = 3;
-	private static final int RECHARGE_PERIOD = 3;
-	private static final int WALK_EVENT_PERIOD = 4;
-	
-	private static final Logger log = LoggerFactory.getLogger(Player.class);
-	
-	private int score = 0;
-	private int level = 1;
+public class Player {
+	private Actor actor;
 	private int lives = 3;
-	private final DirectionIntent moveIntent = new DirectionIntent();
-	private final DirectionIntent fireIntent = new DirectionIntent();
-	
-	private int enteringCountdown = ENTERING_DURATION - 1;
-	private int exitingCountdown = EXITING_DURATION - 1;
-	private int rechargeCountdown = RECHARGE_PERIOD;
-	private int walkEventCountdown = 0;
-	
-	public Player(ArenaScene arenaScene) {
-		super(arenaScene, EntityState.ENTERING);
-		center();
+	private int level = 1;
+	private int score = 0;
+
+	public Player(Actor actor) {
+		Assert.notNull(actor, "actor can't be null");
+		this.actor = actor;
 	}
-	
-	public int getScore() {
-		return score;
+
+	public Actor getActor() {
+		return actor;
 	}
-	
-	public void incrementScore(int value) {
-		this.score += value;
-	}
-	
-	public int getLevel() {
-		return level;
-	}
-	
+
 	public int getLives() {
 		return lives;
 	}
-	
-	@Override
-	public int getWidth() {
-		return WIDTH;
+
+	public void setLives(int lives) {
+		this.lives = lives;
 	}
-	
-	@Override
-	public int getHeight() {
-		return HEIGHT;
+
+	public int getLevel() {
+		return level;
 	}
-	
-	public DirectionIntent getMoveIntent() {
-		return moveIntent;
+
+	public void incrementLevel() {
+		this.level++;
 	}
-	
-	public DirectionIntent getFireIntent() {
-		return fireIntent;
+
+	public int getScore() {
+		return score;
 	}
-	
-	public int getEnteringCountdown() {
-		return enteringCountdown;
-	}
-	
-	public int getExitingCountdown() {
-		return exitingCountdown;
-	}
-	
-	public void center() {
-		setX(ARENA_INNER_WIDTH_PX / 2);
-		setY(ARENA_INNER_HEIGHT_PX / 2);
-	}
-	
-	@Override
-	public void update() {
-		switch (getState()) {
-			case ENTERING:
-				updateEntering();
-				break;
-			case ACTIVE:
-				updateActive();
-				break;
-			case EXITING:
-				updateExiting();
-				break;
-			case GONE:
-				break;
-		}
-	}
-	
-	private void updateEntering() {
-		this.enteringCountdown--;
-		
-		if (enteringCountdown < 0) {
-			setState(EntityState.ACTIVE);
-		}
-	}
-	
-	private void updateActive() {
-		updateLocation();
-		fire();
-	}
-	
-	private void updateLocation() {
-		int dx = 0;
-		int dy = 0;
-		
-		if (moveIntent.up) {
-			dy -= SPEED;
-		}
-		if (moveIntent.down) {
-			dy += SPEED;
-		}
-		if (moveIntent.left) {
-			dx -= SPEED;
-		}
-		if (moveIntent.right) {
-			dx += SPEED;
-		}
-		
-		if (dx != 0 || dy != 0) {
-			updateLocation(dx, dy);
-			enforceBounds();
-			updateDirection(dx, dy);
-			incrementAnimationCounter();
-			
-			if (walkEventCountdown <= 0) {
-				getArenaScene().fireEvent(GameEvents.PLAYER_WALKS);
-				this.walkEventCountdown = WALK_EVENT_PERIOD;
-			} else {
-				this.walkEventCountdown--;
-			}
-		}
-	}
-	
-	private void enforceBounds() {
-		int playerHalfWidth = getWidth() / 2;
-		int playerHalfHeight = getHeight() / 2;
-		
-		// All bounds below are inclusive
-		int playerXLo = getX() - playerHalfWidth;
-		int playerXHi = playerXLo + getWidth() - 1;
-		int playerYLo = getY() - playerHalfHeight;
-		int playerYHi = playerYLo + getHeight() - 1;
-		
-		int arenaXLo = 0;
-		int arenaXHi = ARENA_INNER_WIDTH_PX - 1;
-		int arenaYLo = 0;
-		int arenaYHi = ARENA_INNER_HEIGHT_PX - 1;
-		
-		if (playerXLo < arenaXLo) {
-			setX(playerHalfWidth);
-		}
-		if (playerXHi > arenaXHi) {
-			setX(arenaXHi - playerHalfWidth);
-		}
-		if (playerYLo < arenaYLo) {
-			setY(playerHalfHeight);
-		}
-		if (playerYHi > arenaYHi) {
-			setY(arenaYHi - playerHalfHeight);
-		}
-	}
-	
-	private void fire() {
-		if (rechargeCountdown > 0) {
-			this.rechargeCountdown--;
-		} else {
-			int dx = 0;
-			int dy = 0;
-			
-			if (fireIntent.up) {
-				dy -= Balloon.SPEED;
-			}
-			if (fireIntent.down) {
-				dy += Balloon.SPEED;
-			}
-			if (fireIntent.left) {
-				dx -= Balloon.SPEED;
-			}
-			if (fireIntent.right) {
-				dx += Balloon.SPEED;
-			}
-			
-			if (dx != 0 || dy != 0) {
-				ArenaScene arenaScene = getArenaScene();
-				Player player = getPlayer();
-				int x = player.getX();
-				int y = player.getY();
-				Balloon balloon = new Balloon(getArenaScene(), x, y, dx, dy);
-				arenaScene.getPlayerBalloons().add(balloon);
-				arenaScene.fireEvent(GameEvents.PLAYER_THROWS_BALLOON);
-				this.rechargeCountdown = RECHARGE_PERIOD;
-			}
-		}
-	}
-	
-	private void updateExiting() {
-		this.exitingCountdown--;
-		
-		if (exitingCountdown < 0) {
-			setState(EntityState.GONE);
-		}
+
+	public void increaseScore(int amount) {
+		this.score += amount;
 	}
 }

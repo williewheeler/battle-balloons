@@ -21,13 +21,13 @@ import static bb.common.BBConfig.*;
  */
 public class ArenaHeader extends JComponent {
 	private BBContext context;
-	private ArenaScene model;
+	private ArenaScene scene;
 
-	public ArenaHeader(BBContext context, ArenaScene model) {
+	public ArenaHeader(BBContext context, ArenaScene scene) {
 		Assert.notNull(context, "context can't be null");
-		Assert.notNull(model, "model can't be null");
+		Assert.notNull(scene, "scene can't be null");
 		this.context = context;
-		this.model = model;
+		this.scene = scene;
 	}
 
 	@Override
@@ -44,7 +44,7 @@ public class ArenaHeader extends JComponent {
 	private void paintScore(Graphics g) {
 		FontFactory fontFactory = context.getFontFactory();
 
-		Player player = model.getPlayer();
+		Player player = scene.getPlayer();
 
 		g.setFont(fontFactory.getLargeFont());
 		FontMetrics fm = g.getFontMetrics();
@@ -58,7 +58,7 @@ public class ArenaHeader extends JComponent {
 	private void paintLives(Graphics g) {
 		SpriteFactory spriteFactory = context.getSpriteFactory();
 
-		Player player = model.getPlayer();
+		Player player = scene.getPlayer();
 		BufferedImage sprite = spriteFactory.getLexiLife();
 		int numLives = player.getLives();
 		for (int i = 0; i < numLives; i++) {

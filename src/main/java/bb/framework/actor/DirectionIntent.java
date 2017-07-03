@@ -1,4 +1,4 @@
-package bb.game.arena.model;
+package bb.framework.actor;
 
 /**
  * Created by willie on 6/9/17.

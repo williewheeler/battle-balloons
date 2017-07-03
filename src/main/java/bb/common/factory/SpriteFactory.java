@@ -1,7 +1,5 @@
 package bb.common.factory;
 
-import bb.game.arena.model.Judo;
-import bb.game.arena.model.Player;
 import bb.framework.io.ImageLoader;
 
 import java.awt.Graphics2D;
@@ -14,6 +12,12 @@ import static bb.common.BBConfig.SPRITE_WIDTH_PX;
  * Created by willie on 6/4/17.
  */
 public class SpriteFactory {
+	private static final int PLAYER_ENTERING_DURATION = 20;
+	private static final int PLAYER_EXITING_DURATION = 40;
+
+	private static final int JUDO_ENTERING_DURATION = 20;
+	private static final int JUDO_EXITING_DURATION = 5;
+
 	private BufferedImage[] lexiWalking;
 	private BufferedImage[] lexiEntering;
 	private BufferedImage[] lexiExiting;
@@ -32,14 +36,14 @@ public class SpriteFactory {
 		BufferedImage sheet = imageLoader.loadImage("images/bb-sprites.png");
 		
 		this.lexiWalking = buildCharacterSprites(sheet, 0);
-		this.lexiEntering = spaghettify(lexiWalking[4], Player.ENTERING_DURATION);
-		this.lexiExiting = spaghettify(lexiWalking[4], Player.EXITING_DURATION);
+		this.lexiEntering = spaghettify(lexiWalking[4], PLAYER_ENTERING_DURATION);
+		this.lexiExiting = spaghettify(lexiWalking[4], PLAYER_EXITING_DURATION);
 		this.lexiBlinking = buildLexiBlinking(sheet);
 		this.lexiWaving = buildLexiWaving(sheet);
 		
 		this.judo = buildCharacterSprites(sheet, 1);
-		this.judoEntering = spaghettify(judo[4], Judo.ENTERING_DURATION);
-		this.judoExiting = spaghettify(judo[4], Judo.EXITING_DURATION);
+		this.judoEntering = spaghettify(judo[4], JUDO_ENTERING_DURATION);
+		this.judoExiting = spaghettify(judo[4], JUDO_EXITING_DURATION);
 
 		this.bigBalloons = buildBigBalloonSprites(sheet);
 	}

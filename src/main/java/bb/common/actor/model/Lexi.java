@@ -5,12 +5,23 @@ import bb.framework.actor.AbstractActor;
 import bb.framework.actor.ActorBrain;
 import bb.framework.actor.ActorUtil;
 import bb.framework.actor.Direction;
+import bb.framework.actor.DirectionIntent;
 import bb.framework.util.MathUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Created by willie on 6/24/17.
  */
 public class Lexi extends AbstractActor {
+	public enum State {
+		BLINKING,
+		WALKING,
+		WAVING
+	}
+
+	private static final Logger log = LoggerFactory.getLogger(Lexi.class);
+
 	private static final int WIDTH = 5;
 	private static final int HEIGHT = 11;
 	private static final int SPEED = 3;
@@ -19,6 +30,7 @@ public class Lexi extends AbstractActor {
 	private static final int UNBLINK_DURATION = 5;
 	private static final int WAVE_DURATION = 4;
 
+	private State state;
 	private int walkCounter = 0;
 
 	private boolean eyesOpen = true;
@@ -27,15 +39,26 @@ public class Lexi extends AbstractActor {
 	private boolean wavingLeft = true;
 	private int waveCountdown = WAVE_DURATION;
 
+	/**
+	 * Initial state is WALKING.
+	 *
+	 * @param brain
+	 * @param x
+	 * @param y
+	 */
 	public Lexi(ActorBrain brain, int x, int y) {
 		super(brain, x, y, WIDTH, HEIGHT);
 		setSpeed(SPEED);
+		this.state = State.WALKING;
+		brain.setActor(this);
 	}
 
-	public LexiBrain.State getState() {
-		// TODO Generics?
-		LexiBrain brain = (LexiBrain) getBrain();
-		return brain.getState();
+	public State getState() {
+		return state;
+	}
+
+	public void setState(State state) {
+		this.state = state;
 	}
 
 	public int getWalkCounter() { return walkCounter; }
@@ -50,10 +73,7 @@ public class Lexi extends AbstractActor {
 
 	@Override
 	public void updateBody() {
-		// TODO Consider moving these into an Action abstraction.
-		// The idea being that we simply grab the next action from the brain
-		// (where it exists as an intent) and execute it.
-		switch (getState()) {
+		switch (state) {
 			case BLINKING:
 				doBlink();
 				break;
@@ -87,24 +107,22 @@ public class Lexi extends AbstractActor {
 	}
 
 	private void doWalk() {
-
-		// TODO Generics?
-		LexiBrain brain = (LexiBrain) getBrain();
-		int speed = getSpeed();
+		final DirectionIntent moveIntent = getBrain().getMoveDirectionIntent();
+		final int speed = getSpeed();
 
 		int deltaX = 0;
 		int deltaY = 0;
 
-		if (brain.moveUp()) {
+		if (moveIntent.up) {
 			deltaY -= speed;
 		}
-		if (brain.moveDown()) {
+		if (moveIntent.down) {
 			deltaY += speed;
 		}
-		if (brain.moveLeft()) {
+		if (moveIntent.left) {
 			deltaX -= speed;
 		}
-		if (brain.moveRight()) {
+		if (moveIntent.right) {
 			deltaX += speed;
 		}
 

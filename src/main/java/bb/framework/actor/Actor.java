@@ -5,9 +5,15 @@ package bb.framework.actor;
  */
 public interface Actor {
 
+	ActorBrain getBrain();
+
 	int getX();
 
+	void setX(int x);
+
 	int getY();
+
+	void setY(int y);
 
 	int getWidth();
 
@@ -17,12 +23,12 @@ public interface Actor {
 
 	Direction getDirection();
 
-	void update();
-
 	/**
 	 * Boolean indicating whether the actor is ready for garbage collection.
 	 *
 	 * @return
 	 */
 	boolean isReadyForGC();
+
+	void update();
 }

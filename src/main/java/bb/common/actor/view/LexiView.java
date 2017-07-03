@@ -1,9 +1,9 @@
 package bb.common.actor.view;
 
-import bb.framework.actor.Direction;
 import bb.common.actor.model.Lexi;
 import bb.framework.actor.Actor;
 import bb.framework.actor.ActorView;
+import bb.framework.actor.Direction;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;

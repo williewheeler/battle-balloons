@@ -2,11 +2,12 @@ package bb.game;
 
 import bb.common.BBConfig;
 import bb.common.BBContext;
+import bb.common.BBScreenManager;
 import bb.common.mode.AbstractMode;
 import bb.common.mode.AbstractModeStateMachine;
-import bb.common.BBScreenManager;
 import bb.framework.event.ScreenEvent;
 import bb.framework.util.Assert;
+import bb.game.arena.model.ArenaScene;
 import bb.game.arena.view.ArenaScreen;
 
 /**
@@ -36,7 +37,7 @@ public class GameMode extends AbstractMode {
 
 		@Override
 		public void start() {
-			transitionTo(new ArenaScreen(context));
+			transitionTo(new ArenaScreen(context, new ArenaScene()));
 		}
 	}
 }

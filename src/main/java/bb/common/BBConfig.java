@@ -16,7 +16,10 @@ public class BBConfig {
 	public static final int FRAMES_PER_SECOND = 30;
 	public static final int FRAME_PERIOD_MS = 1000 / FRAMES_PER_SECOND;
 
-	// Sizes
+	// World
+	public static final Dimension WORLD_SIZE = new Dimension(292, 234);
+
+	// Screen
 	public static final int SCREEN_WIDTH_PX = 304;
 	public static final int SCREEN_HEIGHT_PX = 256;
 	public static final int ARENA_HEADER_HEIGHT_PX = 12;
@@ -38,6 +41,7 @@ public class BBConfig {
 	public static final Dimension ARENA_HEADER_SIZE_PX = new Dimension(SCREEN_WIDTH_PX, ARENA_HEADER_HEIGHT_PX);
 	public static final Dimension ARENA_FOOTER_SIZE_PX = new Dimension(SCREEN_WIDTH_PX, ARENA_FOOTER_HEIGHT_PX);
 	public static final Dimension ARENA_PANE_SIZE_PX = new Dimension(SCREEN_WIDTH_PX, ARENA_PANE_HEIGHT_PX);
+	public static final Dimension ARENA_SCENE_SIZE_PX = WORLD_SIZE;
 
 	// Sprites
 	public static final int SPRITE_WIDTH_PX = 16;

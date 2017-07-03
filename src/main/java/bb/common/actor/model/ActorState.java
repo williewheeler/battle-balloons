@@ -1,9 +1,9 @@
-package bb.game.arena.event;
+package bb.common.actor.model;
 
 /**
  * Created by wwheeler on 6/13/17.
  */
-public enum EntityState {
+public enum ActorState {
 	ENTERING,
 	ACTIVE,
 	EXITING,

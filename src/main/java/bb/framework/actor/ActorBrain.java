@@ -7,13 +7,11 @@ package bb.framework.actor;
  */
 public interface ActorBrain {
 
-	boolean moveUp();
+	void setActor(Actor actor);
 
-	boolean moveDown();
+	DirectionIntent getMoveDirectionIntent();
 
-	boolean moveLeft();
-
-	boolean moveRight();
+	DirectionIntent getFireDirectionIntent();
 
 	void update();
 }

@@ -1,9 +1,7 @@
 package bb.common;
 
-import bb.common.actor.view.ActorViewFactory;
 import bb.framework.event.ScreenEvent;
 import bb.framework.event.ScreenListener;
-import bb.framework.actor.Actor;
 import bb.framework.scene.Scene;
 import bb.framework.util.Assert;
 
@@ -11,7 +9,6 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
@@ -79,11 +76,11 @@ public abstract class BBScreen extends JPanel {
 		timer.stop();
 	}
 
-	@Override
-	public void paint(Graphics g) {
-		super.paint(g);
-		paintActors(g);
-	}
+//	@Override
+//	public void paint(Graphics g) {
+//		super.paint(g);
+//		paintActors(g);
+//	}
 
 	public void addScreenListener(ScreenListener listener) {
 		screenListeners.add(listener);
@@ -108,13 +105,5 @@ public abstract class BBScreen extends JPanel {
 				}
 			}
 		};
-	}
-
-	private void paintActors(Graphics g) {
-		ActorViewFactory avf = context.getActorViewFactory();
-		List<Actor> actors = scene.getActors();
-		for (Actor actor : actors) {
-			avf.getView(actor).paint(g, actor);
-		}
 	}
 }
