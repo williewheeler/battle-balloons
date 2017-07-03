@@ -1,4 +1,4 @@
-package bb.common.mode;
+package bb.common.view;
 
 import bb.common.BBContext;
 import bb.common.actor.view.ActorViewFactory;

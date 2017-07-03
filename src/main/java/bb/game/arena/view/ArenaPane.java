@@ -1,7 +1,7 @@
 package bb.game.arena.view;
 
 import bb.common.BBContext;
-import bb.common.mode.ScenePane;
+import bb.common.view.ScenePane;
 import bb.framework.util.Assert;
 import bb.game.arena.model.ArenaScene;
 

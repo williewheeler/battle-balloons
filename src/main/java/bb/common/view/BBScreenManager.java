@@ -1,4 +1,4 @@
-package bb.common;
+package bb.common.view;
 
 /**
  * Created by willie on 7/1/17.

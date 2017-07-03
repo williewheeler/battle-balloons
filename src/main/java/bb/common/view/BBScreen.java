@@ -1,5 +1,7 @@
-package bb.common;
+package bb.common.view;
 
+import bb.common.BBConfig;
+import bb.common.BBContext;
 import bb.framework.event.ScreenEvent;
 import bb.framework.event.ScreenListener;
 import bb.framework.scene.Scene;
@@ -75,12 +77,6 @@ public abstract class BBScreen extends JPanel {
 	public void stop() {
 		timer.stop();
 	}
-
-//	@Override
-//	public void paint(Graphics g) {
-//		super.paint(g);
-//		paintActors(g);
-//	}
 
 	public void addScreenListener(ScreenListener listener) {
 		screenListeners.add(listener);

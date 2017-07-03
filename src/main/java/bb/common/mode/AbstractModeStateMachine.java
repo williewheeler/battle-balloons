@@ -3,8 +3,8 @@ package bb.common.mode;
 import bb.framework.event.ModeEvent;
 import bb.framework.event.ModeListener;
 import bb.framework.util.Assert;
-import bb.common.BBScreen;
-import bb.common.BBScreenManager;
+import bb.common.view.BBScreen;
+import bb.common.view.BBScreenManager;
 
 import java.util.LinkedList;
 import java.util.List;

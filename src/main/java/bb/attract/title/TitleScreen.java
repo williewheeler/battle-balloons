@@ -1,9 +1,11 @@
 package bb.attract.title;
 
 import bb.common.BBContext;
-import bb.common.BBScreen;
+import bb.common.view.BBScreen;
+import bb.common.view.ScenePane;
 import bb.framework.event.ScreenEvent;
 
+import java.awt.BorderLayout;
 import java.awt.Graphics;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -19,16 +21,23 @@ public class TitleScreen extends BBScreen {
 	private static final int TITLE_Y = 85;
 
 	private BufferedImage titleImage;
+	private ScenePane scenePane;
 
 	public TitleScreen(BBContext context) {
 		super(context, new TitleScene());
-		this.titleImage = context.getImageLoader().loadImage(TITLE_PATH);
-	}
 
-	@Override
-	public void paint(Graphics g) {
-		super.paint(g);
-		g.drawImage(titleImage, TITLE_X, TITLE_Y, titleImage.getWidth(), titleImage.getHeight(), null);
+		this.titleImage = context.getImageLoader().loadImage(TITLE_PATH);
+		this.scenePane = new ScenePane(context, getScene()) {
+
+			@Override
+			public void paint(Graphics g) {
+				super.paint(g);
+				g.drawImage(titleImage, TITLE_X, TITLE_Y, titleImage.getWidth(), titleImage.getHeight(), null);
+			}
+		};
+
+		setLayout(new BorderLayout());
+		add(scenePane, BorderLayout.CENTER);
 	}
 
 	@Override

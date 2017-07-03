@@ -9,8 +9,8 @@ import bb.common.BBContext;
 import bb.framework.event.ScreenEvent;
 import bb.common.mode.AbstractMode;
 import bb.framework.util.Assert;
-import bb.common.BBScreen;
-import bb.common.BBScreenManager;
+import bb.common.view.BBScreen;
+import bb.common.view.BBScreenManager;
 
 /**
  * Created by willie on 7/1/17.

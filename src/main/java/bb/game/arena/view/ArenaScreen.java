@@ -1,7 +1,7 @@
 package bb.game.arena.view;
 
 import bb.common.BBContext;
-import bb.common.BBScreen;
+import bb.common.view.BBScreen;
 import bb.common.event.ActorEvents;
 import bb.common.factory.AudioFactory;
 import bb.framework.actor.ActorBrain;

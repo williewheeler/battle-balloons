@@ -2,7 +2,7 @@ package bb.common.mode;
 
 import bb.framework.event.ModeListener;
 import bb.framework.event.ScreenListener;
-import bb.common.BBScreen;
+import bb.common.view.BBScreen;
 
 /**
  * Created by willie on 7/1/17.
