@@ -81,7 +81,7 @@ public class Scene {
 		CollisionDetector.checkCollisions(this);
 	}
 
-	protected void fireEvent(ActorEvent event) {
+	public void fireEvent(ActorEvent event) {
 		actorListeners.forEach(listener -> listener.handleEvent(event));
 	}
 

@@ -1,6 +1,7 @@
 package bb.common.actor.model;
 
 import bb.common.BBConfig;
+import bb.common.event.ActorEvents;
 import bb.common.scene.Scene;
 import bb.framework.actor.ActorBrain;
 import bb.framework.util.MathUtil;
@@ -19,22 +20,25 @@ public class Lexi extends AbstractActor {
 
 	private static final Logger log = LoggerFactory.getLogger(Lexi.class);
 
-	public static final int ENTERING_DURATION = 20;
-	public static final int EXITING_DURATION = 40;
-
 	private static final int WIDTH = 5;
 	private static final int HEIGHT = 11;
 	private static final int SPEED = 3;
+
+	public static final int ENTER_TTL = 20;
+	public static final int EXIT_TTL = 40;
+	private static final int WALK_EVENT_TTL = 5;
+
 	private static final double BLINK_DURATION_MEAN = 2 * BBConfig.FRAMES_PER_SECOND;
 	private static final double BLINK_DURATION_STDEV = BBConfig.FRAMES_PER_SECOND;
 	private static final int UNBLINK_DURATION = 5;
 	private static final int WAVE_DURATION = 4;
 
 	// TODO Move entering/exiting up to AbstractActor? [WLW]
-	private int enteringCountdown = ENTERING_DURATION - 1;
-	private int exitingCountdown = EXITING_DURATION - 1;
+	private int enterTtl = ENTER_TTL - 1;
+	private int exitTtl = EXIT_TTL - 1;
 
 	private Substate substate;
+	private int walkEventTtl = WALK_EVENT_TTL;
 	private boolean eyesOpen = true;
 	private int blinkCountdown = generateBlinkDuration();
 	private boolean wavingLeft = true;
@@ -53,12 +57,12 @@ public class Lexi extends AbstractActor {
 		this.substate = Substate.WALKING;
 	}
 
-	public int getEnteringCountdown() {
-		return enteringCountdown;
+	public int getEnterTtl() {
+		return enterTtl;
 	}
 
-	public int getExitingCountdown() {
-		return exitingCountdown;
+	public int getExitTtl() {
+		return exitTtl;
 	}
 
 	public Substate getSubstate() {
@@ -79,8 +83,8 @@ public class Lexi extends AbstractActor {
 
 	@Override
 	public void updateBodyEntering() {
-		this.enteringCountdown--;
-		if (enteringCountdown < 0) {
+		this.enterTtl--;
+		if (enterTtl < 0) {
 			setState(ActorState.ACTIVE);
 		}
 	}
@@ -102,8 +106,8 @@ public class Lexi extends AbstractActor {
 
 	@Override
 	public void updateBodyExiting() {
-		this.exitingCountdown--;
-		if (exitingCountdown < 0) {
+		this.exitTtl--;
+		if (exitTtl < 0) {
 			setState(ActorState.GONE);
 		}
 	}
@@ -126,6 +130,21 @@ public class Lexi extends AbstractActor {
 	private int generateBlinkDuration() {
 		int duration = (int) MathUtil.nextRandomGaussian(BLINK_DURATION_MEAN, BLINK_DURATION_STDEV);
 		return Math.max(0, duration);
+	}
+
+	@Override
+	protected boolean doWalk() {
+		boolean walked = super.doWalk();
+		if (walked) {
+			this.walkEventTtl--;
+			if (walkEventTtl == 0) {
+				getScene().fireEvent(ActorEvents.PLAYER_WALKS);
+				this.walkEventTtl = WALK_EVENT_TTL;
+			}
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	private void doWave() {

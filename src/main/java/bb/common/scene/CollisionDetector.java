@@ -1,7 +1,9 @@
 package bb.common.scene;
 
 import bb.common.actor.model.ActorState;
+import bb.common.event.ActorEvents;
 import bb.framework.actor.Actor;
+import bb.framework.event.ActorEvent;
 import bb.framework.util.Assert;
 
 import java.util.List;
@@ -13,12 +15,17 @@ public final class CollisionDetector {
 
 	public static void checkCollisions(Scene scene) {
 		Assert.notNull(scene, "scene can't be null");
-		checkCollisions(scene.getLexis(), scene.getObstacles());
-		checkCollisions(scene.getLexis(), scene.getJudos());
-		checkCollisions(scene.getJudos(), scene.getObstacles());
+		checkCollisions(scene, scene.getLexis(), scene.getObstacles(), ActorEvents.PLAYER_COLLISION);
+		checkCollisions(scene, scene.getLexis(), scene.getJudos(), ActorEvents.PLAYER_COLLISION);
+		checkCollisions(scene, scene.getJudos(), scene.getObstacles(), ActorEvents.JUDO_HIT);
 	}
 
-	private static void checkCollisions(List<? extends Actor> these, List<? extends Actor> those) {
+	private static void checkCollisions(
+			Scene scene,
+			List<? extends Actor> these,
+			List<? extends Actor> those,
+			ActorEvent event) {
+
 		these.stream()
 				.filter(thisOne -> thisOne.getState() == ActorState.ACTIVE)
 				.forEach(thisOne -> {
@@ -28,6 +35,9 @@ public final class CollisionDetector {
 								if (thisOne.checkCollision(thatOne)) {
 									thisOne.setState(ActorState.EXITING);
 									thatOne.setState(ActorState.EXITING);
+									if (event != null) {
+										scene.fireEvent(event);
+									}
 								}
 							});
 				});

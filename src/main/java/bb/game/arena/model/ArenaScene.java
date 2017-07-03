@@ -1,5 +1,6 @@
 package bb.game.arena.model;
 
+import bb.common.actor.model.ActorState;
 import bb.common.actor.model.BasicActorBrain;
 import bb.common.actor.model.Judo;
 import bb.common.actor.model.Lexi;
@@ -25,9 +26,9 @@ public class ArenaScene extends Scene {
 
 	@Override
 	public void update() {
-		super.update();
-
-		// TODO Check if the player's actor is gone?
+		if (player.getActor().getState() != ActorState.GONE) {
+			super.update();
+		}
 	}
 
 	private void initScene() {

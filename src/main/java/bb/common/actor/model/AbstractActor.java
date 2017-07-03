@@ -208,7 +208,7 @@ public abstract class AbstractActor implements Actor {
 		return xOverlap && yOverlap;
 	}
 
-	protected void doWalk() {
+	protected boolean doWalk() {
 		final ActorBrain brain = getBrain();
 		final DirectionIntent moveIntent = brain.getMoveDirectionIntent();
 		final int speed = getSpeed();
@@ -234,9 +234,13 @@ public abstract class AbstractActor implements Actor {
 		enforceBounds();
 
 		Direction direction = calculateDirection(dx, dy);
-		if (direction != null) {
+
+		if (direction == null) {
+			return false;
+		} else {
 			setDirection(direction);
 			this.walkCounter = (walkCounter + 1) % WALK_NUM_FRAMES;
+			return true;
 		}
 	}
 
