@@ -18,6 +18,8 @@ public final class CollisionDetector {
 		checkCollisions(scene, scene.getLexis(), scene.getObstacles(), ActorEvents.PLAYER_COLLISION);
 		checkCollisions(scene, scene.getLexis(), scene.getJudos(), ActorEvents.PLAYER_COLLISION);
 		checkCollisions(scene, scene.getJudos(), scene.getObstacles(), ActorEvents.JUDO_HIT);
+		checkCollisions(scene, scene.getBalloons(), scene.getObstacles(), null);
+		checkCollisions(scene, scene.getBalloons(), scene.getJudos(), ActorEvents.JUDO_HIT);
 	}
 
 	private static void checkCollisions(

@@ -92,6 +92,7 @@ public class ArenaScreen extends BBScreen {
 			ActorBrain brain = scene.getPlayer().getActor().getBrain();
 			DirectionIntent moveIntent = brain.getMoveDirectionIntent();
 			DirectionIntent fireIntent = brain.getFireDirectionIntent();
+
 			switch (keyCode) {
 				case KeyEvent.VK_T:
 					moveIntent.up = value;

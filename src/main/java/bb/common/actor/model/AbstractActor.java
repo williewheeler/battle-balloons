@@ -6,6 +6,8 @@ import bb.framework.actor.ActorBrain;
 import bb.framework.actor.Direction;
 import bb.framework.actor.DirectionIntent;
 import bb.framework.util.Assert;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import static bb.common.BBConfig.ARENA_INNER_HEIGHT_PX;
 import static bb.common.BBConfig.ARENA_INNER_WIDTH_PX;
@@ -15,7 +17,10 @@ import static bb.framework.actor.Direction.*;
  * Created by willie on 6/19/17.
  */
 public abstract class AbstractActor implements Actor {
-	private static final int WALK_NUM_FRAMES = 4;
+	private static final Logger log = LoggerFactory.getLogger(AbstractActor.class);
+
+	private static final int WALK_ANIMATION_NUM_FRAMES = 4;
+	private static final int RECHARGE_TTL = 3;
 
 	// State
 	private ActorState state;
@@ -36,6 +41,7 @@ public abstract class AbstractActor implements Actor {
 
 	// Other
 	private int walkCounter = 0;
+	private int rechargeTtl = 0;
 
 	public AbstractActor(Scene scene, ActorBrain brain, int x, int y, int width, int height) {
 		Assert.notNull(scene, "scene can't be null");
@@ -239,8 +245,44 @@ public abstract class AbstractActor implements Actor {
 			return false;
 		} else {
 			setDirection(direction);
-			this.walkCounter = (walkCounter + 1) % WALK_NUM_FRAMES;
+			this.walkCounter = (walkCounter + 1) % WALK_ANIMATION_NUM_FRAMES;
 			return true;
+		}
+	}
+
+	protected boolean doFire() {
+		if (rechargeTtl > 0) {
+			this.rechargeTtl--;
+			return false;
+		} else {
+			final ActorBrain brain = getBrain();
+			final DirectionIntent fireIntent = brain.getFireDirectionIntent();
+
+			int dx = 0;
+			int dy = 0;
+
+			if (fireIntent.up) {
+				dy -= Balloon.SPEED;
+			}
+			if (fireIntent.down) {
+				dy += Balloon.SPEED;
+			}
+			if (fireIntent.left) {
+				dx -= Balloon.SPEED;
+			}
+			if (fireIntent.right) {
+				dx += Balloon.SPEED;
+			}
+
+			if (dx != 0 || dy != 0) {
+//				log.trace("Firing: dx={}, dy={}", dx, dy);
+				Balloon balloon = new Balloon(scene, getX(), getY(), dx, dy);
+				scene.getBalloons().add(balloon);
+				this.rechargeTtl = RECHARGE_TTL;
+				return true;
+			} else {
+				return false;
+			}
 		}
 	}
 

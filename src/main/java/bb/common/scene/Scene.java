@@ -1,6 +1,7 @@
 package bb.common.scene;
 
 import bb.common.actor.model.ActorState;
+import bb.common.actor.model.Balloon;
 import bb.common.actor.model.BigBalloon;
 import bb.common.actor.model.Judo;
 import bb.common.actor.model.Lexi;
@@ -26,6 +27,7 @@ public class Scene {
 	private final List<List<? extends Actor>> allActors = new ArrayList<>();
 
 	private Actor player;
+	private final List<Balloon> balloons = new LinkedList<>();
 	private final List<BigBalloon> bigBalloons = new LinkedList<>();
 	private final List<Judo> judos = new LinkedList<>();
 	private final List<Lexi> lexis = new LinkedList<>();
@@ -35,6 +37,7 @@ public class Scene {
 	private final List<ActorListener> actorListeners = new LinkedList<>();
 
 	public Scene() {
+		allActors.add(balloons);
 		allActors.add(bigBalloons);
 		allActors.add(judos);
 		allActors.add(lexis);
@@ -48,6 +51,10 @@ public class Scene {
 
 	public List<List<? extends Actor>> getAllActors() {
 		return allActors;
+	}
+
+	public List<Balloon> getBalloons() {
+		return balloons;
 	}
 
 	public List<BigBalloon> getBigBalloons() {
@@ -75,6 +82,7 @@ public class Scene {
 	}
 
 	public void update() {
+//		log.trace("balloons.size={}", balloons.size());
 //		log.trace("bigBalloons.size={}", bigBalloons.size());
 		garbageCollectActors();
 		updateActors();

@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory;
 public class Lexi extends AbstractActor {
 	public enum Substate {
 		BLINKING,
-		WALKING,
+		BATTLING,
 		WAVING
 	}
 
@@ -26,8 +26,8 @@ public class Lexi extends AbstractActor {
 
 	public static final int ENTER_TTL = 20;
 	public static final int EXIT_TTL = 40;
-	private static final int WALK_EVENT_TTL = 5;
 
+	private static final int WALK_EVENT_TTL = 5;
 	private static final double BLINK_DURATION_MEAN = 2 * BBConfig.FRAMES_PER_SECOND;
 	private static final double BLINK_DURATION_STDEV = BBConfig.FRAMES_PER_SECOND;
 	private static final int UNBLINK_DURATION = 5;
@@ -45,7 +45,7 @@ public class Lexi extends AbstractActor {
 	private int waveCountdown = WAVE_DURATION;
 
 	/**
-	 * Initial substate is WALKING.
+	 * Initial substate is BATTLING.
 	 *
 	 * @param brain
 	 * @param x
@@ -54,7 +54,7 @@ public class Lexi extends AbstractActor {
 	public Lexi(Scene scene, ActorBrain brain, int x, int y) {
 		super(scene, brain, x, y, WIDTH, HEIGHT);
 		setSpeed(SPEED);
-		this.substate = Substate.WALKING;
+		this.substate = Substate.BATTLING;
 	}
 
 	public int getEnterTtl() {
@@ -92,11 +92,12 @@ public class Lexi extends AbstractActor {
 	@Override
 	public void updateBodyActive() {
 		switch (substate) {
+			case BATTLING:
+				doWalk();
+				doFire();
+				break;
 			case BLINKING:
 				doBlink();
-				break;
-			case WALKING:
-				doWalk();
 				break;
 			case WAVING:
 				doWave();
@@ -110,6 +111,30 @@ public class Lexi extends AbstractActor {
 		if (exitTtl < 0) {
 			setState(ActorState.GONE);
 		}
+	}
+
+	@Override
+	protected boolean doWalk() {
+		boolean walked = super.doWalk();
+		if (walked) {
+			this.walkEventTtl--;
+			if (walkEventTtl == 0) {
+				getScene().fireEvent(ActorEvents.PLAYER_WALKS);
+				this.walkEventTtl = WALK_EVENT_TTL;
+			}
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	@Override
+	protected boolean doFire() {
+		boolean fired = super.doFire();
+		if (fired) {
+			getScene().fireEvent(ActorEvents.PLAYER_THROWS_BALLOON);
+		}
+		return fired;
 	}
 
 	private void doBlink() {
@@ -130,21 +155,6 @@ public class Lexi extends AbstractActor {
 	private int generateBlinkDuration() {
 		int duration = (int) MathUtil.nextRandomGaussian(BLINK_DURATION_MEAN, BLINK_DURATION_STDEV);
 		return Math.max(0, duration);
-	}
-
-	@Override
-	protected boolean doWalk() {
-		boolean walked = super.doWalk();
-		if (walked) {
-			this.walkEventTtl--;
-			if (walkEventTtl == 0) {
-				getScene().fireEvent(ActorEvents.PLAYER_WALKS);
-				this.walkEventTtl = WALK_EVENT_TTL;
-			}
-			return true;
-		} else {
-			return false;
-		}
 	}
 
 	private void doWave() {

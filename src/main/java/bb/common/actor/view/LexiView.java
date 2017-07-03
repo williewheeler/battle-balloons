@@ -70,7 +70,7 @@ public class LexiView extends AbstractActorView {
 			case BLINKING:
 				index = (lexi.getEyesOpen() ? 0 : 1);
 				return spriteFactory.getLexiBlinking()[index];
-			case WALKING:
+			case BATTLING:
 				return getWalkingSprite(lexi);
 			case WAVING:
 				index = (lexi.getWavingLeft() ? 0 : 1);

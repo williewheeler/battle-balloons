@@ -1,5 +1,6 @@
 package bb.common.actor.view;
 
+import bb.common.actor.model.Balloon;
 import bb.common.actor.model.BigBalloon;
 import bb.common.actor.model.Judo;
 import bb.common.actor.model.Lexi;
@@ -15,6 +16,7 @@ import bb.framework.util.Assert;
  * Created by willie on 6/24/17.
  */
 public class ActorViewFactory {
+	private BalloonView balloonView;
 	private BigBalloonView bigBalloonView;
 	private JudoView judoView;
 	private LexiView lexiView;
@@ -25,6 +27,7 @@ public class ActorViewFactory {
 		Assert.notNull(fontFactory, "fontFactory can't be null");
 		Assert.notNull(spriteFactory, "spriteFactory can't be null");
 
+		this.balloonView = new BalloonView();
 		this.bigBalloonView = new BigBalloonView(spriteFactory.getBigBalloons());
 		this.judoView = new JudoView(spriteFactory);
 		this.lexiView = new LexiView(spriteFactory);
@@ -34,7 +37,9 @@ public class ActorViewFactory {
 
 	public ActorView getView(Actor actor) {
 		// TODO Refactor to avoid if/else chain. [WLW]
-		if (actor instanceof BigBalloon) {
+		if (actor instanceof Balloon) {
+			return balloonView;
+		} else if (actor instanceof BigBalloon) {
 			return bigBalloonView;
 		} else if (actor instanceof Judo) {
 			return judoView;

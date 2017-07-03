@@ -19,7 +19,7 @@ public class RosterLexiBrain extends AbstractActorBrain {
 		if (counter == 0) {
 			lexi.setSubstate(Lexi.Substate.WAVING);
 		} else if (counter == 40) {
-			lexi.setSubstate(Lexi.Substate.WALKING);
+			lexi.setSubstate(Lexi.Substate.BATTLING);
 			getMoveDirectionIntent().right = true;
 		} else if (counter == 78) {
 			lexi.setSubstate(Lexi.Substate.BLINKING);
