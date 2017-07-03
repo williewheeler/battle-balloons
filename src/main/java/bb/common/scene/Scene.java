@@ -26,7 +26,6 @@ public class Scene {
 
 	private final List<List<? extends Actor>> allActors = new ArrayList<>();
 
-	private Actor player;
 	private final List<Balloon> balloons = new LinkedList<>();
 	private final List<BigBalloon> bigBalloons = new LinkedList<>();
 	private final List<Judo> judos = new LinkedList<>();

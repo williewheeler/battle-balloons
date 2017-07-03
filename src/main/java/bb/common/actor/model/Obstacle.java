@@ -8,8 +8,14 @@ import bb.common.scene.Scene;
 public class Obstacle extends AbstractActor {
 	private static final int WIDTH = 8;
 	private static final int HEIGHT = 8;
+	private static final int SCORE = 50;
 
 	public Obstacle(Scene scene, int x, int y) {
 		super(scene, null, x, y, WIDTH, HEIGHT);
+	}
+
+	@Override
+	public int getScore() {
+		return SCORE;
 	}
 }

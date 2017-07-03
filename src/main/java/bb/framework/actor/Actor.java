@@ -33,6 +33,8 @@ public interface Actor {
 
 	Direction getDirection();
 
+	int getScore();
+
 	/**
 	 * <p>
 	 * Updates the actor. This typically involves a "planning" phase (brain update) and an "execution" phase (body

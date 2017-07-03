@@ -149,6 +149,11 @@ public abstract class AbstractActor implements Actor {
 	public int getWalkCounter() { return walkCounter; }
 
 	@Override
+	public int getScore() {
+		return 0;
+	}
+
+	@Override
 	public void update() {
 		updateBrain();
 		updateBody();

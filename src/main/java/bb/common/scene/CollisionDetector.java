@@ -5,6 +5,8 @@ import bb.common.event.ActorEvents;
 import bb.framework.actor.Actor;
 import bb.framework.event.ActorEvent;
 import bb.framework.util.Assert;
+import bb.game.arena.model.ArenaScene;
+import bb.game.arena.model.Player;
 
 import java.util.List;
 
@@ -37,6 +39,14 @@ public final class CollisionDetector {
 								if (thisOne.checkCollision(thatOne)) {
 									thisOne.setState(ActorState.EXITING);
 									thatOne.setState(ActorState.EXITING);
+
+									// FIXME This is hacky. Figure out a better way. [WLW]
+									if (scene instanceof ArenaScene) {
+										final Player player = ((ArenaScene) scene).getPlayer();
+										player.increaseScore(thisOne.getScore());
+										player.increaseScore(thatOne.getScore());
+									}
+
 									if (event != null) {
 										scene.fireEvent(event);
 									}

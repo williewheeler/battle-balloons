@@ -10,6 +10,7 @@ public class Judo extends AbstractActor {
 	private static final int WIDTH = 5;
 	private static final int HEIGHT = 11;
 	private static final int SPEED = 2;
+	private static final int SCORE = 100;
 
 	public static final int ENTER_TTL = 20;
 	public static final int EXIT_TTL = 5;
@@ -21,6 +22,11 @@ public class Judo extends AbstractActor {
 	public Judo(Scene scene, ActorBrain brain, int x, int y) {
 		super(scene, brain, x, y, WIDTH, HEIGHT);
 		setSpeed(SPEED);
+	}
+
+	@Override
+	public int getScore() {
+		return SCORE;
 	}
 
 	public int getEnterTtl() {
