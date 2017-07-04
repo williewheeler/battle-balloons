@@ -33,7 +33,13 @@ public class TransitionScreen extends AbstractScreen {
 
 	private int counter = 0;
 
-	public TransitionScreen(String name, BBConfig config, BBContext context) {
+	public static TransitionScreen create(String name, BBConfig config, BBContext context) {
+		TransitionScreen screen = new TransitionScreen(name, config, context);
+		screen.postConstruct();
+		return screen;
+	}
+
+	private TransitionScreen(String name, BBConfig config, BBContext context) {
 		super(name, config, context);
 	}
 

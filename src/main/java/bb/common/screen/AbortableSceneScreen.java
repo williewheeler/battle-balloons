@@ -14,7 +14,18 @@ import java.awt.event.KeyListener;
  */
 public class AbortableSceneScreen extends SceneScreen {
 
-	public AbortableSceneScreen(String name, BBConfig config,  BBContext context, BBScene scene) {
+	public static AbortableSceneScreen create(
+			String name,
+			BBConfig config,
+			BBContext context,
+			BBScene scene) {
+
+		AbortableSceneScreen screen = new AbortableSceneScreen(name, config, context, scene);
+		screen.postConstruct();
+		return screen;
+	}
+
+	private AbortableSceneScreen(String name, BBConfig config, BBContext context, BBScene scene) {
 		super(name, config, context, scene);
 	}
 

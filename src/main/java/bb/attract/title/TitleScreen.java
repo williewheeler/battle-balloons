@@ -28,7 +28,13 @@ public class TitleScreen extends SceneScreen {
 	private static final int TITLE_X = 55;
 	private static final int TITLE_Y = 85;
 
-	public TitleScreen(BBConfig config, BBContext context) {
+	public static TitleScreen create(BBConfig config, BBContext context) {
+		TitleScreen screen = new TitleScreen(config, context);
+		screen.postConstruct();
+		return screen;
+	}
+
+	private TitleScreen(BBConfig config, BBContext context) {
 		super(AttractScreenNames.TITLE_SCREEN, config, context, new TitleScene());
 	}
 

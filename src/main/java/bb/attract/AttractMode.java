@@ -5,9 +5,7 @@ import bb.attract.roster.RosterScene;
 import bb.attract.title.TitleScreen;
 import bb.common.BBConfig;
 import bb.common.BBContext;
-import bb.common.scene.BBScene;
 import bb.common.screen.AbortableSceneScreen;
-import bb.common.screen.SceneScreen;
 import bb.common.screen.TransitionScreen;
 import bb.framework.event.ScreenEvent;
 import bb.framework.mode.AbstractMode;
@@ -74,29 +72,19 @@ public class AttractMode extends AbstractMode {
 		}
 
 		private Screen transitionScreen() {
-			TransitionScreen screen = new TransitionScreen(TRANSITION_SCREEN, config, context);
-			screen.postConstruct();
-			return screen;
+			return TransitionScreen.create(TRANSITION_SCREEN, config, context);
 		}
 
 		private Screen titleScreen() {
-			TitleScreen screen = new TitleScreen(config, context);
-			screen.postConstruct();
-			return screen;
+			return TitleScreen.create(config, context);
 		}
 
 		private Screen backstoryScreen() {
-			BBScene scene = new BackstoryScene();
-			SceneScreen screen = new AbortableSceneScreen(BACKSTORY_SCREEN, config, context, scene);
-			screen.postConstruct();
-			return screen;
+			return AbortableSceneScreen.create(BACKSTORY_SCREEN, config, context, new BackstoryScene());
 		}
 
 		private Screen rosterScreen() {
-			BBScene scene = new RosterScene();
-			SceneScreen screen = new AbortableSceneScreen(ROSTER_SCREEN, config, context, scene);
-			screen.postConstruct();
-			return screen;
+			return AbortableSceneScreen.create(BACKSTORY_SCREEN, config, context, new RosterScene());
 		}
 	}
 }

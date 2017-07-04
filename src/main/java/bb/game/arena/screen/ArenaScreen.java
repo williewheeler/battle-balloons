@@ -30,7 +30,13 @@ import static bb.common.BBConfig.ARENA_MARGIN_LEFT_RIGHT_PX;
 public class ArenaScreen extends SceneScreen {
 	private AudioHandler audioHandler;
 
-	public ArenaScreen(BBConfig config, BBContext context, ArenaScene scene) {
+	public static ArenaScreen create(BBConfig config, BBContext context, ArenaScene scene) {
+		ArenaScreen screen = new ArenaScreen(config, context, scene);
+		screen.postConstruct();
+		return screen;
+	}
+
+	private ArenaScreen(BBConfig config, BBContext context, ArenaScene scene) {
 		super(GameScreenNames.ARENA_SCREEN, config, context, scene);
 		this.audioHandler = new AudioHandler();
 		scene.addActorListener(audioHandler);

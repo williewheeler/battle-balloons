@@ -45,9 +45,7 @@ public class GameMode extends AbstractMode {
 		}
 
 		private Screen arenaScreen() {
-			ArenaScreen screen = new ArenaScreen(config, context, new ArenaScene());
-			screen.postConstruct();
-			return screen;
+			return ArenaScreen.create(config, context, new ArenaScene());
 		}
 	}
 }
