@@ -28,7 +28,7 @@ public class Resizer extends JPanel {
 		this.prefSize = new Dimension(prefWidth, prefHeight);
 		this.scaleXform = AffineTransform.getScaleInstance(scaleBy, scaleBy);
 
-		setBackground(Color.GREEN);
+		setBackground(Color.BLACK);
 		setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
 	}
 
