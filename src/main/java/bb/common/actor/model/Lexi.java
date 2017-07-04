@@ -1,9 +1,10 @@
 package bb.common.actor.model;
 
 import bb.common.BBConfig;
-import bb.common.event.ActorEvents;
-import bb.common.scene.Scene;
-import bb.framework.actor.ActorBrain;
+import bb.common.actor.event.ActorEvents;
+import bb.common.scene.BBScene;
+import bb.framework.actor.brain.ActorBrain;
+import bb.framework.actor.ActorLifecycleState;
 import bb.framework.util.MathUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,7 +52,7 @@ public class Lexi extends AbstractActor {
 	 * @param x
 	 * @param y
 	 */
-	public Lexi(Scene scene, ActorBrain brain, int x, int y) {
+	public Lexi(BBScene scene, ActorBrain brain, int x, int y) {
 		super(scene, brain, x, y, WIDTH, HEIGHT);
 		setSpeed(SPEED);
 		this.substate = Substate.BATTLING;
@@ -85,7 +86,7 @@ public class Lexi extends AbstractActor {
 	public void updateBodyEntering() {
 		this.enterTtl--;
 		if (enterTtl < 0) {
-			setState(ActorState.ACTIVE);
+			setState(ActorLifecycleState.ACTIVE);
 		}
 	}
 
@@ -93,7 +94,7 @@ public class Lexi extends AbstractActor {
 	public void updateBodyActive() {
 		switch (substate) {
 			case BATTLING:
-				doWalk();
+				doMove();
 				doFire();
 				break;
 			case BLINKING:
@@ -109,13 +110,13 @@ public class Lexi extends AbstractActor {
 	public void updateBodyExiting() {
 		this.exitTtl--;
 		if (exitTtl < 0) {
-			setState(ActorState.GONE);
+			setState(ActorLifecycleState.GONE);
 		}
 	}
 
 	@Override
-	protected boolean doWalk() {
-		boolean walked = super.doWalk();
+	protected boolean doMove() {
+		boolean walked = super.doMove();
 		if (walked) {
 			this.walkEventTtl--;
 			if (walkEventTtl == 0) {

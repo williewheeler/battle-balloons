@@ -1,15 +1,15 @@
 package bb.framework.actor;
 
-import bb.common.actor.model.ActorState;
+import bb.framework.actor.brain.ActorBrain;
 
 /**
  * Created by willie on 6/24/17.
  */
 public interface Actor {
 
-	ActorState getState();
+	ActorLifecycleState getState();
 
-	void setState(ActorState state);
+	void setState(ActorLifecycleState state);
 
 	ActorBrain getBrain();
 

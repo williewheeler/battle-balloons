@@ -1,8 +1,9 @@
 package bb.common.actor.model;
 
-import bb.common.scene.Scene;
+import bb.common.scene.BBScene;
 import bb.framework.actor.Actor;
-import bb.framework.actor.ActorBrain;
+import bb.framework.actor.brain.ActorBrain;
+import bb.framework.actor.ActorLifecycleState;
 import bb.framework.actor.Direction;
 import bb.framework.actor.DirectionIntent;
 import bb.framework.util.Assert;
@@ -23,10 +24,10 @@ public abstract class AbstractActor implements Actor {
 	private static final int RECHARGE_TTL = 3;
 
 	// State
-	private ActorState state;
+	private ActorLifecycleState state;
 
 	// World
-	private Scene scene;
+	private BBScene scene;
 
 	// Brain
 	private ActorBrain brain;
@@ -43,10 +44,10 @@ public abstract class AbstractActor implements Actor {
 	private int walkCounter = 0;
 	private int rechargeTtl = 0;
 
-	public AbstractActor(Scene scene, ActorBrain brain, int x, int y, int width, int height) {
+	public AbstractActor(BBScene scene, ActorBrain brain, int x, int y, int width, int height) {
 		Assert.notNull(scene, "scene can't be null");
 
-		this.state = ActorState.ENTERING;
+		this.state = ActorLifecycleState.ENTERING;
 		this.scene = scene;
 		this.brain = brain;
 		this.x = x;
@@ -62,16 +63,16 @@ public abstract class AbstractActor implements Actor {
 	}
 
 	@Override
-	public ActorState getState() {
+	public ActorLifecycleState getState() {
 		return state;
 	}
 
 	@Override
-	public void setState(ActorState state) {
+	public void setState(ActorLifecycleState state) {
 		this.state = state;
 	}
 
-	public Scene getScene() {
+	public BBScene getScene() {
 		return scene;
 	}
 
@@ -183,7 +184,7 @@ public abstract class AbstractActor implements Actor {
 	 * Override as desired.
 	 */
 	public void updateBodyEntering() {
-		setState(ActorState.ACTIVE);
+		setState(ActorLifecycleState.ACTIVE);
 	}
 
 	/**
@@ -196,7 +197,7 @@ public abstract class AbstractActor implements Actor {
 	 * Override as desired.
 	 */
 	public void updateBodyExiting() {
-		setState(ActorState.GONE);
+		setState(ActorLifecycleState.GONE);
 	}
 
 	@Override
@@ -219,7 +220,7 @@ public abstract class AbstractActor implements Actor {
 		return xOverlap && yOverlap;
 	}
 
-	protected boolean doWalk() {
+	protected boolean doMove() {
 		final ActorBrain brain = getBrain();
 		final DirectionIntent moveIntent = brain.getMoveDirectionIntent();
 		final int speed = getSpeed();

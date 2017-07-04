@@ -1,6 +1,7 @@
 package bb.common.actor.model;
 
-import bb.common.scene.Scene;
+import bb.common.scene.BBScene;
+import bb.framework.actor.ActorLifecycleState;
 import bb.framework.util.MathUtil;
 
 import static bb.common.BBConfig.WORLD_SIZE;
@@ -21,7 +22,7 @@ public class BigBalloon extends AbstractActor {
 	private int dRotation;
 	private int rotTtl;
 
-	public BigBalloon(Scene scene, int x, int y, int dx, int dy, int rot, int dRot) {
+	public BigBalloon(BBScene scene, int x, int y, int dx, int dy, int rot, int dRot) {
 		super(scene, null, x, y, WIDTH, HEIGHT);
 		this.dx = dx;
 		this.dy = dy;
@@ -71,7 +72,7 @@ public class BigBalloon extends AbstractActor {
 		// the big balloons on the title screen, which uses screen size, which is a bit
 		// bigger than the arena's world size. [WLW]
 		if (x < -10 || x > WORLD_SIZE.width + 10 || y < -10 || y > WORLD_SIZE.height + 10) {
-			setState(ActorState.GONE);
+			setState(ActorLifecycleState.GONE);
 		}
 	}
 }

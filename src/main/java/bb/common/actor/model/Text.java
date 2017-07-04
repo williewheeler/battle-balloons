@@ -1,9 +1,12 @@
 package bb.common.actor.model;
 
-import bb.common.scene.Scene;
+import bb.common.scene.BBScene;
 
 import java.util.ArrayList;
 import java.util.List;
+
+// TODO The scene's counter should drive the behavior here, rather than an
+// internal counter. That gives us a lot more control. [WLW]
 
 /**
  * Created by willie on 6/25/17.
@@ -12,7 +15,7 @@ public class Text extends AbstractActor {
 	private char[] textArr;
 	private int counter;
 
-	public Text(Scene scene, String text, int x, int y) {
+	public Text(BBScene scene, String text, int x, int y) {
 		super(scene, null, x, y, -1, -1);
 		this.textArr = text.toCharArray();
 		this.counter = 1;

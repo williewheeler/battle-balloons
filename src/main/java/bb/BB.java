@@ -1,16 +1,16 @@
 package bb;
 
-import bb.game.GameMode;
 import bb.attract.AttractMode;
 import bb.common.BBConfig;
 import bb.common.BBContext;
 import bb.framework.event.ModeEvent;
 import bb.framework.event.ModeListener;
-import bb.common.mode.BBMode;
+import bb.framework.mode.Mode;
+import bb.framework.screen.Resizer;
+import bb.framework.screen.Screen;
+import bb.framework.screen.ScreenManager;
 import bb.framework.util.Assert;
-import bb.common.screen.BBScreen;
-import bb.common.screen.BBScreenManager;
-import bb.framework.util.Resizer;
+import bb.game.GameMode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,9 +27,12 @@ public class BB extends JFrame {
 
 	public BB() {
 		super("Battle Balloons");
+
+		BBConfig config = new BBConfig();
 		BBContext context = new BBContext();
-		BBScreenManager screenManager = new BBScreenManagerImpl();
-		BBModeFactory modeFactory = new BBModeFactory(context, screenManager);
+		ScreenManager screenManager = new ScreenManagerImpl();
+		BBModeFactory modeFactory = new BBModeFactory(config, context, screenManager);
+
 		this.stateMachine = new BBStateMachine(modeFactory);
 	}
 
@@ -37,10 +40,8 @@ public class BB extends JFrame {
 		log.info("Starting BB");
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-		// Forces correct size
-		setContentPane(new Resizer());
-
+		Resizer resizer = new Resizer(BBConfig.SCREEN_SIZE_PX, BBConfig.SCREEN_SCALE_BY);
+		setContentPane(resizer);
 		pack();
 		setResizable(false);
 		setLocationRelativeTo(null);
@@ -52,32 +53,28 @@ public class BB extends JFrame {
 	/**
 	 * Manages the current screen.
 	 */
-	private class BBScreenManagerImpl implements BBScreenManager {
-		private BBScreen currentScreen;
+	private class ScreenManagerImpl implements ScreenManager {
+		private Screen currentScreen;
 
 		@Override
-		public void startScreen(BBScreen screen) {
+		public void startScreen(Screen screen) {
 			Assert.notNull(screen, "screen can't be null");
 
 			stopCurrentScreen();
 
 			this.currentScreen = screen;
-			setContentPane(new Resizer(currentScreen));
+			getContentPane().removeAll();
+			getContentPane().add(currentScreen.getJComponent());
 			validate();
-			addKeyListener(currentScreen.getKeyListener());
+			addKeyListener(currentScreen.getKeyHandler());
 			currentScreen.start();
-		}
-
-		@Override
-		public BBScreen getCurrentScreen() {
-			return currentScreen;
 		}
 
 		@Override
 		public void stopCurrentScreen() {
 			if (currentScreen != null) {
 				currentScreen.stop();
-				removeKeyListener(currentScreen.getKeyListener());
+				removeKeyListener(currentScreen.getKeyHandler());
 			}
 		}
 	}
@@ -86,22 +83,26 @@ public class BB extends JFrame {
 	 * Creates new mode instances.
 	 */
 	private static class BBModeFactory {
+		private BBConfig config;
 		private BBContext context;
-		private BBScreenManager screenManager;
+		private ScreenManager screenManager;
 
-		public BBModeFactory(BBContext context, BBScreenManager screenManager) {
+		public BBModeFactory(BBConfig config, BBContext context, ScreenManager screenManager) {
+			Assert.notNull(config, "config can't be null");
 			Assert.notNull(context, "context can't be null");
 			Assert.notNull(screenManager, "screenManager can't be null");
+
+			this.config = config;
 			this.context = context;
 			this.screenManager = screenManager;
 		}
 
-		public BBMode createAttractMode() {
-			return new AttractMode(context, screenManager);
+		public Mode createAttractMode() {
+			return new AttractMode(config, context, screenManager);
 		}
 
-		public BBMode createGameMode() {
-			return new GameMode(context, screenManager);
+		public Mode createGameMode() {
+			return new GameMode(config, context, screenManager);
 		}
 	}
 
@@ -110,7 +111,7 @@ public class BB extends JFrame {
 	 */
 	private static class BBStateMachine implements ModeListener {
 		private BBModeFactory modeFactory;
-		private BBMode currentMode;
+		private Mode currentMode;
 
 		public BBStateMachine(BBModeFactory modeFactory) {
 			Assert.notNull(modeFactory, "modeFactory can't be null");
@@ -146,7 +147,7 @@ public class BB extends JFrame {
 		 *
 		 * @param mode
 		 */
-		public void transitionTo(BBMode mode) {
+		public void transitionTo(Mode mode) {
 			Assert.notNull(mode, "mode can't be null");
 			log.trace("BB transitioning to mode={}", mode);
 			this.currentMode = mode;

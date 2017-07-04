@@ -1,6 +1,7 @@
 package bb.common.actor.model;
 
-import bb.common.scene.Scene;
+import bb.common.scene.BBScene;
+import bb.framework.actor.ActorLifecycleState;
 
 import static bb.common.BBConfig.WORLD_SIZE;
 
@@ -16,7 +17,7 @@ public class Balloon extends AbstractActor {
 	private int dx;
 	private int dy;
 
-	public Balloon(Scene scene, int x, int y, int dx, int dy) {
+	public Balloon(BBScene scene, int x, int y, int dx, int dy) {
 		super(scene, null, x, y, WIDTH, HEIGHT);
 		this.dx = dx;
 		this.dy = dy;
@@ -36,7 +37,7 @@ public class Balloon extends AbstractActor {
 		final int y = getY();
 
 		if (x < 0 || x > WORLD_SIZE.width || y < 0 || y > WORLD_SIZE.height) {
-			setState(ActorState.GONE);
+			setState(ActorLifecycleState.GONE);
 		}
 	}
 }

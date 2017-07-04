@@ -1,39 +1,66 @@
 package bb.attract.roster;
 
-import bb.common.BBConfig;
-import bb.common.actor.model.BasicActorBrain;
 import bb.common.actor.model.Judo;
 import bb.common.actor.model.Lexi;
 import bb.common.actor.model.Obstacle;
 import bb.common.actor.model.Text;
-import bb.common.scene.TtlScene;
+import bb.common.scene.ScriptScene;
+import bb.framework.actor.brain.BasicActorBrain;
 
 /**
  * Created by willie on 7/2/17.
  */
-public class RosterScene extends TtlScene {
-	private static final int TTL = 15 * BBConfig.FRAMES_PER_SECOND;
-	private int counter = 0;
+public class RosterScene extends ScriptScene {
+	private Text lexiText;
+	private Lexi lexi;
+	private Obstacle obstacle;
+	private Judo judo;
 
 	public RosterScene() {
-		super(TTL);
-		initScene();
+		initActors();
 	}
 
 	@Override
-	public void update() {
-		super.update();
+	public void doScript(int counter) {
 
-		if (counter == 150) {
-			getJudos().add(new Judo(this, new BasicActorBrain(), 50, 180));
+		// TODO Move this script (or something like it) into the backstory scene.
+		// TODO Possible refactoring target. [WLW]
+		if (counter == 0) {
+			getTexts().add(lexiText);
+			getLexis().add(lexi);
+			getObstacles().add(obstacle);
+		} else if (counter == 60) {
+			lexi.setSubstate(Lexi.Substate.WAVING);
+		} else if (counter == 90) {
+			lexi.setSubstate(Lexi.Substate.BATTLING);
+			lexi.getBrain().getMoveDirectionIntent().right = true;
+		} else if (counter == 120) {
+			lexi.getBrain().getFireDirectionIntent().right = true;
+		} else if (counter == 121) {
+			lexi.getBrain().getFireDirectionIntent().reset();
+		} else if (counter == 125) {
+			lexi.setSubstate(Lexi.Substate.BLINKING);
+			lexi.getBrain().getMoveDirectionIntent().right = false;
+		} else if (counter == 150) {
+			getJudos().add(judo);
+		} else if (counter == 160) {
+			lexi.setSubstate(Lexi.Substate.BATTLING);
+			lexi.getBrain().getMoveDirectionIntent().left = true;
+			lexi.getBrain().getFireDirectionIntent().left = true;
+		} else if (counter == 161) {
+			lexi.getBrain().getMoveDirectionIntent().reset();
+			lexi.getBrain().getFireDirectionIntent().reset();
+		} else if (counter == 200) {
+			lexi.setSubstate(Lexi.Substate.WAVING);
+		} else if (counter >= 300) {
+			setActive(false);
 		}
-
-		this.counter++;
 	}
 
-	private void initScene() {
-		getTexts().add(new Text(this, "Hello, I'm Lexi.", 40, 140));
-		getLexis().add(new Lexi(this, new RosterLexiBrain(), 50, 180));
-		getObstacles().add(new Obstacle(this, 240, 180));
+	private void initActors() {
+		this.lexiText = new Text(this, "Hello, I'm Lexi.", 40, 140);
+		this.lexi = new Lexi(this, new BasicActorBrain(), 50, 180);
+		this.obstacle = new Obstacle(this, 240, 180);
+		this.judo = new Judo(this, new BasicActorBrain(), 50, 180);
 	}
 }

@@ -1,12 +1,12 @@
 package bb.common.scene;
 
-import bb.common.actor.model.ActorState;
-import bb.common.event.ActorEvents;
+import bb.framework.actor.ActorLifecycleState;
+import bb.common.actor.event.ActorEvents;
 import bb.framework.actor.Actor;
 import bb.framework.event.ActorEvent;
 import bb.framework.util.Assert;
-import bb.game.arena.model.ArenaScene;
-import bb.game.arena.model.Player;
+import bb.game.arena.scene.ArenaScene;
+import bb.framework.actor.Player;
 
 import java.util.List;
 
@@ -15,7 +15,7 @@ import java.util.List;
  */
 public final class CollisionDetector {
 
-	public static void checkCollisions(Scene scene) {
+	public static void checkCollisions(BBScene scene) {
 		Assert.notNull(scene, "scene can't be null");
 		checkCollisions(scene, scene.getLexis(), scene.getObstacles(), ActorEvents.PLAYER_COLLISION);
 		checkCollisions(scene, scene.getLexis(), scene.getJudos(), ActorEvents.PLAYER_COLLISION);
@@ -25,20 +25,20 @@ public final class CollisionDetector {
 	}
 
 	private static void checkCollisions(
-			Scene scene,
+			BBScene scene,
 			List<? extends Actor> these,
 			List<? extends Actor> those,
 			ActorEvent event) {
 
 		these.stream()
-				.filter(thisOne -> thisOne.getState() == ActorState.ACTIVE)
+				.filter(thisOne -> thisOne.getState() == ActorLifecycleState.ACTIVE)
 				.forEach(thisOne -> {
 					those.stream()
-							.filter(thatOne -> thatOne.getState() == ActorState.ACTIVE)
+							.filter(thatOne -> thatOne.getState() == ActorLifecycleState.ACTIVE)
 							.forEach(thatOne -> {
 								if (thisOne.checkCollision(thatOne)) {
-									thisOne.setState(ActorState.EXITING);
-									thatOne.setState(ActorState.EXITING);
+									thisOne.setState(ActorLifecycleState.EXITING);
+									thatOne.setState(ActorLifecycleState.EXITING);
 
 									// FIXME This is hacky. Figure out a better way. [WLW]
 									if (scene instanceof ArenaScene) {

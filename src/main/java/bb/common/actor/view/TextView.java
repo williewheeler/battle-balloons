@@ -1,7 +1,7 @@
 package bb.common.actor.view;
 
 import bb.common.actor.model.Text;
-import bb.common.factory.FontFactory;
+import bb.common.resource.FontFactory;
 import bb.framework.actor.Actor;
 import bb.framework.util.Assert;
 import bb.framework.actor.ActorView;

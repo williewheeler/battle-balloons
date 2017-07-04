@@ -1,7 +1,7 @@
 package bb.common.actor.view;
 
 import bb.common.actor.model.Lexi;
-import bb.common.factory.SpriteFactory;
+import bb.common.resource.SpriteFactory;
 import bb.framework.actor.Actor;
 import bb.framework.actor.Direction;
 import bb.framework.util.Assert;

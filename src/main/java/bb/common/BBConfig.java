@@ -1,16 +1,20 @@
 package bb.common;
 
+import bb.framework.GameConfig;
+
 import java.awt.Dimension;
 
 /**
  * Created by willie on 6/4/17.
  */
-public class BBConfig {
+public class BBConfig implements GameConfig {
+
+	// TODO Move all these into member fields.
+	// Want to be able to pass a config object around. [WLW]
 
 	// Mode names
 	public static final String ATTRACT_MODE = "attractMode";
 	public static final String GAME_MODE = "gameMode";
-	public static final String ENTER_HIGH_SCORE_MODE = "enterHighScoreMode";
 
 	// Frame rate
 	public static final int FRAMES_PER_SECOND = 30;
@@ -22,6 +26,7 @@ public class BBConfig {
 	// Screen
 	public static final int SCREEN_WIDTH_PX = 304;
 	public static final int SCREEN_HEIGHT_PX = 256;
+	public static final int SCREEN_SCALE_BY = 3;
 	public static final int ARENA_HEADER_HEIGHT_PX = 12;
 	public static final int ARENA_HEADER_P1_ANCHOR_PX = 80;
 	public static final int ARENA_FOOTER_HEIGHT_PX = 10;
@@ -39,9 +44,8 @@ public class BBConfig {
 
 	public static final Dimension SCREEN_SIZE_PX = new Dimension(SCREEN_WIDTH_PX, SCREEN_HEIGHT_PX);
 	public static final Dimension ARENA_HEADER_SIZE_PX = new Dimension(SCREEN_WIDTH_PX, ARENA_HEADER_HEIGHT_PX);
+	public static final Dimension ARENA_PANE_SIZE_PX = new Dimension(ARENA_OUTER_WIDTH_PX, ARENA_OUTER_HEIGHT_PX);
 	public static final Dimension ARENA_FOOTER_SIZE_PX = new Dimension(SCREEN_WIDTH_PX, ARENA_FOOTER_HEIGHT_PX);
-	public static final Dimension ARENA_PANE_SIZE_PX = new Dimension(SCREEN_WIDTH_PX, ARENA_PANE_HEIGHT_PX);
-	public static final Dimension ARENA_SCENE_SIZE_PX = WORLD_SIZE;
 
 	// Sprites
 	public static final int SPRITE_WIDTH_PX = 16;
@@ -49,4 +53,9 @@ public class BBConfig {
 	
 	// Clearing around the player when enemies are initially placed
 	public static final int CLEARING_RADIUS = 50;
+
+	@Override
+	public int getFramePeriodMs() {
+		return FRAME_PERIOD_MS;
+	}
 }
