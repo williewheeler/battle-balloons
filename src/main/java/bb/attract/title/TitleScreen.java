@@ -7,7 +7,8 @@ import bb.common.actor.view.ActorViewFactory;
 import bb.common.scene.BBScenePane;
 import bb.common.screen.SceneScreen;
 import bb.framework.event.ScreenEvent;
-import bb.framework.resource.ImageLoader;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.swing.JComponent;
 import java.awt.Dimension;
@@ -21,6 +22,8 @@ import java.awt.image.BufferedImage;
  * Created by willie on 6/17/17.
  */
 public class TitleScreen extends SceneScreen {
+	private static final Logger log = LoggerFactory.getLogger(TitleScreen.class);
+
 	private static final String TITLE_PATH = "images/bb-title.png";
 	private static final int TITLE_X = 55;
 	private static final int TITLE_Y = 85;
@@ -32,21 +35,22 @@ public class TitleScreen extends SceneScreen {
 	@Override
 	public JComponent buildJComponent() {
 		BBContext context = (BBContext) getContext();
-		ImageLoader imageLoader = context.getImageLoader();
 		ActorViewFactory avf = context.getActorViewFactory();
-		BufferedImage titleImage = imageLoader.loadImage(TITLE_PATH);
+		BufferedImage titleImage = context.getImageLoader().loadImage(TITLE_PATH);
 
 		return new BBScenePane(avf, getScene()) {
 
 			@Override
-			public void paint(Graphics g) {
-				super.paint(g);
-				g.drawImage(titleImage, TITLE_X, TITLE_Y, null);
+			public Dimension getPreferredSize() {
+				return BBConfig.SCREEN_SIZE_PX;
 			}
 
 			@Override
-			public Dimension getPreferredSize() {
-				return BBConfig.SCREEN_SIZE_PX;
+			public void paintComponent(Graphics g) {
+				super.paintComponent(g);
+				Dimension scrSize = getSize();
+//				log.trace("scrSize={}", scrSize);
+				g.drawImage(titleImage, TITLE_X, TITLE_Y, null);
 			}
 		};
 	}

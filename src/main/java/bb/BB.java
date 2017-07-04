@@ -16,6 +16,10 @@ import org.slf4j.LoggerFactory;
 
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
+import java.awt.BorderLayout;
+
+import static bb.common.BBConfig.SCREEN_SCALE_BY;
+import static bb.common.BBConfig.SCREEN_SIZE_PX;
 
 /**
  * Battle Ballons top-level class.
@@ -40,8 +44,8 @@ public class BB extends JFrame {
 		log.info("Starting BB");
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		Resizer resizer = new Resizer(BBConfig.SCREEN_SIZE_PX, BBConfig.SCREEN_SCALE_BY);
-		setContentPane(resizer);
+		Resizer resizer = new Resizer(SCREEN_SIZE_PX, SCREEN_SCALE_BY);
+		getContentPane().add(resizer, BorderLayout.CENTER);
 		pack();
 		setResizable(false);
 		setLocationRelativeTo(null);
@@ -63,8 +67,9 @@ public class BB extends JFrame {
 			stopCurrentScreen();
 
 			this.currentScreen = screen;
-			getContentPane().removeAll();
-			getContentPane().add(currentScreen.getJComponent());
+			Resizer resizer = new Resizer(SCREEN_SIZE_PX, SCREEN_SCALE_BY);
+			resizer.add(currentScreen.getJComponent());
+			getContentPane().add(resizer);
 			validate();
 			addKeyListener(currentScreen.getKeyHandler());
 			currentScreen.start();
@@ -75,6 +80,7 @@ public class BB extends JFrame {
 			if (currentScreen != null) {
 				currentScreen.stop();
 				removeKeyListener(currentScreen.getKeyHandler());
+				getContentPane().removeAll();
 			}
 		}
 	}

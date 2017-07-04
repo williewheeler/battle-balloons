@@ -8,6 +8,7 @@ import bb.common.BBContext;
 import bb.common.scene.BBScene;
 import bb.common.screen.AbortableSceneScreen;
 import bb.common.screen.SceneScreen;
+import bb.common.screen.TransitionScreen;
 import bb.framework.event.ScreenEvent;
 import bb.framework.mode.AbstractMode;
 import bb.framework.mode.AbstractModeController;
@@ -51,12 +52,14 @@ public class AttractMode extends AbstractMode {
 			} else if (type == ScreenEvent.SCREEN_ABORTED) {
 				transitionTo(titleScreen());
 			} else if (type == ScreenEvent.SCREEN_EXPIRED) {
-				if (TITLE_SCREEN.equals(screenName)) {
+				if (TRANSITION_SCREEN.equals(screenName)) {
+					transitionTo(titleScreen());
+				} else if (TITLE_SCREEN.equals(screenName)) {
 					transitionTo(backstoryScreen());
 				} else if (BACKSTORY_SCREEN.equals(screenName)) {
 					transitionTo(rosterScreen());
 				} else if (ROSTER_SCREEN.equals(screenName)) {
-					transitionTo(titleScreen());
+					transitionTo(transitionScreen());
 				} else {
 					throw new IllegalArgumentException("Unexpected screen: " + screenName);
 				}
@@ -67,7 +70,13 @@ public class AttractMode extends AbstractMode {
 
 		@Override
 		public void start() {
-			transitionTo(titleScreen());
+			transitionTo(transitionScreen());
+		}
+
+		private Screen transitionScreen() {
+			TransitionScreen screen = new TransitionScreen(TRANSITION_SCREEN, config, context);
+			screen.postConstruct();
+			return screen;
 		}
 
 		private Screen titleScreen() {

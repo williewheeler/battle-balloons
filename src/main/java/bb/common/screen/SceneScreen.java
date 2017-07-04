@@ -2,6 +2,7 @@ package bb.common.screen;
 
 import bb.common.BBConfig;
 import bb.common.BBContext;
+import bb.common.actor.view.ActorViewFactory;
 import bb.common.scene.BBScene;
 import bb.common.scene.BBScenePane;
 import bb.framework.event.ScreenEvent;
@@ -37,7 +38,8 @@ public abstract class SceneScreen extends AbstractScreen {
 	@Override
 	public JComponent buildJComponent() {
 		BBContext context = (BBContext) getContext();
-		return new BBScenePane(context.getActorViewFactory(), getScene()) {
+		ActorViewFactory avf = context.getActorViewFactory();
+		return new BBScenePane(avf, getScene()) {
 
 			@Override
 			public Dimension getPreferredSize() {
@@ -57,6 +59,7 @@ public abstract class SceneScreen extends AbstractScreen {
 		public void actionPerformed(ActionEvent e) {
 			if (scene.isActive()) {
 				scene.update();
+				// Resize requires repainting the top-level ancestor.
 				getJComponent().getTopLevelAncestor().repaint();
 			} else {
 				fireScreenEvent(ScreenEvent.SCREEN_EXPIRED);

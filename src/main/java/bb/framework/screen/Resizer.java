@@ -3,6 +3,7 @@ package bb.framework.screen;
 import bb.framework.util.Assert;
 
 import javax.swing.JPanel;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
@@ -27,6 +28,7 @@ public class Resizer extends JPanel {
 		this.prefSize = new Dimension(prefWidth, prefHeight);
 		this.scaleXform = AffineTransform.getScaleInstance(scaleBy, scaleBy);
 
+		setBackground(Color.GREEN);
 		setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
 	}
 
@@ -39,6 +41,9 @@ public class Resizer extends JPanel {
 	public void paint(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
 		g2.setTransform(scaleXform);
-		super.paint(g2);
+
+		// TODO Hm, why doesn't paint(g2) work here? [WLW]
+//		super.paint(g2);
+		super.paintChildren(g2);
 	}
 }

@@ -29,11 +29,6 @@ public abstract class AbstractModeController implements ModeController {
 	@Override
 	public void transitionTo(Screen screen) {
 		Assert.notNull(screen, "screen can't be null");
-
-		if (currentScreen != null) {
-			screenManager.stopCurrentScreen();
-		}
-
 		this.currentScreen = screen;
 		currentScreen.addScreenListener(this);
 		screenManager.startScreen(screen);

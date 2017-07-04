@@ -4,6 +4,8 @@ import bb.common.BBConfig;
 import bb.common.BBContext;
 import bb.framework.event.ScreenEvent;
 import bb.framework.screen.AbstractScreen;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.swing.JComponent;
 import javax.swing.JPanel;
@@ -18,7 +20,8 @@ import java.awt.event.KeyListener;
  * Created by willie on 7/3/17.
  */
 public class TransitionScreen extends AbstractScreen {
-	private static final String SCREEN_NAME = "transitionScreen";
+	private static final Logger log = LoggerFactory.getLogger(TransitionScreen.class);
+
 	private static final int TRANSITION_LENGTH = 50;
 	private static final Color[] TRANSITION_COLORS = new Color[] {
 			Color.RED,
@@ -30,8 +33,8 @@ public class TransitionScreen extends AbstractScreen {
 
 	private int counter = 0;
 
-	public TransitionScreen(BBConfig config, BBContext context) {
-		super(SCREEN_NAME, config, context);
+	public TransitionScreen(String name, BBConfig config, BBContext context) {
+		super(name, config, context);
 	}
 
 	@Override
@@ -57,8 +60,13 @@ public class TransitionScreen extends AbstractScreen {
 		}
 
 		@Override
-		public void paint(Graphics g) {
-			super.paint(g);
+		public Dimension getPreferredSize() {
+			return BBConfig.SCREEN_SIZE_PX;
+		}
+
+		@Override
+		public void paintComponent(Graphics g) {
+			super.paintComponent(g);
 
 			Dimension scrSize = getSize();
 			double progress = 1.0 - ((double) counter / TRANSITION_LENGTH);
@@ -95,8 +103,9 @@ public class TransitionScreen extends AbstractScreen {
 		@Override
 		public void actionPerformed(ActionEvent event) {
 			if (counter < TRANSITION_LENGTH) {
-				getJComponent().repaint();
 				counter++;
+				// Resize requires repainting the top-level ancestor.
+				getJComponent().getTopLevelAncestor().repaint();
 			} else {
 				fireScreenEvent(ScreenEvent.SCREEN_EXPIRED);
 			}

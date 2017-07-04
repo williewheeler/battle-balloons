@@ -39,6 +39,7 @@ public abstract class AbstractScreen implements Screen {
 
 	// FIXME Ugh, clients have to call this to finish construction.
 	// This is an ugly hack, but we need to build the components *after* the screen constructors complete. [WLW]
+	// See https://github.com/williewheeler/battle-balloons/issues/30
 	@Deprecated
 	public void postConstruct() {
 		this.jComponent = buildJComponent();
