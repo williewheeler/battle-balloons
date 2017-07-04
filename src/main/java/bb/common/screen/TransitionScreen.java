@@ -104,8 +104,7 @@ public class TransitionScreen extends AbstractScreen {
 		public void actionPerformed(ActionEvent event) {
 			if (counter < TRANSITION_LENGTH) {
 				counter++;
-				// Resize requires repainting the top-level ancestor.
-				getJComponent().getTopLevelAncestor().repaint();
+				repaint();
 			} else {
 				fireScreenEvent(ScreenEvent.SCREEN_EXPIRED);
 			}

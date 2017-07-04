@@ -59,8 +59,7 @@ public abstract class SceneScreen extends AbstractScreen {
 		public void actionPerformed(ActionEvent e) {
 			if (scene.isActive()) {
 				scene.update();
-				// Resize requires repainting the top-level ancestor.
-				getJComponent().getTopLevelAncestor().repaint();
+				repaint();
 			} else {
 				fireScreenEvent(ScreenEvent.SCREEN_EXPIRED);
 			}

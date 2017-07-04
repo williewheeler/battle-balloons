@@ -102,6 +102,12 @@ public abstract class AbstractScreen implements Screen {
 	 */
 	public abstract ActionListener buildTimerHandler();
 
+	protected void repaint() {
+		// Resize requires repainting the top-level ancestor.
+		// Repainting the jComponent isn't enough.
+		getJComponent().getTopLevelAncestor().repaint();
+	}
+
 	protected void fireScreenEvent(int type) {
 		ScreenEvent event = new ScreenEvent(type);
 		screenListeners.forEach(listener -> listener.handleEvent(event));
