@@ -4,6 +4,7 @@ import bb.common.BBConfig;
 import bb.common.BBContext;
 import bb.framework.event.ScreenEvent;
 import bb.framework.screen.AbstractScreen;
+import bb.framework.util.MathUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,15 +23,57 @@ import java.awt.event.KeyListener;
 public class TransitionScreen extends AbstractScreen {
 	private static final Logger log = LoggerFactory.getLogger(TransitionScreen.class);
 
-	private static final int TRANSITION_LENGTH = 50;
-	private static final Color[] TRANSITION_COLORS = new Color[] {
-			Color.RED,
-			Color.ORANGE,
-			Color.YELLOW,
-			Color.GREEN,
-			Color.BLUE
+	private static final Color[][] COLOR_SCHEMES = new Color[][] {
+			new Color[] {
+					Color.YELLOW,
+					Color.DARK_GRAY,
+					Color.GRAY,
+					Color.LIGHT_GRAY,
+					Color.WHITE,
+					Color.BLACK
+			},
+			new Color[] {
+					Color.RED,
+					Color.ORANGE,
+					Color.YELLOW,
+					Color.GREEN,
+					Color.BLUE
+			},
+			new Color[] {
+					Color.RED,
+					Color.PINK,
+					Color.MAGENTA,
+					Color.WHITE,
+					Color.BLACK
+			},
+			new Color[] {
+					Color.ORANGE,
+					Color.WHITE,
+					Color.BLACK
+			},
+			new Color[] {
+					Color.YELLOW,
+					Color.WHITE,
+					Color.BLACK
+			},
+			new Color[] {
+					Color.GREEN,
+					Color.GRAY,
+					Color.WHITE,
+					Color.BLACK
+			},
+			new Color[] {
+					Color.BLUE,
+					Color.CYAN,
+					Color.GREEN,
+					Color.WHITE,
+					Color.BLACK
+			}
 	};
 
+	private static final int TRANSITION_LENGTH = 50;
+
+	private Color[] colorScheme;
 	private int counter = 0;
 
 	public static TransitionScreen create(String name, BBConfig config, BBContext context) {
@@ -41,6 +84,8 @@ public class TransitionScreen extends AbstractScreen {
 
 	private TransitionScreen(String name, BBConfig config, BBContext context) {
 		super(name, config, context);
+		int schemeIndex = MathUtil.nextRandomInt(COLOR_SCHEMES.length);
+		this.colorScheme = COLOR_SCHEMES[schemeIndex];
 	}
 
 	@Override
@@ -92,7 +137,7 @@ public class TransitionScreen extends AbstractScreen {
 				int outerHeight = (int) (scrSize.height * outerRegress);
 				int outerX = (scrSize.width - outerWidth) / 2;
 				int outerY = (scrSize.height - outerHeight) / 2;
-				g.setColor(TRANSITION_COLORS[colorIndex++ % TRANSITION_COLORS.length]);
+				g.setColor(colorScheme[colorIndex++ % colorScheme.length]);
 				g.fillRect(outerX, outerY, outerWidth, outerHeight);
 				g.setColor(Color.BLACK);
 				g.fillRect(outerX + 5, outerY + 5, Math.max(0, outerWidth - 10), Math.max(0, outerHeight - 10));
