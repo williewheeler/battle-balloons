@@ -8,6 +8,7 @@ import bb.common.BBContext;
 import bb.common.screen.AbortableSceneScreen;
 import bb.common.screen.TransitionScreen;
 import bb.framework.event.ScreenEvent;
+import bb.framework.event.ScreenListener;
 import bb.framework.mode.AbstractMode;
 import bb.framework.mode.AbstractModeController;
 import bb.framework.screen.Screen;
@@ -20,16 +21,19 @@ import static bb.attract.AttractScreenNames.*;
  * Created by willie on 7/1/17.
  */
 public class AttractMode extends AbstractMode {
+	private AttractController controller;
 
 	public AttractMode(BBConfig config, BBContext context, ScreenManager screenManager) {
 		super(BBConfig.ATTRACT_MODE);
 		Assert.notNull(config, "config can't be null");
 		Assert.notNull(context, "context can't be null");
 		Assert.notNull(screenManager, "screenManager can't be null");
-		setStateMachine(new AttractController(config, context, screenManager));
+
+		this.controller = new AttractController(config, context, screenManager);
+		setModeController(controller);
 	}
 
-	private class AttractController extends AbstractModeController {
+	private class AttractController extends AbstractModeController implements ScreenListener {
 		private BBConfig config;
 		private BBContext context;
 
@@ -72,19 +76,24 @@ public class AttractMode extends AbstractMode {
 		}
 
 		private Screen transitionScreen() {
-			return TransitionScreen.create(TRANSITION_SCREEN, config, context);
+			return withListener(TransitionScreen.create(TRANSITION_SCREEN, config, context));
 		}
 
 		private Screen titleScreen() {
-			return TitleScreen.create(config, context);
+			return withListener(TitleScreen.create(config, context));
 		}
 
 		private Screen backstoryScreen() {
-			return AbortableSceneScreen.create(BACKSTORY_SCREEN, config, context, new BackstoryScene());
+			return withListener(AbortableSceneScreen.create(BACKSTORY_SCREEN, config, context, new BackstoryScene()));
 		}
 
 		private Screen rosterScreen() {
-			return AbortableSceneScreen.create(BACKSTORY_SCREEN, config, context, new RosterScene());
+			return withListener(AbortableSceneScreen.create(ROSTER_SCREEN, config, context, new RosterScene()));
+		}
+
+		private Screen withListener(Screen screen) {
+			screen.addScreenListener(controller);
+			return screen;
 		}
 	}
 }

@@ -37,6 +37,7 @@ public class BackstoryScene extends ScriptScene {
 	}
 
 	private void initActors() {
-		this.backstoryText = new Text(this, BACKSTORY, 20, 40);
+		this.backstoryText = new Text(BACKSTORY, 20, 40);
+		backstoryText.setScene(this);
 	}
 }

@@ -20,6 +20,10 @@ public class Player {
 		return actor;
 	}
 
+	public void setActor(Actor actor) {
+		this.actor = actor;
+	}
+
 	public int getLives() {
 		return lives;
 	}

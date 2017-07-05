@@ -2,13 +2,14 @@ package bb.game.arena.screen;
 
 import bb.common.BBConfig;
 import bb.common.BBContext;
-import bb.common.actor.event.ActorEvents;
+import bb.common.event.GameEvents;
 import bb.common.resource.AudioFactory;
 import bb.common.screen.SceneScreen;
 import bb.framework.actor.DirectionIntent;
 import bb.framework.actor.brain.ActorBrain;
-import bb.framework.event.ActorEvent;
-import bb.framework.event.ActorListener;
+import bb.framework.event.GameEvent;
+import bb.framework.event.GameListener;
+import bb.framework.event.ScreenEvent;
 import bb.game.GameScreenNames;
 import bb.game.arena.scene.ArenaScene;
 
@@ -24,11 +25,12 @@ import java.awt.event.KeyListener;
 
 import static bb.common.BBConfig.ARENA_MARGIN_LEFT_RIGHT_PX;
 
+// TODO Implement Game Over as part of this screen, since we want to overlay "Game Over" on the arena. [WLW]
+
 /**
  * Created by willie on 6/4/17.
  */
 public class ArenaScreen extends SceneScreen {
-	private AudioHandler audioHandler;
 
 	public static ArenaScreen create(BBConfig config, BBContext context, ArenaScene scene) {
 		ArenaScreen screen = new ArenaScreen(config, context, scene);
@@ -38,8 +40,8 @@ public class ArenaScreen extends SceneScreen {
 
 	private ArenaScreen(BBConfig config, BBContext context, ArenaScene scene) {
 		super(GameScreenNames.ARENA_SCREEN, config, context, scene);
-		this.audioHandler = new AudioHandler();
-		scene.addActorListener(audioHandler);
+		scene.addGameListener(new AudioHandler());
+		scene.addGameListener(new GameStateHandler());
 	}
 
 	@Override
@@ -127,21 +129,37 @@ public class ArenaScreen extends SceneScreen {
 		}
 	}
 
-	// TODO Move this outside the arena since this could happen in attract mode too. [WLW]
-	private class AudioHandler implements ActorListener {
+	// TODO Move this outside the arena since this could happen in attract mode too? [WLW]
+	private class AudioHandler implements GameListener {
 
 		@Override
-		public void handleEvent(ActorEvent event) {
+		public void handleEvent(GameEvent event) {
+
+			// TODO Refactor to avoid if/else? [WLW]
 			BBContext context = (BBContext) getContext();
 			AudioFactory audioFactory = context.getAudioFactory();
-			if (event == ActorEvents.PLAYER_WALKS) {
+			if (event == GameEvents.PLAYER_WALKS) {
 				audioFactory.playerWalks();
-			} else if (event == ActorEvents.PLAYER_COLLISION) {
+			} else if (event == GameEvents.PLAYER_COLLISION) {
 				audioFactory.playerCollision();
-			} else if (event == ActorEvents.PLAYER_THROWS_BALLOON) {
+			} else if (event == GameEvents.PLAYER_THROWS_BALLOON) {
 				audioFactory.playerThrowsBalloon();
-			} else if (event == ActorEvents.JUDO_HIT) {
+			} else if (event == GameEvents.NEXT_LEVEL) {
+				audioFactory.playerNextLevel();
+			} else if (event == GameEvents.JUDO_HIT) {
 				audioFactory.judoHit();
+			}
+		}
+	}
+
+	private class GameStateHandler implements GameListener {
+
+		@Override
+		public void handleEvent(GameEvent event) {
+			if (event == GameEvents.NEXT_LEVEL) {
+				fireScreenEvent(ScreenEvent.SCREEN_EXPIRED);
+			} else if (event == GameEvents.GAME_OVER) {
+				fireScreenEvent(ScreenEvent.SCREEN_EXPIRED);
 			}
 		}
 	}

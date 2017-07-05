@@ -8,6 +8,7 @@ import bb.framework.util.Assert;
 
 import javax.swing.JComponent;
 import javax.swing.Timer;
+import java.awt.Container;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
 import java.util.LinkedList;
@@ -103,13 +104,21 @@ public abstract class AbstractScreen implements Screen {
 	public abstract ActionListener buildTimerHandler();
 
 	protected void repaint() {
+
 		// Resize requires repainting the top-level ancestor.
 		// Repainting the jComponent isn't enough.
-		getJComponent().getTopLevelAncestor().repaint();
+		Container container = getJComponent().getTopLevelAncestor();
+
+		// Doing this check because otherwise I get a NullPointerException between levels.
+		if (container != null) {
+			container.repaint();
+		}
 	}
 
 	protected void fireScreenEvent(int type) {
-		ScreenEvent event = new ScreenEvent(type);
+		ScreenEvent event = new ScreenEvent(this, type);
+		// FIXME This generated a ConcurrentModificationException.
+		// I think it was between levels. It also happens on player death. [WLW]
 		screenListeners.forEach(listener -> listener.handleEvent(event));
 	}
 }

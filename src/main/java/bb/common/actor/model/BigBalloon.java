@@ -1,6 +1,5 @@
 package bb.common.actor.model;
 
-import bb.common.scene.BBScene;
 import bb.framework.actor.ActorLifecycleState;
 import bb.framework.util.MathUtil;
 
@@ -22,8 +21,8 @@ public class BigBalloon extends AbstractActor {
 	private int dRotation;
 	private int rotTtl;
 
-	public BigBalloon(BBScene scene, int x, int y, int dx, int dy, int rot, int dRot) {
-		super(scene, null, x, y, WIDTH, HEIGHT);
+	public BigBalloon(int x, int y, int dx, int dy, int rot, int dRot) {
+		super(null, x, y, WIDTH, HEIGHT);
 		this.dx = dx;
 		this.dy = dy;
 		this.rotationIndex = rot;

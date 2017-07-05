@@ -15,6 +15,7 @@ public class AudioFactory {
 	private final ArrayDeque<Clip> playerWalks;
 	private final ArrayDeque<Clip> playerThrowsBalloon;
 	private final ArrayDeque<Clip> playerCollision;
+	private final ArrayDeque<Clip> playerNextLevel;
 	private final ArrayDeque<Clip> judoHit;
 	
 	public AudioFactory(AudioLoader audioLoader) {
@@ -24,6 +25,7 @@ public class AudioFactory {
 		this.playerWalks = loadClips("player-walks", clipsPerId, -10.f);
 		this.playerThrowsBalloon = loadClips("player-throws-balloon", clipsPerId, -5.0f);
 		this.playerCollision = loadClips("oh-woh-woh", clipsPerId, -2.0f);
+		this.playerNextLevel = loadClips("next-level", clipsPerId, 1.0f);
 		this.judoHit = loadClips("explode", clipsPerId, 0.0f);
 	}
 	
@@ -37,6 +39,10 @@ public class AudioFactory {
 	
 	public void playerCollision() {
 		playSoundEffect(playerCollision);
+	}
+
+	public void playerNextLevel() {
+		playSoundEffect(playerNextLevel);
 	}
 
 	public void judoHit() {

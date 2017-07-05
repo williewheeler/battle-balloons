@@ -2,10 +2,10 @@ package bb.common.actor.model;
 
 import bb.common.scene.BBScene;
 import bb.framework.actor.Actor;
-import bb.framework.actor.brain.ActorBrain;
 import bb.framework.actor.ActorLifecycleState;
 import bb.framework.actor.Direction;
 import bb.framework.actor.DirectionIntent;
+import bb.framework.actor.brain.ActorBrain;
 import bb.framework.util.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,10 +23,8 @@ public abstract class AbstractActor implements Actor {
 	private static final int WALK_ANIMATION_NUM_FRAMES = 4;
 	private static final int RECHARGE_TTL = 3;
 
-	// State
+	// General
 	private ActorLifecycleState state;
-
-	// World
 	private BBScene scene;
 
 	// Brain
@@ -44,11 +42,8 @@ public abstract class AbstractActor implements Actor {
 	private int walkCounter = 0;
 	private int rechargeTtl = 0;
 
-	public AbstractActor(BBScene scene, ActorBrain brain, int x, int y, int width, int height) {
-		Assert.notNull(scene, "scene can't be null");
-
+	public AbstractActor(ActorBrain brain, int x, int y, int width, int height) {
 		this.state = ActorLifecycleState.ENTERING;
-		this.scene = scene;
 		this.brain = brain;
 		this.x = x;
 		this.y = y;
@@ -74,6 +69,10 @@ public abstract class AbstractActor implements Actor {
 
 	public BBScene getScene() {
 		return scene;
+	}
+
+	public void setScene(BBScene scene) {
+		this.scene = scene;
 	}
 
 	@Override
@@ -256,6 +255,9 @@ public abstract class AbstractActor implements Actor {
 		}
 	}
 
+	// FIXME Separate player balloons from enemy balloons.
+	// Some of this might not belong in an abstract class, since we want to support
+	// a variety of attacks. [WLW]
 	protected boolean doFire() {
 		if (rechargeTtl > 0) {
 			this.rechargeTtl--;
@@ -282,7 +284,7 @@ public abstract class AbstractActor implements Actor {
 
 			if (dx != 0 || dy != 0) {
 //				log.trace("Firing: dx={}, dy={}", dx, dy);
-				Balloon balloon = new Balloon(scene, getX(), getY(), dx, dy);
+				Balloon balloon = new Balloon(getX(), getY(), dx, dy);
 				scene.getBalloons().add(balloon);
 				this.rechargeTtl = RECHARGE_TTL;
 				return true;

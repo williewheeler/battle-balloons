@@ -1,6 +1,8 @@
 package bb.common.scene;
 
 import bb.common.actor.view.ActorViewFactory;
+import bb.framework.actor.Actor;
+import bb.framework.actor.Player;
 import bb.framework.util.Assert;
 
 import javax.swing.JPanel;
@@ -30,11 +32,20 @@ public class BBScenePane extends JPanel {
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		paintActors(g);
+		paintPlayer(g);
 	}
 
 	private void paintActors(Graphics g) {
 		scene.getAllActors().forEach(actors -> {
 			actors.forEach(actor -> actorViewFactory.getView(actor).paint(g, actor));
 		});
+	}
+
+	private void paintPlayer(Graphics g) {
+		Player player = scene.getPlayer();
+		if (player != null) {
+			Actor actor = player.getActor();
+			actorViewFactory.getView(actor).paint(g, actor);
+		}
 	}
 }

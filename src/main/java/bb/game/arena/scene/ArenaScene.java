@@ -1,26 +1,57 @@
 package bb.game.arena.scene;
 
-import bb.framework.actor.ActorLifecycleState;
-import bb.framework.actor.brain.BasicActorBrain;
 import bb.common.actor.model.Judo;
 import bb.common.actor.model.Lexi;
 import bb.common.actor.model.Obstacle;
+import bb.common.event.GameEvents;
 import bb.common.scene.BBScene;
+import bb.framework.actor.Actor;
+import bb.framework.actor.ActorLifecycleState;
 import bb.framework.actor.Player;
+import bb.framework.actor.brain.BasicActorBrain;
+import bb.framework.util.Assert;
 import bb.game.arena.actor.ActorUtil;
 import bb.game.arena.actor.ArenaJudoBrain;
+import bb.game.arena.level.Level;
+import bb.game.arena.level.Levels;
+
+import static bb.common.BBConfig.WORLD_SIZE;
 
 /**
  * Created by willie on 6/4/17.
  */
 public class ArenaScene extends BBScene {
-	private static final int INIT_NUM_OBSTACLES = 15;
-	private static final int INIT_NUM_JUDOS = 10;
-
+	private Levels levels;
 	private Player player;
+	private Level level;
 
-	public ArenaScene() {
-		initScene();
+	public ArenaScene(Levels levels) {
+		Assert.notNull(levels, "levels can't be null");
+		this.levels = levels;
+	}
+
+	public void init(Player player) {
+		Assert.notNull(player, "player can't be null");
+
+		this.player = player;
+		initPlayer();
+
+		this.level = levels.getLevel(player.getLevel());
+
+		initObstacles();
+		initJudos();
+	}
+
+	private void initPlayer() {
+
+		// Just create a new Lexi to reset everything.
+		// FIXME Don't hardcode this to Lexi. [WLW]
+		// FIXME Duplicates code from GameMode. [WLW]
+		int x = WORLD_SIZE.width / 2;
+		int y = WORLD_SIZE.height / 2;
+		Lexi lexi = new Lexi(new BasicActorBrain(), x, y);
+		lexi.setScene(this);
+		player.setActor(lexi);
 	}
 
 	public Player getPlayer() {
@@ -29,39 +60,52 @@ public class ArenaScene extends BBScene {
 
 	@Override
 	public void update() {
-		if (player.getActor().getState() != ActorLifecycleState.GONE) {
+		if (player == null) {
+			throw new IllegalStateException("player can't be null");
+		}
+
+		if (isActive()) {
+			Actor playerActor = player.getActor();
+
+			// Update player actor before calling super.update(), which includes collision detection.
+			playerActor.update();
 			super.update();
+
+			if (playerActor.getState() == ActorLifecycleState.GONE) {
+				setActive(false);
+
+				// TODO For now, assume game over. Later, check number of lives.
+				fireGameEvent(GameEvents.GAME_OVER);
+
+			} else {
+				checkNextLevel();
+			}
 		}
 	}
 
-	private void initScene() {
-		initPlayer();
-		initObstacles();
-		initJudos();
-	}
-
-	private void initPlayer() {
-		Lexi lexi = new Lexi(this, new BasicActorBrain(), 0, 0);
-		ActorUtil.center(lexi);
-		getLexis().add(lexi);
-
-		// This too
-		this.player = new Player(lexi);
-	}
-
 	private void initObstacles() {
-		for (int i = 0; i < INIT_NUM_OBSTACLES; i++) {
-			Obstacle obstacle = new Obstacle(this, 0, 0);
+		for (int i = 0; i < level.getObstacles(); i++) {
+			Obstacle obstacle = new Obstacle(0, 0);
+			obstacle.setScene(this);
 			ActorUtil.randomizeLocation(obstacle, player);
 			getObstacles().add(obstacle);
 		}
 	}
 
 	private void initJudos() {
-		for (int i = 0; i < INIT_NUM_JUDOS; i++) {
-			Judo judo = new Judo(this, new ArenaJudoBrain(), 0, 0);
+		for (int i = 0; i < level.getJudos(); i++) {
+			Judo judo = new Judo(new ArenaJudoBrain(), 0, 0);
+			judo.setScene(this);
 			ActorUtil.randomizeLocation(judo, player);
 			getJudos().add(judo);
+		}
+	}
+
+	private void checkNextLevel() {
+		if (getJudos().isEmpty()) {
+			player.incrementLevel();
+			setActive(false);
+			fireGameEvent(GameEvents.NEXT_LEVEL);
 		}
 	}
 }

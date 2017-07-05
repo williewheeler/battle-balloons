@@ -1,8 +1,7 @@
 package bb.common.actor.model;
 
-import bb.common.scene.BBScene;
-import bb.framework.actor.brain.ActorBrain;
 import bb.framework.actor.ActorLifecycleState;
+import bb.framework.actor.brain.ActorBrain;
 
 /**
  * Created by willie on 7/2/17.
@@ -20,8 +19,8 @@ public class Judo extends AbstractActor {
 	private int enterTtl = ENTER_TTL - 1;
 	private int exitTtl = EXIT_TTL - 1;
 
-	public Judo(BBScene scene, ActorBrain brain, int x, int y) {
-		super(scene, brain, x, y, WIDTH, HEIGHT);
+	public Judo(ActorBrain brain, int x, int y) {
+		super(brain, x, y, WIDTH, HEIGHT);
 		setSpeed(SPEED);
 	}
 

@@ -44,6 +44,12 @@ public class TransitionScreen extends AbstractScreen {
 	}
 
 	@Override
+	public void start() {
+		this.counter = 0;
+		super.start();
+	}
+
+	@Override
 	public JComponent buildJComponent() {
 		return new MyJComponent();
 	}
@@ -75,7 +81,7 @@ public class TransitionScreen extends AbstractScreen {
 			super.paintComponent(g);
 
 			Dimension scrSize = getSize();
-			double progress = 1.0 - ((double) counter / TRANSITION_LENGTH);
+			double progress = (double) counter / TRANSITION_LENGTH;
 
 			// Draw outer colored box
 			double outerProgress = Math.min(1.0, 2.0 * progress);
@@ -94,6 +100,7 @@ public class TransitionScreen extends AbstractScreen {
 			}
 
 			// Draw inner black box
+			// TODO Initiate inner progress quickly or else the screen stays black
 			double innerProgress = Math.max(0.0, 2.0 * progress - 0.5);
 			int innerWidth = (int) (scrSize.width * innerProgress);
 			int innerHeight = (int) (scrSize.height * innerProgress);

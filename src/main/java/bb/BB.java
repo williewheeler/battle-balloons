@@ -155,7 +155,7 @@ public class BB extends JFrame {
 		 */
 		public void transitionTo(Mode mode) {
 			Assert.notNull(mode, "mode can't be null");
-			log.trace("BB transitioning to mode={}", mode);
+			log.trace("Mode transition: {}", mode.getClass().getSimpleName());
 			this.currentMode = mode;
 			currentMode.addModeListener(this);
 			currentMode.start();

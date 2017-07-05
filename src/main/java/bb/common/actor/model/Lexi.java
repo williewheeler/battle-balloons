@@ -1,10 +1,9 @@
 package bb.common.actor.model;
 
 import bb.common.BBConfig;
-import bb.common.actor.event.ActorEvents;
-import bb.common.scene.BBScene;
-import bb.framework.actor.brain.ActorBrain;
+import bb.common.event.GameEvents;
 import bb.framework.actor.ActorLifecycleState;
+import bb.framework.actor.brain.ActorBrain;
 import bb.framework.util.MathUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,8 +51,8 @@ public class Lexi extends AbstractActor {
 	 * @param x
 	 * @param y
 	 */
-	public Lexi(BBScene scene, ActorBrain brain, int x, int y) {
-		super(scene, brain, x, y, WIDTH, HEIGHT);
+	public Lexi(ActorBrain brain, int x, int y) {
+		super(brain, x, y, WIDTH, HEIGHT);
 		setSpeed(SPEED);
 		this.substate = Substate.BATTLING;
 	}
@@ -120,7 +119,7 @@ public class Lexi extends AbstractActor {
 		if (walked) {
 			this.walkEventTtl--;
 			if (walkEventTtl == 0) {
-				getScene().fireEvent(ActorEvents.PLAYER_WALKS);
+				getScene().fireGameEvent(GameEvents.PLAYER_WALKS);
 				this.walkEventTtl = WALK_EVENT_TTL;
 			}
 			return true;
@@ -133,7 +132,7 @@ public class Lexi extends AbstractActor {
 	protected boolean doFire() {
 		boolean fired = super.doFire();
 		if (fired) {
-			getScene().fireEvent(ActorEvents.PLAYER_THROWS_BALLOON);
+			getScene().fireGameEvent(GameEvents.PLAYER_THROWS_BALLOON);
 		}
 		return fired;
 	}

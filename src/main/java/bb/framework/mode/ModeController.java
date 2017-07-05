@@ -1,7 +1,6 @@
 package bb.framework.mode;
 
 import bb.framework.event.ModeListener;
-import bb.framework.event.ScreenListener;
 import bb.framework.screen.Screen;
 
 /**
@@ -9,7 +8,7 @@ import bb.framework.screen.Screen;
  *
  * Created by willie on 7/1/17.
  */
-public interface ModeController extends ScreenListener {
+public interface ModeController {
 
 	/**
 	 * Start the state machine.

@@ -1,7 +1,5 @@
 package bb.common.actor.model;
 
-import bb.common.scene.BBScene;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,8 +13,8 @@ public class Text extends AbstractActor {
 	private char[] textArr;
 	private int counter;
 
-	public Text(BBScene scene, String text, int x, int y) {
-		super(scene, null, x, y, -1, -1);
+	public Text(String text, int x, int y) {
+		super(null, x, y, -1, -1);
 		this.textArr = text.toCharArray();
 		this.counter = 1;
 	}

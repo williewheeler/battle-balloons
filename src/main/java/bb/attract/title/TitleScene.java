@@ -46,16 +46,23 @@ public class TitleScene extends ScriptScene {
 	}
 
 	private void initActors() {
+
 		// TODO Support color specification
-		this.getReadyText = new Text(this, "GET READY FOR", 55, 60);
-		this.playerText = new Text(this, "PRESS [1] PLAYER OR [2] PLAYERS", 55, 190);
+		this.getReadyText = new Text("GET READY FOR", 55, 60);
+		getReadyText.setScene(this);
+
+		this.playerText = new Text("PRESS [1] PLAYER OR [2] PLAYERS", 55, 190);
+		playerText.setScene(this);
 	}
 
 	private void generateBalloon(int x0, int yBase, int dxBase, int drot) {
 		if (MathUtil.nextRandomDouble() < CREATE_PROBABILITY) {
 			int y = generateY(yBase);
 			int dx = generateDx(dxBase);
-			getBigBalloons().add(new BigBalloon(this, x0, y, dx, 0, 0, drot));
+
+			BigBalloon bigBalloon = new BigBalloon(x0, y, dx, 0, 0, drot);
+			bigBalloon.setScene(this);
+			getBigBalloons().add(bigBalloon);
 		}
 	}
 

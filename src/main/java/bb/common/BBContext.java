@@ -6,6 +6,9 @@ import bb.common.resource.FontFactory;
 import bb.common.resource.SpriteFactory;
 import bb.framework.BasicGameContext;
 
+// TODO Hm, this is just UI-related stuff. Do we want to keep this isolated from model-related stuff, like levels?
+// [WLW]
+
 /**
  * Created by willie on 6/30/17.
  */

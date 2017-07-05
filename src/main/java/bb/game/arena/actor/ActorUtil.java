@@ -15,12 +15,6 @@ public final class ActorUtil {
 	private ActorUtil() {
 	}
 
-	public static void center(Actor actor) {
-		Assert.notNull(actor, "actor can't be null");
-		actor.setX(WORLD_SIZE.width / 2);
-		actor.setY(WORLD_SIZE.height / 2);
-	}
-
 	public static void randomizeLocation(Actor actor, Player player) {
 		Assert.notNull(actor, "actor can't be null");
 		Assert.notNull(player, "player can't be null");

@@ -3,7 +3,7 @@ package bb.framework.event;
 /**
  * Created by willie on 6/3/17.
  */
-public interface ActorListener {
+public interface GameListener {
 	
-	void handleEvent(ActorEvent event);
+	void handleEvent(GameEvent event);
 }
