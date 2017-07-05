@@ -55,14 +55,18 @@ public class ArenaHeader extends JComponent {
 		g.drawString(scoreStr, ARENA_HEADER_P1_ANCHOR_PX - offset, fm.getHeight());
 	}
 
+	// TODO Don't render outside of the allowed area.
+	// Don't want player 2 score overlapping with player 1 lives.
 	private void paintLives(Graphics g) {
 		SpriteFactory spriteFactory = context.getSpriteFactory();
 
 		Player player = scene.getPlayer();
 		BufferedImage sprite = spriteFactory.getLexiLife();
 		int numLives = player.getLives();
-		for (int i = 0; i < numLives; i++) {
-			int lifeX = ARENA_HEADER_P1_ANCHOR_PX + i * 8;
+
+		// Skip life 0, since that's the life that's playing
+		for (int i = 1; i < numLives; i++) {
+			int lifeX = ARENA_HEADER_P1_ANCHOR_PX + (i - 1) * 8;
 			g.drawImage(sprite, lifeX, -2, SPRITE_WIDTH_PX, SPRITE_HEIGHT_PX, null);
 		}
 	}

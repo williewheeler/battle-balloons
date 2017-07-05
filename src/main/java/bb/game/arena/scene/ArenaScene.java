@@ -14,6 +14,8 @@ import bb.game.arena.actor.ActorUtil;
 import bb.game.arena.actor.ArenaJudoBrain;
 import bb.game.arena.level.Level;
 import bb.game.arena.level.Levels;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import static bb.common.BBConfig.WORLD_SIZE;
 
@@ -21,6 +23,8 @@ import static bb.common.BBConfig.WORLD_SIZE;
  * Created by willie on 6/4/17.
  */
 public class ArenaScene extends BBScene {
+	private static final Logger log = LoggerFactory.getLogger(ArenaScene.class);
+
 	private Levels levels;
 	private Player player;
 	private Level level;
@@ -71,12 +75,14 @@ public class ArenaScene extends BBScene {
 			playerActor.update();
 			super.update();
 
+			log.trace("player.actor.state = {}", playerActor.getState());
 			if (playerActor.getState() == ActorLifecycleState.GONE) {
+				// FIXME Hm, this is never happening.
+				log.trace("Player is gone");
 				setActive(false);
-
-				// TODO For now, assume game over. Later, check number of lives.
-				fireGameEvent(GameEvents.GAME_OVER);
-
+				if (player.isGameOver()) {
+					fireGameEvent(GameEvents.GAME_OVER);
+				}
 			} else {
 				checkNextLevel();
 			}

@@ -9,7 +9,6 @@ import bb.framework.actor.DirectionIntent;
 import bb.framework.actor.brain.ActorBrain;
 import bb.framework.event.GameEvent;
 import bb.framework.event.GameListener;
-import bb.framework.event.ScreenEvent;
 import bb.game.GameScreenNames;
 import bb.game.arena.scene.ArenaScene;
 
@@ -41,7 +40,6 @@ public class ArenaScreen extends SceneScreen {
 	private ArenaScreen(BBConfig config, BBContext context, ArenaScene scene) {
 		super(GameScreenNames.ARENA_SCREEN, config, context, scene);
 		scene.addGameListener(new AudioHandler());
-		scene.addGameListener(new GameStateHandler());
 	}
 
 	@Override
@@ -140,26 +138,14 @@ public class ArenaScreen extends SceneScreen {
 			AudioFactory audioFactory = context.getAudioFactory();
 			if (event == GameEvents.PLAYER_WALKS) {
 				audioFactory.playerWalks();
-			} else if (event == GameEvents.PLAYER_COLLISION) {
+			} else if (event == GameEvents.PLAYER_DIES) {
 				audioFactory.playerCollision();
 			} else if (event == GameEvents.PLAYER_THROWS_BALLOON) {
 				audioFactory.playerThrowsBalloon();
 			} else if (event == GameEvents.NEXT_LEVEL) {
 				audioFactory.playerNextLevel();
-			} else if (event == GameEvents.JUDO_HIT) {
+			} else if (event == GameEvents.JUDO_DIES) {
 				audioFactory.judoHit();
-			}
-		}
-	}
-
-	private class GameStateHandler implements GameListener {
-
-		@Override
-		public void handleEvent(GameEvent event) {
-			if (event == GameEvents.NEXT_LEVEL) {
-				fireScreenEvent(ScreenEvent.SCREEN_EXPIRED);
-			} else if (event == GameEvents.GAME_OVER) {
-				fireScreenEvent(ScreenEvent.SCREEN_EXPIRED);
 			}
 		}
 	}

@@ -6,9 +6,7 @@ import bb.framework.actor.ActorLifecycleState;
 import bb.framework.actor.Player;
 import bb.framework.event.GameEvent;
 import bb.framework.util.Assert;
-import bb.game.arena.scene.ArenaScene;
 
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -19,24 +17,30 @@ public final class CollisionDetector {
 	public static void checkCollisions(BBScene scene) {
 		Assert.notNull(scene, "scene can't be null");
 
-		checkPlayerCollisions(scene, scene.getObstacles(), GameEvents.PLAYER_COLLISION);
-		checkPlayerCollisions(scene, scene.getJudos(), GameEvents.PLAYER_COLLISION);
+		checkPlayerCollisions(scene, scene.getObstacles());
+		checkPlayerCollisions(scene, scene.getJudos());
 
-		checkCollisions(scene, scene.getJudos(), scene.getObstacles(), GameEvents.JUDO_HIT);
+		checkCollisions(scene, scene.getJudos(), scene.getObstacles(), GameEvents.JUDO_DIES);
 		checkCollisions(scene, scene.getBalloons(), scene.getObstacles(), null);
-		checkCollisions(scene, scene.getBalloons(), scene.getJudos(), GameEvents.JUDO_HIT);
+		checkCollisions(scene, scene.getBalloons(), scene.getJudos(), GameEvents.JUDO_DIES);
 	}
 
-	private static void checkPlayerCollisions(
-			BBScene scene,
-			List<? extends Actor> actors,
-			GameEvent event) {
-
+	private static void checkPlayerCollisions(BBScene scene, List<? extends Actor> actors) {
 		Player player = scene.getPlayer();
 		if (player != null) {
-			Actor actor = player.getActor();
-			List<? extends Actor> these = Collections.singletonList(actor);
-			checkCollisions(scene, these, actors, event);
+			Actor playerActor = player.getActor();
+			actors.stream()
+					.filter(actor -> actor.getState() == ActorLifecycleState.ACTIVE)
+					// FIXME This could allow a player to lose multiple lives at once (when there are multiple
+					// simultaneous collisions).
+					.forEach(actor -> {
+						if (playerActor.checkCollision(actor)) {
+							player.decrementLives();
+							playerActor.setState(ActorLifecycleState.EXITING);
+							actor.setState(ActorLifecycleState.EXITING);
+							scene.fireGameEvent(GameEvents.PLAYER_DIES);
+						}
+					});
 		}
 	}
 
@@ -56,12 +60,9 @@ public final class CollisionDetector {
 									thisOne.setState(ActorLifecycleState.EXITING);
 									thatOne.setState(ActorLifecycleState.EXITING);
 
-									// FIXME This is hacky. Figure out a better way. [WLW]
-									if (scene instanceof ArenaScene) {
-										final Player player = ((ArenaScene) scene).getPlayer();
-										player.increaseScore(thisOne.getScore());
-										player.increaseScore(thatOne.getScore());
-									}
+									final Player player = scene.getPlayer();
+									player.increaseScore(thisOne.getScore());
+									player.increaseScore(thatOne.getScore());
 
 									if (event != null) {
 										scene.fireGameEvent(event);

@@ -62,7 +62,10 @@ public class GameMode extends AbstractMode {
 		public void handleEvent(GameEvent event) {
 			if (event == GameEvents.NEXT_LEVEL) {
 				transitionTo(transitionScreen());
+			} else if (event == GameEvents.PLAYER_DIES) {
+				transitionTo(transitionScreen());
 			} else if (event == GameEvents.GAME_OVER) {
+				log.trace("Game over; yielding");
 				yield();
 			}
 		}
@@ -74,6 +77,9 @@ public class GameMode extends AbstractMode {
 
 			if (type == ScreenEvent.SCREEN_EXPIRED) {
 				if (source instanceof TransitionScreen) {
+					// FIXME I think this is always kicking in, even after the game is over.
+					// So the player never dies.
+					log.trace("Transitioning to arena screen");
 					transitionTo(arenaScreen());
 				}
 			}
