@@ -30,6 +30,8 @@ import static bb.game.GameScreenNames.TRANSITION_SCREEN;
 public class GameMode extends AbstractMode {
 	private static final Logger log = LoggerFactory.getLogger(GameMode.class);
 
+	private BBConfig config;
+	private BBContext context;
 	private final Levels levels = new Levels();
 	private Player player;
 	private GameController gameController;
@@ -39,6 +41,9 @@ public class GameMode extends AbstractMode {
 		Assert.notNull(config, "config can't be null");
 		Assert.notNull(context, "context can't be null");
 		Assert.notNull(screenManager, "screenManager can't be null");
+
+		this.config = config;
+		this.context = context;
 
 		// FIXME This Lexi code duplicates code in ArenaScene. [WLW]
 		Lexi lexi = new Lexi(new BasicActorBrain(), 0, 0);
@@ -86,6 +91,7 @@ public class GameMode extends AbstractMode {
 		}
 
 		public void start() {
+			context.getAudioFactory().playerFirstLevel();
 			transitionTo(arenaScreen());
 		}
 

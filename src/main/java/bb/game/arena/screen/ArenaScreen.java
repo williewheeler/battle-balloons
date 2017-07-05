@@ -128,6 +128,7 @@ public class ArenaScreen extends SceneScreen {
 	}
 
 	// TODO Move this outside the arena since this could happen in attract mode too? [WLW]
+	// TODO Think about whether this should go with the screen, or instead the mode. Not sure. [WLW]
 	private class AudioHandler implements GameListener {
 
 		@Override
