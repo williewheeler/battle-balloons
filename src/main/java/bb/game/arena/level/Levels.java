@@ -1,5 +1,7 @@
 package bb.game.arena.level;
 
+import bb.framework.util.Assert;
+
 /**
  * Created by willie on 7/4/17.
  */
@@ -14,6 +16,8 @@ public final class Levels {
 	};
 
 	public Level getLevel(int number) {
-		return levels[number - 1];
+		Assert.isStrictlyPositive(number, "number must be strictly positive");
+		int index = (number - 1) % levels.length;
+		return levels[index];
 	}
 }

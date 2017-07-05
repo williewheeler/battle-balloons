@@ -42,6 +42,7 @@ public class TransitionScreen extends AbstractScreen {
 			new Color[] {
 					Color.RED,
 					Color.PINK,
+					Color.BLACK,
 					Color.MAGENTA,
 					Color.WHITE,
 					Color.BLACK
@@ -58,7 +59,6 @@ public class TransitionScreen extends AbstractScreen {
 			},
 			new Color[] {
 					Color.GREEN,
-					Color.GRAY,
 					Color.WHITE,
 					Color.BLACK
 			},

@@ -41,7 +41,8 @@ public class GameMode extends AbstractMode {
 		Assert.notNull(screenManager, "screenManager can't be null");
 
 		// FIXME This Lexi code duplicates code in ArenaScene. [WLW]
-		this.player = new Player(new Lexi(new BasicActorBrain(), 0, 0));
+		Lexi lexi = new Lexi(new BasicActorBrain(), 0, 0);
+		this.player = new Player(lexi);
 
 		this.gameController = new GameController(config, context, screenManager);
 		setModeController(gameController);
