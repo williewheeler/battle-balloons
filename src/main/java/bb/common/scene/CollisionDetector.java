@@ -21,7 +21,7 @@ public final class CollisionDetector {
 		checkPlayerCollisions(scene, scene.getJudos());
 
 		checkCollisions(scene, scene.getJudos(), scene.getObstacles(), GameEvents.JUDO_DIES);
-		checkCollisions(scene, scene.getBalloons(), scene.getObstacles(), null);
+		checkCollisions(scene, scene.getBalloons(), scene.getObstacles(), GameEvents.OBSTACLE_DESTROYED);
 		checkCollisions(scene, scene.getBalloons(), scene.getJudos(), GameEvents.JUDO_DIES);
 	}
 

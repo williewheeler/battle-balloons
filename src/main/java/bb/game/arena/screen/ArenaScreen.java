@@ -145,6 +145,9 @@ public class ArenaScreen extends SceneScreen {
 				audioFactory.playerThrowsBalloon();
 			} else if (event == GameEvents.NEXT_LEVEL) {
 				audioFactory.playerNextLevel();
+			} else if (event == GameEvents.OBSTACLE_DESTROYED) {
+				// TODO Yeah, repurposing the sound...
+				audioFactory.startSound();
 			} else if (event == GameEvents.JUDO_DIES) {
 				audioFactory.judoHit();
 			}

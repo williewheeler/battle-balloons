@@ -50,6 +50,9 @@ public class AttractMode extends AbstractMode {
 
 			if (type == ScreenEvent.START_1P_GAME || type == ScreenEvent.START_2P_GAME) {
 				// TODO Handle choice between 1p and 2p game. [WLW]
+				// TODO Commented this out because you can't hear it.
+				// I think this sound was for when you put a quarter in the machine.
+//				context.getAudioFactory().startSound();
 				yield();
 			} else if (type == ScreenEvent.SCREEN_ABORTED) {
 				transitionTo(titleScreen());

@@ -12,6 +12,7 @@ import java.util.ArrayDeque;
  */
 public class AudioFactory {
 	private final AudioLoader audioLoader;
+	private final ArrayDeque<Clip> startSound;
 	private final ArrayDeque<Clip> playerWalks;
 	private final ArrayDeque<Clip> playerThrowsBalloon;
 	private final ArrayDeque<Clip> playerCollision;
@@ -23,6 +24,7 @@ public class AudioFactory {
 		Assert.notNull(audioLoader, "audioLoader can't be null");
 		this.audioLoader = audioLoader;
 		final int clipsPerId = Runtime.getRuntime().availableProcessors();
+		this.startSound = loadClips("start-sound", clipsPerId, 1.0f);
 		this.playerWalks = loadClips("player-walks", clipsPerId, -10.f);
 		this.playerThrowsBalloon = loadClips("player-throws-balloon", clipsPerId, -5.0f);
 		this.playerCollision = loadClips("oh-woh-woh", clipsPerId, -2.0f);
@@ -30,7 +32,11 @@ public class AudioFactory {
 		this.playerNextLevel = loadClips("next-level", clipsPerId, 1.0f);
 		this.judoHit = loadClips("explode", clipsPerId, 0.0f);
 	}
-	
+
+	public void startSound() {
+		playSoundEffect(startSound);
+	}
+
 	public void playerWalks() {
 		playSoundEffect(playerWalks);
 	}
