@@ -75,7 +75,7 @@ public class ArenaScene extends BBScene {
 			playerActor.update();
 			super.update();
 
-			log.trace("player.actor.state = {}", playerActor.getState());
+//			log.trace("player.actor.state = {}", playerActor.getState());
 			if (playerActor.getState() == ActorLifecycleState.GONE) {
 				// FIXME Hm, this is never happening.
 				log.trace("Player is gone");

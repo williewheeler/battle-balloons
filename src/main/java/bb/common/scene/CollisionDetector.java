@@ -61,8 +61,10 @@ public final class CollisionDetector {
 									thatOne.setState(ActorLifecycleState.EXITING);
 
 									final Player player = scene.getPlayer();
-									player.increaseScore(thisOne.getScore());
-									player.increaseScore(thatOne.getScore());
+									if (player != null) {
+										player.increaseScore(thisOne.getScore());
+										player.increaseScore(thatOne.getScore());
+									}
 
 									if (event != null) {
 										scene.fireGameEvent(event);
