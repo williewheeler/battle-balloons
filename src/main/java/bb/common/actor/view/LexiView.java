@@ -90,6 +90,9 @@ public class LexiView extends AbstractActorView {
 		Direction direction = lexi.getDirection();
 		int walkCounter = lexi.getWalkCounter();
 		int walkIndex = SpriteUtil.getWalkingSpriteIndex(direction, walkCounter);
+
+		// For fun
+//		return spriteFactory.getDogWalking()[walkIndex];
 		return spriteFactory.getLexiWalking()[walkIndex];
 	}
 }

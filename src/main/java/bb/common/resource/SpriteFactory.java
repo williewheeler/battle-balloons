@@ -34,22 +34,26 @@ public class SpriteFactory {
 
 	private BufferedImage[] bullyWalking;
 
+	private BufferedImage[] dogWalking;
+
 	public SpriteFactory(ImageLoader imageLoader) {
 		BufferedImage sheet = imageLoader.loadImage("images/bb-sprites.png");
 
 		this.bigBalloons = buildBigBalloonSprites(sheet);
 
-		this.lexiWalking = buildCharacterSprites(sheet, 0);
+		this.lexiWalking = buildWalkingSprites(sheet, 0);
 		this.lexiEntering = spaghettify(lexiWalking[4], PLAYER_ENTERING_DURATION);
 		this.lexiExiting = spaghettify(lexiWalking[4], PLAYER_EXITING_DURATION);
 		this.lexiBlinking = buildLexiBlinking(sheet);
 		this.lexiWaving = buildLexiWaving(sheet);
 		
-		this.judoWalking = buildCharacterSprites(sheet, 1);
+		this.judoWalking = buildWalkingSprites(sheet, 1);
 		this.judoEntering = spaghettify(judoWalking[4], JUDO_ENTERING_DURATION);
 		this.judoExiting = spaghettify(judoWalking[4], JUDO_EXITING_DURATION);
 
-		this.bullyWalking = buildCharacterSprites(sheet, 2);
+		this.bullyWalking = buildWalkingSprites(sheet, 2);
+
+		this.dogWalking = buildWalkingSprites(sheet, 3);
 	}
 
 	public BufferedImage[][] getBigBalloons() {
@@ -96,7 +100,11 @@ public class SpriteFactory {
 		return bullyWalking;
 	}
 
-	private BufferedImage[] buildCharacterSprites(BufferedImage sheet, int row) {
+	public BufferedImage[] getDogWalking() {
+		return dogWalking;
+	}
+
+	private BufferedImage[] buildWalkingSprites(BufferedImage sheet, int row) {
 		BufferedImage[] sprites = new BufferedImage[16];
 		for (int i = 0, col = 0; i < 16; i++) {
 			if (i % 4 == 2) {
