@@ -139,10 +139,14 @@ public class ArenaScreen extends SceneScreen {
 			AudioFactory audioFactory = context.getAudioFactory();
 			if (event == GameEvents.PLAYER_WALKS) {
 				audioFactory.playerWalks();
-			} else if (event == GameEvents.PLAYER_DIES) {
-				audioFactory.playerCollision();
 			} else if (event == GameEvents.PLAYER_THROWS_BALLOON) {
 				audioFactory.playerThrowsBalloon();
+			} else if (event == GameEvents.PLAYER_DIES) {
+				audioFactory.playerDies();
+			} else if (event == GameEvents.ANIMAL_RESCUED) {
+				audioFactory.animalRescued();
+			} else if (event == GameEvents.ANIMAL_DIES) {
+				audioFactory.animalDies();
 			} else if (event == GameEvents.NEXT_LEVEL) {
 				audioFactory.playerNextLevel();
 			} else if (event == GameEvents.OBSTACLE_DESTROYED) {

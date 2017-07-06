@@ -13,6 +13,9 @@ public class GameEvents {
 	public static final GameEvent PLAYER_THROWS_BALLOON = new GameEvent("playerThrowsBalloon");
 	public static final GameEvent PLAYER_DIES = new GameEvent("playerDies");
 
+	public static final GameEvent ANIMAL_RESCUED = new GameEvent("animalRescued");
+	public static final GameEvent ANIMAL_DIES = new GameEvent("animalDies");
+
 	public static final GameEvent OBSTACLE_DESTROYED = new GameEvent("obstacleDestroyed");
 
 	public static final GameEvent JUDO_DIES = new GameEvent("judoDies");

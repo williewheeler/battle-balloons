@@ -1,6 +1,7 @@
 package bb.game.arena.scene;
 
 import bb.common.actor.model.Bully;
+import bb.common.actor.model.Dog;
 import bb.common.actor.model.Judo;
 import bb.common.actor.model.Lexi;
 import bb.common.actor.model.Obstacle;
@@ -12,6 +13,7 @@ import bb.framework.actor.Player;
 import bb.framework.actor.brain.BasicActorBrain;
 import bb.framework.util.Assert;
 import bb.game.arena.actor.ActorUtil;
+import bb.game.arena.actor.DefaultAnimalBrain;
 import bb.game.arena.actor.DefaultBullyBrain;
 import bb.game.arena.actor.DefaultJudoBrain;
 import bb.game.arena.level.Level;
@@ -47,6 +49,7 @@ public class ArenaScene extends BBScene {
 		initObstacles();
 		initJudos();
 		initBullies();
+		initDogs();
 	}
 
 	private void initPlayer() {
@@ -111,13 +114,21 @@ public class ArenaScene extends BBScene {
 	}
 
 	private void initBullies() {
-		log.trace("Initializing {} bullies", level.getBullies());
 		for (int i = 0; i < level.getBullies(); i++) {
 			Bully bully = new Bully(new DefaultBullyBrain(), 0, 0);
 			bully.setScene(this);
 			ActorUtil.randomizeLocation(bully, player);
 			ActorUtil.randomizeDirection(bully);
 			getBullies().add(bully);
+		}
+	}
+
+	private void initDogs() {
+		for (int i = 0; i < level.getDogs(); i++) {
+			Dog dog = new Dog(new DefaultAnimalBrain(), 0, 0);
+			dog.setScene(this);
+			ActorUtil.randomizeLocation(dog, player);
+			getDogs().add(dog);
 		}
 	}
 

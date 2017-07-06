@@ -7,12 +7,12 @@ import bb.framework.util.Assert;
  */
 public final class Levels {
 	private Level[] levels = new Level[] {
-			new Level(5, 15, 0),
-			new Level(15, 17, 5),
-			new Level(25, 22, 6),
-			new Level(25, 34, 7),
-			new Level(20, 20, 0),
-			new Level(25, 32, 7)
+			new Level(15, 5, 1, 0),
+			new Level(17, 15, 1, 5),
+			new Level(22, 25, 2, 6),
+			new Level(34, 25, 2, 7),
+			new Level(20, 20, 15, 0),
+			new Level(32, 25, 3, 7)
 	};
 
 	public Level getLevel(int number) {

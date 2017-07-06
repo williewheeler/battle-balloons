@@ -3,6 +3,7 @@ package bb.common.actor.view;
 import bb.common.actor.model.Balloon;
 import bb.common.actor.model.BigBalloon;
 import bb.common.actor.model.Bully;
+import bb.common.actor.model.Dog;
 import bb.common.actor.model.Judo;
 import bb.common.actor.model.Lexi;
 import bb.common.actor.model.Obstacle;
@@ -20,6 +21,7 @@ public class ActorViewFactory {
 	private BalloonView balloonView;
 	private BigBalloonView bigBalloonView;
 	private BullyView bullyView;
+	private DogView dogView;
 	private JudoView judoView;
 	private LexiView lexiView;
 	private ObstacleView obstacleView;
@@ -32,6 +34,7 @@ public class ActorViewFactory {
 		this.balloonView = new BalloonView();
 		this.bigBalloonView = new BigBalloonView(spriteFactory.getBigBalloons());
 		this.bullyView = new BullyView(spriteFactory);
+		this.dogView = new DogView(spriteFactory);
 		this.judoView = new JudoView(spriteFactory);
 		this.lexiView = new LexiView(spriteFactory);
 		this.obstacleView = new ObstacleView();
@@ -46,6 +49,8 @@ public class ActorViewFactory {
 			return bigBalloonView;
 		} else if (actor instanceof Bully) {
 			return bullyView;
+		} else if (actor instanceof Dog) {
+			return dogView;
 		} else if (actor instanceof Judo) {
 			return judoView;
 		} else if (actor instanceof Lexi) {
