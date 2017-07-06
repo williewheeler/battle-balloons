@@ -2,6 +2,7 @@ package bb.common.actor.view;
 
 import bb.common.actor.model.Balloon;
 import bb.common.actor.model.BigBalloon;
+import bb.common.actor.model.Bully;
 import bb.common.actor.model.Judo;
 import bb.common.actor.model.Lexi;
 import bb.common.actor.model.Obstacle;
@@ -18,6 +19,7 @@ import bb.framework.util.Assert;
 public class ActorViewFactory {
 	private BalloonView balloonView;
 	private BigBalloonView bigBalloonView;
+	private BullyView bullyView;
 	private JudoView judoView;
 	private LexiView lexiView;
 	private ObstacleView obstacleView;
@@ -29,6 +31,7 @@ public class ActorViewFactory {
 
 		this.balloonView = new BalloonView();
 		this.bigBalloonView = new BigBalloonView(spriteFactory.getBigBalloons());
+		this.bullyView = new BullyView(spriteFactory);
 		this.judoView = new JudoView(spriteFactory);
 		this.lexiView = new LexiView(spriteFactory);
 		this.obstacleView = new ObstacleView();
@@ -41,6 +44,8 @@ public class ActorViewFactory {
 			return balloonView;
 		} else if (actor instanceof BigBalloon) {
 			return bigBalloonView;
+		} else if (actor instanceof Bully) {
+			return bullyView;
 		} else if (actor instanceof Judo) {
 			return judoView;
 		} else if (actor instanceof Lexi) {

@@ -2,6 +2,7 @@ package bb.common.scene;
 
 import bb.common.actor.model.Balloon;
 import bb.common.actor.model.BigBalloon;
+import bb.common.actor.model.Bully;
 import bb.common.actor.model.Judo;
 import bb.common.actor.model.Lexi;
 import bb.common.actor.model.Obstacle;
@@ -30,6 +31,7 @@ public class BBScene {
 	private final List<List<? extends Actor>> allActors = new ArrayList<>();
 	private final List<Balloon> balloons = new LinkedList<>();
 	private final List<BigBalloon> bigBalloons = new LinkedList<>();
+	private final List<Bully> bullies = new LinkedList<>();
 	private final List<Judo> judos = new LinkedList<>();
 	private final List<Lexi> lexis = new LinkedList<>();
 	private final List<Obstacle> obstacles = new LinkedList<>();
@@ -42,6 +44,7 @@ public class BBScene {
 	public BBScene() {
 		allActors.add(balloons);
 		allActors.add(bigBalloons);
+		allActors.add(bullies);
 		allActors.add(judos);
 		allActors.add(lexis);
 		allActors.add(obstacles);
@@ -74,6 +77,10 @@ public class BBScene {
 
 	public List<BigBalloon> getBigBalloons() {
 		return bigBalloons;
+	}
+
+	public List<Bully> getBullies() {
+		return bullies;
 	}
 
 	public List<Judo> getJudos() {

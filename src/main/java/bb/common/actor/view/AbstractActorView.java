@@ -25,9 +25,23 @@ public abstract class AbstractActorView implements ActorView {
 		}
 	}
 
-	public abstract void paintEntering(Graphics g, Actor actor);
+	/**
+	 * Override as desired.
+	 *
+	 * @param g
+	 * @param actor
+	 */
+	public void paintEntering(Graphics g, Actor actor) {
+	}
 
 	public abstract void paintActive(Graphics g, Actor actor);
 
-	public abstract void paintExiting(Graphics g, Actor actor);
+	/**
+	 * Override as desired.
+	 *
+	 * @param g
+	 * @param actor
+	 */
+	public void paintExiting(Graphics g, Actor actor) {
+	}
 }

@@ -13,8 +13,8 @@ import bb.game.arena.scene.ArenaScene;
 /**
  * Created by willie on 7/2/17.
  */
-public class ArenaJudoBrain extends AbstractActorBrain {
-	private static final int MAX_THINK_PERIOD = 10;
+public class DefaultJudoBrain extends AbstractActorBrain {
+	private static final int MAX_THINK_TTL = 10;
 
 	private int thinkTtl = -1;
 
@@ -26,7 +26,7 @@ public class ArenaJudoBrain extends AbstractActorBrain {
 
 	private void decrementThinkTtl() {
 		if (thinkTtl < 0) {
-			this.thinkTtl = MathUtil.nextRandomInt(MAX_THINK_PERIOD);
+			this.thinkTtl = MathUtil.nextRandomInt(MAX_THINK_TTL);
 		} else {
 			this.thinkTtl--;
 		}

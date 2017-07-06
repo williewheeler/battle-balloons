@@ -18,6 +18,10 @@ public class SpriteFactory {
 	private static final int JUDO_ENTERING_DURATION = 20;
 	private static final int JUDO_EXITING_DURATION = 5;
 
+	// row = color
+	// col = rotation
+	private BufferedImage[][] bigBalloons;
+
 	private BufferedImage[] lexiWalking;
 	private BufferedImage[] lexiEntering;
 	private BufferedImage[] lexiExiting;
@@ -28,13 +32,13 @@ public class SpriteFactory {
 	private BufferedImage[] judoEntering;
 	private BufferedImage[] judoExiting;
 
-	// row = color
-	// col = rotation
-	private BufferedImage[][] bigBalloons;
+	private BufferedImage[] bullyWalking;
 
 	public SpriteFactory(ImageLoader imageLoader) {
 		BufferedImage sheet = imageLoader.loadImage("images/bb-sprites.png");
-		
+
+		this.bigBalloons = buildBigBalloonSprites(sheet);
+
 		this.lexiWalking = buildCharacterSprites(sheet, 0);
 		this.lexiEntering = spaghettify(lexiWalking[4], PLAYER_ENTERING_DURATION);
 		this.lexiExiting = spaghettify(lexiWalking[4], PLAYER_EXITING_DURATION);
@@ -45,7 +49,11 @@ public class SpriteFactory {
 		this.judoEntering = spaghettify(judoWalking[4], JUDO_ENTERING_DURATION);
 		this.judoExiting = spaghettify(judoWalking[4], JUDO_EXITING_DURATION);
 
-		this.bigBalloons = buildBigBalloonSprites(sheet);
+		this.bullyWalking = buildCharacterSprites(sheet, 2);
+	}
+
+	public BufferedImage[][] getBigBalloons() {
+		return bigBalloons;
 	}
 
 	public BufferedImage[] getLexiWalking() {
@@ -84,8 +92,8 @@ public class SpriteFactory {
 		return judoExiting;
 	}
 
-	public BufferedImage[][] getBigBalloons() {
-		return bigBalloons;
+	public BufferedImage[] getBullyWalking() {
+		return bullyWalking;
 	}
 
 	private BufferedImage[] buildCharacterSprites(BufferedImage sheet, int row) {

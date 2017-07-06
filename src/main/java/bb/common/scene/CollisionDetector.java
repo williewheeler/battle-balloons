@@ -19,10 +19,12 @@ public final class CollisionDetector {
 
 		checkPlayerCollisions(scene, scene.getObstacles());
 		checkPlayerCollisions(scene, scene.getJudos());
+		checkPlayerCollisions(scene, scene.getBullies());
 
 		checkCollisions(scene, scene.getJudos(), scene.getObstacles(), GameEvents.JUDO_DIES);
 		checkCollisions(scene, scene.getBalloons(), scene.getObstacles(), GameEvents.OBSTACLE_DESTROYED);
 		checkCollisions(scene, scene.getBalloons(), scene.getJudos(), GameEvents.JUDO_DIES);
+		// TODO Handle balloon/bully collisions, but the bully is indestructable! [WLW]
 	}
 
 	private static void checkPlayerCollisions(BBScene scene, List<? extends Actor> actors) {

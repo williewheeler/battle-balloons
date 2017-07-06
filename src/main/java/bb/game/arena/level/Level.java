@@ -6,10 +6,12 @@ package bb.game.arena.level;
 public class Level {
 	private int obstacles;
 	private int judos;
+	private int bullies;
 
-	public Level(int obstacles, int judos) {
+	public Level(int obstacles, int judos, int bullies) {
 		this.obstacles = obstacles;
 		this.judos = judos;
+		this.bullies = bullies;
 	}
 
 	public int getObstacles() {
@@ -18,5 +20,9 @@ public class Level {
 
 	public int getJudos() {
 		return judos;
+	}
+
+	public int getBullies() {
+		return bullies;
 	}
 }

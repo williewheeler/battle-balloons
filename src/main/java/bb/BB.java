@@ -51,6 +51,12 @@ public class BB extends JFrame {
 		setLocationRelativeTo(null);
 		setVisible(true);
 
+		try {
+			Thread.sleep(20000);
+		} catch (InterruptedException e) {
+			throw new RuntimeException(e);
+		}
+
 		stateMachine.start();
 	}
 
