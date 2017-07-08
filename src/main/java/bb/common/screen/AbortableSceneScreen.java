@@ -36,7 +36,17 @@ public class AbortableSceneScreen extends SceneScreen {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				super.keyPressed(e);
-				fireScreenEvent(ScreenEvent.SCREEN_ABORTED);
+				switch (e.getKeyCode()) {
+					case KeyEvent.VK_LEFT:
+						fireScreenEvent(ScreenEvent.Type.PREVIOUS_SCREEN);
+						break;
+					case KeyEvent.VK_RIGHT:
+						fireScreenEvent(ScreenEvent.Type.NEXT_SCREEN);
+						break;
+					default:
+						fireScreenEvent(ScreenEvent.Type.SCREEN_ABORTED);
+						break;
+				}
 			}
 		};
 	}

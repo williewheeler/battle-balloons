@@ -11,7 +11,11 @@ public final class Assert {
 	public static void notNull(Object o, String message) {
 		isTrue(o != null, message);
 	}
-
+	
+	public static void isInRange(int n, int lower, int upper, String message) {
+		isTrue(lower <= n && n <= upper, message);
+	}
+	
 	public static void isStrictlyPositive(int n, String message) {
 		isTrue(n > 0, message);
 	}

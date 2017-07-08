@@ -17,9 +17,9 @@ public class Lexi extends AbstractActor {
 		BATTLING,
 		WAVING
 	}
-
-	private static final Logger log = LoggerFactory.getLogger(Lexi.class);
-
+	
+	private static final Logger log = LoggerFactory.getLogger(AbstractActor.class);
+	
 	private static final int WIDTH = 5;
 	private static final int HEIGHT = 11;
 	private static final int SPEED = 3;
@@ -34,8 +34,8 @@ public class Lexi extends AbstractActor {
 	private static final int WAVE_DURATION = 4;
 
 	// TODO Move entering/exiting up to AbstractActor? [WLW]
-	private int enterTtl = ENTER_TTL - 1;
-	private int exitTtl = EXIT_TTL - 1;
+	private int enterTtl = ENTER_TTL;
+	private int exitTtl = EXIT_TTL;
 
 	private Substate substate;
 	private int walkEventTtl = WALK_EVENT_TTL;
@@ -83,8 +83,10 @@ public class Lexi extends AbstractActor {
 
 	@Override
 	public void updateBodyEntering() {
+		log.trace("Body entering");
 		this.enterTtl--;
-		if (enterTtl < 0) {
+		if (enterTtl <= 0) {
+			this.enterTtl = ENTER_TTL;
 			setState(ActorLifecycleState.ACTIVE);
 		}
 	}
@@ -108,8 +110,10 @@ public class Lexi extends AbstractActor {
 	@Override
 	public void updateBodyExiting() {
 		this.exitTtl--;
-		if (exitTtl < 0) {
+		if (exitTtl <= 0) {
+			this.exitTtl = EXIT_TTL;
 			setState(ActorLifecycleState.GONE);
+			getScene().fireGameEvent(GameEvents.PLAYER_GONE);
 		}
 	}
 
@@ -119,7 +123,7 @@ public class Lexi extends AbstractActor {
 		if (walked) {
 			this.walkEventTtl--;
 			if (walkEventTtl == 0) {
-				getScene().fireGameEvent(GameEvents.PLAYER_WALKS);
+				getScene().fireGameEvent(GameEvents.PLAYER_WALKED);
 				this.walkEventTtl = WALK_EVENT_TTL;
 			}
 			return true;
@@ -132,7 +136,7 @@ public class Lexi extends AbstractActor {
 	protected boolean doFire() {
 		boolean fired = super.doFire();
 		if (fired) {
-			getScene().fireGameEvent(GameEvents.PLAYER_THROWS_BALLOON);
+			getScene().fireGameEvent(GameEvents.PLAYER_THREW_BALLOON);
 		}
 		return fired;
 	}

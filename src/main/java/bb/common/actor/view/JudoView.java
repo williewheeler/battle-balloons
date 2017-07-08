@@ -30,6 +30,7 @@ public class JudoView extends AbstractActorView {
 	public void paintEntering(Graphics g, Actor actor) {
 		final Judo judo = (Judo) actor;
 		final int spriteIndex = judo.getEnterTtl();
+		assert(spriteIndex >= 0);
 		final BufferedImage sprite = spriteFactory.getJudoEntering()[spriteIndex];
 		final int xOffset = judo.getX() - sprite.getWidth() / 2;
 		final int yOffset = judo.getY() - sprite.getHeight() / 2;
@@ -53,7 +54,8 @@ public class JudoView extends AbstractActorView {
 	@Override
 	public void paintExiting(Graphics g, Actor actor) {
 		final Judo judo = (Judo) actor;
-		final int spriteIndex = (Judo.EXIT_TTL - 1) - judo.getExitTtl();
+		final int spriteIndex = Judo.EXIT_TTL - judo.getExitTtl();
+		assert(spriteIndex >= 0);
 		final BufferedImage sprite = spriteFactory.getJudoExiting()[spriteIndex];
 		final int xOffset = judo.getX() - sprite.getWidth() / 2;
 		final int yOffset = judo.getY() - sprite.getHeight() / 2;

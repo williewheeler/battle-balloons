@@ -22,6 +22,6 @@ public interface Screen {
 	void start();
 
 	void stop();
-
+	
 	void addScreenListener(ScreenListener listener);
 }

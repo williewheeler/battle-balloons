@@ -29,4 +29,10 @@ public abstract class AbstractActorBrain implements ActorBrain {
 	public DirectionIntent getFireDirectionIntent() {
 		return fireDirectionIntent;
 	}
+	
+	@Override
+	public void reset() {
+		moveDirectionIntent.reset();
+		fireDirectionIntent.reset();
+	}
 }

@@ -263,6 +263,7 @@ public abstract class AbstractActor implements Actor {
 			this.rechargeTtl--;
 			return false;
 		} else {
+			log.trace("Throwing balloon");
 			final ActorBrain brain = getBrain();
 			final DirectionIntent fireIntent = brain.getFireDirectionIntent();
 
