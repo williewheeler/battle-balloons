@@ -1,45 +1,61 @@
 package bb.framework.mode;
 
+import bb.framework.event.ModeEvent;
 import bb.framework.event.ModeListener;
+import bb.framework.screen.Screen;
+import bb.framework.screen.ScreenManager;
 import bb.framework.util.Assert;
+
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Created by willie on 7/1/17.
  */
 public abstract class AbstractMode implements Mode {
-	private String name;
-	private ModeController modeController;
+	private final String name;
+	private final ScreenManager screenManager;
+	private final List<ModeListener> modeListeners = new LinkedList<>();
+	
+	private Screen currentScreen;
 
-	public AbstractMode(String name) {
+	public AbstractMode(String name, ScreenManager screenManager) {
 		Assert.notNull(name, "name can't be null");
+		Assert.notNull(screenManager, "screenManager can't be null");
 		this.name = name;
+		this.screenManager = screenManager;
 	}
-
-	public void setModeController(ModeController modeController) {
-		this.modeController = modeController;
-	}
-
+	
 	@Override
 	public String getName() {
 		return name;
 	}
-
-	@Override
-	public void start() {
-		checkModeController();
-		modeController.start();
+	
+	public Screen getCurrentScreen() {
+		return currentScreen;
 	}
-
+	
+	@Override
+	public void stop() {
+		fireModeEvent(ModeEvent.MODE_STOPPED);
+	}
+	
+	protected void transitionTo(Screen screen) {
+		if (screen == null) {
+			throw new NullPointerException("screen can't be null");
+		}
+		this.currentScreen = screen;
+		screenManager.startScreen(screen);
+	}
+	
 	@Override
 	public void addModeListener(ModeListener listener) {
 		Assert.notNull(listener, "listener can't be null");
-		checkModeController();
-		modeController.addModeListener(listener);
+		modeListeners.add(listener);
 	}
-
-	private void checkModeController() {
-		if (modeController == null) {
-			throw new IllegalStateException("modeController can't be null");
-		}
+	
+	protected void fireModeEvent(int type) {
+		ModeEvent event = new ModeEvent(type);
+		modeListeners.forEach(listener -> listener.handleEvent(event));
 	}
 }

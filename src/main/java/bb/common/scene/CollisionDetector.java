@@ -8,6 +8,8 @@ import bb.framework.actor.ActorLifecycleState;
 import bb.framework.actor.Player;
 import bb.framework.event.GameEvent;
 import bb.framework.util.Assert;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
@@ -15,6 +17,7 @@ import java.util.List;
  * Created by willie on 7/3/17.
  */
 public final class CollisionDetector {
+	private static final Logger log = LoggerFactory.getLogger(CollisionDetector.class);
 
 	public static void checkCollisions(BBScene scene) {
 		Assert.notNull(scene, "scene can't be null");
@@ -28,9 +31,9 @@ public final class CollisionDetector {
 			checkPlayerDeath(scene, scene.getBullies());
 		}
 
-		checkCollisions(scene, scene.getJudos(), scene.getObstacles(), GameEvents.JUDO_DIES);
+		checkCollisions(scene, scene.getJudos(), scene.getObstacles(), GameEvents.JUDO_DIED);
 		checkCollisions(scene, scene.getBalloons(), scene.getObstacles(), GameEvents.OBSTACLE_DESTROYED);
-		checkCollisions(scene, scene.getBalloons(), scene.getJudos(), GameEvents.JUDO_DIES);
+		checkCollisions(scene, scene.getBalloons(), scene.getJudos(), GameEvents.JUDO_DIED);
 
 		checkBullyAnimalCollisions(scene);
 
@@ -46,6 +49,7 @@ public final class CollisionDetector {
 				.filter(actor -> actor.getState() == ActorLifecycleState.ACTIVE)
 				.forEach(actor -> {
 					if (playerActor.checkCollision(actor)) {
+						log.trace("Player rescued {}", actor.getClass().getSimpleName());
 						player.increaseScore(actor.getScore());
 						actor.setState(ActorLifecycleState.EXITING);
 						scene.fireGameEvent(GameEvents.ANIMAL_RESCUED);
@@ -63,10 +67,11 @@ public final class CollisionDetector {
 				// simultaneous collisions).
 				.forEach(actor -> {
 					if (playerActor.checkCollision(actor)) {
+						log.trace("Player collided with {}", actor.getClass().getSimpleName());
 						player.decrementLives();
 						playerActor.setState(ActorLifecycleState.EXITING);
 						actor.setState(ActorLifecycleState.EXITING);
-						scene.fireGameEvent(GameEvents.PLAYER_DIES);
+						scene.fireGameEvent(GameEvents.PLAYER_DIED);
 					}
 				});
 	}
@@ -112,7 +117,7 @@ public final class CollisionDetector {
 							.forEach(dog -> {
 								if (bully.checkCollision(dog)) {
 									dog.setState(ActorLifecycleState.EXITING);
-									scene.fireGameEvent(GameEvents.ANIMAL_DIES);
+									scene.fireGameEvent(GameEvents.ANIMAL_DIED);
 								}
 							});
 				});

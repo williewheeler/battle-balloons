@@ -5,6 +5,8 @@ import bb.framework.GameContext;
 import bb.framework.event.ScreenEvent;
 import bb.framework.event.ScreenListener;
 import bb.framework.util.Assert;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.swing.JComponent;
 import javax.swing.Timer;
@@ -18,6 +20,8 @@ import java.util.List;
  * Created by willie on 7/3/17.
  */
 public abstract class AbstractScreen implements Screen {
+	private static final Logger log = LoggerFactory.getLogger(AbstractScreen.class);
+	
 	private String name;
 	private GameConfig config;
 	private GameContext context;
@@ -115,7 +119,8 @@ public abstract class AbstractScreen implements Screen {
 		}
 	}
 
-	protected void fireScreenEvent(int type) {
+	protected void fireScreenEvent(ScreenEvent.Type type) {
+		log.trace("Firing screen event: {}", type);
 		ScreenEvent event = new ScreenEvent(this, type);
 		// FIXME This generated a ConcurrentModificationException.
 		// I think it was between levels. It also happens on player death. [WLW]

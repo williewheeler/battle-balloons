@@ -17,4 +17,6 @@ public interface ActorBrain {
 	DirectionIntent getFireDirectionIntent();
 
 	void update();
+	
+	void reset();
 }

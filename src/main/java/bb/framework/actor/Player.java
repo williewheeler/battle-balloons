@@ -1,6 +1,7 @@
 package bb.framework.actor;
 
-import bb.framework.util.Assert;
+import bb.common.BBConfig;
+import bb.common.actor.model.Lexi;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,14 +16,9 @@ public class Player {
 
 	private Actor actor;
 	private int lives = 3;
-	private int level = 1;
+	private int level = 0;
 	private int score = 0;
 	private int nextLifeAt = NEXT_LIFE_AT_INCREMENT;
-
-	public Player(Actor actor) {
-		Assert.notNull(actor, "actor can't be null");
-		this.actor = actor;
-	}
 
 	public Actor getActor() {
 		return actor;
@@ -42,7 +38,7 @@ public class Player {
 
 	public void decrementLives() {
 		this.lives = Math.max(0, lives - 1);
-		log.trace("lives={}", lives);
+		log.trace("{} lives remaining", lives);
 	}
 
 	public boolean isGameOver() {
@@ -67,5 +63,26 @@ public class Player {
 			incrementLives();
 			this.nextLifeAt += NEXT_LIFE_AT_INCREMENT;
 		}
+	}
+	
+	public void spawn() {
+		log.trace("Spawning player");
+		actor.getBrain().reset();
+		actor.setX(BBConfig.WORLD_SIZE.width / 2);
+		actor.setY(BBConfig.WORLD_SIZE.height / 2);
+		actor.setState(ActorLifecycleState.ENTERING);
+	}
+	
+	@Override
+	public String toString() {
+		// FIXME Remove hardcode
+		Lexi lexi = (Lexi) actor;
+		return new StringBuilder("[Player:")
+				.append(" actor.state=")
+				.append(actor.getState())
+				.append(", actor.enterTtl=")
+				.append(lexi.getEnterTtl())
+				.append("]")
+				.toString();
 	}
 }

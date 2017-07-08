@@ -2,25 +2,16 @@ package bb.game;
 
 import bb.common.BBConfig;
 import bb.common.BBContext;
-import bb.common.actor.model.Lexi;
 import bb.common.event.GameEvents;
 import bb.common.screen.TransitionScreen;
-import bb.framework.actor.Player;
-import bb.framework.actor.brain.BasicActorBrain;
 import bb.framework.event.GameEvent;
 import bb.framework.event.GameListener;
 import bb.framework.event.ScreenEvent;
 import bb.framework.event.ScreenListener;
 import bb.framework.mode.AbstractMode;
-import bb.framework.mode.AbstractModeController;
-import bb.framework.screen.Screen;
 import bb.framework.screen.ScreenManager;
 import bb.framework.util.Assert;
-import bb.game.arena.level.Levels;
-import bb.game.arena.scene.ArenaScene;
 import bb.game.arena.screen.ArenaScreen;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import static bb.game.GameScreenNames.TRANSITION_SCREEN;
 
@@ -28,90 +19,81 @@ import static bb.game.GameScreenNames.TRANSITION_SCREEN;
  * Created by willie on 7/1/17.
  */
 public class GameMode extends AbstractMode {
-	private static final Logger log = LoggerFactory.getLogger(GameMode.class);
-
 	private BBConfig config;
 	private BBContext context;
-	private final Levels levels = new Levels();
-	private Player player;
-	private GameController gameController;
+	
+	private Game game;
+	private GameHandler gameHandler;
+	private ScreenHandler screenHandler;
 
 	public GameMode(BBConfig config, BBContext context, ScreenManager screenManager) {
-		super(BBConfig.GAME_MODE);
+		super(BBConfig.GAME_MODE, screenManager);
 		Assert.notNull(config, "config can't be null");
 		Assert.notNull(context, "context can't be null");
-		Assert.notNull(screenManager, "screenManager can't be null");
-
 		this.config = config;
 		this.context = context;
-
-		// FIXME This Lexi code duplicates code in ArenaScene. [WLW]
-		Lexi lexi = new Lexi(new BasicActorBrain(), 0, 0);
-		this.player = new Player(lexi);
-
-		this.gameController = new GameController(config, context, screenManager);
-		setModeController(gameController);
+		initListeners();
 	}
-
-	private class GameController extends AbstractModeController implements GameListener, ScreenListener {
-		private BBConfig config;
-		private BBContext context;
-
-		public GameController(BBConfig config, BBContext context, ScreenManager screenManager) {
-			super(screenManager);
-			this.config = config;
-			this.context = context;
-		}
+	
+	@Override
+	public void start() {
+		this.game = new Game();
+		advancePlayerLevel();
+		context.getAudioFactory().playerFirstLevel();
+		transitionTo(transitionScreen());
+	}
+	
+	private void advancePlayerLevel() {
+		game.incrementPlayerLevel();
+		game.getScene().addGameListener(gameHandler);
+	}
+	
+	private TransitionScreen transitionScreen() {
+		TransitionScreen screen = TransitionScreen.create(TRANSITION_SCREEN, config, context);
+		screen.addScreenListener(screenHandler);
+		return screen;
+	}
+	
+	private ArenaScreen arenaScreen() {
+		ArenaScreen screen = ArenaScreen.create(config, context, game.getScene());
+		screen.addScreenListener(screenHandler);
+		return screen;
+	}
+	
+	private void initListeners() {
+		this.gameHandler = new GameHandler();
+		this.screenHandler = new ScreenHandler();
+	}
+	
+	private class GameHandler implements GameListener {
 
 		@Override
 		public void handleEvent(GameEvent event) {
+			// TODO Can we use enum event types? [WLW]
 			if (event == GameEvents.NEXT_LEVEL) {
+				advancePlayerLevel();
 				transitionTo(transitionScreen());
-			} else if (event == GameEvents.PLAYER_DIES) {
+			} else if (event == GameEvents.PLAYER_GONE) {
 				transitionTo(transitionScreen());
 			} else if (event == GameEvents.GAME_OVER) {
-				log.trace("Game over; yielding");
-				yield();
+				stop();
 			}
 		}
-
+	}
+	
+	private class ScreenHandler implements ScreenListener {
+		
 		@Override
 		public void handleEvent(ScreenEvent event) {
-			Screen source = event.getSource();
-			int type = event.getType();
-
-			if (type == ScreenEvent.SCREEN_EXPIRED) {
-				if (source instanceof TransitionScreen) {
-					// FIXME I think this is always kicking in, even after the game is over.
-					// So the player never dies.
-					log.trace("Transitioning to arena screen");
-					transitionTo(arenaScreen());
+			if (event.getSource() instanceof TransitionScreen) {
+				switch (event.getType()) {
+					case SCREEN_EXPIRED:
+						game.spawnPlayer();
+						game.getScene().setActive(true);
+						transitionTo(arenaScreen());
+						break;
 				}
 			}
-		}
-
-		public void start() {
-			context.getAudioFactory().playerFirstLevel();
-			transitionTo(arenaScreen());
-		}
-
-		private Screen arenaScreen() {
-			Screen screen = ArenaScreen.create(config, context, arenaScene());
-			screen.addScreenListener(gameController);
-			return screen;
-		}
-
-		private ArenaScene arenaScene() {
-			ArenaScene scene = new ArenaScene(levels);
-			scene.init(player);
-			scene.addGameListener(gameController);
-			return scene;
-		}
-
-		private Screen transitionScreen() {
-			Screen screen = TransitionScreen.create(TRANSITION_SCREEN, config, context);
-			screen.addScreenListener(gameController);
-			return screen;
 		}
 	}
 }

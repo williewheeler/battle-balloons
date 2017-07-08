@@ -4,11 +4,13 @@ import bb.common.BBConfig;
 import bb.common.BBContext;
 import bb.common.event.GameEvents;
 import bb.common.resource.AudioFactory;
+import bb.common.scene.BBScene;
 import bb.common.screen.SceneScreen;
 import bb.framework.actor.DirectionIntent;
 import bb.framework.actor.brain.ActorBrain;
 import bb.framework.event.GameEvent;
 import bb.framework.event.GameListener;
+import bb.framework.util.Assert;
 import bb.game.GameScreenNames;
 import bb.game.arena.scene.ArenaScene;
 
@@ -30,18 +32,22 @@ import static bb.common.BBConfig.ARENA_MARGIN_LEFT_RIGHT_PX;
  * Created by willie on 6/4/17.
  */
 public class ArenaScreen extends SceneScreen {
+	private AudioHandler audioHandler;
 
-	public static ArenaScreen create(BBConfig config, BBContext context, ArenaScene scene) {
+	public static ArenaScreen create(BBConfig config, BBContext context, BBScene scene) {
+		Assert.notNull(config, "config can't be null");
+		Assert.notNull(context, "context can't be null");
+		Assert.notNull(scene, "scene can't be null");
 		ArenaScreen screen = new ArenaScreen(config, context, scene);
 		screen.postConstruct();
 		return screen;
 	}
 
-	private ArenaScreen(BBConfig config, BBContext context, ArenaScene scene) {
+	private ArenaScreen(BBConfig config, BBContext context, BBScene scene) {
 		super(GameScreenNames.ARENA_SCREEN, config, context, scene);
-		scene.addGameListener(new AudioHandler());
+		initListeners();
 	}
-
+	
 	@Override
 	public JComponent buildJComponent() {
 		BBContext context = (BBContext) getContext();
@@ -64,7 +70,7 @@ public class ArenaScreen extends SceneScreen {
 	public KeyListener buildKeyHandler() {
 		return new KeyHandler();
 	}
-
+	
 	private JComponent buildArenaPane() {
 		BBContext context = (BBContext) getContext();
 		ArenaScene scene = (ArenaScene) getScene();
@@ -76,6 +82,11 @@ public class ArenaScreen extends SceneScreen {
 		wrapper.add(new ArenaPane(context, scene));
 		wrapper.add(Box.createRigidArea(new Dimension(ARENA_MARGIN_LEFT_RIGHT_PX, 0)));
 		return wrapper;
+	}
+	
+	private void initListeners() {
+		this.audioHandler = new AudioHandler();
+		((ArenaScene) getScene()).addGameListener(audioHandler);
 	}
 
 	private class KeyHandler extends KeyAdapter {
@@ -127,8 +138,6 @@ public class ArenaScreen extends SceneScreen {
 		}
 	}
 
-	// TODO Move this outside the arena since this could happen in attract mode too? [WLW]
-	// TODO Think about whether this should go with the screen, or instead the mode. Not sure. [WLW]
 	private class AudioHandler implements GameListener {
 
 		@Override
@@ -137,22 +146,22 @@ public class ArenaScreen extends SceneScreen {
 			// TODO Refactor to avoid if/else? [WLW]
 			BBContext context = (BBContext) getContext();
 			AudioFactory audioFactory = context.getAudioFactory();
-			if (event == GameEvents.PLAYER_WALKS) {
+			if (event == GameEvents.PLAYER_WALKED) {
 				audioFactory.playerWalks();
-			} else if (event == GameEvents.PLAYER_THROWS_BALLOON) {
+			} else if (event == GameEvents.PLAYER_THREW_BALLOON) {
 				audioFactory.playerThrowsBalloon();
-			} else if (event == GameEvents.PLAYER_DIES) {
+			} else if (event == GameEvents.PLAYER_DIED) {
 				audioFactory.playerDies();
 			} else if (event == GameEvents.ANIMAL_RESCUED) {
 				audioFactory.animalRescued();
-			} else if (event == GameEvents.ANIMAL_DIES) {
+			} else if (event == GameEvents.ANIMAL_DIED) {
 				audioFactory.animalDies();
 			} else if (event == GameEvents.NEXT_LEVEL) {
 				audioFactory.playerNextLevel();
 			} else if (event == GameEvents.OBSTACLE_DESTROYED) {
 				// TODO Yeah, repurposing the sound...
 //				audioFactory.startSound();
-			} else if (event == GameEvents.JUDO_DIES) {
+			} else if (event == GameEvents.JUDO_DIED) {
 				audioFactory.judoHit();
 			}
 		}
