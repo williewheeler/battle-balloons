@@ -111,14 +111,13 @@ public class BBScene {
 	}
 
 	public void update() {
-//		log.trace("balloons.size={}", balloons.size());
-//		log.trace("bigBalloons.size={}", bigBalloons.size());
 		garbageCollectActors();
 		updateActors();
 		CollisionDetector.checkCollisions(this);
 	}
 
 	public void fireGameEvent(GameEvent event) {
+		log.trace("Firing game event: {}", event.getType());
 		gameListeners.forEach(listener -> listener.handleEvent(event));
 	}
 

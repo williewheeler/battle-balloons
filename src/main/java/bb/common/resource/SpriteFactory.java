@@ -1,5 +1,7 @@
 package bb.common.resource;
 
+import bb.common.actor.model.Judo;
+import bb.common.actor.model.Lexi;
 import bb.framework.resource.ImageLoader;
 
 import java.awt.Graphics2D;
@@ -12,11 +14,11 @@ import static bb.common.BBConfig.SPRITE_WIDTH_PX;
  * Created by willie on 6/4/17.
  */
 public class SpriteFactory {
-	private static final int PLAYER_ENTERING_DURATION = 20;
-	private static final int PLAYER_EXITING_DURATION = 40;
+	private static final int PLAYER_ENTERING_DURATION = Lexi.ENTER_TTL + 1;
+	private static final int PLAYER_EXITING_DURATION = Lexi.EXIT_TTL + 1;
 
-	private static final int JUDO_ENTERING_DURATION = 20;
-	private static final int JUDO_EXITING_DURATION = 5;
+	private static final int JUDO_ENTERING_DURATION = Judo.ENTER_TTL + 1;
+	private static final int JUDO_EXITING_DURATION = Judo.EXIT_TTL + 1;
 
 	// row = color
 	// col = rotation

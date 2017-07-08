@@ -8,8 +8,10 @@ import bb.framework.event.ModeListener;
 public interface Mode {
 
 	String getName();
-
+	
 	void start();
-
+	
+	void stop();
+	
 	void addModeListener(ModeListener listener);
 }

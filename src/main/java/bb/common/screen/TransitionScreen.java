@@ -87,7 +87,7 @@ public class TransitionScreen extends AbstractScreen {
 		int schemeIndex = MathUtil.nextRandomInt(COLOR_SCHEMES.length);
 		this.colorScheme = COLOR_SCHEMES[schemeIndex];
 	}
-
+	
 	@Override
 	public void start() {
 		this.counter = 0;
@@ -164,7 +164,7 @@ public class TransitionScreen extends AbstractScreen {
 				counter++;
 				repaint();
 			} else {
-				fireScreenEvent(ScreenEvent.SCREEN_EXPIRED);
+				fireScreenEvent(ScreenEvent.Type.SCREEN_EXPIRED);
 			}
 		}
 	}
