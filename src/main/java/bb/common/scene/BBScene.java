@@ -1,5 +1,6 @@
 package bb.common.scene;
 
+import bb.common.BBConfig;
 import bb.common.actor.model.Balloon;
 import bb.common.actor.model.BigBalloon;
 import bb.common.actor.model.Bully;
@@ -62,6 +63,26 @@ public class BBScene implements Scene {
 
 	public void setActive(boolean active) {
 		this.active = active;
+	}
+	
+	@Override
+	public int getMinWorldX() {
+		return 0;
+	}
+	
+	@Override
+	public int getMaxWorldX() {
+		return BBConfig.WORLD_SIZE.width - 1;
+	}
+	
+	@Override
+	public int getMinWorldY() {
+		return 0;
+	}
+	
+	@Override
+	public int getMaxWorldY() {
+		return BBConfig.WORLD_SIZE.height - 1;
 	}
 	
 	@Override

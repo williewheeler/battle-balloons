@@ -1,31 +1,24 @@
-package bb.common.actor.model;
+package bb.framework.actor;
 
-import bb.common.scene.BBScene;
-import bb.framework.actor.Actor;
-import bb.framework.actor.ActorLifecycleState;
-import bb.framework.actor.Direction;
-import bb.framework.actor.DirectionIntent;
 import bb.framework.actor.brain.ActorBrain;
+import bb.framework.scene.Scene;
 import bb.framework.util.Assert;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import static bb.common.BBConfig.ARENA_INNER_HEIGHT_PX;
-import static bb.common.BBConfig.ARENA_INNER_WIDTH_PX;
 import static bb.framework.actor.Direction.*;
 
 /**
  * Created by willie on 6/19/17.
  */
 public abstract class AbstractActor implements Actor {
-	private static final Logger log = LoggerFactory.getLogger(AbstractActor.class);
-
+	
+	// TODO Don't hardcode these [WLW]
 	private static final int WALK_ANIMATION_NUM_FRAMES = 4;
-	private static final int RECHARGE_TTL = 3;
+	// FIXME Temporarily protected so Lexi can see it
+	protected static final int RECHARGE_TTL = 3;
 
 	// General
 	private ActorLifecycleState state;
-	private BBScene scene;
+	private Scene scene;
 
 	// Brain
 	private ActorBrain brain;
@@ -40,7 +33,8 @@ public abstract class AbstractActor implements Actor {
 
 	// Other
 	private int walkCounter = 0;
-	private int rechargeTtl = 0;
+	// FIXME Temporarily protected so Lexi can see it
+	protected int rechargeTtl = 0;
 
 	public AbstractActor(ActorBrain brain, int x, int y, int width, int height) {
 		this.state = ActorLifecycleState.ENTERING;
@@ -67,11 +61,11 @@ public abstract class AbstractActor implements Actor {
 		this.state = state;
 	}
 
-	public BBScene getScene() {
+	public Scene getScene() {
 		return scene;
 	}
 
-	public void setScene(BBScene scene) {
+	public void setScene(Scene scene) {
 		this.scene = scene;
 	}
 
@@ -218,7 +212,8 @@ public abstract class AbstractActor implements Actor {
 
 		return xOverlap && yOverlap;
 	}
-
+	
+	// TODO This might be better as a component, since not all entities (actors) move.
 	protected boolean doMove() {
 		final ActorBrain brain = getBrain();
 		final DirectionIntent moveIntent = brain.getMoveDirectionIntent();
@@ -255,72 +250,27 @@ public abstract class AbstractActor implements Actor {
 		}
 	}
 
-	// FIXME Separate player balloons from enemy balloons.
-	// Some of this might not belong in an abstract class, since we want to support
-	// a variety of attacks. [WLW]
-	protected boolean doFire() {
-		if (rechargeTtl > 0) {
-			this.rechargeTtl--;
-			return false;
-		} else {
-			log.trace("Throwing balloon");
-			final ActorBrain brain = getBrain();
-			final DirectionIntent fireIntent = brain.getFireDirectionIntent();
-
-			int dx = 0;
-			int dy = 0;
-
-			if (fireIntent.up) {
-				dy -= Balloon.SPEED;
-			}
-			if (fireIntent.down) {
-				dy += Balloon.SPEED;
-			}
-			if (fireIntent.left) {
-				dx -= Balloon.SPEED;
-			}
-			if (fireIntent.right) {
-				dx += Balloon.SPEED;
-			}
-
-			if (dx != 0 || dy != 0) {
-//				log.trace("Firing: dx={}, dy={}", dx, dy);
-				Balloon balloon = new Balloon(getX(), getY(), dx, dy);
-				scene.getBalloons().add(balloon);
-				this.rechargeTtl = RECHARGE_TTL;
-				return true;
-			} else {
-				return false;
-			}
-		}
-	}
-
 	private void enforceBounds() {
-		int playerHalfWidth = getWidth() / 2;
-		int playerHalfHeight = getHeight() / 2;
+		int halfActorWidth = getWidth() / 2;
+		int halfActorHeight = getHeight() / 2;
 
 		// All bounds below are inclusive
-		int playerXLo = getX() - playerHalfWidth;
-		int playerXHi = playerXLo + getWidth() - 1;
-		int playerYLo = getY() - playerHalfHeight;
-		int playerYHi = playerYLo + getHeight() - 1;
-
-		int arenaXLo = 0;
-		int arenaXHi = ARENA_INNER_WIDTH_PX - 1;
-		int arenaYLo = 0;
-		int arenaYHi = ARENA_INNER_HEIGHT_PX - 1;
-
-		if (playerXLo < arenaXLo) {
-			setX(playerHalfWidth);
+		int minActorX = getX() - halfActorWidth;
+		int maxActorX = minActorX + getWidth() - 1;
+		int minActorY = getY() - halfActorHeight;
+		int maxActorY = minActorY + getHeight() - 1;
+		
+		if (minActorX < scene.getMinWorldX()) {
+			setX(scene.getMinWorldX() + halfActorWidth);
 		}
-		if (playerXHi > arenaXHi) {
-			setX(arenaXHi - playerHalfWidth);
+		if (maxActorX > scene.getMaxWorldX()) {
+			setX(scene.getMaxWorldX() - halfActorWidth);
 		}
-		if (playerYLo < arenaYLo) {
-			setY(playerHalfHeight);
+		if (minActorY < scene.getMinWorldY()) {
+			setY(scene.getMinWorldY() + halfActorHeight);
 		}
-		if (playerYHi > arenaYHi) {
-			setY(arenaYHi - playerHalfHeight);
+		if (maxActorY > scene.getMaxWorldY()) {
+			setY(scene.getMaxWorldY() - halfActorHeight);
 		}
 	}
 

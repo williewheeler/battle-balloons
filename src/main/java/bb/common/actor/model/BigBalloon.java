@@ -1,5 +1,6 @@
 package bb.common.actor.model;
 
+import bb.framework.actor.AbstractActor;
 import bb.framework.actor.ActorLifecycleState;
 import bb.framework.util.MathUtil;
 

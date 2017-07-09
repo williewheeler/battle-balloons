@@ -11,6 +11,14 @@ public interface Scene {
 	
 	boolean isActive();
 	
+	int getMinWorldX();
+	
+	int getMaxWorldX();
+	
+	int getMinWorldY();
+	
+	int getMaxWorldY();
+	
 	Player getPlayer();
 	
 	void update();

@@ -2,7 +2,10 @@ package bb.common.actor.model;
 
 import bb.common.BBConfig;
 import bb.common.event.GameEvents;
+import bb.common.scene.BBScene;
+import bb.framework.actor.AbstractActor;
 import bb.framework.actor.ActorLifecycleState;
+import bb.framework.actor.DirectionIntent;
 import bb.framework.actor.brain.ActorBrain;
 import bb.framework.util.MathUtil;
 import org.slf4j.Logger;
@@ -18,7 +21,7 @@ public class Lexi extends AbstractActor {
 		WAVING
 	}
 	
-	private static final Logger log = LoggerFactory.getLogger(AbstractActor.class);
+	private static final Logger log = LoggerFactory.getLogger(Lexi.class);
 	
 	private static final int WIDTH = 5;
 	private static final int HEIGHT = 11;
@@ -109,21 +112,23 @@ public class Lexi extends AbstractActor {
 
 	@Override
 	public void updateBodyExiting() {
+		BBScene bbScene = (BBScene) getScene();
 		this.exitTtl--;
 		if (exitTtl <= 0) {
 			this.exitTtl = EXIT_TTL;
 			setState(ActorLifecycleState.GONE);
-			getScene().fireGameEvent(GameEvents.PLAYER_GONE);
+			bbScene.fireGameEvent(GameEvents.PLAYER_GONE);
 		}
 	}
 
 	@Override
 	protected boolean doMove() {
+		BBScene bbScene = (BBScene) getScene();
 		boolean walked = super.doMove();
 		if (walked) {
 			this.walkEventTtl--;
 			if (walkEventTtl == 0) {
-				getScene().fireGameEvent(GameEvents.PLAYER_WALKED);
+				bbScene.fireGameEvent(GameEvents.PLAYER_WALKED);
 				this.walkEventTtl = WALK_EVENT_TTL;
 			}
 			return true;
@@ -132,12 +137,47 @@ public class Lexi extends AbstractActor {
 		}
 	}
 
-	@Override
 	protected boolean doFire() {
-		boolean fired = super.doFire();
-		if (fired) {
-			getScene().fireGameEvent(GameEvents.PLAYER_THREW_BALLOON);
+		BBScene bbScene = (BBScene) getScene();
+		
+		boolean fired = false;
+		if (rechargeTtl > 0) {
+			this.rechargeTtl--;
+			return false;
+		} else {
+			final ActorBrain brain = getBrain();
+			final DirectionIntent fireIntent = brain.getFireDirectionIntent();
+			
+			int dx = 0;
+			int dy = 0;
+			
+			if (fireIntent.up) {
+				dy -= Balloon.SPEED;
+			}
+			if (fireIntent.down) {
+				dy += Balloon.SPEED;
+			}
+			if (fireIntent.left) {
+				dx -= Balloon.SPEED;
+			}
+			if (fireIntent.right) {
+				dx += Balloon.SPEED;
+			}
+			
+			if (dx != 0 || dy != 0) {
+				Balloon balloon = new Balloon(getX(), getY(), dx, dy);
+				bbScene.getBalloons().add(balloon);
+				this.rechargeTtl = RECHARGE_TTL;
+				fired = true;
+			} else {
+				fired = false;
+			}
 		}
+
+		if (fired) {
+			bbScene.fireGameEvent(GameEvents.PLAYER_THREW_BALLOON);
+		}
+		
 		return fired;
 	}
 
