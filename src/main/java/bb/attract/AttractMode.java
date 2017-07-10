@@ -10,10 +10,13 @@ import bb.common.screen.TransitionScreen;
 import bb.framework.event.ScreenEvent;
 import bb.framework.event.ScreenListener;
 import bb.framework.mode.AbstractMode;
-import bb.framework.mode.AbstractModeController;
 import bb.framework.screen.Screen;
+import bb.framework.screen.ScreenBuilder;
 import bb.framework.screen.ScreenManager;
 import bb.framework.util.Assert;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static bb.attract.AttractScreenNames.*;
 
@@ -21,82 +24,104 @@ import static bb.attract.AttractScreenNames.*;
  * Created by willie on 7/1/17.
  */
 public class AttractMode extends AbstractMode {
-	private AttractController controller;
+	private BBConfig config;
+	private BBContext context;
+	private List<ScreenBuilder> screenBuilders = new ArrayList<>();
+	private int currScreenIndex = -1;
+	private ScreenHandler screenHandler;
 
 	public AttractMode(BBConfig config, BBContext context, ScreenManager screenManager) {
-		super(BBConfig.ATTRACT_MODE);
+		super(BBConfig.ATTRACT_MODE, screenManager);
 		Assert.notNull(config, "config can't be null");
 		Assert.notNull(context, "context can't be null");
 		Assert.notNull(screenManager, "screenManager can't be null");
-
-		this.controller = new AttractController(config, context, screenManager);
-		setModeController(controller);
+		this.config = config;
+		this.context = context;
+		initScreenBuilders();
+		initListeners();
+	}
+	
+	@Override
+	public void start() {
+		transitionTo(0);
+	}
+	
+	@Override
+	public void transitionTo(Screen screen) {
+		screen.addScreenListener(screenHandler);
+		super.transitionTo(screen);
+	}
+	
+	private void initScreenBuilders() {
+		screenBuilders.add(new ScreenBuilder() {
+			@Override
+			public Screen build() {
+				return TransitionScreen.create(TRANSITION_SCREEN, config, context);
+			}
+		});
+		screenBuilders.add(new ScreenBuilder() {
+			@Override
+			public Screen build() {
+				return TitleScreen.create(config, context);
+			}
+		});
+		screenBuilders.add(new ScreenBuilder() {
+			@Override
+			public Screen build() {
+				return AbortableSceneScreen.create(
+						BACKSTORY_SCREEN,
+						config,
+						context,
+						new BackstoryScene());
+			}
+		});
+		screenBuilders.add(new ScreenBuilder() {
+			@Override
+			public Screen build(){
+				return AbortableSceneScreen.create(
+						ROSTER_SCREEN,
+						config,
+						context,
+						new RosterScene());
+			}
+		});
+	}
+	
+	private void initListeners() {
+		this.screenHandler = new ScreenHandler();
+	}
+	
+	private void transitionTo(int index) {
+		this.currScreenIndex = index;
+		transitionTo(screenBuilders.get(currScreenIndex).build());
 	}
 
-	private class AttractController extends AbstractModeController implements ScreenListener {
-		private BBConfig config;
-		private BBContext context;
-
-		public AttractController(BBConfig config, BBContext context, ScreenManager screenManager) {
-			super(screenManager);
-			this.config = config;
-			this.context = context;
-		}
+	private class ScreenHandler implements ScreenListener {
 
 		@Override
 		public void handleEvent(ScreenEvent event) {
-			final int type = event.getType();
-			final String screenName = getCurrentScreen().getName();
-
-			if (type == ScreenEvent.START_1P_GAME || type == ScreenEvent.START_2P_GAME) {
-				// TODO Handle choice between 1p and 2p game. [WLW]
-				// TODO Commented this out because you can't hear it.
-				// I think this sound was for when you put a quarter in the machine.
-//				context.getAudioFactory().startSound();
-				yield();
-			} else if (type == ScreenEvent.SCREEN_ABORTED) {
-				transitionTo(titleScreen());
-			} else if (type == ScreenEvent.SCREEN_EXPIRED) {
-				if (TRANSITION_SCREEN.equals(screenName)) {
-					transitionTo(titleScreen());
-				} else if (TITLE_SCREEN.equals(screenName)) {
-					transitionTo(backstoryScreen());
-				} else if (BACKSTORY_SCREEN.equals(screenName)) {
-					transitionTo(rosterScreen());
-				} else if (ROSTER_SCREEN.equals(screenName)) {
-					transitionTo(transitionScreen());
-				} else {
-					throw new IllegalArgumentException("Unexpected screen: " + screenName);
-				}
-			} else {
-				throw new IllegalArgumentException("Unexpected event type: " + type);
+			final int numScreens = screenBuilders.size();
+			
+			switch (event.getType()) {
+				case START_1P_GAME:
+				case START_2P_GAME:
+					getCurrentScreen().stop();
+					stop();
+					break;
+				case PREVIOUS_SCREEN:
+					getCurrentScreen().stop();
+					transitionTo((currScreenIndex + numScreens - 1) % numScreens);
+					break;
+				case NEXT_SCREEN:
+				case SCREEN_EXPIRED:
+					getCurrentScreen().stop();
+					transitionTo((currScreenIndex + 1) % numScreens);
+					break;
+				case SCREEN_ABORTED:
+					getCurrentScreen().stop();
+					start();
+					break;
 			}
-		}
-
-		@Override
-		public void start() {
-			transitionTo(transitionScreen());
-		}
-
-		private Screen transitionScreen() {
-			return withListener(TransitionScreen.create(TRANSITION_SCREEN, config, context));
-		}
-
-		private Screen titleScreen() {
-			return withListener(TitleScreen.create(config, context));
-		}
-
-		private Screen backstoryScreen() {
-			return withListener(AbortableSceneScreen.create(BACKSTORY_SCREEN, config, context, new BackstoryScene()));
-		}
-
-		private Screen rosterScreen() {
-			return withListener(AbortableSceneScreen.create(ROSTER_SCREEN, config, context, new RosterScene()));
-		}
-
-		private Screen withListener(Screen screen) {
-			screen.addScreenListener(controller);
-			return screen;
 		}
 	}
 }

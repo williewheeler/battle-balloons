@@ -32,8 +32,7 @@ public class LexiView extends AbstractActorView {
 	public void paintEntering(Graphics g, Actor actor) {
 		final Lexi lexi = (Lexi) actor;
 		final int spriteIndex = lexi.getEnterTtl();
-
-		// FIXME This generated an ArrayIndexOutOfBoundsException: -1
+		assert(spriteIndex >= 0);
 		final BufferedImage sprite = spriteFactory.getLexiEntering()[spriteIndex];
 
 		final int xOffset = lexi.getX() - sprite.getWidth() / 2;
@@ -58,7 +57,8 @@ public class LexiView extends AbstractActorView {
 	@Override
 	public void paintExiting(Graphics g, Actor actor) {
 		final Lexi lexi = (Lexi) actor;
-		final int spriteIndex = (Lexi.EXIT_TTL - 1) - lexi.getExitTtl();
+		final int spriteIndex = Lexi.EXIT_TTL - lexi.getExitTtl();
+		assert(spriteIndex >= 0);
 		final BufferedImage sprite = spriteFactory.getLexiExiting()[spriteIndex];
 		final int xOffset = lexi.getX() - sprite.getWidth() / 2;
 		final int yOffset = lexi.getY() - sprite.getHeight() / 2;

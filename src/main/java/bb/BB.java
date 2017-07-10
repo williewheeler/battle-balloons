@@ -27,22 +27,19 @@ import static bb.common.BBConfig.SCREEN_SIZE_PX;
 public class BB extends JFrame {
 	private static final Logger log = LoggerFactory.getLogger(BB.class);
 
-	private BBStateMachine stateMachine;
+	private ModeHandler modeHandler;
 
 	public BB() {
 		super("Battle Balloons");
-
 		BBConfig config = new BBConfig();
 		BBContext context = new BBContext();
 		ScreenManager screenManager = new ScreenManagerImpl();
 		BBModeFactory modeFactory = new BBModeFactory(config, context, screenManager);
-
-		this.stateMachine = new BBStateMachine(modeFactory);
+		this.modeHandler = new ModeHandler(modeFactory);
 	}
 
 	public void start() {
 		log.info("Starting BB");
-
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		Resizer resizer = new Resizer(SCREEN_SIZE_PX, SCREEN_SCALE_BY);
 		getContentPane().add(resizer, BorderLayout.CENTER);
@@ -50,8 +47,7 @@ public class BB extends JFrame {
 		setResizable(false);
 		setLocationRelativeTo(null);
 		setVisible(true);
-
-		stateMachine.start();
+		modeHandler.start();
 	}
 
 	/**
@@ -63,18 +59,13 @@ public class BB extends JFrame {
 		@Override
 		public void startScreen(Screen screen) {
 			Assert.notNull(screen, "screen can't be null");
-
 			stopCurrentScreen();
-
 			this.currentScreen = screen;
-			Resizer resizer = new Resizer(SCREEN_SIZE_PX, SCREEN_SCALE_BY);
-			resizer.add(currentScreen.getJComponent());
-			getContentPane().add(resizer);
-			validate();
+			initResizer();
 			addKeyListener(currentScreen.getKeyHandler());
 			currentScreen.start();
 		}
-
+		
 		@Override
 		public void stopCurrentScreen() {
 			if (currentScreen != null) {
@@ -82,6 +73,13 @@ public class BB extends JFrame {
 				removeKeyListener(currentScreen.getKeyHandler());
 				getContentPane().removeAll();
 			}
+		}
+		
+		private void initResizer() {
+			Resizer resizer = new Resizer(SCREEN_SIZE_PX, SCREEN_SCALE_BY);
+			resizer.add(currentScreen.getJComponent());
+			getContentPane().add(resizer);
+			validate();
 		}
 	}
 
@@ -111,15 +109,13 @@ public class BB extends JFrame {
 			return new GameMode(config, context, screenManager);
 		}
 	}
-
-	/**
-	 * Top-level state machine to transition between modes.
-	 */
-	private static class BBStateMachine implements ModeListener {
+	
+	// TODO Refactor this along the lines of ScreenHandler. [WLW]
+	private static class ModeHandler implements ModeListener {
 		private BBModeFactory modeFactory;
 		private Mode currentMode;
 
-		public BBStateMachine(BBModeFactory modeFactory) {
+		public ModeHandler(BBModeFactory modeFactory) {
 			Assert.notNull(modeFactory, "modeFactory can't be null");
 			this.modeFactory = modeFactory;
 			this.currentMode = null;

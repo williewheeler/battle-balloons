@@ -13,6 +13,7 @@ import bb.framework.actor.ActorLifecycleState;
 import bb.framework.actor.Player;
 import bb.framework.event.GameEvent;
 import bb.framework.event.GameListener;
+import bb.framework.scene.Scene;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,7 +25,7 @@ import java.util.ListIterator;
 /**
  * Created by willie on 7/2/17.
  */
-public class BBScene {
+public class BBScene implements Scene {
 	private static final Logger log = LoggerFactory.getLogger(BBScene.class);
 
 	private Player player;
@@ -53,7 +54,8 @@ public class BBScene {
 		allActors.add(obstacles);
 		allActors.add(texts);
 	}
-
+	
+	@Override
 	public boolean isActive() {
 		return active;
 	}
@@ -61,7 +63,8 @@ public class BBScene {
 	public void setActive(boolean active) {
 		this.active = active;
 	}
-
+	
+	@Override
 	public Player getPlayer() {
 		return player;
 	}
@@ -109,16 +112,16 @@ public class BBScene {
 	public void addGameListener(GameListener listener) {
 		gameListeners.add(listener);
 	}
-
+	
+	@Override
 	public void update() {
-//		log.trace("balloons.size={}", balloons.size());
-//		log.trace("bigBalloons.size={}", bigBalloons.size());
 		garbageCollectActors();
 		updateActors();
 		CollisionDetector.checkCollisions(this);
 	}
 
 	public void fireGameEvent(GameEvent event) {
+		log.trace("Firing game event: {}", event.getType());
 		gameListeners.forEach(listener -> listener.handleEvent(event));
 	}
 
