@@ -1,5 +1,7 @@
 package bb.common.actor.model;
 
+import bb.framework.actor.AbstractActor;
+
 /**
  * Created by willie on 7/1/17.
  */
