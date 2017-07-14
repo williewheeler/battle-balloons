@@ -10,6 +10,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 
 import static bb.BBConfig.*;
 
@@ -52,10 +53,11 @@ public class ArenaHeader extends JComponent {
 
 	private void paintLives(Graphics g) {
 		Player player = gameModel.getPlayer();
+		BufferedImage sprite = spriteFactory.getLexiLife();
 		int numLives = player.getLives();
 		for (int i = 0; i < numLives; i++) {
 			int lifeX = ARENA_HEADER_P1_ANCHOR_PX + i * 8;
-			g.drawImage(spriteFactory.getLexi(), lifeX, -2, SPRITE_WIDTH_PX, SPRITE_HEIGHT_PX, null);
+			g.drawImage(sprite, lifeX, -2, SPRITE_WIDTH_PX, SPRITE_HEIGHT_PX, null);
 		}
 	}
 }

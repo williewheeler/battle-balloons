@@ -16,7 +16,7 @@ import static bb.BBConfig.SCREEN_WIDTH_PX;
  * Created by willie on 6/7/17.
  */
 public class Resizer extends JPanel {
-	private static final int K = 3;
+	private static final int K = 4;
 	private static final Dimension PREF_SIZE = new Dimension(K * SCREEN_WIDTH_PX, K * SCREEN_HEIGHT_PX);
 	private static final AffineTransform SCALE_XFORM = AffineTransform.getScaleInstance(K, K);
 
