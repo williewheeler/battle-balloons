@@ -31,7 +31,7 @@ import static com.williewheeler.bb.game.screen.ArenaConfig.ARENA_MARGIN_LEFT_RIG
  */
 public class ArenaScreen extends SceneScreen {
 	private static final Logger log = LoggerFactory.getLogger(ArenaScreen.class);
-
+	
 	public static ArenaScreen create(BBConfig config, BBContext context, BBScene scene) {
 		Assert.notNull(config, "config can't be null");
 		Assert.notNull(context, "context can't be null");

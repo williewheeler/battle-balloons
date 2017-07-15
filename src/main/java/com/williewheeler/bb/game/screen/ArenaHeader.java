@@ -24,14 +24,21 @@ import static com.williewheeler.bb.game.screen.ArenaConfig.ARENA_HEADER_SIZE_PX;
 public class ArenaHeader extends JComponent {
 	private BBContext context;
 	private ArenaScene scene;
+	
+	/**
+	 * A copy of the player's number of lives. We manage this separately from the scene because we want the display
+	 * update to occur only after the new ArenaScreen appears.
+	 */
+	private int numLivesCopy;
 
 	public ArenaHeader(BBContext context, ArenaScene scene) {
 		Assert.notNull(context, "context can't be null");
 		Assert.notNull(scene, "scene can't be null");
 		this.context = context;
 		this.scene = scene;
+		this.numLivesCopy = scene.getPlayer().getLives();
 	}
-
+	
 	@Override
 	public Dimension getPreferredSize() {
 		return ARENA_HEADER_SIZE_PX;
@@ -61,13 +68,10 @@ public class ArenaHeader extends JComponent {
 	// Don't want player 2 score overlapping with player 1 lives.
 	private void paintLives(Graphics g) {
 		SpriteFactory spriteFactory = context.getSpriteFactory();
-
-		Player player = scene.getPlayer();
 		BufferedImage sprite = spriteFactory.getLexiLife();
-		int numLives = player.getLives();
 
 		// Skip life 0, since that's the life that's playing
-		for (int i = 1; i < numLives; i++) {
+		for (int i = 1; i < numLivesCopy; i++) {
 			int lifeX = ARENA_HEADER_P1_ANCHOR_PX + (i - 1) * 8;
 			g.drawImage(sprite, lifeX, -2, SPRITE_WIDTH_PX, SPRITE_HEIGHT_PX, null);
 		}
