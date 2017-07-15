@@ -5,6 +5,7 @@ import com.williewheeler.bb.common.actor.view.ActorViewFactory;
 import com.williewheeler.bb.common.scene.BBScenePane;
 import com.williewheeler.bb.game.scene.ArenaScene;
 import com.williewheeler.retroge.util.Assert;
+import com.williewheeler.retroge.util.MathUtil;
 
 import javax.swing.JPanel;
 import java.awt.Color;
@@ -35,7 +36,9 @@ public class ArenaPane extends JPanel {
 	}
 
 	private void initDefaults() {
-		setBackground(Color.YELLOW);
+		int colorIndex = MathUtil.nextRandomInt(ArenaConfig.COLOR_SCHEME.length);
+		Color color = ArenaConfig.COLOR_SCHEME[colorIndex];
+		setBackground(color);
 	}
 
 	private void initComponents(BBContext context, ArenaScene scene) {

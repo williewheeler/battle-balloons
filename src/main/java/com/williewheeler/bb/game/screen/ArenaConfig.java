@@ -2,6 +2,7 @@ package com.williewheeler.bb.game.screen;
 
 import com.williewheeler.bb.common.BBConfig;
 
+import java.awt.Color;
 import java.awt.Dimension;
 
 /**
@@ -24,4 +25,13 @@ public final class ArenaConfig {
 	
 	// Clearing around the player when enemies are initially placed
 	public static final int CLEARING_RADIUS = 50;
+	
+	public static final Color[] COLOR_SCHEME = new Color[] {
+			Color.RED,
+			Color.ORANGE,
+			Color.YELLOW,
+			Color.GREEN,
+			Color.CYAN,
+			Color.MAGENTA
+	};
 }

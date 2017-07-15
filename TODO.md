@@ -20,10 +20,12 @@
 - \[DONE] Actors can overlap with bottom boundary. It's not just obstacles, but even the player and dogs.
 
 ## Enhancements
+- Flash boundary when player gets an extra life.
+- Play sound effect when player gets an extra life.
 - Animal scores should increment 1000, 2000, ..., 5000.
 - Actors should not overlap with obstacles, either on initial placement or while walking.
 - Move current roster content to the backstory screen.
 - Implement an appropriate roster screen.
-- Play sound effect when player gets an extra life.
+- \[DONE] Choose boundary color randomly.
 - \[DONE] Make balloons splat (visually).
 - \[DONE] Allow player to shoot bullies.
