@@ -3,13 +3,13 @@ package bb;
 import bb.attract.AttractMode;
 import bb.common.BBConfig;
 import bb.common.BBContext;
-import bb.framework.event.ModeEvent;
-import bb.framework.event.ModeListener;
-import bb.framework.mode.Mode;
-import bb.framework.screen.Resizer;
-import bb.framework.screen.Screen;
-import bb.framework.screen.ScreenManager;
-import bb.framework.util.Assert;
+import retroge.event.ModeEvent;
+import retroge.event.ModeListener;
+import retroge.mode.Mode;
+import retroge.screen.Resizer;
+import retroge.screen.Screen;
+import retroge.screen.ScreenManager;
+import retroge.util.Assert;
 import bb.game.GameMode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -60,26 +60,29 @@ public class BB extends JFrame {
 		public void startScreen(Screen screen) {
 			Assert.notNull(screen, "screen can't be null");
 			stopCurrentScreen();
-			this.currentScreen = screen;
-			initResizer();
-			addKeyListener(currentScreen.getKeyHandler());
-			currentScreen.start();
+			doStartScreen(screen);
 		}
 		
 		@Override
 		public void stopCurrentScreen() {
 			if (currentScreen != null) {
+				log.trace("Stopping screen: {}", currentScreen);
 				currentScreen.stop();
 				removeKeyListener(currentScreen.getKeyHandler());
 				getContentPane().removeAll();
+				this.currentScreen = null;
 			}
 		}
 		
-		private void initResizer() {
+		private void doStartScreen(Screen screen) {
+			log.trace("Starting screen: {}", screen);
+			this.currentScreen = screen;
 			Resizer resizer = new Resizer(SCREEN_SIZE_PX, SCREEN_SCALE_BY);
 			resizer.add(currentScreen.getJComponent());
 			getContentPane().add(resizer);
 			validate();
+			addKeyListener(currentScreen.getKeyHandler());
+			currentScreen.start();
 		}
 	}
 

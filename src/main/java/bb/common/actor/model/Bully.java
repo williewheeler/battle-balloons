@@ -1,7 +1,7 @@
 package bb.common.actor.model;
 
-import bb.framework.actor.AbstractActor;
-import bb.framework.actor.brain.ActorBrain;
+import retroge.actor.AbstractActor;
+import retroge.actor.brain.ActorBrain;
 
 /**
  * Created by willie on 7/5/17.

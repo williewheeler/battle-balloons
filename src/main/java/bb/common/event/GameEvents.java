@@ -1,6 +1,6 @@
 package bb.common.event;
 
-import bb.framework.event.GameEvent;
+import retroge.event.GameEvent;
 
 /**
  * Created by willie on 6/3/17.

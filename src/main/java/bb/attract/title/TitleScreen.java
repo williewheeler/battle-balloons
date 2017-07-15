@@ -6,8 +6,8 @@ import bb.common.BBContext;
 import bb.common.actor.view.ActorViewFactory;
 import bb.common.scene.BBScenePane;
 import bb.common.screen.SceneScreen;
-import bb.framework.event.ScreenEvent;
-import bb.framework.util.Assert;
+import retroge.event.ScreenEvent;
+import retroge.util.Assert;
 
 import javax.swing.JComponent;
 import java.awt.Dimension;

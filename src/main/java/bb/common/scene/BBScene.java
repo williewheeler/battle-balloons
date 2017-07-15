@@ -9,14 +9,15 @@ import bb.common.actor.model.Judo;
 import bb.common.actor.model.Lexi;
 import bb.common.actor.model.Obstacle;
 import bb.common.actor.model.Text;
-import bb.framework.actor.Actor;
-import bb.framework.actor.ActorLifecycleState;
-import bb.framework.actor.Player;
-import bb.framework.event.GameEvent;
-import bb.framework.event.GameListener;
-import bb.framework.scene.Scene;
+import retroge.actor.Actor;
+import retroge.actor.ActorLifecycleState;
+import retroge.actor.Player;
+import retroge.event.GameEvent;
+import retroge.event.GameListener;
+import retroge.scene.Scene;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import retroge.util.Assert;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -131,7 +132,12 @@ public class BBScene implements Scene {
 	}
 
 	public void addGameListener(GameListener listener) {
+		Assert.notNull(listener, "listener can't be null");
 		gameListeners.add(listener);
+		log.trace("BBScene has {} GameListeners:", gameListeners.size());
+		gameListeners.forEach(gl -> {
+			log.trace("  {}", gl);
+		});
 	}
 	
 	@Override
@@ -142,7 +148,6 @@ public class BBScene implements Scene {
 	}
 
 	public void fireGameEvent(GameEvent event) {
-		log.trace("Firing game event: {}", event.getType());
 		gameListeners.forEach(listener -> listener.handleEvent(event));
 	}
 

@@ -3,11 +3,11 @@ package bb.common.actor.model;
 import bb.common.BBConfig;
 import bb.common.event.GameEvents;
 import bb.common.scene.BBScene;
-import bb.framework.actor.AbstractActor;
-import bb.framework.actor.ActorLifecycleState;
-import bb.framework.actor.DirectionIntent;
-import bb.framework.actor.brain.ActorBrain;
-import bb.framework.util.MathUtil;
+import retroge.actor.AbstractActor;
+import retroge.actor.ActorLifecycleState;
+import retroge.actor.DirectionIntent;
+import retroge.actor.brain.ActorBrain;
+import retroge.util.MathUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -86,7 +86,6 @@ public class Lexi extends AbstractActor {
 
 	@Override
 	public void updateBodyEntering() {
-		log.trace("Body entering");
 		this.enterTtl--;
 		if (enterTtl <= 0) {
 			this.enterTtl = ENTER_TTL;

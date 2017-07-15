@@ -1,8 +1,8 @@
 package bb.common.actor.model;
 
-import bb.framework.actor.AbstractActor;
-import bb.framework.actor.ActorLifecycleState;
-import bb.framework.actor.brain.ActorBrain;
+import retroge.actor.AbstractActor;
+import retroge.actor.ActorLifecycleState;
+import retroge.actor.brain.ActorBrain;
 
 /**
  * Created by willie on 7/2/17.

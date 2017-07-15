@@ -1,9 +1,9 @@
 package bb.common.actor.model;
 
-import bb.framework.actor.AbstractActor;
-import bb.framework.actor.ActorLifecycleState;
+import retroge.actor.AbstractActor;
+import retroge.actor.ActorLifecycleState;
 
-import static bb.common.BBConfig.WORLD_SIZE;
+import static retroge.GameConfig.WORLD_SIZE;
 
 /**
  * Created by willie on 7/3/17.

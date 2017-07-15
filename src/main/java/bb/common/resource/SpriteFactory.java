@@ -2,7 +2,7 @@ package bb.common.resource;
 
 import bb.common.actor.model.Judo;
 import bb.common.actor.model.Lexi;
-import bb.framework.resource.ImageLoader;
+import retroge.resource.ImageLoader;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;

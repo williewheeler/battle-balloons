@@ -1,7 +1,7 @@
 package bb.common.actor.view;
 
-import bb.framework.actor.Actor;
-import bb.framework.actor.ActorView;
+import retroge.actor.Actor;
+import retroge.actor.ActorView;
 
 import java.awt.Graphics;
 

@@ -10,9 +10,9 @@ import bb.common.actor.model.Obstacle;
 import bb.common.actor.model.Text;
 import bb.common.resource.FontFactory;
 import bb.common.resource.SpriteFactory;
-import bb.framework.actor.Actor;
-import bb.framework.actor.ActorView;
-import bb.framework.util.Assert;
+import retroge.actor.Actor;
+import retroge.actor.ActorView;
+import retroge.util.Assert;
 
 /**
  * Created by willie on 6/24/17.

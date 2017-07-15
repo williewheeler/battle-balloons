@@ -3,7 +3,7 @@ package bb.common.screen;
 import bb.common.BBConfig;
 import bb.common.BBContext;
 import bb.common.scene.BBScene;
-import bb.framework.event.ScreenEvent;
+import retroge.event.ScreenEvent;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;

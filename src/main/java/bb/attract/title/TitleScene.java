@@ -3,9 +3,9 @@ package bb.attract.title;
 import bb.common.actor.model.BigBalloon;
 import bb.common.actor.model.Text;
 import bb.common.scene.ScriptScene;
-import bb.framework.util.MathUtil;
+import retroge.util.MathUtil;
 
-import static bb.common.BBConfig.WORLD_SIZE;
+import static retroge.GameConfig.WORLD_SIZE;
 
 /**
  * Created by willie on 7/2/17.

@@ -1,6 +1,6 @@
 package bb.common.resource;
 
-import bb.framework.resource.FontLoader;
+import retroge.resource.FontLoader;
 
 import java.awt.Font;
 

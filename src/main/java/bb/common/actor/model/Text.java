@@ -1,6 +1,6 @@
 package bb.common.actor.model;
 
-import bb.framework.actor.AbstractActor;
+import retroge.actor.AbstractActor;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,7 +1,7 @@
 package bb.common.actor.view;
 
-import bb.framework.actor.Direction;
-import bb.framework.util.Assert;
+import retroge.actor.Direction;
+import retroge.util.Assert;
 
 /**
  * Created by willie on 6/9/17.

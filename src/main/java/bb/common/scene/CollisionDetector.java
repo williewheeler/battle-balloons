@@ -3,11 +3,11 @@ package bb.common.scene;
 import bb.common.actor.model.Bully;
 import bb.common.actor.model.Dog;
 import bb.common.event.GameEvents;
-import bb.framework.actor.Actor;
-import bb.framework.actor.ActorLifecycleState;
-import bb.framework.actor.Player;
-import bb.framework.event.GameEvent;
-import bb.framework.util.Assert;
+import retroge.actor.Actor;
+import retroge.actor.ActorLifecycleState;
+import retroge.actor.Player;
+import retroge.event.GameEvent;
+import retroge.util.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,9 +23,8 @@ public final class CollisionDetector {
 		Assert.notNull(scene, "scene can't be null");
 
 		Player player = scene.getPlayer();
-		if (player != null) {
+		if (player != null && player.getActor().getState() == ActorLifecycleState.ACTIVE) {
 			checkPlayerRescue(scene, scene.getDogs());
-
 			checkPlayerDeath(scene, scene.getObstacles());
 			checkPlayerDeath(scene, scene.getJudos());
 			checkPlayerDeath(scene, scene.getBullies());

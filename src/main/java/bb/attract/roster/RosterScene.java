@@ -5,7 +5,7 @@ import bb.common.actor.model.Lexi;
 import bb.common.actor.model.Obstacle;
 import bb.common.actor.model.Text;
 import bb.common.scene.ScriptScene;
-import bb.framework.actor.brain.BasicActorBrain;
+import retroge.actor.brain.BasicActorBrain;
 
 /**
  * Created by willie on 7/2/17.

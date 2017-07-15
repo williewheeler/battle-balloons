@@ -1,7 +1,7 @@
 package bb.common.resource;
 
-import bb.framework.resource.AudioLoader;
-import bb.framework.util.Assert;
+import retroge.resource.AudioLoader;
+import retroge.util.Assert;
 
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;

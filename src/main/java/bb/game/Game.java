@@ -1,13 +1,13 @@
 package bb.game;
 
 import bb.common.actor.model.Lexi;
-import bb.framework.actor.Player;
-import bb.framework.actor.brain.BasicActorBrain;
-import bb.game.arena.level.Level;
-import bb.game.arena.level.Levels;
-import bb.game.arena.scene.ArenaScene;
+import bb.game.level.Level;
+import bb.game.level.Levels;
+import bb.game.scene.ArenaScene;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import retroge.actor.Player;
+import retroge.actor.brain.BasicActorBrain;
 
 /**
  * Created by wwheeler on 7/7/17.
@@ -44,6 +44,9 @@ public class Game {
 		player.incrementLevel();
 		player.setActor(createLexi());
 		Level level = levels.getLevel(player.getLevel());
+		
+		// TODO Figure out how to add the AudioHandler whenever we create a
+		// new scene. Maybe we do that when there's a new level event?
 		this.scene = new ArenaScene(player, level);
 	}
 	

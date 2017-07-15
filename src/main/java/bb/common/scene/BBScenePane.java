@@ -1,9 +1,9 @@
 package bb.common.scene;
 
 import bb.common.actor.view.ActorViewFactory;
-import bb.framework.actor.Actor;
-import bb.framework.actor.Player;
-import bb.framework.util.Assert;
+import retroge.actor.Actor;
+import retroge.actor.Player;
+import retroge.util.Assert;
 
 import javax.swing.JPanel;
 import java.awt.Color;

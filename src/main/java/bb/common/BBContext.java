@@ -4,7 +4,7 @@ import bb.common.actor.view.ActorViewFactory;
 import bb.common.resource.AudioFactory;
 import bb.common.resource.FontFactory;
 import bb.common.resource.SpriteFactory;
-import bb.framework.BasicGameContext;
+import retroge.BasicGameContext;
 
 // TODO Hm, this is just UI-related stuff. Do we want to keep this isolated from model-related stuff, like levels?
 // [WLW]

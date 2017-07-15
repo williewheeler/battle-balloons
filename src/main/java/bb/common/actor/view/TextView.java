@@ -2,9 +2,9 @@ package bb.common.actor.view;
 
 import bb.common.actor.model.Text;
 import bb.common.resource.FontFactory;
-import bb.framework.actor.Actor;
-import bb.framework.util.Assert;
-import bb.framework.actor.ActorView;
+import retroge.actor.Actor;
+import retroge.util.Assert;
+import retroge.actor.ActorView;
 
 import java.awt.Color;
 import java.awt.Graphics;
