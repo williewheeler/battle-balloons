@@ -13,7 +13,9 @@ public class Balloon extends AbstractActor {
 
 	private static final int WIDTH = 3;
 	private static final int HEIGHT = 3;
-
+	
+	// TODO This mechanism is different than the direction mechanism.
+	// Choose one or the other. (I kind of like dx, dy better.) [WLW]
 	private int dx;
 	private int dy;
 
@@ -21,6 +23,14 @@ public class Balloon extends AbstractActor {
 		super(null, x, y, WIDTH, HEIGHT);
 		this.dx = dx;
 		this.dy = dy;
+	}
+	
+	public int getDx() {
+		return dx;
+	}
+	
+	public int getDy() {
+		return dy;
 	}
 
 	@Override

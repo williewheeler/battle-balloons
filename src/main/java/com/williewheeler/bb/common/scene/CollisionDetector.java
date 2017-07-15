@@ -1,5 +1,6 @@
 package com.williewheeler.bb.common.scene;
 
+import com.williewheeler.bb.common.actor.model.Balloon;
 import com.williewheeler.bb.common.actor.model.Bully;
 import com.williewheeler.bb.common.actor.model.Dog;
 import com.williewheeler.bb.common.event.GameEvents;
@@ -33,8 +34,8 @@ public final class CollisionDetector {
 		checkCollisions(scene, scene.getJudos(), scene.getObstacles(), GameEvents.JUDO_DIED, true);
 		checkCollisions(scene, scene.getBalloons(), scene.getObstacles(), GameEvents.OBSTACLE_DESTROYED, true);
 		checkCollisions(scene, scene.getBalloons(), scene.getJudos(), GameEvents.JUDO_DIED, true);
-		checkCollisions(scene, scene.getBalloons(), scene.getBullies(), null, false);
-
+		checkBalloonBullyCollisions(scene);
+		
 		checkBullyAnimalCollisions(scene);
 
 		// TODO Handle balloon/bully collisions, but the bully is indestructable! [WLW]
@@ -78,14 +79,14 @@ public final class CollisionDetector {
 					}
 				});
 	}
-
+	
 	private static void checkCollisions(
 			BBScene scene,
 			List<? extends Actor> these,
 			List<? extends Actor> those,
 			GameEvent event,
 			boolean thoseDie) {
-
+		
 		these.stream()
 				.filter(thisOne -> thisOne.getState() == ActorLifecycleState.ACTIVE)
 				.forEach(thisOne -> {
@@ -97,7 +98,7 @@ public final class CollisionDetector {
 									if (thoseDie) {
 										thatOne.setState(ActorLifecycleState.EXITING);
 									}
-
+									
 									final Player player = scene.getPlayer();
 									if (player != null) {
 										// TODO move this to actor's set state so we don't have to repeat
@@ -107,10 +108,31 @@ public final class CollisionDetector {
 											player.increaseScore(thatOne.getScore());
 										}
 									}
-
+									
 									if (event != null) {
 										scene.fireGameEvent(event);
 									}
+								}
+							});
+				});
+	}
+	
+	private static void checkBalloonBullyCollisions(BBScene scene) {
+		List<Balloon> balloons = scene.getBalloons();
+		List<Bully> bullies = scene.getBullies();
+		balloons.stream()
+				.filter(balloon -> balloon.getState() == ActorLifecycleState.ACTIVE)
+				.forEach(balloon -> {
+					bullies.stream()
+							// No need for this.
+//							.filter(bully -> bully.getState() == ActorLifecycleState.ACTIVE)
+							.forEach(bully -> {
+								if (balloon.checkCollision(bully)) {
+									bully.changeX(balloon.getDx());
+									bully.changeY(balloon.getDy());
+									
+									// Keep EXITING here since I want to make the balloons pop.
+									balloon.setState(ActorLifecycleState.EXITING);
 								}
 							});
 				});

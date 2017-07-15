@@ -1,6 +1,7 @@
 # TODO
 
 ## Refactor
+- Harmonize Actor.Direction with Balloon.dx/dy. I like dx/dy better as it avoids a lot of switch/case logic.
 - Increment score when actor goes into EXITING state, instead of doing so in the collision detector.
 
 ## Bugs
@@ -19,9 +20,10 @@
 - \[DONE] Actors can overlap with bottom boundary. It's not just obstacles, but even the player and dogs.
 
 ## Enhancements
-- Allow player to shoot bullies.
+- Make balloons splat (visually).
 - Animal scores should increment 1000, 2000, ..., 5000.
 - Actors should not overlap with obstacles, either on initial placement or while walking.
 - Move current roster content to the backstory screen.
 - Implement an appropriate roster screen.
 - Play sound effect when player gets an extra life.
+- \[DONE] Allow player to shoot bullies.
