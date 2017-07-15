@@ -4,13 +4,14 @@
 - Increment score when actor goes into EXITING state, instead of doing so in the collision detector.
 
 ## Bugs
-- Dogs should not stop walking.
 - Bully overlaps with left side of screen.
 - Bullies should not stupidly walk into walls.
+- Dogs should not stupidly walk into walls.
 - After player dies and the screen refreshes, the enemies are all active. They should be entering.
 - When player gets extra life, it should show up right away.
 - Sometimes keys stop working.
 - Audio amplitude bug
+- \[DONE] Dogs should not stop walking.
 - \[DONE] Bullies should not walk diagonally.
 - \[DONE] Bullies should not stop walking.
 - \[DONE] Level is incrementing by 2.
@@ -19,6 +20,7 @@
 
 ## Enhancements
 - Allow player to shoot bullies.
+- Animal scores should increment 1000, 2000, ..., 5000.
 - Actors should not overlap with obstacles, either on initial placement or while walking.
 - Move current roster content to the backstory screen.
 - Implement an appropriate roster screen.

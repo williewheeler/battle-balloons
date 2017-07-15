@@ -7,7 +7,7 @@ import com.williewheeler.retroge.util.MathUtil;
  * Created by willie on 7/6/17.
  */
 public class DefaultAnimalBrain extends AbstractActorBrain {
-	private static final int MAX_THINK_TTL = 5;
+	private static final int MAX_THINK_TTL = 20;
 	private static final double CHANGE_DIR_THRESHOLD = 0.25;
 
 	private int thinkTtl = -1;

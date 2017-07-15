@@ -52,27 +52,8 @@ public final class ActorUtil {
 		if (brain != null) {
 			DirectionIntent moveIntent = brain.getMoveDirectionIntent();
 			moveIntent.reset();
-			
-			int upDown = MathUtil.nextRandomInt(3) - 1;
-			int leftRight = MathUtil.nextRandomInt(3) - 1;
-			
-			switch (upDown) {
-				case -1:
-					moveIntent.up = true;
-					break;
-				case 1:
-					moveIntent.down = true;
-					break;
-			}
-			
-			switch (leftRight) {
-				case -1:
-					moveIntent.left = true;
-					break;
-				case 1:
-					moveIntent.right = true;
-					break;
-			}
+			moveUpOrDown(moveIntent, MathUtil.nextRandomInt(2));
+			moveLeftOrRight(moveIntent, MathUtil.nextRandomInt(2));
 		}
 	}
 	
@@ -82,23 +63,37 @@ public final class ActorUtil {
 		if (brain != null) {
 			DirectionIntent moveIntent = brain.getMoveDirectionIntent();
 			moveIntent.reset();
-			
-			int axis = MathUtil.nextRandomInt(2);
 			int dir = MathUtil.nextRandomInt(2);
-			
-			if (axis == 0) {
-				if (dir == 0) {
-					moveIntent.up = true;
-				} else {
-					moveIntent.down = true;
-				}
-			} else {
-				if (dir == 0) {
-					moveIntent.left = true;
-				} else {
-					moveIntent.right = true;
-				}
+			switch (MathUtil.nextRandomInt(2)) {
+				case 0:
+					moveUpOrDown(moveIntent, dir);
+					break;
+				case 1:
+					moveLeftOrRight(moveIntent, dir);
+					break;
 			}
+		}
+	}
+	
+	private static void moveUpOrDown(DirectionIntent moveIntent, int upDown) {
+		switch (upDown) {
+			case 0:
+				moveIntent.up = true;
+				break;
+			case 1:
+				moveIntent.down = true;
+				break;
+		}
+	}
+	
+	private static void moveLeftOrRight(DirectionIntent moveIntent, int leftRight) {
+		switch (leftRight) {
+			case 0:
+				moveIntent.left = true;
+				break;
+			case 1:
+				moveIntent.right = true;
+				break;
 		}
 	}
 }
