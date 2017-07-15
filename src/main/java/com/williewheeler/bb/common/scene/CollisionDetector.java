@@ -25,14 +25,15 @@ public final class CollisionDetector {
 		Player player = scene.getPlayer();
 		if (player != null && player.getActor().getState() == ActorLifecycleState.ACTIVE) {
 			checkPlayerRescue(scene, scene.getDogs());
-			checkPlayerDeath(scene, scene.getObstacles());
-			checkPlayerDeath(scene, scene.getJudos());
-			checkPlayerDeath(scene, scene.getBullies());
+			checkPlayerDeath(scene, scene.getObstacles(), true);
+			checkPlayerDeath(scene, scene.getJudos(), true);
+			checkPlayerDeath(scene, scene.getBullies(), false);
 		}
 
-		checkCollisions(scene, scene.getJudos(), scene.getObstacles(), GameEvents.JUDO_DIED);
-		checkCollisions(scene, scene.getBalloons(), scene.getObstacles(), GameEvents.OBSTACLE_DESTROYED);
-		checkCollisions(scene, scene.getBalloons(), scene.getJudos(), GameEvents.JUDO_DIED);
+		checkCollisions(scene, scene.getJudos(), scene.getObstacles(), GameEvents.JUDO_DIED, true);
+		checkCollisions(scene, scene.getBalloons(), scene.getObstacles(), GameEvents.OBSTACLE_DESTROYED, true);
+		checkCollisions(scene, scene.getBalloons(), scene.getJudos(), GameEvents.JUDO_DIED, true);
+		checkCollisions(scene, scene.getBalloons(), scene.getBullies(), null, false);
 
 		checkBullyAnimalCollisions(scene);
 
@@ -56,20 +57,23 @@ public final class CollisionDetector {
 				});
 	}
 
-	private static void checkPlayerDeath(BBScene scene, List<? extends Actor> actors) {
+	private static void checkPlayerDeath(BBScene scene, List<? extends Actor> actors, boolean actorDies) {
 		Player player = scene.getPlayer();
 		assert (player != null);
 		Actor playerActor = player.getActor();
 		actors.stream()
 				.filter(actor -> actor.getState() == ActorLifecycleState.ACTIVE)
-				// FIXME This could allow a player to lose multiple lives at once (when there are multiple
-				// simultaneous collisions).
 				.forEach(actor -> {
 					if (playerActor.checkCollision(actor)) {
 						log.trace("Player collided with {}", actor.getClass().getSimpleName());
 						player.decrementLives();
 						playerActor.setState(ActorLifecycleState.EXITING);
-						actor.setState(ActorLifecycleState.EXITING);
+						if (actorDies) {
+							actor.setState(ActorLifecycleState.EXITING);
+							// TODO move this to actor's set state so we don't have to repeat
+							// the logic in multiple collision detection methods. [WLW]
+							player.increaseScore(actor.getScore());
+						}
 						scene.fireGameEvent(GameEvents.PLAYER_DIED);
 					}
 				});
@@ -79,7 +83,8 @@ public final class CollisionDetector {
 			BBScene scene,
 			List<? extends Actor> these,
 			List<? extends Actor> those,
-			GameEvent event) {
+			GameEvent event,
+			boolean thoseDie) {
 
 		these.stream()
 				.filter(thisOne -> thisOne.getState() == ActorLifecycleState.ACTIVE)
@@ -89,12 +94,18 @@ public final class CollisionDetector {
 							.forEach(thatOne -> {
 								if (thisOne.checkCollision(thatOne)) {
 									thisOne.setState(ActorLifecycleState.EXITING);
-									thatOne.setState(ActorLifecycleState.EXITING);
+									if (thoseDie) {
+										thatOne.setState(ActorLifecycleState.EXITING);
+									}
 
 									final Player player = scene.getPlayer();
 									if (player != null) {
+										// TODO move this to actor's set state so we don't have to repeat
+										// the logic in multiple collision detection methods. [WLW]
 										player.increaseScore(thisOne.getScore());
-										player.increaseScore(thatOne.getScore());
+										if (thoseDie) {
+											player.increaseScore(thatOne.getScore());
+										}
 									}
 
 									if (event != null) {
@@ -104,7 +115,7 @@ public final class CollisionDetector {
 							});
 				});
 	}
-
+	
 	private static void checkBullyAnimalCollisions(BBScene scene) {
 		List<Bully> bullies = scene.getBullies();
 		List<Dog> dogs = scene.getDogs();

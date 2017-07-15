@@ -7,6 +7,9 @@ public class DirectionIntent {
 	public boolean up, down, left, right;
 
 	public void reset() {
-		this.up = this.down = this.left = this.right = false;
+		this.up = false;
+		this.down = false;
+		this.left = false;
+		this.right = false;
 	}
 }

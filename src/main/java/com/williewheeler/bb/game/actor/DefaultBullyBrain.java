@@ -7,7 +7,7 @@ import com.williewheeler.retroge.util.MathUtil;
  * Created by willie on 7/5/17.
  */
 public class DefaultBullyBrain extends AbstractActorBrain {
-	private static final int MAX_THINK_TTL = 10;
+	private static final int MAX_THINK_TTL = 30;
 	private static final double CHANGE_DIR_THRESHOLD = 0.25;
 
 	private int thinkTtl = -1;
@@ -28,7 +28,7 @@ public class DefaultBullyBrain extends AbstractActorBrain {
 
 	private void walkAround() {
 		if (aboutToCrash() || feelLikeChangingDir()) {
-			ActorUtil.randomizeDirection(getActor());
+			ActorUtil.randomizeDirectionNoDiagonals(getActor());
 		}
 	}
 

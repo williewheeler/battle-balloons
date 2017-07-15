@@ -46,7 +46,6 @@ public final class ActorUtil {
 		}
 	}
 
-	// FIXME This can result in an actor who just stands still.
 	public static void randomizeDirection(Actor actor) {
 		Assert.notNull(actor, "actor can't be null");
 		ActorBrain brain = actor.getBrain();
@@ -73,6 +72,32 @@ public final class ActorUtil {
 				case 1:
 					moveIntent.right = true;
 					break;
+			}
+		}
+	}
+	
+	public static void randomizeDirectionNoDiagonals(Actor actor) {
+		Assert.notNull(actor, "actor can't be null");
+		ActorBrain brain = actor.getBrain();
+		if (brain != null) {
+			DirectionIntent moveIntent = brain.getMoveDirectionIntent();
+			moveIntent.reset();
+			
+			int axis = MathUtil.nextRandomInt(2);
+			int dir = MathUtil.nextRandomInt(2);
+			
+			if (axis == 0) {
+				if (dir == 0) {
+					moveIntent.up = true;
+				} else {
+					moveIntent.down = true;
+				}
+			} else {
+				if (dir == 0) {
+					moveIntent.left = true;
+				} else {
+					moveIntent.right = true;
+				}
 			}
 		}
 	}

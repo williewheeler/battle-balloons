@@ -25,7 +25,7 @@ public class Lexi extends AbstractActor {
 	
 	private static final int WIDTH = 5;
 	private static final int HEIGHT = 11;
-	private static final int SPEED = 3;
+	private static final int SPEED = 2;
 
 	public static final int ENTER_TTL = 20;
 	public static final int EXIT_TTL = 40;

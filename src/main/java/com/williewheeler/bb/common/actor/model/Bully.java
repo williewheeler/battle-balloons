@@ -9,8 +9,8 @@ import com.williewheeler.retroge.actor.brain.ActorBrain;
 public class Bully extends AbstractActor {
 	private static final int WIDTH = 7;
 	private static final int HEIGHT = 14;
-	private static final int SPEED = 2;
-	private static final int MAX_WALK_TTL = 11;
+	private static final int SPEED = 1;
+	private static final int MAX_WALK_TTL = 3;
 
 	private int walkTtl = -1;
 

@@ -137,7 +137,12 @@ public class ArenaScene extends BBScene {
 		log.trace("Randomizing actors");
 		randomizeActors(getObstacles());
 		randomizeActors(getJudos());
-		randomizeActors(getBullies());
+		
+		getBullies().forEach(bully -> {
+			ActorUtil.randomizeLocation(bully, player);
+			ActorUtil.randomizeDirectionNoDiagonals(bully);
+		});
+		
 		randomizeActors(getDogs());
 	}
 	
@@ -150,7 +155,14 @@ public class ArenaScene extends BBScene {
 
 	private void checkNextLevel() {
 		if (getJudos().isEmpty()) {
-			player.incrementLevel();
+			
+			// Don't do this here. Scene is not responsible for level management.
+			// When the level is complete, all we do here is signal that. [WLW]
+			// TODO It's confusing that the other GameEvents indicate that the
+			// state change has already occurred, whereas this one indicates that
+			// the level needs to be incremented. [WLW]
+//			player.incrementLevel();
+			
 			setActive(false);
 			fireGameEvent(GameEvents.NEXT_LEVEL);
 		}

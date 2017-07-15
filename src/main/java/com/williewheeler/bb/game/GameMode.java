@@ -33,20 +33,21 @@ public class GameMode extends AbstractMode {
 		Assert.notNull(context, "context can't be null");
 		this.config = config;
 		this.context = context;
-		initListeners();
+		this.gameHandler = new GameHandler();
+		this.screenHandler = new ScreenHandler();
 	}
 	
 	@Override
 	public void start() {
 		this.game = new Game();
-		advancePlayerLevel();
+		game.incrementPlayerLevel();
+		initSceneListeners();
 		context.getAudioFactory().playerFirstLevel();
 		transitionTo(transitionScreen());
 	}
 	
-	private void advancePlayerLevel() {
+	private void initSceneListeners() {
 		AudioFactory audioFactory = context.getAudioFactory();
-		game.incrementPlayerLevel();
 		game.getScene().addGameListener(gameHandler);
 		game.getScene().addGameListener(new AudioHandler(audioFactory));
 	}
@@ -63,18 +64,14 @@ public class GameMode extends AbstractMode {
 		return screen;
 	}
 	
-	private void initListeners() {
-		this.gameHandler = new GameHandler();
-		this.screenHandler = new ScreenHandler();
-	}
-	
 	private class GameHandler implements GameListener {
 
 		@Override
 		public void handleEvent(GameEvent event) {
 			// TODO Can we use enum event types? [WLW]
 			if (event == GameEvents.NEXT_LEVEL) {
-				advancePlayerLevel();
+				game.incrementPlayerLevel();
+				initSceneListeners();
 				transitionTo(transitionScreen());
 			} else if (event == GameEvents.PLAYER_GONE) {
 				transitionTo(transitionScreen());
