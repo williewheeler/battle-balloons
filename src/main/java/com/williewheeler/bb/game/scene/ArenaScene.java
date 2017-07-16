@@ -8,17 +8,16 @@ import com.williewheeler.bb.common.actor.model.Obstacle;
 import com.williewheeler.bb.common.event.GameEvents;
 import com.williewheeler.bb.common.scene.BBScene;
 import com.williewheeler.bb.game.actor.ActorUtil;
-import com.williewheeler.bb.game.actor.DefaultAnimalBrain;
 import com.williewheeler.bb.game.actor.DefaultBullyBrain;
 import com.williewheeler.bb.game.actor.DefaultJudoBrain;
 import com.williewheeler.bb.game.level.Level;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import com.williewheeler.retroge.actor.Actor;
 import com.williewheeler.retroge.actor.ActorLifecycleState;
 import com.williewheeler.retroge.actor.Player;
 import com.williewheeler.retroge.actor.brain.BasicActorBrain;
 import com.williewheeler.retroge.util.Assert;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
@@ -98,38 +97,28 @@ public class ArenaScene extends BBScene {
 	private void initObstacles() {
 		log.trace("Initializing obstacles");
 		for (int i = 0; i < level.getObstacles(); i++) {
-			Obstacle obstacle = new Obstacle(0, 0);
-			obstacle.setScene(this);
-			getObstacles().add(obstacle);
+			getObstacles().add(new Obstacle(this, 0, 0));
 		}
 	}
 
 	private void initJudos() {
 		log.trace("Initializing Judos");
 		for (int i = 0; i < level.getJudos(); i++) {
-			Judo judo = new Judo(new DefaultJudoBrain(), 0, 0);
-			judo.setScene(this);
-			getJudos().add(judo);
+			getJudos().add(new Judo(this, new DefaultJudoBrain(), 0, 0));
 		}
 	}
 
 	private void initBullies() {
 		log.trace("Initializing bullies");
 		for (int i = 0; i < level.getBullies(); i++) {
-			Bully bully = new Bully(new DefaultBullyBrain(), 0, 0);
-			bully.setScene(this);
-			ActorUtil.randomizeLocation(bully, player);
-			getBullies().add(bully);
+			getBullies().add(new Bully(this, new DefaultBullyBrain(), 0, 0));
 		}
 	}
 
 	private void initDogs() {
 		log.trace("Initializing dogs");
 		for (int i = 0; i < level.getDogs(); i++) {
-			Dog dog = new Dog(new DefaultAnimalBrain(), 0, 0);
-			dog.setScene(this);
-			ActorUtil.randomizeLocation(dog, player);
-			getDogs().add(dog);
+			getDogs().add(new Dog(this, 0, 0));
 		}
 	}
 	

@@ -2,6 +2,7 @@ package com.williewheeler.bb.common.actor.model;
 
 import com.williewheeler.retroge.actor.AbstractActor;
 import com.williewheeler.retroge.actor.brain.ActorBrain;
+import com.williewheeler.retroge.scene.Scene;
 
 /**
  * Created by willie on 7/5/17.
@@ -14,8 +15,9 @@ public class Bully extends AbstractActor {
 
 	private int walkTtl = -1;
 
-	public Bully(ActorBrain brain, int x, int y) {
+	public Bully(Scene scene, ActorBrain brain, int x, int y) {
 		super(brain, x, y, WIDTH, HEIGHT);
+		setScene(scene);
 		setSpeed(SPEED);
 	}
 

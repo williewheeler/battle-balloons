@@ -1,39 +1,13 @@
 package com.williewheeler.bb.common.actor.model;
 
-import com.williewheeler.retroge.actor.AbstractActor;
-import com.williewheeler.retroge.actor.brain.ActorBrain;
+import com.williewheeler.retroge.scene.Scene;
 
 /**
  * Created by willie on 7/6/17.
  */
-public class Dog extends AbstractActor {
-	private static final int WIDTH = 11;
-	private static final int HEIGHT = 9;
-	private static final int SPEED = 1;
-	private static final int MAX_WALK_TTL = 5;
-	private static final int SCORE = 1000;
+public class Dog extends Animal {
 
-	private int walkTtl = -1;
-
-	public Dog(ActorBrain brain, int x, int y) {
-		super(brain, x, y, WIDTH, HEIGHT);
-		setSpeed(SPEED);
-	}
-
-	@Override
-	public int getScore() {
-		// TODO Make this more dynamic as we need to increase it during the level.
-		return SCORE;
-	}
-
-	@Override
-	public void updateBodyActive() {
-		if (walkTtl < 0) {
-			this.walkTtl = MAX_WALK_TTL;
-		}
-		if (walkTtl == 0) {
-			doMove();
-		}
-		this.walkTtl--;
+	public Dog(Scene scene, int x, int y) {
+		super(scene, x, y);
 	}
 }

@@ -1,16 +1,21 @@
 package com.williewheeler.retroge.actor;
 
 import com.williewheeler.retroge.actor.brain.ActorBrain;
+import com.williewheeler.retroge.scene.Scene;
 
 /**
  * Created by willie on 6/24/17.
  */
 public interface Actor {
-
+	
+	Scene getScene();
+	
 	ActorLifecycleState getState();
 
 	void setState(ActorLifecycleState state);
-
+	
+	void die();
+	
 	ActorBrain getBrain();
 
 	int getX();

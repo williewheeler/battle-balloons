@@ -24,17 +24,17 @@ public class AudioFactory {
 	
 	public AudioFactory(AudioLoader audioLoader) {
 		Assert.notNull(audioLoader, "audioLoader can't be null");
+		
 		this.audioLoader = audioLoader;
-		final int clipsPerId = Runtime.getRuntime().availableProcessors();
-		this.startSound = loadClips("start-sound", clipsPerId, 1.0f);
-		this.playerWalks = loadClips("player-walks", clipsPerId, -10.f);
-		this.playerThrowsBalloon = loadClips("player-throws-balloon", clipsPerId, -5.0f);
-		this.playerDies = loadClips("player-dies", clipsPerId, -2.0f);
-		this.playerFirstLevel = loadClips("first-level", clipsPerId, 1.0f);
-		this.playerNextLevel = loadClips("next-level", clipsPerId, 1.0f);
-		this.animalRescued = loadClips("animal-rescued", clipsPerId, 0.0f);
-		this.animalDies = loadClips("animal-dies", clipsPerId, 0.0f);
-		this.judoHit = loadClips("explode", clipsPerId, 0.0f);
+		this.startSound = loadClips("start-sound", -20.0f);
+		this.playerWalks = loadClips("player-walks", -20.f);
+		this.playerThrowsBalloon = loadClips("player-throws-balloon", -20.0f);
+		this.playerDies = loadClips("player-dies", -20.0f);
+		this.playerFirstLevel = loadClips("first-level", -20.0f);
+		this.playerNextLevel = loadClips("next-level", -20.0f);
+		this.animalRescued = loadClips("animal-rescued", -20.0f);
+		this.animalDies = loadClips("animal-dies", -20.0f);
+		this.judoHit = loadClips("explode", -20.0f);
 	}
 
 	public void startSound() {
@@ -73,15 +73,15 @@ public class AudioFactory {
 		playSoundEffect(judoHit);
 	}
 
-	private ArrayDeque<Clip> loadClips(String id, int clipsPerId, Float gainControlValue) {
-		String path = String.format("audio/%s.wav", id);
+	private ArrayDeque<Clip> loadClips(String id, float gainControlValue) {
+		final String path = String.format("audio/%s.wav", id);
+		final int clipsPerId = Runtime.getRuntime().availableProcessors();
+		
 		ArrayDeque<Clip> buffer = new ArrayDeque<>();
 		for (int i = 0; i < clipsPerId; i++) {
 			Clip clip = audioLoader.loadSoundEffect(path);
-			if (gainControlValue != null) {
-				FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-				gainControl.setValue(gainControlValue);
-			}
+			FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+			gainControl.setValue(gainControlValue);
 			buffer.add(clip);
 		}
 		return buffer;

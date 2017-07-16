@@ -64,10 +64,7 @@ public class RosterScene extends ScriptScene {
 		this.lexi = new Lexi(new BasicActorBrain(), 50, 180);
 		lexi.setScene(this);
 
-		this.obstacle = new Obstacle(240, 180);
-		obstacle.setScene(this);
-
-		this.judo = new Judo(new BasicActorBrain(), 50, 180);
-		judo.setScene(this);
+		this.obstacle = new Obstacle(this, 240, 180);
+		this.judo = new Judo(this, new BasicActorBrain(), 50, 180);
 	}
 }

@@ -1,6 +1,7 @@
 package com.williewheeler.retroge.actor;
 
 import com.williewheeler.retroge.actor.brain.ActorBrain;
+import com.williewheeler.retroge.event.GameEvent;
 import com.williewheeler.retroge.scene.Scene;
 import com.williewheeler.retroge.util.Assert;
 
@@ -17,6 +18,7 @@ public abstract class AbstractActor implements Actor {
 	// General
 	private ActorLifecycleState state;
 	private Scene scene;
+	private GameEvent dieEvent = null;
 
 	// Brain
 	private ActorBrain brain;
@@ -28,7 +30,7 @@ public abstract class AbstractActor implements Actor {
 	private int height;
 	private int speed;
 	private Direction direction;
-
+	
 	// Other
 	private int walkCounter = 0;
 	// FIXME Temporarily protected so Lexi can see it
@@ -58,13 +60,36 @@ public abstract class AbstractActor implements Actor {
 	public void setState(ActorLifecycleState state) {
 		this.state = state;
 	}
-
+	
+	@Override
+	public void die() {
+		setState(ActorLifecycleState.EXITING);
+		if (scene != null) {
+			Player player = scene.getPlayer();
+			if (player != null) {
+				player.increaseScore(getScore());
+			}
+			if (dieEvent != null) {
+				scene.fireGameEvent(dieEvent);
+			}
+		}
+	}
+	
+	public void setDieEvent(GameEvent dieEvent) {
+		this.dieEvent = dieEvent;
+	}
+	
+	@Override
 	public Scene getScene() {
 		return scene;
 	}
 
 	public void setScene(Scene scene) {
 		this.scene = scene;
+	}
+	
+	public Player getPlayer() {
+		return scene.getPlayer();
 	}
 
 	@Override
@@ -271,7 +296,11 @@ public abstract class AbstractActor implements Actor {
 			setY(scene.getMaxWorldY() - halfActorHeight);
 		}
 	}
-
+	
+	protected void fireGameEvent(GameEvent event) {
+		scene.fireGameEvent(event);
+	}
+	
 	private static Direction calculateDirection(int deltaX, int deltaY) {
 		Direction direction = null;
 		if (deltaY < 0) {

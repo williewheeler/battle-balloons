@@ -1,8 +1,10 @@
 package com.williewheeler.bb.common.actor.model;
 
+import com.williewheeler.bb.common.event.GameEvents;
 import com.williewheeler.retroge.actor.AbstractActor;
 import com.williewheeler.retroge.actor.ActorLifecycleState;
 import com.williewheeler.retroge.actor.brain.ActorBrain;
+import com.williewheeler.retroge.scene.Scene;
 
 /**
  * Created by willie on 7/2/17.
@@ -19,9 +21,11 @@ public class Judo extends AbstractActor {
 	private int enterTtl = ENTER_TTL;
 	private int exitTtl = EXIT_TTL;
 
-	public Judo(ActorBrain brain, int x, int y) {
+	public Judo(Scene scene, ActorBrain brain, int x, int y) {
 		super(brain, x, y, WIDTH, HEIGHT);
+		setScene(scene);
 		setSpeed(SPEED);
+		setDieEvent(GameEvents.JUDO_DIED);
 	}
 
 	@Override

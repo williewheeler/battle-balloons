@@ -1,6 +1,7 @@
 package com.williewheeler.retroge.scene;
 
 import com.williewheeler.retroge.actor.Player;
+import com.williewheeler.retroge.event.GameEvent;
 
 /**
  * Physics engine interface.
@@ -22,4 +23,6 @@ public interface Scene {
 	Player getPlayer();
 	
 	void update();
+	
+	void fireGameEvent(GameEvent event);
 }

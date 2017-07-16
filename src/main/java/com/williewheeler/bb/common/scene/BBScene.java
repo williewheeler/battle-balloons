@@ -14,10 +14,11 @@ import com.williewheeler.retroge.actor.ActorLifecycleState;
 import com.williewheeler.retroge.actor.Player;
 import com.williewheeler.retroge.event.GameEvent;
 import com.williewheeler.retroge.event.GameListener;
+import com.williewheeler.retroge.scene.CollisionDetector;
 import com.williewheeler.retroge.scene.Scene;
+import com.williewheeler.retroge.util.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.williewheeler.retroge.util.Assert;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -41,7 +42,8 @@ public class BBScene implements Scene {
 	private final List<Lexi> lexis = new LinkedList<>();
 	private final List<Obstacle> obstacles = new LinkedList<>();
 	private final List<Text> texts = new LinkedList<>();
-
+	
+	private final CollisionDetector collisionDetector = new BBCollisionDetector();
 	private final List<GameListener> gameListeners = new LinkedList<>();
 
 	private boolean active = true;
@@ -144,9 +146,10 @@ public class BBScene implements Scene {
 	public void update() {
 		garbageCollectActors();
 		updateActors();
-		CollisionDetector.checkCollisions(this);
+		collisionDetector.checkCollisions(this);
 	}
-
+	
+	@Override
 	public void fireGameEvent(GameEvent event) {
 		gameListeners.forEach(listener -> listener.handleEvent(event));
 	}

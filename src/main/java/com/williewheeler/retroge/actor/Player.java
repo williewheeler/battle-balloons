@@ -1,5 +1,6 @@
 package com.williewheeler.retroge.actor;
 
+import com.williewheeler.bb.common.event.GameEvents;
 import com.williewheeler.retroge.GameConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -70,6 +71,12 @@ public class Player {
 		actor.setX(GameConfig.WORLD_SIZE.width / 2);
 		actor.setY(GameConfig.WORLD_SIZE.height / 2);
 		actor.setState(ActorLifecycleState.ENTERING);
+	}
+	
+	public void die() {
+		decrementLives();
+		actor.setState(ActorLifecycleState.EXITING);
+		actor.getScene().fireGameEvent(GameEvents.PLAYER_DIED);
 	}
 	
 //	@Override
