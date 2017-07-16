@@ -15,7 +15,7 @@ import java.awt.Graphics;
 public class BBScenePane extends JPanel {
 	private ActorViewFactory actorViewFactory;
 	private BBScene scene;
-
+	
 	public BBScenePane(ActorViewFactory actorViewFactory, BBScene scene) {
 		Assert.notNull(actorViewFactory, "actorViewFactory can't be null");
 		Assert.notNull(scene, "scene can't be null");

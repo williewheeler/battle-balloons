@@ -21,7 +21,9 @@ import java.awt.Insets;
  */
 public class ArenaPane extends JPanel {
 	private static final int BORDER_SIZE_PX = 2;
-
+	
+	private ArenaScene scene;
+	
 	public ArenaPane(BBContext context, ArenaScene scene) {
 		Assert.notNull(context, "context can't be null");
 		Assert.notNull(scene, "scene can't be null");
@@ -29,24 +31,28 @@ public class ArenaPane extends JPanel {
 		initDefaults();
 		initComponents(context, scene);
 	}
-
+	
 	@Override
 	public Dimension getPreferredSize() {
 		return ArenaConfig.ARENA_PANE_SIZE_PX;
 	}
-
+	
 	private void initDefaults() {
-		int colorIndex = MathUtil.nextRandomInt(ArenaConfig.COLOR_SCHEME.length);
-		Color color = ArenaConfig.COLOR_SCHEME[colorIndex];
-		setBackground(color);
+		setBackground(randomBorderColor());
 	}
 
 	private void initComponents(BBContext context, ArenaScene scene) {
+		this.scene = scene;
 		ActorViewFactory avf = context.getActorViewFactory();
 		setLayout(new GridBagLayout());
 		add(new BBScenePane(avf, scene), buildSceneGBC());
 	}
-
+	
+	private Color randomBorderColor() {
+		int colorIndex = MathUtil.nextRandomInt(ArenaConfig.COLOR_SCHEME.length);
+		return ArenaConfig.COLOR_SCHEME[colorIndex];
+	}
+	
 	private GridBagConstraints buildSceneGBC() {
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.gridx = 0;

@@ -9,15 +9,15 @@ import org.slf4j.LoggerFactory;
  */
 public class Player {
 	private static final Logger log = LoggerFactory.getLogger(Player.class);
-
+	
 	// TODO Just a simple implementation for now. Can revisit this later.
-	private static final int NEXT_LIFE_AT_INCREMENT = 25000;
+	private static final int EXTRA_LIFE_INCREMENT = 25000;
 
 	private Actor actor;
 	private int lives = 3;
 	private int level = 0;
 	private int score = 0;
-	private int nextLifeAt = NEXT_LIFE_AT_INCREMENT;
+	private int extraLifeAt = EXTRA_LIFE_INCREMENT;
 
 	public Actor getActor() {
 		return actor;
@@ -58,9 +58,9 @@ public class Player {
 
 	public void increaseScore(int amount) {
 		this.score += amount;
-		if (score >= nextLifeAt) {
+		if (score >= extraLifeAt) {
 			incrementLives();
-			this.nextLifeAt += NEXT_LIFE_AT_INCREMENT;
+			this.extraLifeAt += EXTRA_LIFE_INCREMENT;
 		}
 	}
 	

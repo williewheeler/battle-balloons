@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class ArenaScene extends BBScene {
 	private static final Logger log = LoggerFactory.getLogger(ArenaScene.class);
-
+	
 	private Player player;
 	private Level level;
 
