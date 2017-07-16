@@ -1,10 +1,10 @@
 package com.williewheeler.bb.common.scene;
 
 import com.williewheeler.bb.common.BBConfig;
+import com.williewheeler.bb.common.actor.model.Animal;
 import com.williewheeler.bb.common.actor.model.Balloon;
 import com.williewheeler.bb.common.actor.model.BigBalloon;
 import com.williewheeler.bb.common.actor.model.Bully;
-import com.williewheeler.bb.common.actor.model.Dog;
 import com.williewheeler.bb.common.actor.model.Judo;
 import com.williewheeler.bb.common.actor.model.Lexi;
 import com.williewheeler.bb.common.actor.model.Obstacle;
@@ -37,12 +37,12 @@ public class BBScene implements Scene {
 	private final List<Balloon> balloons = new LinkedList<>();
 	private final List<BigBalloon> bigBalloons = new LinkedList<>();
 	private final List<Bully> bullies = new LinkedList<>();
-	private final List<Dog> dogs = new LinkedList<>();
 	private final List<Judo> judos = new LinkedList<>();
 	private final List<Lexi> lexis = new LinkedList<>();
 	private final List<Obstacle> obstacles = new LinkedList<>();
 	private final List<Text> texts = new LinkedList<>();
-	
+	private final List<Animal> animals = new LinkedList<>();
+
 	private final CollisionDetector collisionDetector = new BBCollisionDetector();
 	private final List<GameListener> gameListeners = new LinkedList<>();
 
@@ -52,11 +52,11 @@ public class BBScene implements Scene {
 		allActors.add(balloons);
 		allActors.add(bigBalloons);
 		allActors.add(bullies);
-		allActors.add(dogs);
 		allActors.add(judos);
 		allActors.add(lexis);
 		allActors.add(obstacles);
 		allActors.add(texts);
+		allActors.add(animals);
 	}
 	
 	@Override
@@ -113,10 +113,6 @@ public class BBScene implements Scene {
 		return bullies;
 	}
 
-	public List<Dog> getDogs() {
-		return dogs;
-	}
-
 	public List<Judo> getJudos() {
 		return judos;
 	}
@@ -131,6 +127,10 @@ public class BBScene implements Scene {
 
 	public List<Text> getTexts() {
 		return texts;
+	}
+
+	public List<Animal> getAnimals() {
+		return animals;
 	}
 
 	public void addGameListener(GameListener listener) {

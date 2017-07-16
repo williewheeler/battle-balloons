@@ -38,6 +38,8 @@ public class SpriteFactory {
 
 	private BufferedImage[] dogWalking;
 
+	private BufferedImage[] catWalking;
+
 	public SpriteFactory(ImageLoader imageLoader) {
 		BufferedImage sheet = imageLoader.loadImage("images/bb-sprites.png");
 
@@ -56,6 +58,8 @@ public class SpriteFactory {
 		this.bullyWalking = buildWalkingSprites(sheet, 2);
 
 		this.dogWalking = buildWalkingSprites(sheet, 3);
+
+		this.catWalking = buildWalkingSprites(sheet, 4);
 	}
 
 	public BufferedImage[][] getBigBalloons() {
@@ -104,6 +108,10 @@ public class SpriteFactory {
 
 	public BufferedImage[] getDogWalking() {
 		return dogWalking;
+	}
+
+	public BufferedImage[] getCatWalking() {
+		return catWalking;
 	}
 
 	private BufferedImage[] buildWalkingSprites(BufferedImage sheet, int row) {

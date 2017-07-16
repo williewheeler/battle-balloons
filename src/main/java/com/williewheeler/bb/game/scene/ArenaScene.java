@@ -1,6 +1,7 @@
 package com.williewheeler.bb.game.scene;
 
 import com.williewheeler.bb.common.actor.model.Bully;
+import com.williewheeler.bb.common.actor.model.Cat;
 import com.williewheeler.bb.common.actor.model.Dog;
 import com.williewheeler.bb.common.actor.model.Judo;
 import com.williewheeler.bb.common.actor.model.Lexi;
@@ -92,6 +93,7 @@ public class ArenaScene extends BBScene {
 		initJudos();
 		initBullies();
 		initDogs();
+		initCats();
 	}
 	
 	private void initObstacles() {
@@ -118,7 +120,14 @@ public class ArenaScene extends BBScene {
 	private void initDogs() {
 		log.trace("Initializing dogs");
 		for (int i = 0; i < level.getDogs(); i++) {
-			getDogs().add(new Dog(this, 0, 0));
+			getAnimals().add(new Dog(this, 0, 0));
+		}
+	}
+
+	private void initCats() {
+		log.trace("Initializing cats");
+		for (int i = 0; i < level.getCats(); i++) {
+			getAnimals().add(new Cat(this, 0, 0));
 		}
 	}
 	
@@ -132,7 +141,7 @@ public class ArenaScene extends BBScene {
 			ActorUtil.randomizeDirectionNoDiagonals(bully);
 		});
 		
-		randomizeActors(getDogs());
+		randomizeActors(getAnimals());
 	}
 	
 	private void randomizeActors(List<? extends Actor> actors) {
