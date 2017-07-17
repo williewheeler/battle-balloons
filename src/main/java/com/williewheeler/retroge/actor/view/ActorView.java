@@ -1,4 +1,6 @@
-package com.williewheeler.retroge.actor;
+package com.williewheeler.retroge.actor.view;
+
+import com.williewheeler.retroge.actor.model.Actor;
 
 import java.awt.Graphics;
 

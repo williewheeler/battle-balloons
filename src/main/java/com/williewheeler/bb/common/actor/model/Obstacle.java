@@ -1,7 +1,7 @@
 package com.williewheeler.bb.common.actor.model;
 
 import com.williewheeler.bb.common.event.GameEvents;
-import com.williewheeler.retroge.actor.AbstractActor;
+import com.williewheeler.retroge.actor.model.AbstractActor;
 import com.williewheeler.retroge.scene.Scene;
 
 /**

@@ -1,9 +1,9 @@
 package com.williewheeler.bb.game.actor;
 
 import com.williewheeler.retroge.GameConfig;
-import com.williewheeler.retroge.actor.Actor;
-import com.williewheeler.retroge.actor.DirectionIntent;
-import com.williewheeler.retroge.actor.Player;
+import com.williewheeler.retroge.actor.model.Actor;
+import com.williewheeler.retroge.actor.model.DirectionIntent;
+import com.williewheeler.retroge.actor.model.Player;
 import com.williewheeler.retroge.actor.brain.ActorBrain;
 import com.williewheeler.retroge.util.Assert;
 import com.williewheeler.retroge.util.MathUtil;
@@ -52,8 +52,20 @@ public final class ActorUtil {
 		if (brain != null) {
 			DirectionIntent moveIntent = brain.getMoveDirectionIntent();
 			moveIntent.reset();
-			moveUpOrDown(moveIntent, MathUtil.nextRandomInt(2));
-			moveLeftOrRight(moveIntent, MathUtil.nextRandomInt(2));
+
+			int upDown = 0;
+			int leftRight = 0;
+			while (upDown == 0 && leftRight == 0) {
+				upDown = MathUtil.nextRandomInt(3) - 1;
+				leftRight = MathUtil.nextRandomInt(3) - 1;
+			}
+
+			if (upDown != 0) {
+				moveUpOrDown(moveIntent, upDown == -1 ? 0 : 1);
+			}
+			if (leftRight != 0) {
+				moveLeftOrRight(moveIntent, leftRight == -1 ? 0 : 1);
+			}
 		}
 	}
 	

@@ -1,6 +1,7 @@
-package com.williewheeler.bb.attract.title;
+package com.williewheeler.bb.attract.screen;
 
 import com.williewheeler.bb.attract.AttractScreenNames;
+import com.williewheeler.bb.attract.scene.TitleScene;
 import com.williewheeler.bb.common.BBConfig;
 import com.williewheeler.bb.common.BBContext;
 import com.williewheeler.bb.common.actor.view.ActorViewFactory;

@@ -6,7 +6,7 @@ import com.williewheeler.bb.game.level.Levels;
 import com.williewheeler.bb.game.scene.ArenaScene;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.williewheeler.retroge.actor.Player;
+import com.williewheeler.retroge.actor.model.Player;
 import com.williewheeler.retroge.actor.brain.BasicActorBrain;
 
 /**

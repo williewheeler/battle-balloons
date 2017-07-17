@@ -1,4 +1,6 @@
-package com.williewheeler.bb.common.scene;
+package com.williewheeler.bb.attract.scene;
+
+import com.williewheeler.bb.common.scene.BBScene;
 
 /**
  * Created by willie on 7/3/17.

@@ -1,7 +1,7 @@
-package com.williewheeler.bb.attract.backstory;
+package com.williewheeler.bb.attract.scene;
 
 import com.williewheeler.bb.common.actor.model.Text;
-import com.williewheeler.bb.common.scene.ScriptScene;
+import com.williewheeler.bb.attract.scene.ScriptScene;
 
 /**
  * Created by willie on 7/2/17.

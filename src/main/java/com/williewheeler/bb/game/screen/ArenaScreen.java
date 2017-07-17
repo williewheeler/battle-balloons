@@ -8,7 +8,7 @@ import com.williewheeler.bb.game.GameScreenNames;
 import com.williewheeler.bb.game.scene.ArenaScene;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.williewheeler.retroge.actor.DirectionIntent;
+import com.williewheeler.retroge.actor.model.DirectionIntent;
 import com.williewheeler.retroge.actor.brain.ActorBrain;
 import com.williewheeler.retroge.util.Assert;
 

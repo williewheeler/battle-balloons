@@ -6,15 +6,16 @@ import com.williewheeler.bb.common.actor.model.Dog;
 import com.williewheeler.bb.common.actor.model.Judo;
 import com.williewheeler.bb.common.actor.model.Lexi;
 import com.williewheeler.bb.common.actor.model.Obstacle;
+import com.williewheeler.bb.common.actor.model.Parrot;
 import com.williewheeler.bb.common.event.GameEvents;
 import com.williewheeler.bb.common.scene.BBScene;
 import com.williewheeler.bb.game.actor.ActorUtil;
-import com.williewheeler.bb.game.actor.DefaultBullyBrain;
-import com.williewheeler.bb.game.actor.DefaultJudoBrain;
+import com.williewheeler.bb.game.actor.brain.DefaultBullyBrain;
+import com.williewheeler.bb.game.actor.brain.DefaultJudoBrain;
 import com.williewheeler.bb.game.level.Level;
-import com.williewheeler.retroge.actor.Actor;
-import com.williewheeler.retroge.actor.ActorLifecycleState;
-import com.williewheeler.retroge.actor.Player;
+import com.williewheeler.retroge.actor.model.Actor;
+import com.williewheeler.retroge.actor.model.ActorLifecycleState;
+import com.williewheeler.retroge.actor.model.Player;
 import com.williewheeler.retroge.actor.brain.BasicActorBrain;
 import com.williewheeler.retroge.util.Assert;
 import org.slf4j.Logger;
@@ -94,6 +95,7 @@ public class ArenaScene extends BBScene {
 		initBullies();
 		initDogs();
 		initCats();
+		initParrots();
 	}
 	
 	private void initObstacles() {
@@ -128,6 +130,13 @@ public class ArenaScene extends BBScene {
 		log.trace("Initializing cats");
 		for (int i = 0; i < level.getCats(); i++) {
 			getAnimals().add(new Cat(this, 0, 0));
+		}
+	}
+
+	private void initParrots() {
+		log.trace("Initializing parrots");
+		for (int i = 0; i < level.getParrots(); i++) {
+			getAnimals().add(new Parrot(this, 0, 0));
 		}
 	}
 	

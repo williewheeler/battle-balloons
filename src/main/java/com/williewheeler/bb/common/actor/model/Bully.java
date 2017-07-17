@@ -1,6 +1,6 @@
 package com.williewheeler.bb.common.actor.model;
 
-import com.williewheeler.retroge.actor.AbstractActor;
+import com.williewheeler.retroge.actor.model.AbstractActor;
 import com.williewheeler.retroge.actor.brain.ActorBrain;
 import com.williewheeler.retroge.scene.Scene;
 

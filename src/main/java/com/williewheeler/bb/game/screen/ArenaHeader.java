@@ -1,7 +1,7 @@
 package com.williewheeler.bb.game.screen;
 
 import com.williewheeler.bb.game.scene.ArenaScene;
-import com.williewheeler.retroge.actor.Player;
+import com.williewheeler.retroge.actor.model.Player;
 import com.williewheeler.bb.common.BBContext;
 import com.williewheeler.bb.common.resource.FontFactory;
 import com.williewheeler.bb.common.resource.SpriteFactory;

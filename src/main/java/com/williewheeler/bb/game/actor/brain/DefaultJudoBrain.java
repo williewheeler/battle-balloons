@@ -1,9 +1,9 @@
-package com.williewheeler.bb.game.actor;
+package com.williewheeler.bb.game.actor.brain;
 
 import com.williewheeler.bb.common.actor.model.Judo;
 import com.williewheeler.retroge.actor.brain.AbstractActorBrain;
-import com.williewheeler.retroge.actor.Actor;
-import com.williewheeler.retroge.actor.DirectionIntent;
+import com.williewheeler.retroge.actor.model.Actor;
+import com.williewheeler.retroge.actor.model.DirectionIntent;
 import com.williewheeler.retroge.util.MathUtil;
 import com.williewheeler.bb.game.scene.ArenaScene;
 

@@ -1,7 +1,7 @@
 package com.williewheeler.retroge.actor.brain;
 
-import com.williewheeler.retroge.actor.Actor;
-import com.williewheeler.retroge.actor.DirectionIntent;
+import com.williewheeler.retroge.actor.model.Actor;
+import com.williewheeler.retroge.actor.model.DirectionIntent;
 
 /**
  * Actor's sensorimotor model.

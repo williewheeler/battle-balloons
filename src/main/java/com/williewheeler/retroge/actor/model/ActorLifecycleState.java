@@ -1,4 +1,4 @@
-package com.williewheeler.retroge.actor;
+package com.williewheeler.retroge.actor.model;
 
 /**
  * Actor lifecycle states.

@@ -1,8 +1,8 @@
 package com.williewheeler.bb.common.actor.view;
 
 import com.williewheeler.bb.common.actor.model.Balloon;
-import com.williewheeler.retroge.actor.Actor;
-import com.williewheeler.retroge.actor.ActorView;
+import com.williewheeler.retroge.actor.model.Actor;
+import com.williewheeler.retroge.actor.view.ActorView;
 
 import java.awt.Color;
 import java.awt.Graphics;

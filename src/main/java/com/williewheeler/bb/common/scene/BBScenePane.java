@@ -1,8 +1,8 @@
 package com.williewheeler.bb.common.scene;
 
 import com.williewheeler.bb.common.actor.view.ActorViewFactory;
-import com.williewheeler.retroge.actor.Actor;
-import com.williewheeler.retroge.actor.Player;
+import com.williewheeler.retroge.actor.model.Actor;
+import com.williewheeler.retroge.actor.model.Player;
 import com.williewheeler.retroge.util.Assert;
 
 import javax.swing.JPanel;

@@ -6,8 +6,9 @@ package com.williewheeler.bb.common.actor.view;
 import com.williewheeler.bb.common.BBConfig;
 import com.williewheeler.bb.common.actor.model.Cat;
 import com.williewheeler.bb.common.resource.SpriteFactory;
-import com.williewheeler.retroge.actor.Actor;
-import com.williewheeler.retroge.actor.Direction;
+import com.williewheeler.retroge.actor.model.Actor;
+import com.williewheeler.retroge.actor.model.Direction;
+import com.williewheeler.retroge.actor.view.AbstractActorView;
 import com.williewheeler.retroge.util.Assert;
 
 import java.awt.Graphics;

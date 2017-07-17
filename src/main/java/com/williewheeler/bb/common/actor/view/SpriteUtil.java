@@ -1,6 +1,6 @@
 package com.williewheeler.bb.common.actor.view;
 
-import com.williewheeler.retroge.actor.Direction;
+import com.williewheeler.retroge.actor.model.Direction;
 import com.williewheeler.retroge.util.Assert;
 
 /**

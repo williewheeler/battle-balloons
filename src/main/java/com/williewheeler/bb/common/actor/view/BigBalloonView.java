@@ -2,9 +2,9 @@ package com.williewheeler.bb.common.actor.view;
 
 import com.williewheeler.bb.common.actor.model.BigBalloon;
 import com.williewheeler.bb.common.BBConfig;
-import com.williewheeler.retroge.actor.Actor;
+import com.williewheeler.retroge.actor.model.Actor;
 import com.williewheeler.retroge.util.Assert;
-import com.williewheeler.retroge.actor.ActorView;
+import com.williewheeler.retroge.actor.view.ActorView;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;

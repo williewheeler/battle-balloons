@@ -1,13 +1,14 @@
-package com.williewheeler.bb.game.actor;
+package com.williewheeler.bb.game.actor.brain;
 
+import com.williewheeler.bb.game.actor.ActorUtil;
 import com.williewheeler.retroge.actor.brain.AbstractActorBrain;
 import com.williewheeler.retroge.util.MathUtil;
 
 /**
- * Created by willie on 7/6/17.
+ * Created by willie on 7/5/17.
  */
-public class DefaultAnimalBrain extends AbstractActorBrain {
-	private static final int MAX_THINK_TTL = 20;
+public class DefaultBullyBrain extends AbstractActorBrain {
+	private static final int MAX_THINK_TTL = 30;
 	private static final double CHANGE_DIR_THRESHOLD = 0.25;
 
 	private int thinkTtl = -1;
@@ -28,7 +29,7 @@ public class DefaultAnimalBrain extends AbstractActorBrain {
 
 	private void walkAround() {
 		if (aboutToCrash() || feelLikeChangingDir()) {
-			ActorUtil.randomizeDirection(getActor());
+			ActorUtil.randomizeDirectionNoDiagonals(getActor());
 		}
 	}
 

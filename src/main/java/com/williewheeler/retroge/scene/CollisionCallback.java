@@ -1,6 +1,6 @@
 package com.williewheeler.retroge.scene;
 
-import com.williewheeler.retroge.actor.Actor;
+import com.williewheeler.retroge.actor.model.Actor;
 
 /**
  * Created by wwheeler on 7/16/17.

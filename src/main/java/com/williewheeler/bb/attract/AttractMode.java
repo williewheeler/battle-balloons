@@ -1,8 +1,8 @@
 package com.williewheeler.bb.attract;
 
-import com.williewheeler.bb.attract.backstory.BackstoryScene;
-import com.williewheeler.bb.attract.roster.RosterScene;
-import com.williewheeler.bb.attract.title.TitleScreen;
+import com.williewheeler.bb.attract.scene.BackstoryScene;
+import com.williewheeler.bb.attract.scene.RosterScene;
+import com.williewheeler.bb.attract.screen.TitleScreen;
 import com.williewheeler.bb.common.BBConfig;
 import com.williewheeler.bb.common.BBContext;
 import com.williewheeler.bb.common.screen.AbortableSceneScreen;

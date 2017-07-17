@@ -1,8 +1,8 @@
 package com.williewheeler.retroge.scene;
 
-import com.williewheeler.retroge.actor.Actor;
-import com.williewheeler.retroge.actor.ActorLifecycleState;
-import com.williewheeler.retroge.actor.Player;
+import com.williewheeler.retroge.actor.model.Actor;
+import com.williewheeler.retroge.actor.model.ActorLifecycleState;
+import com.williewheeler.retroge.actor.model.Player;
 
 import java.util.List;
 

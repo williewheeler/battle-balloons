@@ -1,7 +1,7 @@
 package com.williewheeler.bb.common.actor.model;
 
-import com.williewheeler.retroge.actor.AbstractActor;
-import com.williewheeler.retroge.actor.ActorLifecycleState;
+import com.williewheeler.retroge.actor.model.AbstractActor;
+import com.williewheeler.retroge.actor.model.ActorLifecycleState;
 
 import static com.williewheeler.retroge.GameConfig.WORLD_SIZE;
 

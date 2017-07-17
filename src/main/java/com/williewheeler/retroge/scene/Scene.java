@@ -1,6 +1,6 @@
 package com.williewheeler.retroge.scene;
 
-import com.williewheeler.retroge.actor.Player;
+import com.williewheeler.retroge.actor.model.Player;
 import com.williewheeler.retroge.event.GameEvent;
 
 /**

@@ -5,7 +5,7 @@ import com.williewheeler.bb.common.actor.model.Balloon;
 import com.williewheeler.bb.common.actor.model.Bully;
 import com.williewheeler.bb.common.actor.model.Judo;
 import com.williewheeler.bb.common.actor.model.Obstacle;
-import com.williewheeler.retroge.actor.Actor;
+import com.williewheeler.retroge.actor.model.Actor;
 import com.williewheeler.retroge.scene.AbstractCollisionDetector;
 import com.williewheeler.retroge.scene.CollisionCallback;
 import com.williewheeler.retroge.scene.Scene;

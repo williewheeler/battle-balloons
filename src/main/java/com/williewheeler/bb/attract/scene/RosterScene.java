@@ -1,10 +1,9 @@
-package com.williewheeler.bb.attract.roster;
+package com.williewheeler.bb.attract.scene;
 
 import com.williewheeler.bb.common.actor.model.Judo;
 import com.williewheeler.bb.common.actor.model.Lexi;
 import com.williewheeler.bb.common.actor.model.Obstacle;
 import com.williewheeler.bb.common.actor.model.Text;
-import com.williewheeler.bb.common.scene.ScriptScene;
 import com.williewheeler.retroge.actor.brain.BasicActorBrain;
 
 /**

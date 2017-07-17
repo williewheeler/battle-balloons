@@ -1,4 +1,4 @@
-package com.williewheeler.retroge.actor;
+package com.williewheeler.retroge.actor.model;
 
 import com.williewheeler.retroge.actor.brain.ActorBrain;
 import com.williewheeler.retroge.event.GameEvent;

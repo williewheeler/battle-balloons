@@ -1,4 +1,4 @@
-package com.williewheeler.retroge.actor;
+package com.williewheeler.retroge.actor.model;
 
 /**
  * Created by willie on 6/9/17.

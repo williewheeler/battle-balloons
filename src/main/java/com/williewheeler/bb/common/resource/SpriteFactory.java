@@ -35,10 +35,9 @@ public class SpriteFactory {
 	private BufferedImage[] judoExiting;
 
 	private BufferedImage[] bullyWalking;
-
 	private BufferedImage[] dogWalking;
-
 	private BufferedImage[] catWalking;
+	private BufferedImage[] parrotWalking;
 
 	public SpriteFactory(ImageLoader imageLoader) {
 		BufferedImage sheet = imageLoader.loadImage("images/bb-sprites.png");
@@ -56,10 +55,9 @@ public class SpriteFactory {
 		this.judoExiting = spaghettify(judoWalking[4], JUDO_EXITING_DURATION);
 
 		this.bullyWalking = buildWalkingSprites(sheet, 2);
-
 		this.dogWalking = buildWalkingSprites(sheet, 3);
-
 		this.catWalking = buildWalkingSprites(sheet, 4);
+		this.parrotWalking = buildWalkingSprites(sheet, 5);
 	}
 
 	public BufferedImage[][] getBigBalloons() {
@@ -112,6 +110,10 @@ public class SpriteFactory {
 
 	public BufferedImage[] getCatWalking() {
 		return catWalking;
+	}
+
+	public BufferedImage[] getParrotWalking() {
+		return parrotWalking;
 	}
 
 	private BufferedImage[] buildWalkingSprites(BufferedImage sheet, int row) {

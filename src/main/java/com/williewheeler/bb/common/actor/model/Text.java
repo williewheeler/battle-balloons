@@ -1,6 +1,6 @@
 package com.williewheeler.bb.common.actor.model;
 
-import com.williewheeler.retroge.actor.AbstractActor;
+import com.williewheeler.retroge.actor.model.AbstractActor;
 
 import java.util.ArrayList;
 import java.util.List;

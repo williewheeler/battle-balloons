@@ -9,13 +9,15 @@ public class Level {
 	private int bullies;
 	private int dogs;
 	private int cats;
+	private int parrots;
 
-	public Level(int obstacles, int judos, int bullies, int dogs, int cats) {
+	public Level(int obstacles, int judos, int bullies, int dogs, int cats, int parrots) {
 		this.obstacles = obstacles;
 		this.judos = judos;
 		this.bullies = bullies;
 		this.dogs = dogs;
 		this.cats = cats;
+		this.parrots = parrots;
 	}
 
 	public int getObstacles() {
@@ -36,5 +38,9 @@ public class Level {
 
 	public int getCats() {
 		return cats;
+	}
+
+	public int getParrots() {
+		return parrots;
 	}
 }
