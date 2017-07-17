@@ -26,7 +26,6 @@ public final class BBCollisionDetector extends AbstractCollisionDetector {
 	private final CollisionCallback balloonBullyCB = new BalloonBullyCollisionCallback();
 	private final CollisionCallback bullyAnimalCB = new BullyAnimalCollisionCallback();
 	private final CollisionCallback defaultPlayerCB = new DefaultPlayerCollisionCallback();
-	private final CollisionCallback playerBullyCB = new PlayerBullyCollisionCallback();
 	private final CollisionCallback playerAnimalCB = new PlayerAnimalCollisionCallback();
 	
 	@Override
@@ -51,7 +50,7 @@ public final class BBCollisionDetector extends AbstractCollisionDetector {
 
 		checkPlayerCollision(bbScene, obstacles, defaultPlayerCB);
 		checkPlayerCollision(bbScene, judos, defaultPlayerCB);
-		checkPlayerCollision(bbScene, bullies, playerBullyCB);
+		checkPlayerCollision(bbScene, bullies, defaultPlayerCB);
 		checkPlayerCollision(bbScene, bengies, defaultPlayerCB);
 		checkPlayerCollision(bbScene, animals, playerAnimalCB);
 	}
@@ -88,20 +87,12 @@ public final class BBCollisionDetector extends AbstractCollisionDetector {
 		@Override
 		public void handleCollision(Scene scene, Actor playerActor, Actor actor) {
 			log.trace("Player collided with {}", actor.getClass().getSimpleName());
-			actor.die();
+			// Don't make the actor die. Just the player.
+//			actor.die();
 			scene.getPlayer().die();
 		}
 	}
-	
-	private static class PlayerBullyCollisionCallback implements CollisionCallback<Actor, Bully> {
-		
-		@Override
-		public void handleCollision(Scene scene, Actor playerActor, Bully bully) {
-			log.trace("Player collided with {}", bully.getClass().getSimpleName());
-			scene.getPlayer().die();
-		}
-	}
-	
+
 	private static class PlayerAnimalCollisionCallback implements CollisionCallback<Actor, Animal> {
 		
 		@Override
