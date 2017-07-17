@@ -11,7 +11,7 @@ public class GameEvents {
 
 	public static final GameEvent PLAYER_WALKED = new GameEvent("playerWalked");
 	public static final GameEvent PLAYER_THREW_BALLOON = new GameEvent("playerThrewBalloon");
-	public static final GameEvent PLAYER_DIED = new GameEvent("playerDies");
+	public static final GameEvent PLAYER_DIED = new GameEvent("playerDied");
 	public static final GameEvent PLAYER_GONE = new GameEvent("playerGone");
 
 	public static final GameEvent ANIMAL_RESCUED = new GameEvent("animalRescued");
@@ -19,5 +19,6 @@ public class GameEvents {
 
 	public static final GameEvent OBSTACLE_DESTROYED = new GameEvent("obstacleDestroyed");
 
-	public static final GameEvent JUDO_DIED = new GameEvent("judoDies");
+	public static final GameEvent JUDO_DIED = new GameEvent("judoDied");
+	public static final GameEvent BENGY_DIED = new GameEvent("bengyDied");
 }

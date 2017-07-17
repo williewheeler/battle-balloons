@@ -1,5 +1,6 @@
 package com.williewheeler.bb.common.resource;
 
+import com.williewheeler.bb.common.actor.model.Bengy;
 import com.williewheeler.bb.common.actor.model.Judo;
 import com.williewheeler.bb.common.actor.model.Lexi;
 import com.williewheeler.retroge.resource.ImageLoader;
@@ -14,14 +15,6 @@ import static com.williewheeler.bb.common.BBConfig.SPRITE_WIDTH_PX;
  * Created by willie on 6/4/17.
  */
 public class SpriteFactory {
-	private static final int PLAYER_ENTERING_DURATION = Lexi.ENTER_TTL + 1;
-	private static final int PLAYER_EXITING_DURATION = Lexi.EXIT_TTL + 1;
-
-	private static final int JUDO_ENTERING_DURATION = Judo.ENTER_TTL + 1;
-	private static final int JUDO_EXITING_DURATION = Judo.EXIT_TTL + 1;
-
-	// row = color
-	// col = rotation
 	private BufferedImage[][] bigBalloons;
 
 	private BufferedImage[] lexiWalking;
@@ -34,6 +27,10 @@ public class SpriteFactory {
 	private BufferedImage[] judoEntering;
 	private BufferedImage[] judoExiting;
 
+	private BufferedImage[] bengyWalking;
+	private BufferedImage[] bengyEntering;
+	private BufferedImage[] bengyExiting;
+
 	private BufferedImage[] bullyWalking;
 	private BufferedImage[] dogWalking;
 	private BufferedImage[] catWalking;
@@ -45,14 +42,18 @@ public class SpriteFactory {
 		this.bigBalloons = buildBigBalloonSprites(sheet);
 
 		this.lexiWalking = buildWalkingSprites(sheet, 0);
-		this.lexiEntering = spaghettify(lexiWalking[4], PLAYER_ENTERING_DURATION);
-		this.lexiExiting = spaghettify(lexiWalking[4], PLAYER_EXITING_DURATION);
+		this.lexiEntering = spaghettify(lexiWalking[4], Lexi.ENTER_TTL);
+		this.lexiExiting = spaghettify(lexiWalking[4], Lexi.EXIT_TTL);
 		this.lexiBlinking = buildLexiBlinking(sheet);
 		this.lexiWaving = buildLexiWaving(sheet);
 		
 		this.judoWalking = buildWalkingSprites(sheet, 1);
-		this.judoEntering = spaghettify(judoWalking[4], JUDO_ENTERING_DURATION);
-		this.judoExiting = spaghettify(judoWalking[4], JUDO_EXITING_DURATION);
+		this.judoEntering = spaghettify(judoWalking[4], Judo.ENTER_TTL);
+		this.judoExiting = spaghettify(judoWalking[4], Judo.EXIT_TTL);
+
+		this.bengyWalking = buildWalkingSprites(sheet, 6);
+		this.bengyEntering = spaghettify(bengyWalking[4], Bengy.ENTER_TTL);
+		this.bengyExiting = spaghettify(bengyWalking[4], Bengy.EXIT_TTL);
 
 		this.bullyWalking = buildWalkingSprites(sheet, 2);
 		this.dogWalking = buildWalkingSprites(sheet, 3);
@@ -104,6 +105,18 @@ public class SpriteFactory {
 		return bullyWalking;
 	}
 
+	public BufferedImage[] getBengyWalking() {
+		return bengyWalking;
+	}
+
+	public BufferedImage[] getBengyEntering() {
+		return bengyEntering;
+	}
+
+	public BufferedImage[] getBengyExiting() {
+		return bengyExiting;
+	}
+
 	public BufferedImage[] getDogWalking() {
 		return dogWalking;
 	}
@@ -143,7 +156,8 @@ public class SpriteFactory {
 		};
 	}
 
-	private BufferedImage[] spaghettify(BufferedImage sprite, int numFrames) {
+	private BufferedImage[] spaghettify(BufferedImage sprite, int ttl) {
+		final int numFrames = ttl + 1;
 		BufferedImage[] result = new BufferedImage[numFrames];
 		int width = sprite.getWidth();
 		int height = sprite.getHeight();

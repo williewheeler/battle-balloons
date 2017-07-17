@@ -3,6 +3,7 @@ package com.williewheeler.bb.common.scene;
 import com.williewheeler.bb.common.BBConfig;
 import com.williewheeler.bb.common.actor.model.Animal;
 import com.williewheeler.bb.common.actor.model.Balloon;
+import com.williewheeler.bb.common.actor.model.Bengy;
 import com.williewheeler.bb.common.actor.model.BigBalloon;
 import com.williewheeler.bb.common.actor.model.Bully;
 import com.williewheeler.bb.common.actor.model.Judo;
@@ -34,14 +35,15 @@ public class BBScene implements Scene {
 	private Player player;
 
 	private final List<List<? extends Actor>> allActors = new ArrayList<>();
-	private final List<Balloon> balloons = new LinkedList<>();
-	private final List<BigBalloon> bigBalloons = new LinkedList<>();
-	private final List<Bully> bullies = new LinkedList<>();
-	private final List<Judo> judos = new LinkedList<>();
 	private final List<Lexi> lexis = new LinkedList<>();
+	private final List<Balloon> balloons = new LinkedList<>();
 	private final List<Obstacle> obstacles = new LinkedList<>();
-	private final List<Text> texts = new LinkedList<>();
+	private final List<Judo> judos = new LinkedList<>();
+	private final List<Bully> bullies = new LinkedList<>();
+	private final List<Bengy> bengies = new LinkedList<>();
 	private final List<Animal> animals = new LinkedList<>();
+	private final List<BigBalloon> bigBalloons = new LinkedList<>();
+	private final List<Text> texts = new LinkedList<>();
 
 	private final CollisionDetector collisionDetector = new BBCollisionDetector();
 	private final List<GameListener> gameListeners = new LinkedList<>();
@@ -49,14 +51,15 @@ public class BBScene implements Scene {
 	private boolean active = true;
 
 	public BBScene() {
-		allActors.add(balloons);
-		allActors.add(bigBalloons);
-		allActors.add(bullies);
-		allActors.add(judos);
 		allActors.add(lexis);
+		allActors.add(balloons);
 		allActors.add(obstacles);
-		allActors.add(texts);
+		allActors.add(judos);
+		allActors.add(bullies);
+		allActors.add(bengies);
 		allActors.add(animals);
+		allActors.add(bigBalloons);
+		allActors.add(texts);
 	}
 	
 	@Override
@@ -101,36 +104,40 @@ public class BBScene implements Scene {
 		return allActors;
 	}
 
-	public List<Balloon> getBalloons() {
-		return balloons;
-	}
-
-	public List<BigBalloon> getBigBalloons() {
-		return bigBalloons;
-	}
-
-	public List<Bully> getBullies() {
-		return bullies;
-	}
-
-	public List<Judo> getJudos() {
-		return judos;
-	}
-
 	public List<Lexi> getLexis() {
 		return lexis;
+	}
+
+	public List<Balloon> getBalloons() {
+		return balloons;
 	}
 
 	public List<Obstacle> getObstacles() {
 		return obstacles;
 	}
 
-	public List<Text> getTexts() {
-		return texts;
+	public List<Judo> getJudos() {
+		return judos;
+	}
+
+	public List<Bully> getBullies() {
+		return bullies;
+	}
+
+	public List<Bengy> getBengies() {
+		return bengies;
 	}
 
 	public List<Animal> getAnimals() {
 		return animals;
+	}
+
+	public List<BigBalloon> getBigBalloons() {
+		return bigBalloons;
+	}
+
+	public List<Text> getTexts() {
+		return texts;
 	}
 
 	public void addGameListener(GameListener listener) {

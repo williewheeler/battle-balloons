@@ -4,16 +4,12 @@ import com.williewheeler.bb.game.scene.ArenaScene;
 import com.williewheeler.retroge.actor.brain.AbstractActorBrain;
 import com.williewheeler.retroge.actor.model.Actor;
 import com.williewheeler.retroge.actor.model.DirectionIntent;
-import com.williewheeler.retroge.util.MathUtil;
-
-// FIXME Would be better if this wasn't tied to either the arena or to Judo.
-// I could see having this be a "PlayerTrackingBrain", and whoever has it just follows the player around.
 
 /**
- * Created by willie on 7/2/17.
+ * Created by willie on 7/16/17.
  */
-public class DefaultJudoBrain extends AbstractActorBrain {
-	private static final int MAX_THINK_TTL = 10;
+public class DefaultBengyBrain extends AbstractActorBrain {
+	private static final int MAX_THINK_TTL = 0;
 
 	private int thinkTtl = -1;
 
@@ -25,7 +21,7 @@ public class DefaultJudoBrain extends AbstractActorBrain {
 
 	private void decrementThinkTtl() {
 		if (thinkTtl < 0) {
-			this.thinkTtl = MathUtil.nextRandomInt(MAX_THINK_TTL);
+			this.thinkTtl = MAX_THINK_TTL;
 		} else {
 			this.thinkTtl--;
 		}
@@ -36,12 +32,12 @@ public class DefaultJudoBrain extends AbstractActorBrain {
 		moveIntent.reset();
 
 		if (thinkTtl == 0) {
-			final Actor judo = getActor();
-			final ArenaScene scene = (ArenaScene) judo.getScene();
+			final Actor bengy = getActor();
+			final ArenaScene scene = (ArenaScene) bengy.getScene();
 			final Actor playerActor = scene.getPlayer().getActor();
 
-			final int jx = judo.getX();
-			final int jy = judo.getY();
+			final int jx = bengy.getX();
+			final int jy = bengy.getY();
 			final int px = playerActor.getX();
 			final int py = playerActor.getY();
 

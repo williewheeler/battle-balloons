@@ -2,6 +2,7 @@ package com.williewheeler.bb.common.scene;
 
 import com.williewheeler.bb.common.actor.model.Animal;
 import com.williewheeler.bb.common.actor.model.Balloon;
+import com.williewheeler.bb.common.actor.model.Bengy;
 import com.williewheeler.bb.common.actor.model.Bully;
 import com.williewheeler.bb.common.actor.model.Judo;
 import com.williewheeler.bb.common.actor.model.Obstacle;
@@ -35,20 +36,23 @@ public final class BBCollisionDetector extends AbstractCollisionDetector {
 		BBScene bbScene = (BBScene) scene;
 
 		final List<Balloon> balloons = bbScene.getBalloons();
-		final List<Animal> animals = bbScene.getAnimals();
 		final List<Obstacle> obstacles = bbScene.getObstacles();
 		final List<Judo> judos = bbScene.getJudos();
 		final List<Bully> bullies = bbScene.getBullies();
+		final List<Bengy> bengies = bbScene.getBengies();
+		final List<Animal> animals = bbScene.getAnimals();
 
 		checkCollisions(bbScene, judos, obstacles, defaultDB);
 		checkCollisions(bbScene, balloons, obstacles, defaultDB);
 		checkCollisions(bbScene, balloons, judos, defaultDB);
 		checkCollisions(bbScene, balloons, bullies, balloonBullyCB);
+		checkCollisions(bbScene, balloons, bengies, defaultDB);
 		checkCollisions(bbScene, bullies, animals, bullyAnimalCB);
-		
+
 		checkPlayerCollision(bbScene, obstacles, defaultPlayerCB);
 		checkPlayerCollision(bbScene, judos, defaultPlayerCB);
 		checkPlayerCollision(bbScene, bullies, playerBullyCB);
+		checkPlayerCollision(bbScene, bengies, defaultPlayerCB);
 		checkPlayerCollision(bbScene, animals, playerAnimalCB);
 	}
 	

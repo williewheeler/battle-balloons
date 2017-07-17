@@ -7,6 +7,7 @@ public class Level {
 	private int obstacles;
 	private int judos;
 	private int bullies;
+	private int bengies;
 	private int dogs;
 	private int cats;
 	private int parrots;
@@ -15,6 +16,10 @@ public class Level {
 		this.obstacles = obstacles;
 		this.judos = judos;
 		this.bullies = bullies;
+
+		// FIXME
+		this.bengies = 2;
+
 		this.dogs = dogs;
 		this.cats = cats;
 		this.parrots = parrots;
@@ -30,6 +35,10 @@ public class Level {
 
 	public int getBullies() {
 		return bullies;
+	}
+
+	public int getBengies() {
+		return bengies;
 	}
 
 	public int getDogs() {

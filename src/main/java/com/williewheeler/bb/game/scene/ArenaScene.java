@@ -1,5 +1,6 @@
 package com.williewheeler.bb.game.scene;
 
+import com.williewheeler.bb.common.actor.model.Bengy;
 import com.williewheeler.bb.common.actor.model.Bully;
 import com.williewheeler.bb.common.actor.model.Cat;
 import com.williewheeler.bb.common.actor.model.Dog;
@@ -10,13 +11,14 @@ import com.williewheeler.bb.common.actor.model.Parrot;
 import com.williewheeler.bb.common.event.GameEvents;
 import com.williewheeler.bb.common.scene.BBScene;
 import com.williewheeler.bb.game.actor.ActorUtil;
+import com.williewheeler.bb.game.actor.brain.DefaultBengyBrain;
 import com.williewheeler.bb.game.actor.brain.DefaultBullyBrain;
 import com.williewheeler.bb.game.actor.brain.DefaultJudoBrain;
 import com.williewheeler.bb.game.level.Level;
+import com.williewheeler.retroge.actor.brain.BasicActorBrain;
 import com.williewheeler.retroge.actor.model.Actor;
 import com.williewheeler.retroge.actor.model.ActorLifecycleState;
 import com.williewheeler.retroge.actor.model.Player;
-import com.williewheeler.retroge.actor.brain.BasicActorBrain;
 import com.williewheeler.retroge.util.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -93,6 +95,7 @@ public class ArenaScene extends BBScene {
 		initObstacles();
 		initJudos();
 		initBullies();
+		initBengies();
 		initDogs();
 		initCats();
 		initParrots();
@@ -116,6 +119,13 @@ public class ArenaScene extends BBScene {
 		log.trace("Initializing bullies");
 		for (int i = 0; i < level.getBullies(); i++) {
 			getBullies().add(new Bully(this, new DefaultBullyBrain(), 0, 0));
+		}
+	}
+
+	private void initBengies() {
+		log.trace("Initializing Bengies");
+		for (int i = 0; i < level.getBengies(); i++) {
+			getBengies().add(new Bengy(this, new DefaultBengyBrain(), 0, 0));
 		}
 	}
 
@@ -149,7 +159,8 @@ public class ArenaScene extends BBScene {
 			ActorUtil.randomizeLocation(bully, player);
 			ActorUtil.randomizeDirectionNoDiagonals(bully);
 		});
-		
+
+		randomizeActors(getBengies());
 		randomizeActors(getAnimals());
 	}
 	
