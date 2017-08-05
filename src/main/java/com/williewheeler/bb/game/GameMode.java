@@ -5,7 +5,7 @@ import com.williewheeler.bb.common.BBContext;
 import com.williewheeler.bb.common.event.GameEvents;
 import com.williewheeler.bb.common.resource.AudioFactory;
 import com.williewheeler.bb.common.screen.TransitionScreen;
-import com.williewheeler.bb.game.screen.ArenaScreen;
+import com.williewheeler.bb.game.screen.GameScreen;
 import com.williewheeler.retroge.event.GameEvent;
 import com.williewheeler.retroge.event.GameListener;
 import com.williewheeler.retroge.event.ScreenEvent;
@@ -58,8 +58,8 @@ public class GameMode extends AbstractMode {
 		return screen;
 	}
 	
-	private ArenaScreen arenaScreen() {
-		ArenaScreen screen = ArenaScreen.create(config, context, game.getScene());
+	private GameScreen arenaScreen() {
+		GameScreen screen = GameScreen.create(config, context, game.getScene());
 		screen.addScreenListener(screenHandler);
 		return screen;
 	}

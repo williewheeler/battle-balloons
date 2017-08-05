@@ -2,7 +2,7 @@ package com.williewheeler.bb.game.screen;
 
 import com.williewheeler.bb.common.BBContext;
 import com.williewheeler.bb.common.resource.FontFactory;
-import com.williewheeler.bb.game.scene.ArenaScene;
+import com.williewheeler.bb.game.scene.GameScene;
 import com.williewheeler.retroge.actor.model.Player;
 import com.williewheeler.retroge.util.Assert;
 
@@ -12,16 +12,16 @@ import java.awt.Dimension;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 
-import static com.williewheeler.bb.game.screen.ArenaConfig.*;
+import static com.williewheeler.bb.game.screen.GameConfig.*;
 
 /**
  * Created by willie on 6/4/17.
  */
-public class ArenaFooter extends JComponent {
+public class GameFooter extends JComponent {
 	private FontFactory fontFactory;
-	private ArenaScene scene;
+	private GameScene scene;
 
-	public ArenaFooter(BBContext context, ArenaScene scene) {
+	public GameFooter(BBContext context, GameScene scene) {
 		Assert.notNull(context, "context can't be null");
 		Assert.notNull(scene, "scene can't be null");
 

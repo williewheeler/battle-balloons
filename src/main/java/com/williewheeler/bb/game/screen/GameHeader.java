@@ -1,6 +1,6 @@
 package com.williewheeler.bb.game.screen;
 
-import com.williewheeler.bb.game.scene.ArenaScene;
+import com.williewheeler.bb.game.scene.GameScene;
 import com.williewheeler.retroge.actor.model.Player;
 import com.williewheeler.bb.common.BBContext;
 import com.williewheeler.bb.common.resource.FontFactory;
@@ -15,23 +15,23 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 import static com.williewheeler.bb.common.BBConfig.*;
-import static com.williewheeler.bb.game.screen.ArenaConfig.ARENA_HEADER_P1_ANCHOR_PX;
-import static com.williewheeler.bb.game.screen.ArenaConfig.ARENA_HEADER_SIZE_PX;
+import static com.williewheeler.bb.game.screen.GameConfig.ARENA_HEADER_P1_ANCHOR_PX;
+import static com.williewheeler.bb.game.screen.GameConfig.ARENA_HEADER_SIZE_PX;
 
 /**
  * Created by willie on 6/4/17.
  */
-public class ArenaHeader extends JComponent {
+public class GameHeader extends JComponent {
 	private BBContext context;
-	private ArenaScene scene;
+	private GameScene scene;
 	
 	/**
 	 * A copy of the player's number of lives. We manage this separately from the scene because we want the display
-	 * update to occur only after the new ArenaScreen appears.
+	 * update to occur only after the new GameScreen appears.
 	 */
 	private int numLivesCopy;
 
-	public ArenaHeader(BBContext context, ArenaScene scene) {
+	public GameHeader(BBContext context, GameScene scene) {
 		Assert.notNull(context, "context can't be null");
 		Assert.notNull(scene, "scene can't be null");
 		this.context = context;

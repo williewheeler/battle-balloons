@@ -3,9 +3,9 @@ package com.williewheeler.bb.game.screen;
 import com.williewheeler.bb.common.BBContext;
 import com.williewheeler.bb.common.actor.view.ActorViewFactory;
 import com.williewheeler.bb.common.scene.BBScenePane;
-import com.williewheeler.bb.game.scene.ArenaScene;
+import com.williewheeler.bb.game.scene.GameScene;
+import com.williewheeler.retroge.actor.model.Player;
 import com.williewheeler.retroge.util.Assert;
-import com.williewheeler.retroge.util.MathUtil;
 
 import javax.swing.JPanel;
 import java.awt.Color;
@@ -19,38 +19,42 @@ import java.awt.Insets;
  *
  * Created by willie on 6/4/17.
  */
-public class ArenaPane extends JPanel {
+public class GamePane extends JPanel {
 	private static final int BORDER_SIZE_PX = 2;
 	
-	private ArenaScene scene;
+	private GameScene scene;
 	
-	public ArenaPane(BBContext context, ArenaScene scene) {
+	public GamePane(BBContext context, GameScene scene) {
 		Assert.notNull(context, "context can't be null");
 		Assert.notNull(scene, "scene can't be null");
 
+		this.scene = scene;
 		initDefaults();
 		initComponents(context, scene);
 	}
 	
 	@Override
 	public Dimension getPreferredSize() {
-		return ArenaConfig.ARENA_PANE_SIZE_PX;
+		return GameConfig.ARENA_PANE_SIZE_PX;
 	}
 	
 	private void initDefaults() {
-		setBackground(randomBorderColor());
+		setBackground(getLevelColor());
 	}
 
-	private void initComponents(BBContext context, ArenaScene scene) {
+	private void initComponents(BBContext context, GameScene scene) {
 		this.scene = scene;
 		ActorViewFactory avf = context.getActorViewFactory();
 		setLayout(new GridBagLayout());
 		add(new BBScenePane(avf, scene), buildSceneGBC());
 	}
-	
-	private Color randomBorderColor() {
-		int colorIndex = MathUtil.nextRandomInt(ArenaConfig.COLOR_SCHEME.length);
-		return ArenaConfig.COLOR_SCHEME[colorIndex];
+
+	private Color getLevelColor() {
+		assert (scene != null);
+		Player player = scene.getPlayer();
+		int level = player.getLevel();
+		int colorIndex = level % GameConfig.COLOR_SCHEME.length;
+		return GameConfig.COLOR_SCHEME[colorIndex];
 	}
 	
 	private GridBagConstraints buildSceneGBC() {

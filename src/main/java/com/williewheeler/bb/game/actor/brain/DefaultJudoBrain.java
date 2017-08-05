@@ -1,6 +1,6 @@
 package com.williewheeler.bb.game.actor.brain;
 
-import com.williewheeler.bb.game.scene.ArenaScene;
+import com.williewheeler.bb.game.scene.GameScene;
 import com.williewheeler.retroge.actor.brain.AbstractActorBrain;
 import com.williewheeler.retroge.actor.model.Actor;
 import com.williewheeler.retroge.actor.model.DirectionIntent;
@@ -37,7 +37,7 @@ public class DefaultJudoBrain extends AbstractActorBrain {
 
 		if (thinkTtl == 0) {
 			final Actor judo = getActor();
-			final ArenaScene scene = (ArenaScene) judo.getScene();
+			final GameScene scene = (GameScene) judo.getScene();
 			final Actor playerActor = scene.getPlayer().getActor();
 
 			final int jx = judo.getX();

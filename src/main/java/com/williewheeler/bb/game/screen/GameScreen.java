@@ -5,7 +5,7 @@ import com.williewheeler.bb.common.BBContext;
 import com.williewheeler.bb.common.scene.BBScene;
 import com.williewheeler.bb.common.screen.SceneScreen;
 import com.williewheeler.bb.game.GameScreenNames;
-import com.williewheeler.bb.game.scene.ArenaScene;
+import com.williewheeler.bb.game.scene.GameScene;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.williewheeler.retroge.actor.model.DirectionIntent;
@@ -22,37 +22,37 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import static com.williewheeler.bb.game.screen.ArenaConfig.ARENA_MARGIN_LEFT_RIGHT_PX;
+import static com.williewheeler.bb.game.screen.GameConfig.ARENA_MARGIN_LEFT_RIGHT_PX;
 
 // TODO Implement Game Over as part of this screen, since we want to overlay "Game Over" on the arena. [WLW]
 
 /**
  * Created by willie on 6/4/17.
  */
-public class ArenaScreen extends SceneScreen {
-	private static final Logger log = LoggerFactory.getLogger(ArenaScreen.class);
+public class GameScreen extends SceneScreen {
+	private static final Logger log = LoggerFactory.getLogger(GameScreen.class);
 	
-	public static ArenaScreen create(BBConfig config, BBContext context, BBScene scene) {
+	public static GameScreen create(BBConfig config, BBContext context, BBScene scene) {
 		Assert.notNull(config, "config can't be null");
 		Assert.notNull(context, "context can't be null");
 		Assert.notNull(scene, "scene can't be null");
-		ArenaScreen screen = new ArenaScreen(config, context, scene);
+		GameScreen screen = new GameScreen(config, context, scene);
 		screen.postConstruct();
 		return screen;
 	}
 
-	private ArenaScreen(BBConfig config, BBContext context, BBScene scene) {
+	private GameScreen(BBConfig config, BBContext context, BBScene scene) {
 		super(GameScreenNames.ARENA_SCREEN, config, context, scene);
 	}
 	
 	@Override
 	public JComponent buildJComponent() {
 		BBContext context = (BBContext) getContext();
-		ArenaScene scene = (ArenaScene) getScene();
+		GameScene scene = (GameScene) getScene();
 
-		JComponent arenaHeader = new ArenaHeader(context, scene);
+		JComponent arenaHeader = new GameHeader(context, scene);
 		JComponent arenaPane = buildArenaPane();
-		JComponent arenaFooter = new ArenaFooter(context, scene);
+		JComponent arenaFooter = new GameFooter(context, scene);
 
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.BLACK);
@@ -70,13 +70,13 @@ public class ArenaScreen extends SceneScreen {
 	
 	private JComponent buildArenaPane() {
 		BBContext context = (BBContext) getContext();
-		ArenaScene scene = (ArenaScene) getScene();
+		GameScene scene = (GameScene) getScene();
 
 		JPanel wrapper = new JPanel();
 		wrapper.setBackground(null);
 		wrapper.setLayout(new BoxLayout(wrapper, BoxLayout.X_AXIS));
 		wrapper.add(Box.createRigidArea(new Dimension(ARENA_MARGIN_LEFT_RIGHT_PX, 0)));
-		wrapper.add(new ArenaPane(context, scene));
+		wrapper.add(new GamePane(context, scene));
 		wrapper.add(Box.createRigidArea(new Dimension(ARENA_MARGIN_LEFT_RIGHT_PX, 0)));
 		return wrapper;
 	}
@@ -96,7 +96,7 @@ public class ArenaScreen extends SceneScreen {
 		}
 
 		private void updatePlayerIntent(int keyCode, boolean value) {
-			ArenaScene scene = (ArenaScene) getScene();
+			GameScene scene = (GameScene) getScene();
 			ActorBrain brain = scene.getPlayer().getActor().getBrain();
 			DirectionIntent moveIntent = brain.getMoveDirectionIntent();
 			DirectionIntent fireIntent = brain.getFireDirectionIntent();

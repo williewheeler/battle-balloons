@@ -28,13 +28,13 @@ import java.util.List;
 /**
  * Created by willie on 6/4/17.
  */
-public class ArenaScene extends BBScene {
-	private static final Logger log = LoggerFactory.getLogger(ArenaScene.class);
+public class GameScene extends BBScene {
+	private static final Logger log = LoggerFactory.getLogger(GameScene.class);
 	
 	private Player player;
 	private Level level;
 
-	public ArenaScene(Player player, Level level) {
+	public GameScene(Player player, Level level) {
 		Assert.notNull(player, "player can't be null");
 		Assert.notNull(level, "level can't be null");
 		this.player = player;

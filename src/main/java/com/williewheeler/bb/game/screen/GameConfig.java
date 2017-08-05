@@ -8,7 +8,7 @@ import java.awt.Dimension;
 /**
  * Created by wwheeler on 7/15/17.
  */
-public final class ArenaConfig {
+public final class GameConfig {
 	public static final int ARENA_HEADER_HEIGHT_PX = 12;
 	public static final int ARENA_HEADER_P1_ANCHOR_PX = 80;
 	public static final int ARENA_FOOTER_HEIGHT_PX = 10;

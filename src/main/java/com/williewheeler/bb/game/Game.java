@@ -3,7 +3,7 @@ package com.williewheeler.bb.game;
 import com.williewheeler.bb.common.actor.model.Lexi;
 import com.williewheeler.bb.game.level.Level;
 import com.williewheeler.bb.game.level.Levels;
-import com.williewheeler.bb.game.scene.ArenaScene;
+import com.williewheeler.bb.game.scene.GameScene;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.williewheeler.retroge.actor.model.Player;
@@ -17,7 +17,7 @@ public class Game {
 	
 	private final Levels levels;
 	private final Player player;
-	private ArenaScene scene;
+	private GameScene scene;
 	
 	public Game() {
 		this.levels = new Levels();
@@ -28,7 +28,7 @@ public class Game {
 		return player;
 	}
 	
-	public ArenaScene getScene() {
+	public GameScene getScene() {
 		return scene;
 	}
 	
@@ -47,7 +47,7 @@ public class Game {
 		
 		// TODO Figure out how to add the AudioHandler whenever we create a
 		// new scene. Maybe we do that when there's a new level event?
-		this.scene = new ArenaScene(player, level);
+		this.scene = new GameScene(player, level);
 	}
 	
 	private Lexi createLexi() {
