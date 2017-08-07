@@ -51,6 +51,7 @@ public class GameScene extends BBScene {
 		log.trace("Spawning player");
 		getBalloons().clear();
 		player.spawn();
+		clearMissiles();
 		randomizeActors();
 		log.trace("player={}", player);
 	}
@@ -149,7 +150,12 @@ public class GameScene extends BBScene {
 			getAnimals().add(new Parrot(this, 0, 0));
 		}
 	}
-	
+
+	private void clearMissiles() {
+		getBalloons().clear();
+		getBeats().clear();
+	}
+
 	private void randomizeActors() {
 		log.trace("Randomizing actors");
 		randomizeActors(getObstacles());
@@ -161,6 +167,7 @@ public class GameScene extends BBScene {
 		});
 
 		randomizeActors(getBengies());
+		randomizeActors(getTurntables());
 		randomizeActors(getAnimals());
 	}
 	
@@ -172,7 +179,7 @@ public class GameScene extends BBScene {
 	}
 
 	private void checkNextLevel() {
-		if (getJudos().isEmpty()) {
+		if (getJudos().isEmpty() && getBengies().isEmpty() && getTurntables().isEmpty()) {
 			
 			// Don't do this here. Scene is not responsible for level management.
 			// When the level is complete, all we do here is signal that. [WLW]

@@ -3,6 +3,7 @@ package com.williewheeler.bb.common.scene;
 import com.williewheeler.bb.common.BBConfig;
 import com.williewheeler.bb.common.actor.model.Animal;
 import com.williewheeler.bb.common.actor.model.Balloon;
+import com.williewheeler.bb.common.actor.model.Beat;
 import com.williewheeler.bb.common.actor.model.Bengy;
 import com.williewheeler.bb.common.actor.model.BigBalloon;
 import com.williewheeler.bb.common.actor.model.Bully;
@@ -10,6 +11,7 @@ import com.williewheeler.bb.common.actor.model.Judo;
 import com.williewheeler.bb.common.actor.model.Lexi;
 import com.williewheeler.bb.common.actor.model.Obstacle;
 import com.williewheeler.bb.common.actor.model.Text;
+import com.williewheeler.bb.common.actor.model.Turntables;
 import com.williewheeler.retroge.actor.model.Actor;
 import com.williewheeler.retroge.actor.model.ActorLifecycleState;
 import com.williewheeler.retroge.actor.model.Player;
@@ -41,6 +43,8 @@ public class BBScene implements Scene {
 	private final List<Judo> judos = new LinkedList<>();
 	private final List<Bully> bullies = new LinkedList<>();
 	private final List<Bengy> bengies = new LinkedList<>();
+	private final List<Turntables> turntables = new LinkedList<>();
+	private final List<Beat> beats = new LinkedList<>();
 	private final List<Animal> animals = new LinkedList<>();
 	private final List<BigBalloon> bigBalloons = new LinkedList<>();
 	private final List<Text> texts = new LinkedList<>();
@@ -57,6 +61,8 @@ public class BBScene implements Scene {
 		allActors.add(judos);
 		allActors.add(bullies);
 		allActors.add(bengies);
+		allActors.add(turntables);
+		allActors.add(beats);
 		allActors.add(animals);
 		allActors.add(bigBalloons);
 		allActors.add(texts);
@@ -126,6 +132,14 @@ public class BBScene implements Scene {
 
 	public List<Bengy> getBengies() {
 		return bengies;
+	}
+
+	public List<Turntables> getTurntables() {
+		return turntables;
+	}
+
+	public List<Beat> getBeats() {
+		return beats;
 	}
 
 	public List<Animal> getAnimals() {

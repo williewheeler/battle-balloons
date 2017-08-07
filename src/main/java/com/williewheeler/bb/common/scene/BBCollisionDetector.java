@@ -2,10 +2,12 @@ package com.williewheeler.bb.common.scene;
 
 import com.williewheeler.bb.common.actor.model.Animal;
 import com.williewheeler.bb.common.actor.model.Balloon;
+import com.williewheeler.bb.common.actor.model.Beat;
 import com.williewheeler.bb.common.actor.model.Bengy;
 import com.williewheeler.bb.common.actor.model.Bully;
 import com.williewheeler.bb.common.actor.model.Judo;
 import com.williewheeler.bb.common.actor.model.Obstacle;
+import com.williewheeler.bb.common.actor.model.Turntables;
 import com.williewheeler.retroge.actor.model.Actor;
 import com.williewheeler.retroge.scene.AbstractCollisionDetector;
 import com.williewheeler.retroge.scene.CollisionCallback;
@@ -22,7 +24,7 @@ import java.util.List;
 public final class BBCollisionDetector extends AbstractCollisionDetector {
 	private static final Logger log = LoggerFactory.getLogger(BBCollisionDetector.class);
 	
-	private final CollisionCallback defaultDB = new DefaultCollisionCallback();
+	private final CollisionCallback defaultCB = new DefaultCollisionCallback();
 	private final CollisionCallback balloonBullyCB = new BalloonBullyCollisionCallback();
 	private final CollisionCallback bullyAnimalCB = new BullyAnimalCollisionCallback();
 	private final CollisionCallback defaultPlayerCB = new DefaultPlayerCollisionCallback();
@@ -39,19 +41,25 @@ public final class BBCollisionDetector extends AbstractCollisionDetector {
 		final List<Judo> judos = bbScene.getJudos();
 		final List<Bully> bullies = bbScene.getBullies();
 		final List<Bengy> bengies = bbScene.getBengies();
+		final List<Turntables> turntables = bbScene.getTurntables();
+		final List<Beat> beats = bbScene.getBeats();
 		final List<Animal> animals = bbScene.getAnimals();
 
-		checkCollisions(bbScene, judos, obstacles, defaultDB);
-		checkCollisions(bbScene, balloons, obstacles, defaultDB);
-		checkCollisions(bbScene, balloons, judos, defaultDB);
+		checkCollisions(bbScene, judos, obstacles, defaultCB);
+		checkCollisions(bbScene, balloons, obstacles, defaultCB);
+		checkCollisions(bbScene, balloons, judos, defaultCB);
 		checkCollisions(bbScene, balloons, bullies, balloonBullyCB);
-		checkCollisions(bbScene, balloons, bengies, defaultDB);
+		checkCollisions(bbScene, balloons, bengies, defaultCB);
+		checkCollisions(bbScene, balloons, turntables, defaultCB);
+		checkCollisions(bbScene, balloons, beats, defaultCB);
 		checkCollisions(bbScene, bullies, animals, bullyAnimalCB);
 
 		checkPlayerCollision(bbScene, obstacles, defaultPlayerCB);
 		checkPlayerCollision(bbScene, judos, defaultPlayerCB);
 		checkPlayerCollision(bbScene, bullies, defaultPlayerCB);
 		checkPlayerCollision(bbScene, bengies, defaultPlayerCB);
+		checkPlayerCollision(bbScene, turntables, defaultPlayerCB);
+		checkPlayerCollision(bbScene, beats, defaultPlayerCB);
 		checkPlayerCollision(bbScene, animals, playerAnimalCB);
 	}
 	

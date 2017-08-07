@@ -1,6 +1,7 @@
 package com.williewheeler.retroge.actor.brain;
 
 import com.williewheeler.retroge.actor.model.Actor;
+import com.williewheeler.retroge.actor.model.ActorLifecycleState;
 import com.williewheeler.retroge.actor.model.DirectionIntent;
 
 /**
@@ -29,7 +30,18 @@ public abstract class AbstractActorBrain implements ActorBrain {
 	public DirectionIntent getFireDirectionIntent() {
 		return fireDirectionIntent;
 	}
-	
+
+	@Override
+	public void update() {
+		if (actor.getState() == ActorLifecycleState.ACTIVE) {
+			updateActive();
+		}
+	}
+
+	public void updateActive() {
+		// No-op
+	}
+
 	@Override
 	public void reset() {
 		moveDirectionIntent.reset();

@@ -31,6 +31,9 @@ public class SpriteFactory {
 	private BufferedImage[] bengyEntering;
 	private BufferedImage[] bengyExiting;
 
+	private BufferedImage[] turntables;
+	private BufferedImage[] beat;
+
 	private BufferedImage[] bullyWalking;
 	private BufferedImage[] dogWalking;
 	private BufferedImage[] catWalking;
@@ -54,6 +57,9 @@ public class SpriteFactory {
 		this.bengyWalking = buildWalkingSprites(sheet, 6);
 		this.bengyEntering = spaghettify(bengyWalking[4], Bengy.ENTER_TTL);
 		this.bengyExiting = spaghettify(bengyWalking[4], Bengy.EXIT_TTL);
+
+		this.turntables = buildSprites(sheet, 6, 13, 2);
+		this.beat = buildBeatSprites(sheet);
 
 		this.bullyWalking = buildWalkingSprites(sheet, 2);
 		this.dogWalking = buildWalkingSprites(sheet, 3);
@@ -117,6 +123,14 @@ public class SpriteFactory {
 		return bengyExiting;
 	}
 
+	public BufferedImage[] getTurntables() {
+		return turntables;
+	}
+
+	public BufferedImage[] getBeat() {
+		return beat;
+	}
+
 	public BufferedImage[] getDogWalking() {
 		return dogWalking;
 	}
@@ -139,6 +153,15 @@ public class SpriteFactory {
 				col++;
 			}
 		}
+		return sprites;
+	}
+
+	private BufferedImage[] buildBeatSprites(BufferedImage sheet) {
+		BufferedImage[] sprites = new BufferedImage[4];
+		sprites[0] = buildSprite(sheet, 6, 16);
+		sprites[1] = buildSprite(sheet, 6, 17);
+		sprites[2] = buildSprite(sheet, 6, 16);
+		sprites[3] = buildSprite(sheet, 6, 18);
 		return sprites;
 	}
 
@@ -187,6 +210,14 @@ public class SpriteFactory {
 				int col = 20 + j;
 				sprites[i][j] = buildSprite(sheet, i, col);
 			}
+		}
+		return sprites;
+	}
+
+	private BufferedImage[] buildSprites(BufferedImage sheet, int row, int startCol, int numSprites) {
+		BufferedImage[] sprites = new BufferedImage[numSprites];
+		for (int i = 0; i < numSprites; i++) {
+			sprites[i] = buildSprite(sheet, row, startCol + i);
 		}
 		return sprites;
 	}

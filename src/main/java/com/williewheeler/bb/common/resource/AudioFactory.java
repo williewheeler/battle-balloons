@@ -26,15 +26,15 @@ public class AudioFactory {
 		Assert.notNull(audioLoader, "audioLoader can't be null");
 		
 		this.audioLoader = audioLoader;
-		this.startSound = loadClips("start-sound", -20.0f);
-		this.playerWalks = loadClips("player-walks", -20.f);
-		this.playerThrowsBalloon = loadClips("player-throws-balloon", -20.0f);
-		this.playerDies = loadClips("player-dies", -20.0f);
-		this.playerFirstLevel = loadClips("first-level", -20.0f);
-		this.playerNextLevel = loadClips("next-level", -20.0f);
-		this.animalRescued = loadClips("animal-rescued", -20.0f);
-		this.animalDies = loadClips("animal-dies", -20.0f);
-		this.judoHit = loadClips("explode", -20.0f);
+		this.startSound = loadClips("start-sound", -10.0f);
+		this.playerWalks = loadClips("player-walks", -10.f);
+		this.playerThrowsBalloon = loadClips("player-throws-balloon", -10.0f);
+		this.playerDies = loadClips("player-dies", -10.0f);
+		this.playerFirstLevel = loadClips("first-level", -10.0f);
+		this.playerNextLevel = loadClips("next-level", -10.0f);
+		this.animalRescued = loadClips("animal-rescued", -10.0f);
+		this.animalDies = loadClips("animal-dies", -10.0f);
+		this.judoHit = loadClips("explode", -10.0f);
 	}
 
 	public void startSound() {

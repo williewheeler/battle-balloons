@@ -18,7 +18,7 @@ public class DefaultJudoBrain extends AbstractActorBrain {
 	private int thinkTtl = -1;
 
 	@Override
-	public void update() {
+	public void updateActive() {
 		decrementThinkTtl();
 		chasePlayer();
 	}

@@ -1,6 +1,7 @@
 package com.williewheeler.bb.common.actor.view;
 
 import com.williewheeler.bb.common.actor.model.Balloon;
+import com.williewheeler.bb.common.actor.model.Beat;
 import com.williewheeler.bb.common.actor.model.Bengy;
 import com.williewheeler.bb.common.actor.model.BigBalloon;
 import com.williewheeler.bb.common.actor.model.Bully;
@@ -11,6 +12,7 @@ import com.williewheeler.bb.common.actor.model.Lexi;
 import com.williewheeler.bb.common.actor.model.Obstacle;
 import com.williewheeler.bb.common.actor.model.Parrot;
 import com.williewheeler.bb.common.actor.model.Text;
+import com.williewheeler.bb.common.actor.model.Turntables;
 import com.williewheeler.bb.common.resource.FontFactory;
 import com.williewheeler.bb.common.resource.SpriteFactory;
 import com.williewheeler.retroge.actor.model.Actor;
@@ -27,6 +29,8 @@ public class ActorViewFactory {
 	private JudoView judoView;
 	private BullyView bullyView;
 	private BengyView bengyView;
+	private TurntablesView turntablesView;
+	private BeatView beatView;
 	private CatView catView;
 	private DogView dogView;
 	private ParrotView parrotView;
@@ -43,6 +47,8 @@ public class ActorViewFactory {
 		this.judoView = new JudoView(spriteFactory);
 		this.bullyView = new BullyView(spriteFactory);
 		this.bengyView = new BengyView(spriteFactory);
+		this.turntablesView = new TurntablesView(spriteFactory);
+		this.beatView = new BeatView(spriteFactory);
 		this.catView = new CatView(spriteFactory);
 		this.dogView = new DogView(spriteFactory);
 		this.parrotView = new ParrotView(spriteFactory);
@@ -64,6 +70,10 @@ public class ActorViewFactory {
 			return bullyView;
 		} else if (actor instanceof Bengy) {
 			return bengyView;
+		} else if (actor instanceof Turntables) {
+			return turntablesView;
+		} else if (actor instanceof Beat) {
+			return beatView;
 		} else if (actor instanceof Dog) {
 			return dogView;
 		} else if (actor instanceof Cat) {

@@ -14,17 +14,13 @@ public class DefaultBullyBrain extends AbstractActorBrain {
 	private int thinkTtl = -1;
 
 	@Override
-	public void update() {
+	public void updateActive() {
 		decrementThinkTtl();
 		walkAround();
 	}
 
 	private void decrementThinkTtl() {
-		if (thinkTtl < 0) {
-			this.thinkTtl = MAX_THINK_TTL;
-		} else {
-			this.thinkTtl--;
-		}
+		this.thinkTtl = (thinkTtl < 0 ? MAX_THINK_TTL : thinkTtl - 1);
 	}
 
 	private void walkAround() {
