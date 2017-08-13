@@ -1,7 +1,7 @@
 package com.williewheeler.bb.common.actor.view;
 
 import com.williewheeler.bb.common.BBConfig;
-import com.williewheeler.bb.common.actor.model.Bengy;
+import com.williewheeler.bb.common.actor.model.YardDuty;
 import com.williewheeler.bb.common.resource.SpriteFactory;
 import com.williewheeler.retroge.actor.model.Actor;
 import com.williewheeler.retroge.actor.model.Direction;
@@ -11,30 +11,25 @@ import com.williewheeler.retroge.util.Assert;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
-// TODO Consolidate this with JudoView. [WLW]
-
-/**
- * Created by willie on 7/16/17.
- */
-public class BengyView extends AbstractActorView {
+public class YardDutyView extends AbstractActorView {
 	private static final int HALF_SPRITE_WIDTH = BBConfig.SPRITE_WIDTH_PX / 2;
 	private static final int HALF_SPRITE_HEIGHT = BBConfig.SPRITE_HEIGHT_PX / 2;
 
 	private SpriteFactory spriteFactory;
 
-	public BengyView(SpriteFactory spriteFactory) {
+	public YardDutyView(SpriteFactory spriteFactory) {
 		Assert.notNull(spriteFactory, "spriteFactory can't be null");
 		this.spriteFactory = spriteFactory;
 	}
 
 	@Override
 	public void paintEntering(Graphics g, Actor actor) {
-		final Bengy bengy = (Bengy) actor;
-		final int spriteIndex = bengy.getEnterTtl();
+		final YardDuty yardDuty = (YardDuty) actor;
+		final int spriteIndex = yardDuty.getEnterTtl();
 		assert(spriteIndex >= 0);
-		final BufferedImage sprite = spriteFactory.getBengyEntering()[spriteIndex];
-		final int xOffset = bengy.getX() - sprite.getWidth() / 2;
-		final int yOffset = bengy.getY() - sprite.getHeight() / 2;
+		final BufferedImage sprite = spriteFactory.getYardDutyEntering()[spriteIndex];
+		final int xOffset = yardDuty.getX() - sprite.getWidth() / 2;
+		final int yOffset = yardDuty.getY() - sprite.getHeight() / 2;
 		g.translate(xOffset, yOffset);
 		g.drawImage(sprite, 0, 0, null);
 		g.translate(-xOffset, -yOffset);
@@ -42,10 +37,10 @@ public class BengyView extends AbstractActorView {
 
 	@Override
 	public void paintActive(Graphics g, Actor actor) {
-		final Bengy bengy = (Bengy) actor;
-		final int xOffset = bengy.getX() - HALF_SPRITE_WIDTH;
-		final int yOffset = bengy.getY() - HALF_SPRITE_HEIGHT;
-		final BufferedImage sprite = getWalkingSprite(bengy);
+		final YardDuty yardDuty = (YardDuty) actor;
+		final int xOffset = yardDuty.getX() - HALF_SPRITE_WIDTH;
+		final int yOffset = yardDuty.getY() - HALF_SPRITE_HEIGHT;
+		final BufferedImage sprite = getWalkingSprite(yardDuty);
 
 		g.translate(xOffset, yOffset);
 		g.drawImage(sprite, 0, 0, BBConfig.SPRITE_WIDTH_PX, BBConfig.SPRITE_HEIGHT_PX, null);
@@ -54,21 +49,21 @@ public class BengyView extends AbstractActorView {
 
 	@Override
 	public void paintExiting(Graphics g, Actor actor) {
-		final Bengy bengy = (Bengy) actor;
-		final int spriteIndex = Bengy.EXIT_TTL - bengy.getExitTtl();
+		final YardDuty yardDuty = (YardDuty) actor;
+		final int spriteIndex = YardDuty.EXIT_TTL - yardDuty.getExitTtl();
 		assert(spriteIndex >= 0);
-		final BufferedImage sprite = spriteFactory.getBengyExiting()[spriteIndex];
-		final int xOffset = bengy.getX() - sprite.getWidth() / 2;
-		final int yOffset = bengy.getY() - sprite.getHeight() / 2;
+		final BufferedImage sprite = spriteFactory.getYardDutyExiting()[spriteIndex];
+		final int xOffset = yardDuty.getX() - sprite.getWidth() / 2;
+		final int yOffset = yardDuty.getY() - sprite.getHeight() / 2;
 		g.translate(xOffset, yOffset);
 		g.drawImage(sprite, 0, 0, null);
 		g.translate(-xOffset, -yOffset);
 	}
 
-	private BufferedImage getWalkingSprite(Bengy bengy) {
-		Direction direction = bengy.getDirection();
-		int walkCounter = bengy.getWalkCounter();
+	private BufferedImage getWalkingSprite(YardDuty yardDuty) {
+		Direction direction = yardDuty.getDirection();
+		int walkCounter = yardDuty.getWalkCounter();
 		int walkIndex = SpriteUtil.getWalkingSpriteIndex(direction, walkCounter);
-		return spriteFactory.getBengyWalking()[walkIndex];
+		return spriteFactory.getYardDutyWalking()[walkIndex];
 	}
 }

@@ -98,6 +98,10 @@ public class GameMode extends AbstractMode {
 				audioFactory.playerThrowsBalloon();
 			} else if (event == GameEvents.PLAYER_DIED) {
 				audioFactory.playerDies();
+			} else if (event == GameEvents.BEAT_PLAYED) {
+				audioFactory.beat();
+			} else if (event == GameEvents.TEACHERS) {
+				audioFactory.teachers();
 			} else if (event == GameEvents.ANIMAL_RESCUED) {
 				audioFactory.animalRescued();
 			} else if (event == GameEvents.ANIMAL_DIED) {

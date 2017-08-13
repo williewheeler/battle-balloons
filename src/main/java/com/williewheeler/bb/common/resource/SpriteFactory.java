@@ -3,6 +3,7 @@ package com.williewheeler.bb.common.resource;
 import com.williewheeler.bb.common.actor.model.Bengy;
 import com.williewheeler.bb.common.actor.model.Judo;
 import com.williewheeler.bb.common.actor.model.Lexi;
+import com.williewheeler.bb.common.actor.model.YardDuty;
 import com.williewheeler.retroge.resource.ImageLoader;
 
 import java.awt.Graphics2D;
@@ -26,6 +27,10 @@ public class SpriteFactory {
 	private BufferedImage[] judoWalking;
 	private BufferedImage[] judoEntering;
 	private BufferedImage[] judoExiting;
+
+	private BufferedImage[] yardDutyWalking;
+	private BufferedImage[] yardDutyEntering;
+	private BufferedImage[] yardDutyExiting;
 
 	private BufferedImage[] bengyWalking;
 	private BufferedImage[] bengyEntering;
@@ -53,6 +58,10 @@ public class SpriteFactory {
 		this.judoWalking = buildWalkingSprites(sheet, 1);
 		this.judoEntering = spaghettify(judoWalking[4], Judo.ENTER_TTL);
 		this.judoExiting = spaghettify(judoWalking[4], Judo.EXIT_TTL);
+
+		this.yardDutyWalking = buildWalkingSprites(sheet, 7);
+		this.yardDutyEntering = spaghettify(yardDutyWalking[4], YardDuty.ENTER_TTL);
+		this.yardDutyExiting = spaghettify(yardDutyWalking[4], YardDuty.EXIT_TTL);
 
 		this.bengyWalking = buildWalkingSprites(sheet, 6);
 		this.bengyEntering = spaghettify(bengyWalking[4], Bengy.ENTER_TTL);
@@ -105,6 +114,18 @@ public class SpriteFactory {
 
 	public BufferedImage[] getJudoExiting() {
 		return judoExiting;
+	}
+
+	public BufferedImage[] getYardDutyWalking() {
+		return yardDutyWalking;
+	}
+
+	public BufferedImage[] getYardDutyEntering() {
+		return yardDutyEntering;
+	}
+
+	public BufferedImage[] getYardDutyExiting() {
+		return yardDutyExiting;
 	}
 
 	public BufferedImage[] getBullyWalking() {

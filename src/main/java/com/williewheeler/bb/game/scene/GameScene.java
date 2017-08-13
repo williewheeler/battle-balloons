@@ -8,6 +8,7 @@ import com.williewheeler.bb.common.actor.model.Judo;
 import com.williewheeler.bb.common.actor.model.Lexi;
 import com.williewheeler.bb.common.actor.model.Obstacle;
 import com.williewheeler.bb.common.actor.model.Parrot;
+import com.williewheeler.bb.common.actor.model.YardDuty;
 import com.williewheeler.bb.common.event.GameEvents;
 import com.williewheeler.bb.common.scene.BBScene;
 import com.williewheeler.bb.game.actor.ActorUtil;
@@ -96,6 +97,7 @@ public class GameScene extends BBScene {
 		initObstacles();
 		initJudos();
 		initBullies();
+		initYardDuties();
 		initBengies();
 		initDogs();
 		initCats();
@@ -120,6 +122,15 @@ public class GameScene extends BBScene {
 		log.trace("Initializing bullies");
 		for (int i = 0; i < level.getBullies(); i++) {
 			getBullies().add(new Bully(this, new DefaultBullyBrain(), 0, 0));
+		}
+	}
+
+	private void initYardDuties() {
+		log.trace("Initializing yard duties");
+		for (int i = 0; i < level.getYardDuties(); i++) {
+
+			// FIXME Give the yard duty its own brain
+			getYardDuties().add(new YardDuty(this, new DefaultBengyBrain(), 0, 0));
 		}
 	}
 
@@ -166,6 +177,7 @@ public class GameScene extends BBScene {
 			ActorUtil.randomizeDirectionNoDiagonals(bully);
 		});
 
+		randomizeActors(getYardDuties());
 		randomizeActors(getBengies());
 		randomizeActors(getTurntables());
 		randomizeActors(getAnimals());
@@ -179,7 +191,7 @@ public class GameScene extends BBScene {
 	}
 
 	private void checkNextLevel() {
-		if (getJudos().isEmpty() && getBengies().isEmpty() && getTurntables().isEmpty()) {
+		if (getJudos().isEmpty() && getYardDuties().isEmpty() && getBengies().isEmpty() && getTurntables().isEmpty()) {
 			
 			// Don't do this here. Scene is not responsible for level management.
 			// When the level is complete, all we do here is signal that. [WLW]

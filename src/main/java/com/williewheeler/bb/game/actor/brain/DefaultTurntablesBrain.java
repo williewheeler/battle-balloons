@@ -1,6 +1,7 @@
 package com.williewheeler.bb.game.actor.brain;
 
 import com.williewheeler.bb.common.actor.model.Beat;
+import com.williewheeler.bb.common.event.GameEvents;
 import com.williewheeler.bb.game.actor.ActorUtil;
 import com.williewheeler.bb.game.scene.GameScene;
 import com.williewheeler.retroge.actor.brain.AbstractActorBrain;
@@ -17,7 +18,7 @@ public class DefaultTurntablesBrain extends AbstractActorBrain {
 	private static final double CHANGE_DIR_THRESHOLD = 0.25;
 
 	private int moveTtl = -1;
-	private int fireTtl = -1;
+	private int fireTtl = MathUtil.nextRandomInt(MAX_FIRE_TTL);
 
 	@Override
 	public void updateActive() {
@@ -43,6 +44,7 @@ public class DefaultTurntablesBrain extends AbstractActorBrain {
 			final int turntablesY = turntables.getY();
 			log.trace("Turntable firing a beat: x={}, y={}", turntablesX, turntablesY);
 			scene.getBeats().add(new Beat(scene, turntablesX, turntablesY));
+			scene.fireGameEvent(GameEvents.BEAT_PLAYED);
 		}
 	}
 

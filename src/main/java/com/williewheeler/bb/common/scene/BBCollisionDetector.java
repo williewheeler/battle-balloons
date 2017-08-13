@@ -8,6 +8,7 @@ import com.williewheeler.bb.common.actor.model.Bully;
 import com.williewheeler.bb.common.actor.model.Judo;
 import com.williewheeler.bb.common.actor.model.Obstacle;
 import com.williewheeler.bb.common.actor.model.Turntables;
+import com.williewheeler.bb.common.actor.model.YardDuty;
 import com.williewheeler.retroge.actor.model.Actor;
 import com.williewheeler.retroge.scene.AbstractCollisionDetector;
 import com.williewheeler.retroge.scene.CollisionCallback;
@@ -40,6 +41,7 @@ public final class BBCollisionDetector extends AbstractCollisionDetector {
 		final List<Obstacle> obstacles = bbScene.getObstacles();
 		final List<Judo> judos = bbScene.getJudos();
 		final List<Bully> bullies = bbScene.getBullies();
+		final List<YardDuty> yardDuties = bbScene.getYardDuties();
 		final List<Bengy> bengies = bbScene.getBengies();
 		final List<Turntables> turntables = bbScene.getTurntables();
 		final List<Beat> beats = bbScene.getBeats();
@@ -49,6 +51,7 @@ public final class BBCollisionDetector extends AbstractCollisionDetector {
 		checkCollisions(bbScene, balloons, obstacles, defaultCB);
 		checkCollisions(bbScene, balloons, judos, defaultCB);
 		checkCollisions(bbScene, balloons, bullies, balloonBullyCB);
+		checkCollisions(bbScene, balloons, yardDuties, defaultCB);
 		checkCollisions(bbScene, balloons, bengies, defaultCB);
 		checkCollisions(bbScene, balloons, turntables, defaultCB);
 		checkCollisions(bbScene, balloons, beats, defaultCB);
@@ -57,6 +60,7 @@ public final class BBCollisionDetector extends AbstractCollisionDetector {
 		checkPlayerCollision(bbScene, obstacles, defaultPlayerCB);
 		checkPlayerCollision(bbScene, judos, defaultPlayerCB);
 		checkPlayerCollision(bbScene, bullies, defaultPlayerCB);
+		checkPlayerCollision(bbScene, yardDuties, defaultPlayerCB);
 		checkPlayerCollision(bbScene, bengies, defaultPlayerCB);
 		checkPlayerCollision(bbScene, turntables, defaultPlayerCB);
 		checkPlayerCollision(bbScene, beats, defaultPlayerCB);

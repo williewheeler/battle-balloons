@@ -13,6 +13,7 @@ import com.williewheeler.bb.common.actor.model.Obstacle;
 import com.williewheeler.bb.common.actor.model.Parrot;
 import com.williewheeler.bb.common.actor.model.Text;
 import com.williewheeler.bb.common.actor.model.Turntables;
+import com.williewheeler.bb.common.actor.model.YardDuty;
 import com.williewheeler.bb.common.resource.FontFactory;
 import com.williewheeler.bb.common.resource.SpriteFactory;
 import com.williewheeler.retroge.actor.model.Actor;
@@ -28,6 +29,7 @@ public class ActorViewFactory {
 	private ObstacleView obstacleView;
 	private JudoView judoView;
 	private BullyView bullyView;
+	private YardDutyView yardDutyView;
 	private BengyView bengyView;
 	private TurntablesView turntablesView;
 	private BeatView beatView;
@@ -46,6 +48,7 @@ public class ActorViewFactory {
 		this.obstacleView = new ObstacleView();
 		this.judoView = new JudoView(spriteFactory);
 		this.bullyView = new BullyView(spriteFactory);
+		this.yardDutyView = new YardDutyView(spriteFactory);
 		this.bengyView = new BengyView(spriteFactory);
 		this.turntablesView = new TurntablesView(spriteFactory);
 		this.beatView = new BeatView(spriteFactory);
@@ -68,6 +71,8 @@ public class ActorViewFactory {
 			return judoView;
 		} else if (actor instanceof Bully) {
 			return bullyView;
+		} else if (actor instanceof YardDuty) {
+			return yardDutyView;
 		} else if (actor instanceof Bengy) {
 			return bengyView;
 		} else if (actor instanceof Turntables) {

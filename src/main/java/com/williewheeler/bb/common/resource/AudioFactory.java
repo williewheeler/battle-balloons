@@ -21,6 +21,8 @@ public class AudioFactory {
 	private final ArrayDeque<Clip> animalRescued;
 	private final ArrayDeque<Clip> animalDies;
 	private final ArrayDeque<Clip> judoHit;
+	private final ArrayDeque<Clip> beat;
+	private final ArrayDeque<Clip> teachers;
 	
 	public AudioFactory(AudioLoader audioLoader) {
 		Assert.notNull(audioLoader, "audioLoader can't be null");
@@ -35,6 +37,8 @@ public class AudioFactory {
 		this.animalRescued = loadClips("animal-rescued", -10.0f);
 		this.animalDies = loadClips("animal-dies", -10.0f);
 		this.judoHit = loadClips("explode", -10.0f);
+		this.beat = loadClips("beat", -10.0f);
+		this.teachers = loadClips("teachers", -10.0f);
 	}
 
 	public void startSound() {
@@ -71,6 +75,14 @@ public class AudioFactory {
 
 	public void judoHit() {
 		playSoundEffect(judoHit);
+	}
+
+	public void beat() {
+		playSoundEffect(beat);
+	}
+
+	public void teachers() {
+		playSoundEffect(teachers);
 	}
 
 	private ArrayDeque<Clip> loadClips(String id, float gainControlValue) {

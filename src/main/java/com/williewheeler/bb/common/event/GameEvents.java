@@ -14,6 +14,9 @@ public class GameEvents {
 	public static final GameEvent PLAYER_DIED = new GameEvent("playerDied");
 	public static final GameEvent PLAYER_GONE = new GameEvent("playerGone");
 
+	public static final GameEvent BEAT_PLAYED = new GameEvent("beatPlayed");
+	public static final GameEvent TEACHERS = new GameEvent("teachers");
+
 	public static final GameEvent ANIMAL_RESCUED = new GameEvent("animalRescued");
 	public static final GameEvent ANIMAL_DIED = new GameEvent("animalDied");
 
@@ -21,4 +24,5 @@ public class GameEvents {
 
 	public static final GameEvent JUDO_DIED = new GameEvent("judoDied");
 	public static final GameEvent BENGY_DIED = new GameEvent("bengyDied");
+	public static final GameEvent YARD_DUTY_DIED = new GameEvent("yardDutyDied");
 }
