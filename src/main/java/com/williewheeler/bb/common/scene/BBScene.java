@@ -10,6 +10,7 @@ import com.williewheeler.bb.common.actor.model.Bully;
 import com.williewheeler.bb.common.actor.model.Judo;
 import com.williewheeler.bb.common.actor.model.Lexi;
 import com.williewheeler.bb.common.actor.model.Obstacle;
+import com.williewheeler.bb.common.actor.model.Teacher;
 import com.williewheeler.bb.common.actor.model.Text;
 import com.williewheeler.bb.common.actor.model.Turntables;
 import com.williewheeler.bb.common.actor.model.YardDuty;
@@ -44,6 +45,7 @@ public class BBScene implements Scene {
 	private final List<Judo> judos = new LinkedList<>();
 	private final List<Bully> bullies = new LinkedList<>();
 	private final List<YardDuty> yardDuties = new LinkedList<>();
+	private final List<Teacher> teachers = new LinkedList<>();
 	private final List<Bengy> bengies = new LinkedList<>();
 	private final List<Turntables> turntables = new LinkedList<>();
 	private final List<Beat> beats = new LinkedList<>();
@@ -63,6 +65,7 @@ public class BBScene implements Scene {
 		allActors.add(judos);
 		allActors.add(bullies);
 		allActors.add(yardDuties);
+		allActors.add(teachers);
 		allActors.add(bengies);
 		allActors.add(turntables);
 		allActors.add(beats);
@@ -135,6 +138,10 @@ public class BBScene implements Scene {
 
 	public List<YardDuty> getYardDuties() {
 		return yardDuties;
+	}
+
+	public List<Teacher> getTeachers() {
+		return teachers;
 	}
 
 	public List<Bengy> getBengies() {

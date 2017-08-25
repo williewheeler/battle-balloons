@@ -11,6 +11,7 @@ import com.williewheeler.bb.common.actor.model.Judo;
 import com.williewheeler.bb.common.actor.model.Lexi;
 import com.williewheeler.bb.common.actor.model.Obstacle;
 import com.williewheeler.bb.common.actor.model.Parrot;
+import com.williewheeler.bb.common.actor.model.Teacher;
 import com.williewheeler.bb.common.actor.model.Text;
 import com.williewheeler.bb.common.actor.model.Turntables;
 import com.williewheeler.bb.common.actor.model.YardDuty;
@@ -30,6 +31,7 @@ public class ActorViewFactory {
 	private JudoView judoView;
 	private BullyView bullyView;
 	private YardDutyView yardDutyView;
+	private TeacherView teacherView;
 	private BengyView bengyView;
 	private TurntablesView turntablesView;
 	private BeatView beatView;
@@ -49,6 +51,7 @@ public class ActorViewFactory {
 		this.judoView = new JudoView(spriteFactory);
 		this.bullyView = new BullyView(spriteFactory);
 		this.yardDutyView = new YardDutyView(spriteFactory);
+		this.teacherView = new TeacherView(spriteFactory);
 		this.bengyView = new BengyView(spriteFactory);
 		this.turntablesView = new TurntablesView(spriteFactory);
 		this.beatView = new BeatView(spriteFactory);
@@ -73,6 +76,8 @@ public class ActorViewFactory {
 			return bullyView;
 		} else if (actor instanceof YardDuty) {
 			return yardDutyView;
+		} else if (actor instanceof Teacher) {
+			return teacherView;
 		} else if (actor instanceof Bengy) {
 			return bengyView;
 		} else if (actor instanceof Turntables) {

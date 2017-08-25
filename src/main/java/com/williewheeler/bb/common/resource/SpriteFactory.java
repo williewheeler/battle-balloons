@@ -3,6 +3,7 @@ package com.williewheeler.bb.common.resource;
 import com.williewheeler.bb.common.actor.model.Bengy;
 import com.williewheeler.bb.common.actor.model.Judo;
 import com.williewheeler.bb.common.actor.model.Lexi;
+import com.williewheeler.bb.common.actor.model.Teacher;
 import com.williewheeler.bb.common.actor.model.YardDuty;
 import com.williewheeler.retroge.resource.ImageLoader;
 
@@ -40,6 +41,11 @@ public class SpriteFactory {
 	private BufferedImage[] beat;
 
 	private BufferedImage[] bullyWalking;
+
+	private BufferedImage[] teacherWalking;
+	private BufferedImage[] teacherEntering;
+	private BufferedImage[] teacherExiting;
+
 	private BufferedImage[] dogWalking;
 	private BufferedImage[] catWalking;
 	private BufferedImage[] parrotWalking;
@@ -71,6 +77,11 @@ public class SpriteFactory {
 		this.beat = buildBeatSprites(sheet);
 
 		this.bullyWalking = buildWalkingSprites(sheet, 2);
+
+		this.teacherWalking = buildWalkingSprites(sheet, 8);
+		this.teacherEntering = spaghettify(teacherWalking[4], Teacher.ENTER_TTL);
+		this.teacherExiting = spaghettify(teacherWalking[4], Teacher.EXIT_TTL);
+
 		this.dogWalking = buildWalkingSprites(sheet, 3);
 		this.catWalking = buildWalkingSprites(sheet, 4);
 		this.parrotWalking = buildWalkingSprites(sheet, 5);
@@ -126,6 +137,18 @@ public class SpriteFactory {
 
 	public BufferedImage[] getYardDutyExiting() {
 		return yardDutyExiting;
+	}
+
+	public BufferedImage[] getTeacherWalking() {
+		return teacherWalking;
+	}
+
+	public BufferedImage[] getTeacherEntering() {
+		return teacherEntering;
+	}
+
+	public BufferedImage[] getTeacherExiting() {
+		return teacherExiting;
 	}
 
 	public BufferedImage[] getBullyWalking() {

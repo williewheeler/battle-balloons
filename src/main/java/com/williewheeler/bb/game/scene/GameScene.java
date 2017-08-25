@@ -8,6 +8,7 @@ import com.williewheeler.bb.common.actor.model.Judo;
 import com.williewheeler.bb.common.actor.model.Lexi;
 import com.williewheeler.bb.common.actor.model.Obstacle;
 import com.williewheeler.bb.common.actor.model.Parrot;
+import com.williewheeler.bb.common.actor.model.Teacher;
 import com.williewheeler.bb.common.actor.model.YardDuty;
 import com.williewheeler.bb.common.event.GameEvents;
 import com.williewheeler.bb.common.scene.BBScene;
@@ -98,6 +99,7 @@ public class GameScene extends BBScene {
 		initJudos();
 		initBullies();
 		initYardDuties();
+		initTeachers();
 		initBengies();
 		initDogs();
 		initCats();
@@ -131,6 +133,15 @@ public class GameScene extends BBScene {
 
 			// FIXME Give the yard duty its own brain
 			getYardDuties().add(new YardDuty(this, new DefaultBengyBrain(), 0, 0));
+		}
+	}
+
+	private void initTeachers() {
+		log.trace("Initializing teachers");
+		for (int i = 0; i < level.getTeachers(); i++) {
+
+			// FIXME Give the yard duty its own brain
+			getTeachers().add(new Teacher(this, new DefaultBengyBrain(), 0, 0));
 		}
 	}
 
