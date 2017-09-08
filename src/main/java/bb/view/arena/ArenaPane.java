@@ -1,6 +1,7 @@
 package bb.view.arena;
 
 import bb.model.GameModel;
+import bb.model.Judo;
 import bb.model.Obstacle;
 import bb.model.Player;
 import bb.view.SpriteFactory;
@@ -10,6 +11,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.nio.Buffer;
 import java.util.List;
 
 import static bb.BBConfig.*;
@@ -58,16 +60,24 @@ public class ArenaPane extends JComponent {
 		int adjY = player.getY() - SPRITE_HEIGHT_PX / 2;
 		g.drawImage(sprite, adjX, adjY, SPRITE_WIDTH_PX, SPRITE_HEIGHT_PX, null);
 	}
-	
+
 	private void paintObstacles(Graphics g) {
 		g.setColor(Color.GREEN);
 		List<Obstacle> obstacles = gameModel.getObstacles();
 		obstacles.forEach(obstacle -> paintObstacle(g, obstacle));
 	}
-	
+
 	private void paintObstacle(Graphics g, Obstacle obstacle) {
 		int adjX = obstacle.getX() - obstacle.getWidth() / 2;
 		int adjY = obstacle.getY() - obstacle.getHeight() / 2;
 		g.fillRect(adjX, adjY, obstacle.getWidth(), obstacle.getHeight());
+	}
+
+	private void paintJudo(Graphics g, Judo judo) {
+		BufferedImage[] sprites = spriteFactory.getJudo();
+		BufferedImage sprite = SpriteUtil.getCurrentSprite(judo, sprites);
+		int adjX = judo.getX() - SPRITE_WIDTH_PX / 2;
+		int adjY = judo.getY() - SPRITE_HEIGHT_PX / 2;
+		g.drawImage(sprite, adjX, adjY, SPRITE_WIDTH_PX, SPRITE_HEIGHT_PX, null);
 	}
 }

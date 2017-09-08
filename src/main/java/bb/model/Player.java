@@ -10,18 +10,15 @@ public class Player extends AbstractEntity {
 	private static final int WIDTH = 5;
 	private static final int HEIGHT = 11;
 	private static final int SPEED = 3;
-	
+
 	private int score = 1000;
 	private int level = 1;
 	private int lives = 3;
-	private Direction direction;
 	private final DirectionIntent moveIntent = new DirectionIntent();
-	private int animationCounter;
 
 	public Player(GameModel gameModel) {
 		super(gameModel);
 		center();
-		this.direction = DOWN;
 	}
 
 	public int getScore() {
@@ -35,38 +32,26 @@ public class Player extends AbstractEntity {
 	public int getLives() {
 		return lives;
 	}
-	
+
 	@Override
 	public int getWidth() {
 		return WIDTH;
 	}
-	
+
 	@Override
 	public int getHeight() {
 		return HEIGHT;
-	}
-
-	public Direction getDirection() {
-		return direction;
-	}
-
-	public void setDirection(Direction direction) {
-		this.direction = direction;
 	}
 
 	public DirectionIntent getMoveIntent() {
 		return moveIntent;
 	}
 
-	public int getAnimationCounter() {
-		return animationCounter;
-	}
-
 	public void center() {
 		setX(ARENA_INNER_WIDTH_PX / 2);
 		setY(ARENA_INNER_HEIGHT_PX / 2);
 	}
-	
+
 	@Override
 	public void update() {
 		int dx = 0;
@@ -91,7 +76,7 @@ public class Player extends AbstractEntity {
 			incrementAnimationCounter();
 		}
 	}
-	
+
 	private void updateLocation(int dx, int dy) {
 		changeX(dx);
 		changeY(dy);
@@ -128,34 +113,36 @@ public class Player extends AbstractEntity {
 	}
 
 	private void updateDirection(int dx, int dy) {
+		Direction direction = null;
+
 		if (dx < 0) {
 			if (dy < 0) {
-				this.direction = UP_LEFT;
+				direction = UP_LEFT;
 			} else if (dy == 0) {
-				this.direction = LEFT;
+				direction = LEFT;
 			} else {
-				this.direction = DOWN_LEFT;
+				direction = DOWN_LEFT;
 			}
 		} else if (dx == 0) {
 			if (dy < 0) {
-				this.direction = UP;
+				direction = UP;
 			} else if (dy == 0) {
 				// Do nothing
 			} else {
-				this.direction = DOWN;
+				direction = DOWN;
 			}
 		} else {
 			if (dy < 0) {
-				this.direction = UP_RIGHT;
+				direction = UP_RIGHT;
 			} else if (dy == 0) {
-				this.direction = RIGHT;
+				direction = RIGHT;
 			} else {
-				this.direction = DOWN_RIGHT;
+				direction = DOWN_RIGHT;
 			}
 		}
-	}
 
-	private void incrementAnimationCounter() {
-		this.animationCounter = (animationCounter + 1) % 4;
+		if (direction != null) {
+			setDirection(direction);
+		}
 	}
 }

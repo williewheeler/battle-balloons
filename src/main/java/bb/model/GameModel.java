@@ -9,29 +9,31 @@ import java.util.ListIterator;
  */
 public class GameModel {
 	private static final int INIT_NUM_OBSTACLES = 15;
-	
+
 	private final Player player;
 	private final List<Obstacle> obstacles = new LinkedList<>();
-	
+
 	private boolean gameRunning;
-	
+
 	public GameModel() {
 		this.player = new Player(this);
-		
+
 		for (int i = 0; i < INIT_NUM_OBSTACLES; i++) {
 			obstacles.add(new Obstacle(this));
 		}
-		
+
 		this.gameRunning = true;
 	}
 
 	public Player getPlayer() {
 		return player;
 	}
-	
+
 	public List<Obstacle> getObstacles() {
 		return obstacles;
 	}
+
+	public List<Judo> getJudos() { return judos; }
 
 	public void update() {
 		if (gameRunning) {
@@ -42,12 +44,12 @@ public class GameModel {
 			}
 		}
 	}
-	
+
 	private void updateEntities() {
 		player.update();
 		obstacles.forEach(obstacle -> obstacle.update());
 	}
-	
+
 	private boolean checkCollisions() {
 		for (ListIterator<Obstacle> it = obstacles.listIterator(); it.hasNext();) {
 			Obstacle obstacle = it.next();
