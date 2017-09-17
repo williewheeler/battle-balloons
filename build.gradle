@@ -16,4 +16,4 @@ dependencies {
   )
 }
 
-mainClassName = 'com.williewheeler.bb.BB'
+mainClassName = 'com.williewheeler.battleballoons.BB'
