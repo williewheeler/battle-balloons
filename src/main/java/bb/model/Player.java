@@ -63,6 +63,10 @@ public class Player extends AbstractEntity {
 	
 	@Override
 	public void update() {
+		updateLocation();
+	}
+	
+	private void updateLocation() {
 		int dx = 0;
 		int dy = 0;
 		
@@ -81,14 +85,10 @@ public class Player extends AbstractEntity {
 		
 		if (dx != 0 || dy != 0) {
 			updateLocation(dx, dy);
+			enforceBounds();
 			updateDirection(dx, dy);
 			incrementAnimationCounter();
 		}
-	}
-	
-	protected void updateLocation(int dx, int dy) {
-		super.updateLocation(dx, dy);
-		enforceBounds();
 	}
 	
 	private void enforceBounds() {

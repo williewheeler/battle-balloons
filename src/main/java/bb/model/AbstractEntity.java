@@ -14,6 +14,8 @@ import static bb.model.Direction.DOWN_RIGHT;
 public abstract class AbstractEntity implements Entity {
 	static final Random RANDOM = new Random();
 	
+	private static final int ANIMATION_PERIOD = 4;
+	
 	private GameModel gameModel;
 	private int x;
 	private int y;
@@ -23,6 +25,7 @@ public abstract class AbstractEntity implements Entity {
 	public AbstractEntity(GameModel gameModel) {
 		this.gameModel = gameModel;
 		this.direction = Direction.DOWN;
+		this.animationCounter = 0;
 	}
 	
 	public GameModel getGameModel() {
@@ -86,7 +89,7 @@ public abstract class AbstractEntity implements Entity {
 	}
 	
 	protected void incrementAnimationCounter() {
-		this.animationCounter = (animationCounter + 1) % 4;
+		this.animationCounter = (animationCounter + 1) % ANIMATION_PERIOD;
 	}
 	
 	@Override
@@ -97,6 +100,12 @@ public abstract class AbstractEntity implements Entity {
 	protected void updateLocation(int dx, int dy) {
 		this.x += dx;
 		this.y += dy;
+	}
+	
+	public boolean isOnScreen() {
+		int x = getX();
+		int y = getY();
+		return (0 <= x && x <= ARENA_INNER_WIDTH_PX && 0 <= y && y <= ARENA_INNER_HEIGHT_PX);
 	}
 	
 	protected void updateDirection(int dx, int dy) {
