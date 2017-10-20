@@ -51,7 +51,7 @@ public class SpriteFactory {
 	private BufferedImage[] parrotWalking;
 
 	public SpriteFactory(ImageLoader imageLoader) {
-		BufferedImage sheet = imageLoader.loadImage("images/bb-sprites.png");
+		BufferedImage sheet = imageLoader.loadImage("images/bb-sprites-zombie.png");
 
 		this.bigBalloons = buildBigBalloonSprites(sheet);
 

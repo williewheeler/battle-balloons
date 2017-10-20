@@ -45,3 +45,11 @@ Move using TFGH, and fire using the arrow keys.
 Note that I'd like to use WASD for movement, but there's currently a JDK bug that prevents this:
 
 - https://stackoverflow.com/questions/43192166/on-mac-in-java-keypressed-event-doesnt-fire-for-certain-keys/43960171
+
+# Acknowledgments
+
+Thanks to:
+
+- Ian McCunn for co-teaching the first [CoderDojo](https://coderdojo.com/) course based on this game.
+- Our student BoomGoesBoom for contributing the zombie sprites. They're fantastic!
+- [CoderDojo](https://coderdojo.com/) and [Expedia](https://www.expedia.com/) for hosting our course.
