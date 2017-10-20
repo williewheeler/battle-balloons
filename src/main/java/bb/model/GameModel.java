@@ -1,5 +1,9 @@
 package bb.model;
 
+import bb.model.event.GameEvent;
+import bb.model.event.GameEvents;
+import bb.model.event.GameListener;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
@@ -10,40 +14,44 @@ import java.util.ListIterator;
 public class GameModel {
 	private static final int INIT_NUM_OBSTACLES = 15;
 	private static final int INIT_NUM_JUDOS = 20;
-	
+
+	private final List<GameListener> gameListeners = new LinkedList<>();
+
 	private final Player player;
 	private final List<Balloon> playerBalloons = new LinkedList<>();
 	private final List<Obstacle> obstacles = new LinkedList<>();
 	private final List<Judo> judos = new LinkedList<>();
-	
+
 	private boolean gameRunning;
-	
+
 	public GameModel() {
 		this.player = new Player(this);
-		
+
 		for (int i = 0; i < INIT_NUM_OBSTACLES; i++) {
 			obstacles.add(new Obstacle(this));
 		}
-		
+
 		for (int i = 0; i < INIT_NUM_JUDOS; i++) {
 			judos.add(new Judo(this));
 		}
-		
+
 		this.gameRunning = true;
 	}
+
+	public void addGameListener(GameListener listener) { gameListeners.add(listener); }
 
 	public Player getPlayer() {
 		return player;
 	}
-	
+
 	public List<Balloon> getPlayerBalloons() {
 		return playerBalloons;
 	}
-	
+
 	public List<Obstacle> getObstacles() {
 		return obstacles;
 	}
-	
+
 	public List<Judo> getJudos() {
 		return judos;
 	}
@@ -57,7 +65,7 @@ public class GameModel {
 			}
 		}
 	}
-	
+
 	private void updateEntities() {
 		player.update();
 		obstacles.forEach(obstacle -> obstacle.update());
@@ -65,7 +73,7 @@ public class GameModel {
 		playerBalloons.forEach(balloon -> balloon.update());
 		garbageCollectBalloons();
 	}
-	
+
 	private void garbageCollectBalloons() {
 		for (ListIterator<Balloon> it = playerBalloons.listIterator(); it.hasNext();) {
 			Balloon balloon = it.next();
@@ -74,25 +82,25 @@ public class GameModel {
 			}
 		}
 	}
-	
+
 	/**
 	 * @return boolean indicating whether the player died
 	 */
 	private boolean checkCollisions() {
 		checkPlayerBalloonCollisions();
 		checkJudoObstacleCollisions();
-		
+
 		if (checkPlayerObstacleCollision()) {
 			return true;
 		}
-		
+
 		if (checkPlayerJudoCollision()) {
 			return true;
 		}
-		
+
 		return false;
 	}
-	
+
 	private void checkPlayerBalloonCollisions() {
 		checkBalloons:
 		for (ListIterator<Balloon> bit = playerBalloons.listIterator(); bit.hasNext();) {
@@ -117,7 +125,7 @@ public class GameModel {
 			}
 		}
 	}
-	
+
 	private void checkJudoObstacleCollisions() {
 		checkJudos:
 		for (ListIterator<Judo> jit = judos.listIterator(); jit.hasNext();) {
@@ -135,7 +143,7 @@ public class GameModel {
 			}
 		}
 	}
-	
+
 	private boolean checkPlayerObstacleCollision() {
 		for (ListIterator<Obstacle> it = obstacles.listIterator(); it.hasNext();) {
 			Obstacle obstacle = it.next();
@@ -145,7 +153,7 @@ public class GameModel {
 		}
 		return false;
 	}
-	
+
 	private boolean checkPlayerJudoCollision() {
 		for (ListIterator<Judo> it = judos.listIterator(); it.hasNext();) {
 			Judo judo = it.next();
@@ -155,4 +163,6 @@ public class GameModel {
 		}
 		return false;
 	}
+
+	protected void fireEvent(GameEvent event) { gameListeners.forEach(listener -> listener.handleEvent(event)); }
 }
