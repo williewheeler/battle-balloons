@@ -19,8 +19,8 @@ previous programming experience is required.
 | 4 | Adding obstacles | [zip](https://github.com/williewheeler/battle-balloons-course/archive/week04.zip) | [Course Blog](https://medium.com/programming-for-kids/battle-balloons-week-4-bb45bcce9e42) | |
 | 5 | Colliding with obstacles | [zip](https://github.com/williewheeler/battle-balloons-course/archive/week05.zip) | [Course Blog](https://medium.com/programming-for-kids/battle-balloons-week-5-8240e74fb14d) | |
 | 6 | Adding enemies | [zip](https://github.com/williewheeler/battle-balloons-course/archive/week06.zip) | [Course Blog](https://medium.com/programming-for-kids/battle-balloons-week-6-33d08e8dcba3) | |
-| 7 | Making enemies move around | [zip](https://github.com/williewheeler/battle-balloons-course/archive/week07.zip) | | |
-| 8 | Allowing player to throw balloons at enemies | [zip](https://github.com/williewheeler/battle-balloons-course/archive/week08.zip) | | |
+| 7 | Making enemies move around | [zip](https://github.com/williewheeler/battle-balloons-course/archive/week07.zip) | [Course Blog](https://medium.com/programming-for-kids/battle-balloons-week-7-e946e548d539) | |
+| 8 | Allowing player to throw balloons at enemies | [zip](https://github.com/williewheeler/battle-balloons-course/archive/week08.zip) | [Course Blog](https://medium.com/programming-for-kids/battle-balloons-week-8-767b054a5723) | |
 | 9 | Adding sound effects | [zip](https://github.com/williewheeler/battle-balloons-course/archive/week09.zip) | | |
 | 10 | Animation finishing touches | [zip](https://github.com/williewheeler/battle-balloons-course/archive/week10.zip) | | [Dev Blog](https://progtuts.com/post/sprite-spaghettification/) |
 
